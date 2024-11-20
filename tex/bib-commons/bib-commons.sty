@@ -1,0 +1,67 @@
+\ProvidesPackage{bib-commons}
+
+\PassOptionsToPackage{obeyspaces}{url}
+
+\RequirePackage[nobysame]{amsrefs}
+\RequirePackage[abspath]{currfile}
+
+\RequirePackage{bib-locate}
+
+\BibSpec{unpublished}{ % online book
++{}  { \PrintPrimary}               {transition}
++{,} { \textit}                     {title}
++{.} { }                            {part}
++{:} { \textit}                     {subtitle}
++{,} { \PrintEdition}               {edition}
++{}  { \PrintEditorsB}              {editor}
++{,} { \PrintTranslatorsC}          {translator}
++{,} { \PrintContributions}         {contribution}
++{,} { }                            {series}
++{,} { \voltext}                    {volume}
++{,} { }                            {publisher}
++{,} { }                            {organization}
++{,} { }                            {address}
++{,} { \PrintDateB}                 {date}
++{,} { }                            {status}
++{}  { \parenthesize}               {language}
++{}  { \PrintTranslation}           {translation}
++{;} { \PrintReprint}               {reprint}
++{,} { \url}                        {url}
++{.} { Accessed \PrintDateField}    {accessdate}
++{.} { }                            {note}
++{.} {}                             {transition}
++{}  {\SentenceSpace \PrintReviews} {review}
+}
+
+\BibSpec{collection.article}{ % article in book with innerbook formatting
++{}  { \PrintAuthors}               {author}
++{,} { \textit}                     {title}
++{.} { }                            {part}
++{:} { \textit}                     {subtitle}
++{,} { \PrintContributions}         {contribution}
++{,} { \PrintConference}            {conference}
++{}  { \PrintBook}                  {book}
++{,} { }                            {booktitle}
++{,} { \PrintEdition}               {edition}
++{}  { \PrintEditorsB}              {editor}
++{,} { \PrintTranslatorsC}          {translator}
++{,} { \PrintContributions}         {contribution}
++{,} { }                            {series}
++{,} { \voltext}                    {volume}
++{,} { }                            {publisher}
++{,} { }                            {organization}
++{,} { }                            {address}
++{,} { \PrintDateB}                 {date}
++{,} { pp.~}                        {pages}
++{,} { }                            {status}
++{,} { \PrintDOI}                   {doi}
++{,} { available at \eprint}        {eprint}
++{}  { \parenthesize}               {language}
++{}  { \PrintTranslation}           {translation}
++{;} { \PrintReprint}               {reprint}
++{.} { }                            {note}
++{.} {}                             {transition}
++{}  {\SentenceSpace \PrintReviews} {review}
+}
+
+\newcommand{\bibmain}{\bibliography{\bibcommonspath/main}}

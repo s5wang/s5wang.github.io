@@ -1,0 +1,215 @@
+\documentclass[11pt]{article}
+\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,bussproofs,calc,colonequals,enumitem,hyperref,mathtools,mleftright,parskip,turnstile,xcolor}
+\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\usepackage[en-GB]{datetime2}
+
+\usepackage{bib-commons}
+
+\newcommand{\newaliastheorem}[2]{%
+  \newaliascnt{#1}{theorem}
+  \newtheorem{#1}[#1]{#2}
+  \aliascntresetthe{#1}
+  \expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newaliastheorem{proposition}{Proposition}
+\newaliastheorem{lemma}{Lemma}
+\newaliastheorem{claim}{Claim}
+
+\theoremstyle{definition}
+\newaliastheorem{definition}{Definition}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\ReS}{\mathrm{ReS}}
+\newcommand{\HF}{\mathrm{HF}}
+
+\DeclareMathOperator{\Tc}{Tc}
+\DeclareMathOperator{\Bc}{Bc}
+\DeclareMathOperator{\hash}{{\#}}
+\DeclareMathOperator{\Th}{Th}
+
+\title{Separating two notions of finiteness}
+\author{Shuwei Wang\footnote{School of Mathematics, University of Leeds, Leeds LS2 9JT, UK. E-mail: \texttt{mmsw@leeds.ac.uk}.}}
+\date{\DTMdate{2023-10-25}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  A.\ R.\ D.\ Mathias mentioned in a paper that the axioms of $\Delta_0$-separation and $\Pi_1$-foundation suffice to show that two (set-theoretic) characterisations of finiteness, namely ``carrying a double well-ordering'' and ``in bijection with a natural number'', coincide. However, it is recently brought to the author's attention that Mathias' proof of the claim is flawed. In this exposition I shall argue that the two aforementioned notions are in fact not equivalent under these axioms, by constructing a counterexample using model-theoretic techniques.
+\end{abstract}
+
+In Mathias' paper \cite{mathias06-weak-systems}, one of the systems he considered is $\ReS$, defined to consist of the axioms of extensionality, empty set, pairing, difference, union, $\Delta_0$-separation and $\Pi_1$-foundation. Proposition 2.1 in \cite{mathias06-weak-systems} asserts that
+
+\begin{claim}[$\ReS$]
+  \label{claim:finite-equivalence}
+  If a set $X$ carries a double well-ordering, then it is in bijection with some member of $\omega$.
+\end{claim}
+
+The key process in the incorrect proof Mathias provided involves some $\Pi_1$ class
+\[Z = \left\{x \in X : \neg \exists f \ \text{$f$ is an attempt at $x$}\right\} \subseteq X,\]
+where $f$ is an \emph{attempt} at $x$ if it bijects the initial segment ending at $x$ into an initial segment of ordinals. Mathias argued that if $Z$ is non-empty, it shall have a $\leq_X$-minimal element where $\leq_X$ is a double well-ordering on $X$, leading to a contradiction. However, $\Pi_1$-foundation only ensures that $Z$ has an $\in$-minimal element and in order to get a $\leq_X$-minimal element using the fact that $\leq_X$ is a well-ordering, one needs to invoke $\Pi_1$-separation and justify that $Z$ is a set --- which is beyond the capabilities of $\ReS$.
+
+In this exposition, we shall show that \autoref{claim:finite-equivalence} is in fact false. Namely, our counterexample uses the concept that is commonly known as \emph{rudimentary functions}. The properties of these $V^n \rightarrow V$ functions are thoroughly studied in \cite{gandy74-set-functions}, so we will follow the naming convention there and call them \emph{basic functions} instead. We shall define
+\[\mathcal{H} = \left\{\iota^n\mleft(n\mright) : n \in \omega\right\}\]
+where $\iota\mleft(x\mright) = \left\{x\right\}$ and
+\begin{align*}
+  \mathcal{R} & = \left\{\tuple{\iota^n\mleft(n\mright), \iota^m\mleft(m\mright)} : \text{$n$ even, $m$ odd}\right\}                \\
+              & \quad {} \cup \left\{\tuple{\iota^n\mleft(n\mright), \iota^m\mleft(m\mright)} : \text{$n, m$ even, $n < m$}\right\} \\
+              & \quad {} \cup \left\{\tuple{\iota^n\mleft(n\mright), \iota^m\mleft(m\mright)} : \text{$n, m$ odd, $n > m$}\right\}
+\end{align*}
+so that $\mathcal{R}$ is a strict linear order relation on $\mathcal{H}$.
+
+Let $\Bc\mleft(x\mright)$ denote the \emph{basic closure} of $x$, i.e.\
+\[\Bc\mleft(x\mright) = \left\{B\mleft(\overline{y}\mright) : \text{$\overline{y} \in \Tc\mleft(x\mright)^n$, $B : V^n \rightarrow V$ basic function}\right\},\]
+where $\Tc\mleft(x\mright)$ denotes the transitive closure of $x$. We let $\mathcal{U} = \Bc\mleft(\left\{\omega, \mathcal{H}, \mathcal{R}\right\}\mright)$. Then as an immediate corollary of Theorem 1.4.7 and 1.4.8 in \cite{gandy74-set-functions}, we have
+
+\begin{proposition}
+  $\mathcal{U} \vDash \ReS$.
+\end{proposition}
+
+Since $\mathcal{U}$ obviously cannot contain a bijection between $\mathcal{H}$ and any member of $\omega$, it suffices now to show
+\[\mathcal{U} \vDash \text{$\tuple{\mathcal{H}; \mathcal{R}}$ is a double well-ordering}.\]
+Observe that $\tuple{\mathcal{H}; \mathcal{R}}$ actually has order type $\omega \hash \omega^*$, where $\omega^*$ denotes the reverse ordering of $\omega$. Thus, if $A \in \mathcal{U}$, $A \subseteq \mathcal{H}$ is a set without an $\mathcal{R}$-maximum, then $\left\{n \in \omega : \iota^n\mleft(n\mright) \in A\right\}$ must be an unbounded set of even numbers. Hence
+\[\left\{\iota^{2n}\mleft(2n\mright) : n \in \omega\right\} = \left\{x \in \mathcal{H} : \exists y \in A \tuple{x, y} \in \mathcal{R}\right\} \in \mathcal{U}\]
+by $\Delta_0$-separation. A similar argument holds for the sets without $\mathcal{R}$-minima. Therefore, it suffices to show that
+
+\begin{theorem}
+  \label{thm:U-has-no-even-set}
+  $\left\{\iota^{2n}\mleft(2n\mright) : n \in \omega\right\} \not\in \mathcal{U}$.
+\end{theorem}
+
+This shall be the main goal of this exposition. We first show that
+
+\begin{lemma}
+  \label{lem:first}
+  Suppose that $A \in \mathcal{U}$ and $A \subseteq \mathcal{H}$, then there exists a $\Delta_0$ formula $\varphi$ such that
+  \[A = \left\{x \in \mathcal{H} : \varphi\mleft(x, \mathcal{H}, \mathcal{R}\mright)\right\}.\]
+\end{lemma}
+
+\begin{proof}
+  Observe that sets in $\Tc\mleft(\left\{\omega, \mathcal{H}, \mathcal{R}\right\}\mright) \setminus \left\{\omega, \mathcal{H}, \mathcal{R}\right\}$ are all hereditarily finite. Thus, there must exist a tuple of hereditarily finite sets $\overline{z} \in \HF^{n - 3}$ and a basic function $B : V^n \rightarrow V$ such that $A = B\mleft(\overline{z}, \omega, \mathcal{H}, \mathcal{R}\mright)$. Let $I : V^2 \rightarrow \left\{0, 1\right\}$ denote the basic function
+  \[I\mleft(x, y\mright) = \left\{\begin{aligned}
+       & 1 &  & \text{if $x \in y$}, \\
+       & 0 &  & \text{otherwise},
+    \end{aligned}\right.\]
+  then $\tuple{x, \overline{y}} \mapsto I\mleft(x, B\mleft(\overline{y}\mright)\mright) \in \left\{0, 1\right\}$ must be the characteristic function of some $\Delta_0$ relation $\psi$ satisfying
+  \[A = \left\{x \in \mathcal{H} : \psi\mleft(x, \overline{z}, \omega, \mathcal{H}, \mathcal{R}\mright)\right\},\]
+  by Theorem 1.3.6 in \cite{gandy74-set-functions}.
+
+  To eliminate the parameters $\overline{z}$ and $\omega$, we use Theorem 2.1.2 in \cite{gandy74-set-functions} that the constant function $c_\omega : x \mapsto \omega$ is \emph{substitutable}, i.e.\ for any $\Delta_0$ relation $\varphi\mleft(x, \overline{y}\mright)$, there exists a $\Delta_0$ relation $\tilde{\varphi}\mleft(x, \overline{y}\mright)$ such that
+  \[\forall x, \overline{y} \left(\varphi\mleft(c_\omega\mleft(x\mright), \overline{y}\mright) \leftrightarrow \tilde{\varphi}\mleft(x, \overline{y}\mright)\right).\]
+  It is trivial that the constant functions $c_z : x \mapsto z$, where $z \in \HF$, are also substitutable (because they are basic), thus we can find a $\Delta_0$ relation $\varphi$ such that
+  \[\forall x, y_1, y_2 \left(\psi\mleft(x, c_{\overline{z}}\mleft(x\mright), c_\omega\mleft(x\mright), y_1, y_2\mright) \leftrightarrow \varphi\mleft(x, y_1, y_2\mright)\right).\]
+  It follows that $A = \left\{x \in \mathcal{H} : \varphi\mleft(x, \mathcal{H}, \mathcal{R}\mright)\right\}$.
+\end{proof}
+
+Now, consider the transitive set $\mathcal{M} = \left\{\iota^m\mleft(n\mright) : n, m \in \omega\right\}$. We shall work in a language $\mathcal{L}^* = \left\{\in, H, R\right\}$ where $H$ is a unary relation symbol and $R$ is a binary relation symbol. We show that
+
+\begin{lemma}
+  Suppose that $A = \left\{x \in \mathcal{H} : \varphi\mleft(x, \mathcal{H}, \mathcal{R}\mright)\right\}$ for a $\Delta_0$ formula $\varphi$ (in the language of set theory $\mathcal{L}_\mathrm{set} = \left\{\in\right\}$), then there exists a formula $\varphi^*$ in the language $\mathcal{L}^*$ such that
+  \[A = \left\{x \in \mathcal{H} : \tuple{\mathcal{M}; \in, \mathcal{H}, \mathcal{R}} \vDash \varphi^*\mleft(x\mright)\right\},\]
+  where every unbounded quantifier in $\varphi^*$ is of the form $\forall x \left(Hx \rightarrow \cdots\right)$ or $\exists x \left(Hx \land \cdots\right)$.
+\end{lemma}
+
+\begin{proof}
+  In the language $\mathcal{L}_\mathrm{set}$, we introduce new abbreviations
+  \begin{align*}
+    \forall x R y \ \eta\mleft(x, y\mright) \quad & \Rightarrow \quad \forall p \in \mathcal{R} \ \forall x, y \in \mathcal{H} \left(p = \tuple{x, y} \rightarrow \eta\mleft(x, y\mright)\right), \\
+    \exists x R y \ \eta\mleft(x, y\mright) \quad & \Rightarrow \quad \exists p \in \mathcal{R} \ \exists x, y \in \mathcal{H} \left(p = \tuple{x, y} \land \eta\mleft(x, y\mright)\right).
+  \end{align*}
+  Consider rewriting rules
+  \begin{align*}
+    \forall p \in \mathcal{R} \ \eta\mleft(p\mright) \quad & \Rightarrow \quad \forall x R y \ \eta^*,           \\
+    \exists p \in \mathcal{R} \ \eta\mleft(p\mright) \quad & \Rightarrow \quad \exists x R y \ \eta^*,           \\
+    p \in \mathcal{R} \quad                                & \Rightarrow \quad \exists x R y \ p = \tuple{x, y},
+  \end{align*}
+  where $\eta^*$ is a $\Delta_0$ relation equivalent to $\eta\mleft(\tuple{x, y}\mright)$ but does not mention the pairing function explicitly, which must exist by Gandy's theory of substitutable functions in \cite{gandy74-set-functions}. Likewise, $p = \tuple{x, y}$ stands as an abbreviation for the defining formula of ordered pairs instead of mentioning the pairing function explicitly.
+
+  By iterating this rewriting process on $\varphi\mleft(x, \mathcal{H}, \mathcal{R}\mright)$, we can obtain a formula $\psi\mleft(x, \mathcal{H}, \mathcal{R}\mright)$ such that every occurrence of $\mathcal{R}$ in $\psi$ is either to the left of the relation symbol $\in$, or part of the bounded quantifier in one of the two abbreviations we just defined. It is easy to show by induction that $\varphi\mleft(x, \mathcal{H}, \mathcal{R}\mright) \leftrightarrow \psi\mleft(x, \mathcal{H}, \mathcal{R}\mright)$.
+
+  Finally, we obtain $\varphi^*\mleft(x\mright)$ from $\psi\mleft(x, \mathcal{H}, \mathcal{R}\mright)$ by replacing
+  \begin{align*}
+    \forall x \in \mathcal{H} \ \eta\mleft(x\mright) \quad & \Rightarrow \quad \forall x \left(Hx \rightarrow \eta\mleft(x\mright)\right),                          \\
+    \exists x \in \mathcal{H} \ \eta\mleft(x\mright) \quad & \Rightarrow \quad \exists x \left(Hx \land \eta\mleft(x\mright)\right),                                \\
+    \forall x R y \ \eta\mleft(x, y\mright) \quad          & \Rightarrow \quad \forall x, y \left(Hx \land Hy \land Rxy \rightarrow \eta\mleft(x, y\mright)\right), \\
+    \exists x R y \ \eta\mleft(x, y\mright) \quad          & \Rightarrow \quad \exists x, y \left(Hx \land Hy \land Rxy \land \eta\mleft(x, y\mright)\right),       \\
+    \mathcal{H} \in x \quad                                & \Rightarrow \quad \bot,                                                                                \\
+    \mathcal{R} \in x \quad                                & \Rightarrow \quad \bot.
+  \end{align*}
+  It is again easy to show by induction that
+  \[\psi\mleft(x, \mathcal{H}, \mathcal{R}\mright) \leftrightarrow \tuple{\mathcal{M}; \in, \mathcal{H}, \mathcal{R}} \vDash \varphi^*\mleft(x\mright)\]
+  for any $x \in \mathcal{M}$ by observing that any such $x$ is hereditarily finite, so $\mathcal{H}, \mathcal{R} \not\in x$.
+\end{proof}
+
+We will simplify the theory of definable subsets of $\mathcal{M}$ by proving a quantifier elimination result. Let $\mathcal{L}^\dagger = \mathcal{L}^* \cup \left\{0, S, i\right\}$ be an expanded language with an extra constant symbol and two unary function symbols. Correspondingly, set
+\[\mathcal{S}\mleft(x\mright) = \left\{\begin{aligned}
+     & \iota^{2n + 2}\mleft(2n + 2\mright) &  & \text{if $x = \iota^{2n}\mleft(2n\mright)$},         \\
+     & \iota^{2n + 1}\mleft(2n + 1\mright) &  & \text{if $x = \iota^{2n + 3}\mleft(2n + 3\mright)$}, \\
+     & \varnothing                         &  & \text{otherwise}.
+  \end{aligned}\right.\]
+So that $\mathcal{S}$ is the successor function for the linear order $\mathcal{R}$. Let $\mathfrak{S} = \tuple{\mathcal{M}; \in, \mathcal{H}, \mathcal{R}, \varnothing, \mathcal{S}, \iota}$ denote our standard structure in the language $\mathcal{L}^\dagger$. Observe that we have
+
+\begin{lemma}
+  The first-order theory $T = \Th\mleft(\mathfrak{S}\mright)$ eliminates ``unbounded quantifiers restricted to the domain $H$'', that is, for any formula $\varphi$ where every unbounded quantifier in $\varphi$ is of the form $\forall x \left(Hx \rightarrow \cdots\right)$ or $\exists x \left(Hx \land \cdots\right)$, there exists a formula $\psi$ without unbounded quantifiers, such that
+  \[T \vDash \forall \overline{x} \left(\varphi\mleft(\overline{x}\mright) \leftrightarrow \psi\mleft(\overline{x}\mright)\right).\]
+\end{lemma}
+
+\begin{proof}
+  Let $\psi$ be a formula in $\mathcal{L}^\dagger$ without unbounded quantifiers. It suffices to find another formula $\tilde{\psi}$ without unbounded quantifiers such that
+  \[T \vDash \forall \overline{x} \left(\exists y \left(Hy \land \psi\mleft(\overline{x}, y\mright)\right) \leftrightarrow \tilde{\psi}\mleft(\overline{x}\mright)\right).\]
+
+  To this end, we can imitate the classical model-theoretic trick in Theorem 3.1.4 in \cite{marker02-model-theory}. Denote $\eta\mleft(\overline{x}\mright) = \exists y \left(Hy \land \psi\mleft(\overline{x}, y\mright)\right)$, and let
+  \[\Gamma = \left\{\theta\mleft(\overline{a}\mright) : \text{$\theta$ has no unbounded quantifiers, $T \vDash \forall \overline{x} \left(\eta\mleft(\overline{x}\mright) \rightarrow \theta\mleft(\overline{x}\mright)\right)$}\right\},\]
+  then by compactness it suffices to show that $T \cup \Gamma \vDash \eta\mleft(\overline{a}\mright)$. Suppose otherwise, let $\mathfrak{M}$ be a model of $T \cup \Gamma \cup \left\{\neg \eta\mleft(\overline{a}\mright)\right\}$, and let $T_\mathfrak{M}$ be the $\Delta_0$ theory of $\mathfrak{M}$ in the language $\mathcal{L}^\dagger$ with additional constant symbols $\overline{a}$, then $T \cup T_\mathfrak{M} \cup \left\{\eta\mleft(\overline{a}\mright)\right\}$ must be satisfiable. Define $\mathfrak{N}$ to be a model of $T \cup T_\mathfrak{M} \cup \left\{\eta\mleft(\overline{a}\mright)\right\}$, and we shall derive a contradiction by showing that $\mathfrak{N} \vDash \eta\mleft(\overline{a}\mright)$ implies $\mathfrak{M} \vDash \eta\mleft(\overline{a}\mright)$.
+
+  We will prove this by analysing the structure of models of $T$. Firstly, $T$ asserts that all non-singleton sets (and $1 = \left\{\varnothing\right\}$) together forms a model of $\Th\mleft(\tuple{\omega; <}\mright)$, that is, a linear order of order type $\omega \hash \mathbb{Z} \cdot \ell$ for some arbitrary linear order $\ell$ (where the $\left(\cdot\right)$ operator denotes the Cartesian product with inverse lexicographic order). ``Above'' each element $x$ in this class, there must lie a separate sequence of singletons $\left\{\iota^n\mleft(x\mright)\right\}_{n \in \mathbb{N}^+}$. There can be additional singleton elements, but they must lie in separate sequences of the form $\cdots \in x_{-2} \in x_{-1} \in x_0 \in x_1 \in \cdots$. Finally, the interpretation of $H$ must contain precisely the elements $\left\{\iota^n\mleft(n\mright) : n \in \omega\right\}$ together with at most one element from each infinite sequence of singletons above, and the relation symbol $R$ must arrange the elements in the interpretation of $H$ into a model of $\Th\mleft(\tuple{\omega \hash \omega^*; <}\mright)$, that is, a linear order of order type $\omega \hash \mathbb{Z} \cdot \ell' \hash \omega^*$ for some arbitrary linear order $\ell'$, where the elements $\left\{\iota^n\mleft(n\mright) : n \in \omega\right\}$ occupy the two ends in the same order as given in the standard structure $\tuple{\mathcal{M}; \in, \mathcal{H}, \mathcal{R}}$ and the singleton elements in the infinite sequences occupy the $\mathbb{Z} \cdot \ell'$ part in the middle.
+
+  Let $A^\mathfrak{M} \subseteq \mathfrak{M}$ be the smallest transitive substructure containing $\overline{a}^\mathfrak{M}$ and also closed under $\left(S^\mathfrak{M}\right)^{-1}$ wherever the inverse is defined, that is, $A^\mathfrak{M}$ contains any $x \in \mathfrak{M}$ such that for some $a_i^\mathfrak{M}$ and $j, k \in \mathbb{Z}$, $\iota^j\mleft(x\mright)$ is of finite distance from $\iota^k\mleft(a_i^\mathfrak{M}\mright)$ in either of the orderings $\in$ or $R^\mathfrak{M}$. Since $T_\mathfrak{M}$ contains all atomic formulae that constrain the relative position of pairs $a_i, a_j$, there is an obvious isomorphism between $A^\mathfrak{M}$ and the similarly defined substructure $A^\mathfrak{N} \subseteq \mathfrak{N}$. It follows that if $\mathfrak{N} \vDash \psi\mleft(\overline{a}, b\mright)$ for some $b \in H^\mathfrak{N} \cap A^\mathfrak{N}$, then there must be a corresponding $b' \in H^\mathfrak{M} \cap A^\mathfrak{M}$ such that $\mathfrak{M} \vDash \psi\mleft(\overline{a}, b'\mright)$.
+
+  Suppose otherwise, i.e.\ $\mathfrak{N} \vDash \psi\mleft(\overline{a}, b\mright)$ only for some $b \in H^\mathfrak{N} \setminus A^\mathfrak{N}$. By compactness, we can then construct a model $\mathfrak{O} \supseteq A^\mathfrak{N}$ of $T$ such that $\mathfrak{O} \vDash Hb \land \psi\mleft(\overline{a}, b\mright)$ for some $b \in \mathfrak{O}$, yet there is a $c \in \mathfrak{O}$ satisfying $c \in H^\mathfrak{O} \setminus A^\mathfrak{N}$, $Rcx \leftrightarrow Rbx$ for any $x \in H^\mathfrak{O} \cap A^\mathfrak{N}$ and $\neg \psi\mleft(\overline{a}, c\mright)$ --- because given any finite subset of the constraints for $c$ above, we can find some $c^* \in H^\mathfrak{N} \cap A^\mathfrak{N}$ satisfying them, for which $\mathfrak{N} \vDash \neg \psi\mleft(\overline{a}, c^*\mright)$ holds. By our analysis of models of $T$ above, we can easily find an automorphism of $\mathfrak{O}$ that swaps $b$ and $c$ while preserving $A^\mathfrak{N}$. Consequently,
+  \[\mathfrak{O} \vDash \psi\mleft(\overline{a}, b\mright) \leftrightarrow \psi\mleft(\overline{a}, c\mright).\]
+  This is a contradiction. Therefore, we must always be in the case above where $\mathfrak{N} \vDash \exists y \left(Hy \land \psi\mleft(\overline{a}, y\mright)\right)$, and the lemma is proven.
+\end{proof}
+
+Lastly, we need to show that
+
+\begin{lemma}
+  \label{lem:last}
+  Let $\varphi\mleft(x\mright)$ be a formula in $\mathcal{L}^\dagger$ with no unbounded quantifiers and exactly one free variable. Then the set
+  \[\left\{x \in \mathcal{H} : \mathfrak{S} \vDash \varphi\mleft(x\mright)\right\}\]
+  is either finite or cofinite in $\mathcal{H}$.
+\end{lemma}
+
+\begin{proof}
+  Given a formula $\varphi\mleft(\overline{x}, \overline{y}\mright)$, any $\overline{a} \in \mathcal{M}^n$, any $\overline{k} \in \mathbb{Z}^m$ and any $\overline{s} \in \omega^m$, we show that there exists a large enough $N \in \omega$ such that for any $n > N$,
+  \[\mathfrak{S} \vDash \varphi\mleft(v\mleft(n, \overline{k}, \overline{s}\mright), \overline{a}\mright) \leftrightarrow \varphi\mleft(v\mleft(N, \overline{k}, \overline{s}\mright), \overline{a}\mright),\]
+  by induction on the complexity of $\varphi$, where
+  \[v\mleft(n, k_i, s_i\mright) = \left\{\begin{aligned}
+       & \iota^{n + 2s_ip\mleft(n\mright) + k_i}\mleft(n + 2s_ip\mleft(n\mright)\mright) &  & \text{if $n$ is even}, \\
+       & \iota^{n - 2s_ip\mleft(n\mright) + k_i}\mleft(n - 2s_ip\mleft(n\mright)\mright) &  & \text{if $n$ is odd}   \\
+    \end{aligned}\right.\]
+  (with $v\mleft(n, k_i, s_i\mright) = \varnothing$ if any computation yields a negative result) and the complexity includes both the number of connectives and the number of function symbols in the formula.
+
+  In the base case, observe that any $a \in \mathcal{M}$ is finite, so we can always ensure
+  \[v\mleft(n, k_i, s_i\mright) \not\in a \quad \text{and} \quad a \not\in v\mleft(n, k_i, s_i\mright)\]
+  for some fixed $k_i, s_i$ when $n$ is large enough; also observe that for any $z \in \mathcal{H}$, the sets $\left\{x \in \mathcal{H} : \tuple{x, z} \in \mathcal{R}\right\}$ and $\left\{x \in \mathcal{H} : \tuple{z, x} \in \mathcal{R}\right\}$ are both either finite or cofinite. The cases for other atomic formulae are similar or trivial. Especially, observe that whether two sets $v\mleft(n, k_i, s_i\mright)$ and $v\mleft(n, k_j, s_j\mright)$ are related by the relations $\in$ or $\mathcal{R}$ are both determined by the parameters $s_i, s_j, k_i, k_j$ and not affected by the parity of $n$ when $n$ is large enough.
+
+  In the inductive case, when $\varphi$ contains a function symbol whose parameter is simply $x_i$ or $y_i$, notice that we can simply replace the function term by the result of its invocation and apply the inductive hypothesis. When the parameter is $x_i$, this is done by inserting a new variable and use either indices $\overline{k}' = \tuple{\overline{k}, k_i}, \overline{s}' = \tuple{\overline{s}, s_i + 1}$ for the function symbol $S$ or $\overline{k}' = \tuple{\overline{k}, k_i + 1}, \overline{s}' = \tuple{\overline{s}, s_i}$ for the function symbol $i$.
+
+  When $\varphi$ is of the form $\forall z \in x_i \ \psi\mleft(\overline{x}, z, \overline{y}\mright)$ or $\exists z \in x_i \ \psi\mleft(\overline{x}, z, \overline{y}\mright)$, note that $v\mleft(n, k_i, s_i\mright) = \left\{v\mleft(n, k_i - 1, s_i\mright)\right\}$ when $n$ is large enough, so the desired conclusion follows from the inductive hypothesis on the formula $\psi$ and indices $\overline{k}' = \tuple{\overline{k}, k_i - 1}, \overline{s}' = \tuple{\overline{s}, s_i}$. The rest of the cases only involve finite unions, intersections and complements due to the fact that every $a \in \mathcal{M}$ is finite.
+
+  Thus, for the formula $\varphi\mleft(x\mright)$ in the lemma, we know by induction that, for some large enough $N \in \omega$,
+  \[\mathfrak{S} \vDash \varphi\mleft(\iota^n\mleft(n\mright)\mright) \leftrightarrow \varphi\mleft(\iota^N\mleft(N\mright)\mright),\]
+  for any $n > N$. The lemma follows immediately.
+\end{proof}
+
+The lemmata \ref{lem:first} through \ref{lem:last} imply that for any set $A \in \mathcal{U}$ such that $A \subseteq \mathcal{H}$, $A$ must be either finite or cofinite in $\mathcal{H}$. Therefore \autoref{thm:U-has-no-even-set} holds, that is, the set $\left\{\iota^{2n}\mleft(2n\mright) : n \in \omega\right\}$, which is neither finite nor cofinite in $\mathcal{H}$, cannot be in $\mathcal{U}$. The model $\mathcal{U}$ thinks that $\mathcal{H}$ carries a double well-ordering $\mathcal{R}$, but is not in bijection with any member of $\omega$. This contradicts \autoref{claim:finite-equivalence}.
+
+\bibmain
+
+\end{document}
