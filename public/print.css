@@ -1,0 +1,15 @@
+a, a:visited {
+  color: inherit;
+}
+
+#header, #menu {
+  display: none;
+}
+
+#title {
+  visibility: hidden;
+}
+
+#name {
+  visibility: visible;
+}

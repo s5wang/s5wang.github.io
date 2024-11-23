@@ -3,30 +3,60 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Shuwei Wang | where inhabitation is lingual</title>
 
-  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,50,1;1,9..144,100..900,50,1&family=Gelasio:ital,wght@0,400..700;1,400..700&family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,200&icon_names=call,mail,school" rel="stylesheet">
+
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" media="print" href="print.css" />
+
+  <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
   <script type="text/javascript" src="main.js" defer></script>
 </head>
 
 <body>
-  <div>
-    <p>where inhabitation is lingual...</p>
+  <div id="root">
+    <div id="header">
+      where inhabitation is lingual...
+    </div>
 
-    <div><a href="#">About me</a><a href="#publications">Publications</a></div>
+    <div id="menu">
+      <div id="menu-list">
+        <a href="#">About me</a>
+        <a href="#publications">Publications</a>
+      </div>
+    </div>
 
-    <h1>Hello! I'm Shuwei Wang <span>(王书玮)</span>,</h1>
-    <p>a PhD student at the School of Mathematics, University of Leeds.</p>
+    <div id="content">
+      <h1 id="title">
+        Hello! I'm <span id="name">Shuwei Wang</span> <span id="name-zh">(王书玮)</span>,
+      </h1>
+      <p>a PhD student at the School of Mathematics, University of Leeds.</p>
 
-    <p>
-      <span class="obfuscate">KzQ0IDA3NTQ5IDE3NDA1NA==</span>
-      <a class="obfuscate" href="bWFpbHRvOm1tc3dAbGVlZHMuYWMudWs=">bW1zd0BsZWVkcy5hYy51aw==</a>
-      <a href="https://orcid.org/0000-0001-7470-8018">0000-0001-7470-8018</a>
-    </p>
+      <div id="contact">
+        <span>
+          <span class="material-symbols-outlined" style="top: 0.23em">call</span>
+          <span class="obfuscate">KzQ0IDA3NTQ5IDE3NDA1NA==</span>
+        </span>
+        <span>
+          <span class="material-symbols-outlined" style="top: 0.23em">mail</span>
+          <a class="obfuscate" href="bWFpbHRvOm1tc3dAbGVlZHMuYWMudWs=">bW1zd0BsZWVkcy5hYy51aw==</a>
+        </span>
+        <span>
+          <span class="material-symbols-outlined" style="top: 0.16em">school</span>
+          <a href="https://orcid.org/0000-0001-7470-8018">0000-0001-7470-8018</a>
+        </span>
+      </div>
 
-    <p>My current research is centred around various formal systems of intuitionistic logic, including arithmetic and set theories. My work involves studying proof-theoretic interpretations such as cut-elimination results and realisability models to determine the consistency strength and other properties of said theories.</p>
-    <p>I have a broad interest in different approaches of dealing with a formal language, such as traditional proof theory, higher recursion theory, type theory and computer-assisted proof verification.</p>
-    <p>Here is my <i>curriculum vitae</i>, along with other resources you can find on this site:</p>
+      <p>My current research is centred around various formal systems of intuitionistic logic, including arithmetic and set theories. My work involves studying proof-theoretic interpretations such as cut-elimination results and realisability models to determine the consistency strength and other properties of said theories.</p>
+      <p>I have a broad interest in different approaches of dealing with a formal language, such as traditional proof theory, higher recursion theory, type theory and computer-assisted proof verification.</p>
+      <p>Here is my <i>curriculum vitae</i>, along with other resources you can find on this site:</p>
+    </div>
   </div>
 </body>
 

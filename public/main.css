@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  
+  font-family: "Gelasio", serif;
+  font-size: 12pt;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+a {
+  color: #075;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #363;
+}
+
+#root {
+  width: 90%;
+  max-width: 840px;
+  margin: 0.6rem;
+}
+
+#header {
+  position: relative;
+  z-index: 10;
+  margin: 0.6rem 0 0;
+  padding: 1.8rem 1.8rem 1rem;
+  border-radius: 16px 16px 0 0;
+  background-color: #030;
+  background-image: repeating-linear-gradient(315deg, #9c62 93%, #0f00 100%),
+    repeating-radial-gradient(75% 235% at 233% 356%, #6dc1 30%, #0111 40%),
+    radial-gradient(84% 210% at 108% 5%, #098 0%, #0f00 100%),
+    radial-gradient(100% 250% at 16% 108%, #650 0%, #0f00 100%);
+  overflow: hidden;
+  font-family: "Fraunces", "Gelasio", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 50, "WONK" 1;
+  color: #ffffffdd;
+}
+
+#header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  border-radius: 16px 16px 0 0;
+  box-shadow: inset 0 0 10px white;
+  pointer-events: none;
+}
+
+#menu {
+  position: sticky;
+  top: 0;
+  margin: -0.3rem -64px 0.6em;
+  padding-top: 1em;
+  background-color: white;
+  overflow: hidden;
+}
+
+#menu::before {
+  content: "";
+  position: absolute;
+  top: -64px;
+  bottom: -64px;
+  left: 0;
+  right: 0;
+  box-shadow: inset 0 0 32px 32px white;
+  pointer-events: none;
+}
+
+#menu-list {
+  padding: 0.2rem 64px;
+  border: solid #683;
+  border-width: 2px 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+}
+
+#content {
+  padding: 0 0.6rem;
+  text-align: justify;
+}
+
+#content p {
+  margin: 0.6rem 0;
+}
+
+#title {
+  margin: 1.3rem 0 0;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #555;
+}
+
+#title + p {
+  margin-top: 0.3rem;
+}
+
+#name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111;
+}
+
+#name-zh {
+  font-family: "LXGW WenKai TC", fangsong, serif;
+  color: #111;
+}
+
+#contact {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.6rem;
+  row-gap: 0.3rem;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+#contact .material-symbols-outlined {
+  position: relative;
+  font-size: inherit;
+  color: #666;
+}
