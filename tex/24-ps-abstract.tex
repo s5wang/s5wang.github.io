@@ -1,0 +1,49 @@
+% workaround for asl.cls compile error
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+
+\documentclass[bsl,meeting]{asl}
+
+\AbstractsOn
+
+\pagestyle{plain}
+
+\def\urladdr#1{\endgraf\noindent{\it URL Address}: {\tt #1}.}
+
+\newcommand{\NP}{}
+
+\begin{document}
+\thispagestyle{empty}
+
+\NP
+\absauth{Shuwei Wang}
+\meettitle{The global well-ordering on Weaver's third-order conceptual mathematics}
+\affil{School of Mathematics, University of Leeds, Leeds LS2 9JT, UK}
+\meetemail{mmsw@leeds.ac.uk}
+
+Around 2010, Nik Weaver proposed quite a few novel candidates for the formal foundation of mainstream mathematics, motivated by the philosophical stance he calls \emph{mathematical conceptualism}, effectively a revival of the predicativism trend that advocates for founding mathematics upon only a small portion of the set hierarchy that is ``built up from below'', seeing the rest as ill-defined due to the use of impredicative definitions.
+
+This talk will specifically be concerned with Weaver's formal system $\mathrm{CM}$ in \cite{weaver09-cm} of intuitionistic third-order arithmetic with a classical first-order fragment, characterised by a comprehension scheme for all decidable formulae and second-order dependent choice. In the same paper, Weaver also suggested an extension of the theory by adding a primitive global well-ordering on all second-order objects. However, while he gave an abundance of examples on how various traditional topics in mathematics, such as topology, functional analysis and measure theory, can be formalised in $\mathrm{CM}$, the implications of the proposed extension remain unexplored.
+
+In this talk, I will give a proof-theoretic analysis of Weaver's theory, as well as the effect of including the extra axioms for the global well-ordering. This should bound Weaver's conceptualism between the strength of the base theory $\mathrm{CM}$ (with a proof-theoretic ordinal of $\varphi_{\varepsilon_0}0$) and the impredicative extension with a full transfinite induction axiom on the global well-ordering (whose strength is at the Bachmann--Howard ordinal). Interestingly, Weaver did not make clear where exactly the distinction between predicativism and impredicativism lies (though in a different paper \cite{weaver09-predicativity} he did argue that his philosophy can justify certain theories with a proof-theoretic ordinal above $\Gamma_0$), and I will attempt to interpret what Weaver might accept as a predicative fragment of the full-strength theory.
+
+I will additionally continue Weaver's discussion of mainstream mathematics, by demonstrating that sufficient transfinite induction on the global well-ordering can play the role of the axiom of choice for mathematics formalised in $\mathrm{CM}$. In the extended theory, one can prove a restricted analogue of Zorn's lemma, from which many classical results can be derived, including the existence of a basis or the Hahn--Banach theorem for any Banach space over a complete separable $\mathbb{R}$-normed field.
+
+\begin{thebibliography}{10}
+
+  \bibitem{weaver09-cm}
+  {\scshape Nik Weaver},
+  {\itshape Axiomatizing mathematical conceptualism in third order arithmetic}, 2009.
+  Preprint available at \texttt{arXiv:0905.1675 [math.HO]}.
+
+  \bibitem{weaver09-predicativity}
+  {\scshape Nik Weaver},
+  {\itshape Predicativity beyond {$\Gamma_0$}},
+  2009.
+  Preprint available at \texttt{arXiv:math/0509244 [math.LO]}.
+
+\end{thebibliography}
+
+\vspace*{-0.5\baselineskip}
+
+\end{document}

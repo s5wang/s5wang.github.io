@@ -1,0 +1,350 @@
+\documentclass{beamer}
+\usepackage{amsmath,amssymb,amsthm,calc,colonequals,enumitem,hyperref,mathtools,mleftright,ragged2e,setspace,xcolor}
+\usepackage[en-GB]{datetime2}
+\usepackage{bib-commons}
+
+\usetheme{dresden}
+
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\beamer@compresstrue
+\makeatother
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+
+\DeclareMathOperator{\WO}{WO}
+
+\title{The global well-ordering on Weaver's third-order conceptual mathematics}
+\author{Shuwei Wang}
+\institute{University of Leeds}
+\date{\DTMdate{2024-09-12}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section[Conceptual mathematics]{Weaver's conceptual mathematics}
+
+\begin{frame}{Mathematic conceptualism}
+  \setstretch{0}
+
+  {\small Nik Weaver, \emph{Mathematical conceptualism} (2005), \texttt{arXiv:math/0509246 [math.LO]}:}
+
+  \begin{quote}
+    [We] have now reached a point where we have a fairly clear idea of just what portion of the Cantorian universe is relevant to mainstream mathematics ... this region is, with remarkable accuracy, precisely the portion a conceptualist would recognize as legitimate.
+  \end{quote}
+
+  \vspace*{8pt}
+
+  {\small Nik Weaver, \emph{Axiomatizing mathematical conceptualism in third order arithmetic} (2009), \texttt{arXiv:0905.1675 [math.HO]}:}
+
+  \begin{quote}
+    [Mathematical conceptualism] is a refinement of the predicativist philosophy of Poincar\'e and Russell. The basic idea is that we accept as legitimate only those structures that can be constructed, but we allow constructions of transfinite length.
+  \end{quote}
+
+  \nocite{weaver05-conceptualism,weaver09-cm}
+\end{frame}
+
+\begin{frame}{The axioms of $\mathrm{CM}$}
+  \begin{itemize}
+    \item Decidability for all atomic formulae:
+          \begin{align*}
+            n = m            & \lor \neg n = m,            \\
+            n \in X          & \lor \neg n \in X,          \\
+            X \in \mathbf{X} & \lor \neg X \in \mathbf{X};
+          \end{align*}
+
+    \item Numerical omniscience:
+          \[\forall n \left(\varphi\mleft(n\mright) \lor \psi\mleft(n\mright)\right) \rightarrow \left(\forall n \, \varphi\mleft(n\mright) \lor \exists n \, \psi\mleft(n\mright)\right);\]
+
+    \item Comprehension axioms for all decidable formulae:
+          \begin{align*}
+            \forall n \left(\varphi\mleft(n\mright) \lor \neg \varphi\mleft(n\mright)\right) & \rightarrow \exists X \, \forall n \left(n \in X \leftrightarrow \varphi\mleft(n\mright)\right),                   \\
+            \forall X \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right) & \rightarrow \exists \mathbf{X} \, \forall X \left(X \in \mathbf{X} \leftrightarrow \varphi\mleft(X\mright)\right);
+          \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The axioms of $\mathrm{CM}$}
+  \begin{itemize}
+    \item The standard \emph{number axioms} $\mathrm{PA}^-$;
+
+    \item Full induction:
+          \[\varphi\mleft(0\mright) \land \forall n \left(\varphi\mleft(n\mright) \rightarrow \varphi\mleft(n + 1\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright);\]
+
+    \item Dependent choice:
+          \begin{align*}
+             & \forall n \, \forall X \, \exists Y \, \varphi\mleft(n, X, Y\mright)                                                                                                \\
+             & \quad {} \rightarrow \forall X \, \exists Z \left(\left(Z\right)_0 = X \land \forall n \, \varphi\mleft(n, \left(Z\right)_n, \left(Z\right)_{n + 1}\mright)\right);
+          \end{align*}
+
+    \item Extensionality for second-order variables:
+          \[X = Y \rightarrow \left(X \in \mathbf{X} \leftrightarrow X \in \mathbf{Y}\right).\]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  Usual definitions for $N, Z, Q, \mathbf{R}$;
+
+  \begin{theorem}[$\mathrm{CM}$]
+    $\mathbf{R}$ is a sequentially complete ordered field. Every sequentially complete ordered field is isomorphic to $\mathbf{R}$.
+  \end{theorem}
+
+  \begin{theorem}[$\mathrm{CM}$]
+    Let $\mathbf{K}$ be a separable subset of $\mathbf{R}$. Then TFAE:
+    \begin{enumerate}[label=(\roman*)]
+      \item $\mathbf{K}$ is closed and bounded;
+      \item $\mathbf{K}$ is compact;
+      \item $\mathbf{K}$ is bounded and contains the limits of all Cauchy sequences;
+      \item every sequence in $\mathbf{K}$ has a subsequence which converges to a limit in $\mathbf{K}$.
+    \end{enumerate}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  We can also reason about
+  \begin{itemize}
+    \item metric spaces (preferably separable);
+    \item topological spaces (preferably second countable);
+    \item Banach spaces (preferably separable).
+  \end{itemize}
+
+  \vspace*{8pt}
+
+  \begin{theorem}[Hahn--Banach, in $\mathrm{CM}$]
+    \justifying
+    Let $\mathbf{E}$ be a separable Banach space, let $\mathbf{E}_0$ be a separable closed subspace, and let $\mathbf{f}_0 : \mathbf{E}_0 \rightarrow \mathbf{R}$ be a bounded linear functional on $\mathbf{E}_0$. Then $\mathbf{f}_0$ extends to a bounded linear functional $\mathbf{f}$ on $\mathbf{E}$ with $\left\|\mathbf{f}\right\| = \left\|\mathbf{f}_0\right\|$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{The proof-theoretic strength of $\mathrm{CM}$}
+  We can interpret $\mathrm{CM}$ in $\Sigma^1_1$-$\mathrm{AC}$, using \emph{$\Sigma^1_1$-(partial) functions}.
+
+  \begin{block}{Notation}
+    Let $\exists X \, \pi\mleft(e, m, a, b, X\mright)$ be a universal $\Sigma^1_1$-formula, i.e.\ for any $\Sigma^1_1$-formula $\varphi\mleft(m, a, b\mright)$ there exists $e \in \mathbb{N}$ such that
+    \[\forall m \, \forall a \, \forall b \left(\varphi\mleft(m, a, b\mright) \leftrightarrow \exists X \, \pi\mleft(e, m, a, b, X\mright)\right).\]
+
+    We denote $\mleft\{e\mright\}\mleft(a\mright) = b \ \ \ratio\Leftrightarrow \ \ \exists X \, \pi\mleft(e_0, e_1, a, b, X\mright)$, and write
+    \begin{align*}
+      \dom\mleft(e\mright)    & \coloneqq \left\{a : \exists!b \, \mleft\{e\mright\}\mleft(a\mright) = b\right\},                        \\
+      \ran\mleft(e, X\mright) & \coloneqq \left\{b : \exists a \in X \, \mleft\{e\mright\}\mleft(a\mright) = b\right\},                  \\
+      \left[X, Y\right]       & \coloneqq \left\{e : X \subseteq \dom\mleft(e\mright) \land \ran\mleft(e, X\mright) \subseteq Y\right\}.
+    \end{align*}
+  \end{block}
+\end{frame}
+
+\begin{frame}{The proof-theoretic strength of $\mathrm{CM}$}
+  Let second-order variables range over $S_2 = \left[\mathbb{N}, \left\{0, 1\right\}\right]$, third-order variables range over $S_3 = \left[S_2, \left\{0, 1\right\}\right]$ (up to extensional equality).
+
+  \vspace*{-12pt}
+
+  {\scriptsize%
+    \begin{align*}
+      d \Vdash t = s \ \                                                   & \ratio\Leftrightarrow \ \ t = s \text{ for any arithmetic terms $t$ and $s$},                                                                                  \\
+      d \Vdash t \in e \ \                                                 & \ratio\Leftrightarrow \ \ \mleft\{e\mright\}\mleft(t\mright) = 1 \text{ for any arithmetic terms $t$},                                                         \\
+      d \Vdash e \in f \ \                                                 & \ratio\Leftrightarrow \ \ \mleft\{f\mright\}\mleft(e\mright) = 1,                                                                                              \\
+      d \Vdash \varphi \land \psi \ \                                      & \ratio\Leftrightarrow \ \ d_0 \Vdash \varphi \land d_1 \Vdash \psi,                                                                                            \\
+      d \Vdash \varphi \lor \psi \ \                                       & \ratio\Leftrightarrow \ \ \left(d_0 = 0 \land d_1 \Vdash \varphi\right) \lor \left(d_0 = 1 \land d_1 \Vdash \psi\right),                                       \\
+      d \Vdash \neg \varphi \ \                                            & \ratio\Leftrightarrow \ \ \forall e \, \neg e \Vdash \varphi,                                                                                                  \\
+      d \Vdash \varphi \rightarrow \psi \ \                                & \ratio\Leftrightarrow \ \ \forall e \left(e \Vdash \varphi \rightarrow e \in \dom\mleft(d\mright) \land \mleft\{d\mright\}\mleft(e\mright) \Vdash \psi\right), \\
+      d \Vdash \forall x \, \varphi\mleft(x\mright) \ \                    & \ratio\Leftrightarrow \ \ d \in \left[\mathbb{N}, \mathbb{N}\right] \land \forall n \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),      \\
+      d \Vdash \exists x \, \varphi\mleft(x\mright) \ \                    & \ratio\Leftrightarrow \ \ d_1 \Vdash \varphi\mleft(d_0\mright),                                                                                                \\
+      d \Vdash \forall X \, \varphi\mleft(X\mright) \ \                    & \ratio\Leftrightarrow \ \ d \in \left[S_2, \mathbb{N}\right] \land \forall n \in S_2 \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),     \\
+      d \Vdash \exists X \, \varphi\mleft(X\mright) \ \                    & \ratio\Leftrightarrow \ \ d_0 \in S_2 \land d_1 \Vdash \varphi\mleft(d_0\mright),                                                                              \\
+      d \Vdash \forall \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) \ \  & \ratio\Leftrightarrow \ \ d \in \left[S_3, \mathbb{N}\right] \land \forall n \in S_3 \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),     \\
+      d \Vdash \exists \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) \ \  & \ratio\Leftrightarrow \ \ d_0 \in S_3 \land d_1 \Vdash \varphi\mleft(d_0\mright).
+    \end{align*}}
+\end{frame}
+
+\begin{frame}{The proof-theoretic strength of $\mathrm{CM}$}
+  \begin{theorem}[$\Sigma^1_1$-$\mathrm{AC}$]
+    For every axiom $\varphi$ of $\mathrm{CM}$, $\exists d \ d \Vdash \varphi$.
+  \end{theorem}
+
+  \vspace*{8pt}
+
+  Observe that $\Sigma^1_1$-$\mathrm{AC}^i$ is an immediate subtheory of $\mathrm{CM}$, and we have $\left|\text{$\Sigma^1_1$-$\mathrm{AC}^i$}\right| = \left|\text{$\Sigma^1_1$-$\mathrm{AC}$}\right|$ due to [Aczel, 1977].
+
+  \vspace*{8pt}
+
+  \begin{corollary}
+    $\left|\mathrm{CM}\right| = \left|\text{$\Sigma^1_1$-$\mathrm{AC}$}\right| = \varphi_{\varepsilon_0}\mleft(0\mright)$.
+  \end{corollary}
+
+  \nocite{aczel77-martin-lof}
+\end{frame}
+
+\section[Global well-ordering]{Axioms for the global well-ordering}
+
+\begin{frame}{Axioms for the global well-ordering}
+  \begin{itemize}
+    \item Relation $\prec$ is a linear ordering between second-order objects;
+
+    \item Transfinite induction:
+          \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright);\]
+
+    \item Countability of initial segments:
+          \[\forall X \, \exists Z \, \forall Y \left(Y \prec X \rightarrow \exists n \, Y = \left(Z\right)_n\right).\]
+  \end{itemize}
+
+  {\small {\usebeamercolor[fg]{block title} Note.} The transfinite induction axiom is obviously impredicative.}
+\end{frame}
+
+\begin{frame}{Zorn's lemma and mathematics with $\mathrm{GWO}$}
+  \begin{theorem}[$\mathrm{CM} + \mathrm{GWO}$]
+    \justifying
+    Fix a third-order set $\mathbf{A}$ and let $\varphi\mleft(X\mright)$ be a decidable formula (possibly with other parameters) on the countable subsets of $\mathbf{A}$, i.e.\ we have $\forall X \subseteq \mathbf{A} \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right)$. If $\varphi$ as a predicate is downward closed and also closed under unions of countable chains, then there exists some $\mathbf{X} \subseteq \mathbf{A}$ satisfying $\forall X \subseteq \mathbf{X} \ \varphi\mleft(X\mright)$, and is maximal among such subsets in the sense that
+    \[\forall Y \left(Y \not\in \mathbf{X} \rightarrow \exists Z \subseteq \mathbf{X} \ \neg \varphi\mleft(Z \cup \left\{Y\right\}\mright)\right).\]
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Zorn's lemma and mathematics with $\mathrm{GWO}$}
+  \begin{corollary}
+    Let $\mathbf{V}$ be an $\mathbf{F}$-vector space, such that the formula
+    \[\varphi\mleft(k, X\mright) = \text{``$\left(X\right)_0, \ldots, \left(X\right)_k$ are not all $0$ and generate $0$.''}\]
+    is decidable, then $\mathbf{V}$ has a basis $\mathbf{X} \subseteq \mathbf{V}$ such that every vector $V \in \mathbf{V}$ is spanned by finitely many elements in $\mathbf{X}$.
+  \end{corollary}
+
+  \vspace*{8pt}
+
+  Examples of vector spaces with a basis:
+  \begin{itemize}
+    \item vector spaces over a countable field (e.g.\ $\mathbf{R}$ over $Q$);
+    \item normed real/complex vector spaces, e.g.\ a Banach space;
+    \item any inner product spaces.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The proof-theoretic strength of $\mathrm{GWO}$}
+  Let $\mathcal{O}$ be the class of recursive well-orderings. Let $\mathcal{H}$ be the set of pairs $\tuple{a, e}$ such that $a \in \mathcal{O}$ and $\Phi^{H_a}_e$ is a total function.
+
+  \vspace*{8pt}
+
+  \begin{block}{Fact ($\mathrm{ATR}_0$)}
+    Every $d \in S_2$ denotes the same function as some $h \in \mathcal{H}$, and vice versa.
+  \end{block}
+
+  \vspace*{8pt}
+
+  \begin{theorem}[$\mathrm{ATR}_0$]
+    There exist $\Sigma^1_1$-partial functions $\mathrm{hyp} \in \left[S_2, \mathcal{H}\right]$ and $\mathrm{inv} \in \left[S_2, \mathcal{H}\right]$ that represent the conversions above.
+  \end{theorem}
+
+  \nocite{simpson09-soa}
+\end{frame}
+
+\begin{frame}{The proof-theoretic strength of $\mathrm{GWO}$}
+  Let $\mathrm{BI}$ be $\mathrm{ACA}_0$ plus the axiom scheme
+  \[\WO\mleft(X, {<_X}\mright) \rightarrow \forall x \in X \left(\forall y <_X x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \in X \, \varphi\mleft(x\mright).\]
+  We can interpret $\prec$ as the natural well-ordering on the hyperarithmetic indices and have
+  \begin{theorem}[$\mathrm{BI}$]
+    For every axiom $\varphi$ of $\mathrm{CM} + \mathrm{GWO}$, $\exists d \ d \Vdash \varphi$.
+  \end{theorem}
+
+  \vspace*{8pt}
+
+  For the lower bound, one can interpret $\mathrm{ID}_1^i$ in $\mathrm{CM} + \mathrm{GWO}$, and we have $\left|\mathrm{ID}_1^i\right| = \left|\mathrm{BI}\right|$ due to [Buchholz \& Pohlers, 1978].
+
+  \begin{corollary}
+    $\left|\mathrm{CM} + \mathrm{GWO}\right| = \left|\mathrm{BI}\right| = \theta_{\varepsilon_{\Omega + 1}}\mleft(0\mright)$.
+  \end{corollary}
+
+  \nocite{buchholz-pohlers78-iterated-id}
+\end{frame}
+
+\section[Predicativity]{The predicativity problem}
+
+\begin{frame}{Weaver's problem with impredicativity}
+  The axiom of transfinite induction in $\mathrm{GWO}$ is impredicative:
+  \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright).\]
+
+  Weaver did not like this. In [Weaver, 2009]:
+  \begin{quote}
+    \setstretch{0}
+    This should only be asserted for formulas that do not contain $\prec$, for reasons having to do with the circularity involved in making sense of a relation that is well-ordered with respect to properties that are defined in terms of that relation.
+  \end{quote}
+  But this does not solve the problem, since we can use a third-order parameter
+  \[\mathbf{E} = \left\{\tuple{X, Y} : X \prec Y\right\}.\]
+\end{frame}
+
+\begin{frame}{$\mathrm{ATR}$ and totally realisable formulae}
+  Observe that every axiom in $\mathrm{CM} + \mathrm{GWO}$ other than unrestricted transfinite induction is realisable in $\mathrm{ATR}$. We also have:
+
+  \vspace*{8pt}
+
+  \begin{block}{Fact (Well-ordering principle)}
+    Over $\mathrm{RCA}_0$, $\mathrm{ATR}_0$ is equivalent to $\forall X \left(\WO\mleft(X\mright) \rightarrow \WO\mleft(\varphi_X\mright)\right)$.
+  \end{block}
+
+  \vspace*{8pt}
+  \justifying
+
+  This means for some sufficiently simple $\Sigma^1_1$-function $f : \mathcal{O} \rightarrow \mathcal{O}$, $\mathrm{ATR}_0$ implies that $\mathcal{O}$ is still closed under $f$ iterated along any well-ordering $a \in \mathcal{O}$.
+
+  \nocite{rathjen22-well-ordering-principles}
+\end{frame}
+
+\begin{frame}{$\mathrm{ATR}$ and totally realisable formulae}
+  We say that $\varphi$ is \emph{totally realisable} if there exists a $\Delta^1_1$-formula $\chi_\varphi\mleft(e\mright)$ and $\Sigma^1_1$-(partial) functions $f, g$ such that
+  \begin{align*}
+    d \Vdash \varphi                             & \rightarrow d \in \dom\mleft(f\mright) \land \mleft\{f\mright\}\mleft(d\mright) \in S_2 \land \chi_\varphi\mleft(\mleft\{f\mright\}\mleft(d\mright)\mright), \\
+    e \in S_2 \land \chi_\varphi\mleft(e\mright) & \rightarrow e \in \dom\mleft(g\mright) \land \mleft\{g\mright\}\mleft(e\mright) \Vdash \varphi.
+  \end{align*}
+
+  \begin{block}{Proposition ($\Sigma^1_1$-$\mathrm{AC}$)}
+    \justifying
+    The class of totally realisable formulae includes all arithmetic formulae, is closed under quantifiers $\exists Y \prec X$ and $\forall Y \prec X$, and can contain positive occurrences of $\exists X$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{$\mathrm{ATR}$ and totally realisable formulae}
+  \begin{theorem}[$\mathrm{ATR}$]
+    Let $\varphi\mleft(X\mright)$ be a totally realisable formula and $f \in \left[S_2, S_2\right]$ such that
+    \[\forall e \in S_2 \left(\chi_{\forall Y \prec X \ \varphi\mleft(Y\mright)}\mleft(e\mright) \rightarrow \chi_{\varphi\mleft(X\mright)}\mleft(\mleft\{f\mright\}\mleft(e\mright)\mright)\right),\]
+    and $\mathcal{O}$ is closed under $b \mapsto \sup_{\tuple{b, e} \in \mathcal{H}} \mleft\{\mathrm{hyp}\mright\}\mleft(\mleft\{f\mright\}\mleft(\mleft\{inv\mright\}\mleft(\tuple{b, e}\mright)\mright)\mright)_0$ iterated along any well-ordering $a \in \mathcal{O}$, then $\exists d \ d \Vdash \forall X \ \varphi\mleft(X\mright)$.
+  \end{theorem}
+
+  \vspace*{8pt}
+
+  For example, this suffices to show that the Hamel basis of $\mathbf{R}$ over $Q$ exists.
+
+  \begin{block}{Question}
+    \begin{enumerate}[label=(\roman*)]
+      \item Can we do this in a theory weaker than $\mathrm{ATR}$?
+      \item How can we formulate the condition for $f$ syntactically?
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\section*{}
+
+\miniframesoff
+
+\begin{frame}
+  \Large Thank you!
+\end{frame}
+
+\begin{frame}
+  \renewcommand{\section}[2]{}
+  \bibmain
+\end{frame}
+
+\end{document}
