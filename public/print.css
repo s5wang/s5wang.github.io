@@ -13,3 +13,7 @@ a, a:visited {
 #name {
   visibility: visible;
 }
+
+span.links {
+  display: none;
+}
