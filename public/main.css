@@ -8,6 +8,7 @@ body {
   font-weight: 400;
   font-style: normal;
   line-height: 1.255;
+  overflow: hidden;
 }
 
 a {
@@ -122,7 +123,7 @@ a:visited {
 }
 
 #content {
-  margin: 1rem 0;
+  margin: 1rem 0 1.3rem;
   padding: 0 0.6rem;
   text-align: justify;
 }
