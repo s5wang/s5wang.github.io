@@ -8,7 +8,7 @@ body {
   font-weight: 400;
   font-style: normal;
   line-height: 1.255;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 a {
@@ -195,12 +195,17 @@ a:visited {
   border-bottom: 1.5pt solid #999;
 }
 
-.cv-sec > span {
+.cv-sec-anchor {
+  position: relative;
+  top: calc(-2.9rem - 9pt);
+}
+
+.cv-sec-main {
   padding-right: 0.06em;
   background-color: white;
 }
 
-.cv-sec .cv-sec-start {
+.cv-sec-main .cv-sec-start {
   color: #0a8;
 }
 
