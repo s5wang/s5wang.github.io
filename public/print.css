@@ -1,19 +1,73 @@
+@page {
+  size: A4 portrait;
+  margin: 8mm calc(14mm - 0.6rem);
+}
+
 a, a:visited {
   color: inherit;
 }
 
-#header, #menu {
+span.links, .material-symbols-outlined.external-link {
   display: none;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+#header, #menu, .intro {
+  display: none;
+}
+
+#content {
+  margin: 0;
 }
 
 #title {
+  text-align: center;
+}
+
+#contact {
+  margin-top: -0.3rem;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+#title-main, #title-sub, #zhihu-user-link {
+  display: inline-block;
   visibility: hidden;
+  line-height: 0;
+  text-indent: -9999px;
 }
 
-#name {
+#title-main::after {
+  content: "Shuwei Wang";
+  display: block;
   visibility: visible;
+  margin-top: -1rem;
+  font-family: "Afacad", sans-serif;
+  font-size: 3rem;
+  line-height: var(--line-height);
+  text-indent: 0;
+  color: #111;
 }
 
-span.links {
-  display: none;
+#title-sub::after {
+  content: "Logic Group, University of Leeds, Leeds, UK \a0\a0\a0\a0 LS2 9JT";
+  display: block;
+  visibility: visible;
+  line-height: var(--line-height);
+  text-indent: 0;
+  color: #555;
+}
+
+#zhihu-user-link::after {
+  content: "@beanandbean";
+  display: block;
+  visibility: visible;
+  line-height: var(--line-height);
+  text-indent: 0;
 }

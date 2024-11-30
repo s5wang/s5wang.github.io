@@ -7,8 +7,10 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.255;
   overflow-x: hidden;
+
+  --line-height: 1.255;
+  line-height: var(--line-height);
 }
 
 a {
@@ -128,12 +130,11 @@ a:visited {
   text-align: justify;
 }
 
-#content p {
+#content h1, #content p {
   margin: 0.6rem 0;
 }
 
 #title {
-  margin: 0;
   font-size: 1rem;
   font-weight: 400;
 }
