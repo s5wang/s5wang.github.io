@@ -11,6 +11,7 @@
 
   \def\localdir{./}
   \ifx\theabsdir\localdir
+    % bibliography paths cannot start with "./"
     \def\bibcommonspath{}
   \else
     \def\bibcommonspath{\theabsdir}

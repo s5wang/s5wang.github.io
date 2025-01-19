@@ -1,3 +1,6 @@
 {
-  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/public/pdf/"
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/public/pdf/",
+  "files.exclude": {
+    "arxiv": true
+  }
 }

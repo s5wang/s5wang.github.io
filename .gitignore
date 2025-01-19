@@ -1,6 +1,7 @@
 public/pdf/
 arxiv/dist/
 arxiv/out/
+arxiv/arxiv.tar.gz
 
 # The following are templates from https://github.com/github/gitignore
 
