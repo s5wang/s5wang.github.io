@@ -1,4 +1,6 @@
 public/pdf/
+arxiv/dist/
+arxiv/out/
 
 # The following are templates from https://github.com/github/gitignore
 

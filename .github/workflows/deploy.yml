@@ -29,8 +29,6 @@ jobs:
         with:
           root_file: ./*.tex
           working_directory: tex/
-        env:
-          TEXINPUTS: ".:./bib-commons//:"
       - name: Move artifacts
         run: |
           mkdir -p public/pdf

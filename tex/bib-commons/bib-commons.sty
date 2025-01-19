@@ -1,9 +1,21 @@
+% This is the default amsrefs styling file in Shuwei's
+% personal system-wide bibliography database.
+
 \ProvidesPackage{bib-commons}
 
 \RequirePackage[nobysame]{amsrefs}
-\RequirePackage[abspath]{currfile}
 
-\RequirePackage{bib-locate}
+\ifx\BibCommonsStandalone\undefined
+  \RequirePackage{currfile-abspath}
+  \getabspath{bib-commons.sty}
+
+  \def\localdir{./}
+  \ifx\theabsdir\localdir
+    \def\bibcommonspath{}
+  \else
+    \def\bibcommonspath{\theabsdir}
+  \fi
+\fi
 
 \BibSpec{unpublished}{ % online book
 +{}  { \PrintPrimary}               {transition}
@@ -62,4 +74,9 @@
 +{}  {\SentenceSpace \PrintReviews} {review}
 }
 
-\newcommand{\bibmain}{\bibliography{\bibcommonspath/main}}
+\ifx\BibCommonsStandalone\undefined
+  \newcommand{\bibmain}{\bibliography{\bibcommonspath main}}
+\else
+  % we will use an existing .bbl file
+  \newcommand{\bibmain}{\@input@{\jobname.bbl}}
+\fi
