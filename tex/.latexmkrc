@@ -1,1 +1,1 @@
-ensure_path('TEXINPUTS', 'bib-commons//');
+ensure_path('TEXINPUTS', 'auxi//', 'bib-commons//');

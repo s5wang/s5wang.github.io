@@ -28,7 +28,7 @@ Get-Content "$source\$entry.tex" | ForEach-Object {
         }
       }
       else {
-        Copy-Item "$source\$dep" "$dist\$dep"
+        Copy-Item "$source\auxi\$dep" "$dist\$dep"
       }
     }
   }
