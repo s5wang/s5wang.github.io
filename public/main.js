@@ -1,7 +1,7 @@
 // de-obfuscation
 for (const element of document.getElementsByClassName("obfuscate")) {
-  if (element.tagName === "a") {
-    element.href = atob(element.href);
-  }
   element.innerText = atob(element.innerText);
+  if (element.tagName.toLowerCase() === "a") {
+    element.href = atob(element.attributes.href.value);
+  }
 }
