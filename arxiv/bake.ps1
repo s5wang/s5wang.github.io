@@ -1,4 +1,4 @@
-$entry = "24-ps-beamer"
+$entry = "25-cm"
 
 Push-Location $PSScriptRoot
 
