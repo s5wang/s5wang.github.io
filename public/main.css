@@ -43,6 +43,7 @@ a:visited {
 }
 
 .material-symbols-outlined.external-link {
+  display: inline;
   position: relative;
   top: -0.24em;
   padding-left: 0.06em;
