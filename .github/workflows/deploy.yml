@@ -29,6 +29,7 @@ jobs:
         with:
           root_file: ./*.tex
           working_directory: tex/
+          docker_image: ghcr.io/xu-cheng/texlive-full:20250101
       - name: Move artifacts
         run: |
           mkdir -p public/pdf
