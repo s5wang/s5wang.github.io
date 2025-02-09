@@ -1,4 +1,7 @@
 {
   "folders": [{ "path": "." }, { "path": "arxiv" }],
-  "settings": {}
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "s5wang.github.io",
+    "liveServer.settings.root": "/public/"
+  }
 }
