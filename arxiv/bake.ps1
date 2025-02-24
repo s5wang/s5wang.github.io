@@ -1,4 +1,4 @@
-$entry = "25-cm"
+$entry = "25-incom-ord"
 
 Push-Location $PSScriptRoot
 
@@ -21,8 +21,6 @@ Get-Content "$source\$entry.tex" | ForEach-Object {
         switch ($dep) {
           "@bib-commons" {
             Copy-Item "$source\bib-commons\bib-commons.sty" "$dist\bib-commons.sty"
-            Copy-Item "..\public\pdf\$entry.bbl" "$dist\main.bbl"
-
             "\def\BibCommonsStandalone{}"
           }
         }
@@ -36,6 +34,11 @@ Get-Content "$source\$entry.tex" | ForEach-Object {
     $_
   }
 } | Set-Content "$dist\main.tex"
+
+$bbl = "..\public\pdf\$entry.bbl"
+if (Test-Path $bbl) {
+  Copy-Item $bbl "$dist\main.bbl"
+}
 
 tar -cvvzf $arch -C $dist .
 

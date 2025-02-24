@@ -1,0 +1,332 @@
+%?deps asl.cls
+
+% workaround for asl.cls compile error
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+
+\documentclass{asl}
+\usepackage{aliascnt,colonequals,mleftright}
+\usepackage[hidelinks,unicode]{hyperref}
+
+\newcommand{\newaliastheorem}[2]{%
+  \newaliascnt{#1}{theorem}
+  \newtheorem{#1}[#1]{#2}
+  \aliascntresetthe{#1}
+  \expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newaliastheorem{lemma}{Lemma}
+\newaliastheorem{proposition}{Proposition}
+\newaliastheorem{corollary}{Corollary}
+
+\newtheorem*{fact}{Fact}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\Ord}{\mathrm{Ord}}
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\rng}{rng}
+
+\DeclareMathOperator{\TC}{TC}
+\newcommand{\tc}[1]{\TC\mleft(\left\{ #1 \right\}\mright)}
+
+\DeclareMathOperator{\dd}{def}
+
+\title{Antichain of ordinals in intuitionistic set theory}
+
+\keywords{Intuitionistic, set theory, ordinal arithmetic, constructible universe}
+\def\subjclassname{\textup{2020} Mathematics Subject
+Classification}
+\subjclass{Primary: 03E70; Secondary: 03E10, 03F55}
+
+\author{Shuwei Wang}
+\revauthor{Wang, Shuwei}
+\address{School of Mathematics\\
+University of Leeds\\
+Leeds LS2 9JT, UK}
+\email{mmsw@leeds.ac.uk}
+\thanks{During the preparation of this paper the author is supported by the the Engineering and Physical Sciences Research Council [EP/W523860/1].}
+
+\begin{document}
+
+\begin{abstract}
+  In classical set theory, the ordinals form a linear chain that we often think of as a very thin portion of the set-theoretic universe. In intuitionistic set theory, however, this is not the case and there can be incomparable ordinals. In this paper, we shall show that starting from two incomparable ordinals, one can construct canonical bijections from any arbitrary set to an antichain of ordinals, and consequently any subset of the given set can be defined using ordinals as parameters. This implies the surprising result that in the theory ``$\mathrm{IKP} + {}$there exist two incomparable ordinals'', the statements $\Ord \subseteq L$ and $V = L$ are equivalent.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+This paper aims to report on a canonical way of constructing arbitrarily sized antichains of ordinals in intuitionistic set theory, developed during research on the behaviours of G\"odel's constructible universe $L$ in intuitionistic contexts. As surveyed by Lubarsky \cite{lubarsky93-intuitionistic-l} and more recently by Matthews and Rathjen \cite{matthews-rathjen24-constructible-universe}, the situation is much more complicated than the classical case and, notably, it still remains open whether any intuitionistic set theory can prove the statement $\Ord \subseteq L$. In this paper, we present some results about intuitionistic ordinals that will suggest that this may not be as innocent a claim as it seems to be.
+
+In classical set theory, the class $\Ord$ of \emph{ordinals}, i.e.\ transitive sets of transitive sets, satisfies the trichotomy
+\[\forall \alpha, \beta \in \Ord \left(\alpha \in \beta \lor \alpha = \beta \lor \beta \in \alpha\right).\]
+However, the same is not true in intuitionistic set theory. For example, if $\varphi$ is a formula such that the instance of excluded middle $\varphi \lor \neg \varphi$ does not hold, then none of the three disjuncts above can hold for the assignment $\alpha \colonequals 1$, $\beta \colonequals \left\{x \in 1 : \varphi\right\}$.
+
+Given a more specific model of intuitionistic set theory, we can often find stronger counter-examples where the negation of the disjunction can be demonstrated. For example, in \cite{rathjen06-czf-realizability}, Rathjen introduced the realisability model $V\mleft(\mathcal{A}\mright)$ over any partial combinatory algebra $\mathcal{A}$ and verified that $\mathrm{CZF} \vdash V\mleft(\mathcal{A}\mright) \vDash \mathrm{CZF}$. Using notations in that paper, we take
+\[\alpha = \left\{\tuple{0, \varnothing}, \tuple{1, \left\{\tuple{0, \varnothing}\right\}}\right\}, \quad \beta = \left\{\tuple{0, \varnothing}, \tuple{0, \left\{\tuple{0, \varnothing}\right\}}\right\},\]
+then one can prove
+\begin{proposition}
+  $\mathrm{CZF} \vdash V\mleft(\mathcal{A}\mright) \vDash \alpha, \beta \in \Ord \land \neg \alpha \in \beta \land \neg \alpha = \beta \land \neg \beta \in \alpha$.
+\end{proposition}
+
+\begin{proof}
+  For a name $x \in V\mleft(\mathcal{A}\mright)$, the realisability model reads its elements $\tuple{n, y} \in x$ as informally expressing ``$n$ is a witness for the fact that $y$ is an element inside $x$''. In this way, $V\mleft(\mathcal{A}\mright)$ will see $\alpha$ as the classical ordinal $2$, whereas $\beta$ is a different ordinal because the witness cannot be used to distinguish the two elements inside, i.e.\
+  \[V\mleft(\mathcal{A}\mright) \nvDash \forall x \in \beta \left(x = 0 \lor x = 1\right),\]
+  since the ``correct side'' of the disjunction cannot be computed from the witness alone. This is the intuition behind the construction.
+
+  To prove the claim formally, we use the application terms defined in \cite{rathjen06-czf-realizability} and let
+  \[\boldsymbol{m}_0 \colonequals \boldsymbol{p}\mleft(\lambda ab \cdot \boldsymbol{p}b\boldsymbol{i}_r\mright)\mleft(\lambda abc \cdot \boldsymbol{p}c\boldsymbol{i}_r\mright),\]
+  then conveniently we have both $\boldsymbol{m}_0 \Vdash \alpha \in \Ord$ and $\boldsymbol{m}_0 \Vdash \beta \in \Ord$.
+
+  Essentially, the only elements inside $\alpha$ and $\beta$ are both $\varnothing$ and $\left\{\tuple{0, \varnothing}\right\}$, so trivially none of the elements can be equal to $\alpha$ or $\beta$, in other words $V\mleft(\mathcal{A}\mright) \vDash \neg \alpha \in \beta \land \neg \beta \in \alpha$. Now, $V\mleft(\mathcal{A}\mright)$ also does not think that $\alpha$ and $\beta$ are equal, because if some $e \Vdash \alpha = \beta$, then $\boldsymbol{p}_1 e \Vdash \beta \subseteq \alpha$, i.e.\ explicitly we must have some $\tuple{n_1, x_1}, \tuple{n_2, x_2} \in \alpha$ such that both
+  \begin{align*}
+    \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = n_1 \land {} & \boldsymbol{p}_1 \mleft(\boldsymbol{p}_1 e 0\mright) \Vdash \varnothing = x_1,                          \\
+    \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = n_2 \land {} & \boldsymbol{p}_1 \mleft(\boldsymbol{p}_1 e 0\mright) \Vdash \left\{\tuple{0, \varnothing}\right\} = x_2
+  \end{align*}
+  hold. However, the only reasonable choice is then $n_1 = 0$, $n_2 = 1$, which implies $0 = \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = 1$, a contradiction. Therefore, no such realiser $e$ can exist and thus $V\mleft(\mathcal{A}\mright) \vDash \neg \alpha = \beta$.
+\end{proof}
+
+Hence, the negation of the above trichotomy is indeed consistent with intuitionistic set theory. We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when this negation holds, or more concisely written as
+\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
+In this paper, we shall show that incomparable ordinals are highly pathological objects, because from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
+
+Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in G\"odel's constructible universe $L$. We shall utilise this encoding to prove the following surprising result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
+
+\begin{theorem}[$\mathrm{IKP}$]
+  Assume there exist $\alpha \perp \beta \in \Ord$, then the following are equivalent:
+  \begin{itemize}
+    \item $\Ord \subseteq L$,
+    \item $V = L$.
+  \end{itemize}
+\end{theorem}
+
+\section{Constructing antichains}
+
+A very weak intuitionistic set theory, $\mathrm{IKP}$, suffices for our construction, which means the same results easily apply to any stronger extensions such as $\mathrm{CZF}$ or $\mathrm{IZF}$.  Essentially, the construction uses the fact that $\mathrm{IKP}$ proves $\Sigma$-recursion and also separation by any $\Delta_0$-formula containing $\Sigma$-function symbols. We also assume that $\mathrm{IKP}$ here includes the axiom of strong infinity, which is needed for the existence of transitive closures that will become convenient later.
+
+Like in a classical set theory, we say that a set $\alpha$ is an \emph{ordinal} if it is a transitive set of transitive sets; the class of all ordinals is denoted $\Ord$. For any $\alpha \in \Ord$, we define its \emph{successor} as
+\[\alpha^+ \colonequals \alpha \cup \left\{\alpha\right\} \in \Ord.\]
+We cannot intuitionistically classify all ordinals into the cases of zero, successors and limits. Thus, to obtain the addition operator $\alpha + \cdot : \Ord \rightarrow \Ord$, we need to modify the recursive definition to use a uniform clause. We let
+\[\alpha + \beta = \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha + \gamma\right)^+,\]
+which is common practice in intuitionistic set theory such as in \cite{aczel-rathjen10-cst-book}.
+
+To begin, we shall verify that a few basic classical properties of ordinal addition still hold in intuitionistic set theory. $\mathrm{IKP}$ uses the weaker axiom of set induction instead of foundation, but it still forbids self-containing sets:
+
+\begin{lemma}
+  \label{lem:no-in-self}
+  There is no set $x$ such that $x \in x$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that such an element $x$ exists. Observe that for any set $y$, $y = x$ implies $x \in y$, i.e.\ $\exists z \in y \ z = x$. Thus, $\forall z \in y \ \neg z = x$ implies $\neg y = x$. By set induction, we must have $\forall y \ \neg y = x$, which is a contradiction.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:ord-plus-not-in-original}
+  For any $\alpha, \beta \in \Ord$, we have $\neg \alpha + \beta \in \alpha$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $\alpha + \beta \in \alpha$, then $\alpha + \beta \in \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha + \gamma\right)^+ = \alpha + \beta$, contradicting \autoref{lem:no-in-self}.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:ord-plus-inj}
+  For any $\alpha, \beta, \gamma \in \Ord$, we have $\alpha + \beta \in \alpha + \gamma \rightarrow \beta \in \gamma$ and $\alpha + \beta = \alpha + \gamma \rightarrow \beta = \gamma$.
+\end{lemma}
+
+\begin{proof}
+  We prove the conjunction of the two desired properties by simultaneous set induction on the parameters $\beta$ and $\gamma$. First suppose that
+  \[\alpha + \beta \in \alpha + \gamma = \alpha \cup \bigcup_{\delta \in \gamma} \left(\alpha + \delta\right)^+.\]
+  By \autoref{lem:ord-plus-not-in-original}, $\neg \alpha + \beta \in \alpha$, thus we must have $\alpha + \beta \in \left(\alpha + \delta\right)^+$ for some $\delta \in \gamma$, i.e.\ $\alpha + \beta \in \alpha + \delta \lor \alpha + \beta = \alpha + \delta$. We thus must have $\beta \in \delta \lor \beta = \delta$ by the inductive hypothesis and thus $\beta \in \gamma$ either way.
+
+  On the other hand, suppose that $\alpha + \beta = \alpha + \gamma$, then
+  \[\alpha + \delta \in \left(\alpha + \delta\right)^+ \subseteq \alpha + \beta = \alpha + \gamma\]
+  for any $\delta \in \beta$. By the inductive hypothesis, we have $\delta \in \gamma$ for any $\delta \in \beta$, i.e.\ $\beta \subseteq \gamma$. An entirely symmetrical argument shows that $\gamma \subseteq \beta$ as well, hence $\beta = \gamma$ as desired.
+\end{proof}
+
+Recall from introduction that incomparability is defined as
+\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
+We check that this is preserved by carefully constructed sums:
+
+\begin{lemma}
+  \label{lem:perp-plus-still-perp}
+  When $\alpha \perp \beta \in \Ord$, for any $\gamma \in \Ord$, also $\alpha \perp \beta^+ + \gamma$.
+\end{lemma}
+
+\begin{proof}
+  Firstly, suppose that $\beta^+ + \gamma \in \alpha^+$. Then $\beta \in \beta^+ + \gamma \subseteq \alpha$, contradicting our assumption that $\alpha \perp \beta$. Observe that this already implies $\neg \alpha = \beta^+ + \gamma$ for any $\gamma \in \Ord$.
+
+  It suffices to further show by set induction on $\gamma$ that $\neg \alpha \in \beta^+ + \gamma$. Suppose that $\alpha \in \beta^+ + \gamma$ yet $\neg \alpha \in \beta^+ + \delta$ for every $\delta \in \gamma$. Since also $\neg \alpha = \beta^+ + \delta$, i.e.\ we have $\neg \alpha \in \left(\beta^+ + \delta\right)^+$, thus we must have $\alpha \in \beta^+$. This again contradicts $\alpha \perp \beta$.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:ord-pair}
+  When $\alpha \perp \beta \in \Ord$, for any $\gamma_1, \gamma_2, \delta_1, \delta_2 \in \Ord$, we have
+  \[\left(\alpha^+ + \gamma_1\right) \cup \left(\beta^+ + \gamma_2\right) = \left(\alpha^+ + \delta_1\right) \cup \left(\beta^+ + \delta_2\right) \rightarrow \gamma_1 = \delta_1 \land \gamma_2 = \delta_2.\]
+\end{corollary}
+
+\begin{proof}
+  Assume $\left(\alpha^+ + \gamma_1\right) \cup \left(\beta^+ + \gamma_2\right) = \left(\alpha^+ + \delta_1\right) \cup \left(\beta^+ + \delta\right)$. For any $\eta \in \gamma_1$, we have $\alpha^+ + \eta \in \alpha^+ + \gamma_1 \subseteq \left(\alpha^+ + \delta_1\right) \cup \left(\beta^+ + \delta_2\right)$. Suppose that $\alpha^+ + \eta \in \beta^+ + \delta_2$, then $\alpha \in \beta^+ + \delta_2$ by transitivity, and this contradicts \autoref{lem:perp-plus-still-perp}. This means we must have $\alpha^+ + \eta \in \alpha^+ + \delta_1$ and thus $\eta \in \delta_1$ by \autoref{lem:ord-plus-inj}, i.e.\ $\gamma_1 \subseteq \delta_1$. Entirely symmetrical arguments show that $\delta_1 \subseteq \gamma_1$, $\gamma_2 \subseteq \delta_2$ and $\delta_2 \subseteq \gamma_2$ as well, hence $\gamma_1 = \delta_1$ and $\gamma_2 = \delta_2$ as desired.
+\end{proof}
+
+Before proceeding to treat antichains, we observe that the classical way to defines this notion, i.e.
+\[\forall a, b \in \dom\mleft(f\mright) \left(a \neq b \leftrightarrow f\mleft(a\mright) \perp f\mleft(b\mright)\right),\]
+is intuitionistically ``weak'' because the both sides of the biconditional consist of negated formulae, so we cannot derive positive statements like $a = b$ when we need them since intuitionistic logic lacks double-negation elimination. We will alternatively consider the formula
+\[\Theta\mleft(a, a', b, b'\mright) \colonequals \neg a' \in b' \land \neg b' \in a' \land \left(a' = b' \leftrightarrow a = b\right).\]
+$\Theta\mleft(a, f\mleft(a\mright), b, f\mleft(b\mright)\mright)$ is then classical equivalent to the biconditional above but intuitionistically stronger. Let $x$ be any set, we say that a function $f : x \rightarrow \Ord$ is \emph{pairwise incomparable} if $\forall y, z \in x \ \Theta\mleft(y, f\mleft(y\mright), z, f\mleft(z\mright)\mright)$.
+
+\begin{proposition}
+  \label{prop:perp-ineq-to-perp}
+  When $\alpha \perp \beta \in \Ord$, for any $\gamma, \delta \in \Ord$, we have
+  \[\Theta\mleft(\gamma, \alpha^+ \cup \left(\beta^+ + \gamma\right), \delta, \alpha^+ \cup \left(\beta^+ + \delta\right)\mright).\]
+\end{proposition}
+
+\begin{proof}
+  First suppose that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$. Notice that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+$ implies $\alpha \in \alpha^+ \cup \left(\beta^+ + \gamma\right) \subseteq \alpha$, contradicting \autoref{lem:no-in-self}, thus we must have $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \beta^+ + \delta$ instead. However, by \autoref{lem:perp-plus-still-perp}, we have $\neg \alpha \in \beta^+ + \delta$ and hence another contradiction. In other words, we have $\neg \alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$ and by a symmetrical argument, $\neg \alpha^+ \cup \left(\beta^+ + \delta\right) \in \alpha^+ \cup \left(\beta^+ + \gamma\right)$ as well.
+
+  Now, it remains to show that
+  \[\alpha^+ \cup \left(\beta^+ + \gamma\right) = \alpha^+ \cup \left(\beta^+ + \delta\right) \rightarrow \gamma = \delta.\]
+  This is simply an instance of \autoref{cor:ord-pair} where $\gamma_1 = \delta_1 = \varnothing$.
+\end{proof}
+
+Immediately, given fixed $\alpha \perp \beta \in \Ord$, if any function $f : x \rightarrow \Ord$ is injective, i.e.\ satisfying $\forall y, z \in x \left(f\mleft(y\mright) = f\mleft(z\mright) \rightarrow y = z\right)$, we can construct $f^\perp : x \rightarrow \Ord$ as
+\[y \mapsto \alpha ^+ \cup \left(\beta^+ + f\mleft(y\mright)\right).\]
+Then by \autoref{prop:perp-ineq-to-perp}, $f^\perp$ is pairwise incomparable.
+
+\begin{proposition}
+  \label{prop:pairwise-perp-powerset-ord}
+  Let $x$ be any set and $f : x \rightarrow \Ord$ be pairwise incomparable. Then for any $y \subseteq x$,
+  \[\forall z \in x \left(z \in y \leftrightarrow f\mleft(z\mright) \in \bigcup_{t \in y} f\mleft(t\mright)^+\right).\]
+\end{proposition}
+
+\begin{proof}
+  The forward direction is trivial. For the backward direction, suppose that $f\mleft(z\mright) \in \bigcup_{t \in y} f\mleft(t\mright)^+$, i.e.\ $f\mleft(z\mright) \in f\mleft(t\mright)^+$ for some $t \in y$. From the pairwise incomparability condition, we know that $\neg f\mleft(z\mright) \in f\mleft(t\mright)$, so we must have $f\mleft(z\mright) = f\mleft(t\mright)$, which immediately implies $z = t \in y$.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:perp-to-pow}
+  Fix $\alpha \perp \beta \in \Ord$. Let $x$ be any set and $f : x \rightarrow \Ord$ be pairwise incomparable. Then for any set\footnote{We work in $\mathrm{IKP}$ which does not assert the axiom of powerset, thus the notation $\mathcal{P}\mleft(x\mright)$ will be treated as a $\Delta_0$-class (which may not be a set) in our context.} $y \subseteq \mathcal{P}\mleft(x\mright)$, there exists $g : y \rightarrow \Ord$ that is also pairwise incomparable.
+\end{corollary}
+
+\begin{proof}
+  We define $h : y \rightarrow \Ord$ as $z \mapsto \bigcup_{t \in z} f\mleft(t\mright)^+$. Then by \autoref{prop:pairwise-perp-powerset-ord},
+  \[\forall r, s \in y \left(h\mleft(r\mright) = h\mleft(s\mright) \rightarrow \forall t \left(t \in r \leftrightarrow t \in s\right)\right),\]
+  i.e.\ $h$ is injective. Therefore, $g = h^\perp$ is pairwise incomparable.
+\end{proof}
+
+Additionally, observe that \autoref{cor:ord-pair} is essentially a method to represent pairs of ordinals as single ordinals. Using this we can merge ordinal-indexed families of pairwise incomparable functions:
+
+\begin{proposition}
+  \label{prop:perp-to-ord-seq-union}
+  Fix $\alpha \perp \beta \in \Ord$. Consider some set $s \subseteq \Ord$ and a function $a$ with domain $s$. For any function $f$ with domain $s$ such that $f\mleft(\gamma\mright) : a\mleft(\gamma\mright) \rightarrow \Ord$ is a pairwise incomparable function for each $\gamma \in s$, then there exists $g : \bigcup_{\gamma \in s} a\mleft(\gamma\mright) \rightarrow \Ord$ that is also pairwise incomparable.
+\end{proposition}
+
+\begin{proof}
+  Consider the set of pairs
+  \[b = \left\{\tuple{\gamma, x} : \gamma \in s \land x \in a\mleft(\gamma\mright)\right\}.\]
+  We define $\tilde{f} : b \rightarrow \Ord$ as $\tuple{\gamma, x} \mapsto \left(\alpha^+ + \gamma\right) \cup \left(\beta^+ + f\mleft(\gamma\mright)\mleft(x\mright)\right)$. By \autoref{cor:ord-pair} and the fact that each $f\mleft(\gamma\mright)$ is pairwise incomparable,
+  \[\tilde{f}\mleft(\tuple{\gamma, x}\mright) = \tilde{f}\mleft(\tuple{\delta, y}\mright) \rightarrow \gamma = \delta \land x = y\]
+  for any $\tuple{\gamma, x}, \tuple{\delta, y} \in b$, so $\tilde{f}^\perp$ is pairwise incomparable. Now, the set
+  \[c = \left\{b_x : x \in \bigcup_{\gamma \in s} a\mleft(\gamma\mright)\right\},\]
+  where $b_x = \left\{t \in b : \exists \gamma \in s \ t = \tuple{\gamma, x}\right\}$, exists by $\Delta_0$-replacement. Also $c \subseteq \mathcal{P}\mleft(b\mright)$, so by \autoref{cor:perp-to-pow}, there is $h : c \rightarrow \Ord$ that is pairwise incomparable.
+
+  We now construct $g : \bigcup_{\gamma \in s} a\mleft(\gamma\mright) \rightarrow \Ord$ as $x \mapsto h\mleft(b_x\mright)$. It suffices to verify $\forall x, y \in \bigcup_{\gamma \in s} a\mleft(\gamma\mright) \left(g\mleft(x\mright) = g\mleft(y\mright) \rightarrow x = y\right)$. We know that $g\mleft(x\mright) = g\mleft(y\mright)$ implies $b_x = b_y$, but we also know that there exists $\gamma \in s$ such that $x \in a\mleft(\gamma\mright)$. This means $\tuple{\gamma, x} \in b_x = b_y$, i.e.\ there exists $\delta \in s$ such that $\tuple{\gamma, x} = \tuple{\delta, y}$. It follows immediately that $x = y$.
+\end{proof}
+
+Finally, fix any set $x$ and its transitive closure can be given as
+\[\tc{x} = \left\{x\right\} \cup x \cup \bigcup x \cup \bigcup \bigcup x \cup \cdots\]
+by recursion on $\omega$. We will construct a pairwise incomparable function with domain $\tc{x}$ canonically.
+
+To this end, we shall divide the transitive closure into a hierarchy
+\[\tc{x}_\alpha = \left\{y \in \tc{x} : \exists \beta \in \alpha \ y \subseteq \tc{x}_\beta\right\}.\]
+The following lemma immediately shows that $\tc{x} = \bigcup_{\alpha \in \Ord} \tc{x}_\alpha$:
+
+\begin{lemma}
+  \label{lem:tc-hier-contains-all}
+  For any set $x$ and any $y \in \tc{x}$, there exists $\alpha \in \Ord$ such that $y \subseteq \tc{x}_\alpha$, i.e.\ $y \in \tc{x}_{\alpha^+}$.
+\end{lemma}
+
+\begin{proof}
+  We prove this by set induction on $y$. Assume $y \in \tc{x}$ and suppose that
+  \[\forall z \in y \ \left(z \in \tc{x} \rightarrow \exists \alpha \in \Ord \ z \subseteq \tc{x}_\alpha\right).\]
+  By transitivity $y \subseteq \tc{x}$, thus by strong $\Sigma$-collection we have a set $s \subseteq \Ord$ such that $\forall z \in y \ \exists \alpha \in s \ z \subseteq \tc{x}_\alpha$. Take $\beta = \bigcup_{\alpha \in s} \alpha^+$, then $s \subseteq \beta$ and hence $y \subseteq \tc{x}_\beta$.
+\end{proof}
+
+It is easy to verify that $\forall \alpha, \beta \in \Ord \left(\alpha \subseteq \beta \rightarrow \tc{x}_\alpha \subseteq \tc{x}_\beta\right)$, thus
+\[\tc{x}_{\alpha^+} = \tc{x} \cap \mathcal{P}\mleft(\tc{x}_\alpha\mright),\]
+and hence also $\forall \alpha \in \Ord \ \tc{x}_\alpha = \bigcup_{\beta \in \alpha} \tc{x}_{\beta^+}$.
+
+Observe that in the proofs of both \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union}, we gave explicit constructions of the desired $g$ from $f$, and it is not hard to verify that the described functions can be uniquely defined from $f$ using a $\Sigma$-formula. Fix $\alpha \perp \beta \in \Ord$ and we can iterate the following process: given a family $\left(f_\delta\right)_{\delta \in \gamma}$ where each $f_\delta : \tc{x}_\delta \rightarrow \Ord$ is a pairwise incomparable function, then we collect the family $\left(g_\delta\right)_{\delta \in \gamma}$ of functions $g_\delta : \tc{x}_{\delta^+} \rightarrow \Ord$ by \autoref{cor:perp-to-pow} through $\Sigma$-replacement and thus get a pairwise incomparable function $f_\gamma : \tc{x}_\gamma \rightarrow \Ord$ by \autoref{prop:perp-to-ord-seq-union}. By $\Sigma$-recursion, we then have a $\Sigma$-definable class-family $\left(f_{x, \gamma}\right)_{\gamma \in \Ord}$ where each $f_{x, \gamma} : \tc{x}_\gamma \rightarrow \Ord$ is pairwise incomparable.
+
+Additionally, by \autoref{lem:tc-hier-contains-all}, there must exist some $\gamma \in \Ord$ such that $x \in \tc{x}_\gamma$. Since it is easy to verify that each $\tc{x}_\alpha$ is transitive, we must have
+\[x \subseteq \tc{x} = \tc{x}_\gamma.\]
+Consequently, $f_{x, \gamma}$ is a pairwise incomparable function with domain $\tc{x}$, and its restriction $\left.f_{x, \gamma}\right|_x$ will immediately provide a bijection between $x$ and an antichain of ordinals, as claimed in the introduction. This function will be $\Sigma$-definable using the incomparable ordinals $\alpha \perp \beta \in \Ord$, the domain $x$ and an arbitrary (large enough) ordinal $\gamma$ as parameters.
+
+\section{The case inside \texorpdfstring{$L$}{L}}
+
+G\"odel's constructible universe $L$ can be defined\footnote{We always assume that $\mathrm{IKP}$ contains the axiom of infinity, so we do not need to worry about working with countable sets of formulae or recursion on $\omega$. For a more intricate treatment of $L$ that is still viable without the axiom of infinity, refer to section 4--5 of \cite{matthews-rathjen24-constructible-universe}.} in $\mathrm{IKP}$ in the usual way, by formalising the construction of $\dd\mleft(A\mright)$, the collection of first-order definable subsets (with parameters) of $\tuple{A; \in}$. We can then let
+\[L_\alpha = \bigcup_{\beta \in \alpha} \dd\mleft(L_\beta\mright)\]
+for all $\alpha \in \Ord$ recursively and finally $L = \bigcup_{\alpha \in \Ord} L_\alpha$.
+
+As mentioned, basic properties of $L$ in an intuitionistic set theory were treated by Lubarsky \cite{lubarsky93-intuitionistic-l} and more recently by Matthews and Rathjen \cite{matthews-rathjen24-constructible-universe}. Notably, in order to prove the main result of this paper, we will use Theorem 5.7 in \cite{matthews-rathjen24-constructible-universe} that
+
+\begin{fact}
+  For every axiom $\varphi$ of $\mathrm{IKP}$, $\mathrm{IKP} \vdash L \vDash \varphi$.
+\end{fact}
+
+This means, starting with two incomparable ordinals $\alpha \perp \beta$ that are already in $L$, the construction of the functions $f_{x, \gamma}$ above can be replicated in $L$. Since the functions are defined by a $\Sigma$-formula, which is upwards absolute, we immediately know that
+\[\forall x \in L \ \forall \gamma \in L \cap \Ord \ f_{x, \gamma}^L = f_{x, \gamma}.\]
+
+We need to verify an additional lemma, that each specific value $f_{x, \gamma}\mleft(y\mright)$ of the function does not actually depend on $x$:
+
+\begin{lemma}
+  \label{lem:tc-hier-and-f-agree}
+  Fix $\alpha \perp \beta \in \Ord$. For any set $x$, any $y \in \tc{x}$ and any $\gamma \in \Ord$, $y \in \tc{x}_\gamma$ if and only if $y \in \tc{y}_\gamma$, and we also have $f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright)$ when this holds.
+\end{lemma}
+
+\begin{proof}
+  Observe that $\tc{y}_\gamma \subseteq \tc{x}_\gamma$ follows easily from $\tc{y} \subseteq \tc{x}$ by induction on $\gamma$. For the other direction, we prove by set induction on $y$. Assume $y \in \tc{x}_\gamma$, then there exists $\delta \in \gamma$ such that $y \subseteq \tc{x}_\delta$, but then the inductive hypothesis implies that
+  \[y \subseteq \bigcup_{z \in y} \tc{z}_\delta \subseteq \tc{y}_\delta\]
+  as well.
+
+  Additionally, it is easy to check with the constructions in \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union} that the values of $f_{x, \gamma}\mleft(y\mright)$ and $f_{y, \gamma}\mleft(y\mright)$ only depend on the values of $f_{x, \delta}\mleft(z\mright)$ and $f_{y, \delta}\mleft(z\mright)$ respectively for any $\delta \in \gamma$ and $z \in y$ such that $z \in \tc{x}_\delta$. Again in an induction on $y$, the inductive hypothesis implies that for such $\delta$ and $z$ we always have
+  \[f_{x, \delta}\mleft(z\mright) = f_{z, \delta}\mleft(z\mright) = f_{y, \delta}\mleft(z\mright),\]
+  thus $f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright)$ as well.
+\end{proof}
+
+In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ and the ordinal parameters $\alpha, \beta, \gamma$ alone. We can finally prove the main result from the introduction:
+
+\setcounter{theorem}{1}
+\begin{theorem}
+  Assume there exist $\alpha \perp \beta \in \Ord$, then the following are equivalent:
+  \begin{itemize}
+    \item $\Ord \subseteq L$,
+    \item $V = L$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  The backward direction is trivial. For the forward direction, we use set induction on $x$ to show that $\forall x \ x \in L$.
+
+  From the inductive hypothesis, we will know that $x \subseteq L$, so by strong $\Sigma$-collection we have a set $s \subseteq \Ord$ such that $\forall y \in x \ \exists \gamma \in s \ y \in L_\gamma$. Take $\sigma = \bigcup_{\gamma \in s} \gamma$, then $x \subseteq L_\sigma$.
+
+  Now, by \autoref{lem:tc-hier-contains-all}, there is some $\gamma \in \Ord$ such that $x \in \tc{x}_{\gamma^+}$. For any $y \in x$, we then know from \autoref{lem:tc-hier-and-f-agree} that $y \in \tc{y}_\gamma$ and
+  \[f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright) = f_{y, \gamma}^L\mleft(y\mright).\]
+  We can now consider the set
+  \[z = \left\{t \in L_\sigma : t \in \tc{t}_\gamma \land f_{t, \gamma}^L\mleft(t\mright) \in \tau\right\}\]
+  where $\tau = \bigcup_{y \in x} f_{y, \gamma}\mleft(y\mright)^+$ is an ordinal. Assuming that all ordinals are in $L$, then by $\Delta_0$-separation, $z \in L$.
+
+  It is immediate that $x \subseteq z$. For any $t \in z$, there must exist some $y \in x$ such that $f_{t, \gamma}\mleft(t\mright) \in f_{y, \gamma}\mleft(y\mright)^+$. Consider the set $p = \left\{t, y\right\}$ then we have $t, y \in \tc{p}_\gamma$ by \autoref{lem:tc-hier-and-f-agree} and
+  \[f_{p, \gamma}\mleft(t\mright) = f_{t, \gamma}\mleft(t\mright) \in f_{y, \gamma}\mleft(y\mright)^+ = \bigcup_{s \in \left\{y\right\}} f_{p, \gamma}\mleft(s\mright)^+.\]
+  Here $f_{p, \gamma} : \tc{p}_\gamma \rightarrow \Ord$ is pairwise incomparable and by \autoref{prop:pairwise-perp-powerset-ord}, this implies $t \in \left\{y\right\}$, i.e.\ $t = y \in x$. It follows that $x = z \in L$ as desired.
+\end{proof}
+
+\bibliographystyle{asl}
+\bibliography{\jobname}
+
+\end{document}
