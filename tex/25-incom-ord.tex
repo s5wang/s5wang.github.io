@@ -92,17 +92,20 @@ then one can prove
 
 Hence, the negation of the above trichotomy is indeed consistent with intuitionistic set theory. We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when this negation holds, or more concisely written as
 \[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
-In this paper, we shall show that incomparable ordinals are highly pathological objects, because from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
+In this paper, we shall show that incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
 
-Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in G\"odel's constructible universe $L$. We shall utilise this encoding to prove the following surprising result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
+Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in the constructible universe. We shall utilise this encoding to prove the following result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
 
 \begin{theorem}[$\mathrm{IKP}$]
+  \label{thm:main-equiv}
   Assume there exist $\alpha \perp \beta \in \Ord$, then the following are equivalent:
   \begin{itemize}
     \item $\Ord \subseteq L$,
     \item $V = L$.
   \end{itemize}
 \end{theorem}
+
+One immediate consequence of this, as we shall comment at the end, is that the existence of any non-classical model of $\mathrm{IZF} + V \neq L$ will imply $\mathrm{IZF} \nvdash \Ord \subseteq L$, and will resolve the long-standing open problem mentioned above.
 
 \section{Constructing antichains}
 
@@ -301,6 +304,7 @@ We need to verify an additional lemma, that each specific value $f_{x, \gamma}\m
 
 In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ and the ordinal parameters $\alpha, \beta, \gamma$ alone. We can finally prove the main result from the introduction:
 
+\edef\thmtmp{\thetheorem}
 \setcounter{theorem}{1}
 \begin{theorem}
   Assume there exist $\alpha \perp \beta \in \Ord$, then the following are equivalent:
@@ -309,6 +313,7 @@ In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ a
     \item $V = L$.
   \end{itemize}
 \end{theorem}
+\setcounter{theorem}{\thmtmp}
 
 \begin{proof}
   The backward direction is trivial. For the forward direction, we use set induction on $x$ to show that $\forall x \ x \in L$.
@@ -325,6 +330,30 @@ In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ a
   \[f_{p, \gamma}\mleft(t\mright) = f_{t, \gamma}\mleft(t\mright) \in f_{y, \gamma}\mleft(y\mright)^+ = \bigcup_{s \in \left\{y\right\}} f_{p, \gamma}\mleft(s\mright)^+.\]
   Here $f_{p, \gamma} : \tc{p}_\gamma \rightarrow \Ord$ is pairwise incomparable and by \autoref{prop:pairwise-perp-powerset-ord}, this implies $t \in \left\{y\right\}$, i.e.\ $t = y \in x$. It follows that $x = z \in L$ as desired.
 \end{proof}
+
+\section{A final remark}
+
+Let $\mathrm{IZF}$ denote the intuitionistic theory with the same axioms as $\mathrm{ZF}$ except the axiom of set induction is substituted for foundation. We shall conclude by showing that \autoref{thm:main-equiv} implies finding any non-classical model of $\mathrm{IZF} + V \neq L$ would immediate disprove $\mathrm{IZF} \vdash \Ord \subseteq L$. More precisely,
+
+\begin{corollary}
+  Let $\varphi$ be any formula such that $\mathrm{ZF} \vdash \neg \varphi$, if $\mathrm{IZF} + V \neq L + \varphi$ is consistent, then $\mathrm{IZF} \nvdash \Ord \subseteq L$.
+\end{corollary}
+
+\begin{proof}
+  We assume that $\mathrm{IZF} \vdash \Ord \subseteq L$. Let $T$ denote the theory $\mathrm{IZF} + V \neq L + \varphi$. For an arbitrary formula $\psi\mleft(x_1, \ldots, x_n\mright)$ with all free variables listed, we can consider the set
+  \[\alpha_\psi = 2 \cup \left\{\beta \in \mathcal{P}\mleft(1\mright) : \exists x_1, \ldots, x_n \left(0 \in \beta \leftrightarrow \psi\mleft(x_1, \ldots, x_n\mright)\right)\right\}\]
+  then
+  \begin{align*}
+    \mathrm{IZF} \vdash {} & \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi                                                                                                       \\
+                           & \quad {} \land \left(\alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)\right).
+  \end{align*}
+  In other words, $\neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)$ implies $\alpha_\psi \perp 2$ and thus, by \autoref{thm:main-equiv}, $\mathrm{IZF} + \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right) \vdash V = L$, i.e.\
+  \[T \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
+
+  Using the fact that $\mathrm{ZF} = \mathrm{IZF} + \mathrm{EM}$ as an intuitionistic theory, we can say that the double negation of every axiom of $\mathrm{ZF}$ holds in $T$. Thus, $T$ must also prove the double negation of every theorem of $\mathrm{ZF}$; more specifically, $T \vdash \neg \neg \neg \varphi$. Since intuitionistic logic admits triple-negation elimination, it follows that $T \vdash \neg \varphi$ and thus the inconsistency of $T$. Therefore, by contradiction, we must have $\mathrm{IZF} \nvdash \Ord \subseteq L$.
+\end{proof}
+
+Unfortunately, no such consistency results have been known, and we hope that further research will be able to close the problem regarding $\Ord \subseteq L$ in intuitionistic set theories in this direction.
 
 \bibliographystyle{asl}
 \bibliography{\jobname}
