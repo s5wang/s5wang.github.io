@@ -1,0 +1,26 @@
+\documentclass{llncs}
+
+\usepackage{amsmath,amssymb,mleftright}
+
+\newcommand{\CZF}{\mathrm{CZF}}
+\newcommand{\KPP}{\mathrm{KP}\mleft(\mathcal{P}\mright)}
+\newcommand{\MLV}{\mathrm{ML}_1\mathrm{V}}
+
+\title{Analysing G\"odel's $L$ in Realisability Models of $\CZF$}
+\author{Shuwei Wang\inst{1}\orcidID{0000-0001-7470-8018}}
+\institute{University of Leeds, England, UK}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  In this talk, I wish to present a survey of some recent developments on the properties of G\"odel's constructible universe $L$ in the intuitionistic theory $\CZF$. Here, $L$ can be defined in the same way as the classical counterpart but its structure will be much more complicated since, most importantly, intuitionistic set theories do not prove that the ordinals are linearly ordered. The implications of this on $L$ were first discussed by Robert Lubarsky \cite{lubarsky93-intuitionistic-l} and more recently by Matthews and Rathjen \cite{matthews-rathjen24-constructible-universe}.
+
+  In \cite{matthews-rathjen24-constructible-universe}, it is shown that $\CZF$ cannot prove that $L$ itself is a model of $\CZF$ --- specifically, $\CZF$ cannot prove $L \vDash {}$Exponentiation, by reducing the problem through a variant of realisability-with-truth argument to the (non-)provability of the existence of a gap ordinal in $\KPP$. This shared some similarity to the classical proof-theoretic argument in \cite{rathjen20-power-kp-choice} that $\KPP + V = L$ is strictly stronger than $\KPP$ in consistency strength. However, we will explain that the non-linear nature of intuitionistic ordinals means that no similar argument can be made for the consistency strength of $\CZF + V = L$, as we recently showed that, by constructing a non-classical ordinal through recursion-theoretic methods, $\CZF + V = L$ can be realised in the type-theoretic structure $\MLV$ and thus is equi-consistent with $\CZF$.
+\end{abstract}
+
+\bibliographystyle{splncs04}
+\bibliography{\jobname}
+
+\end{document}
