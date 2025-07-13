@@ -1,0 +1,542 @@
+%?deps @bib-commons
+
+\documentclass{beamer}
+\usepackage{amsmath,amssymb,amsthm,bm,bussproofs,hyperref,mathtools,mleftright,xcolor}
+\usepackage[en-GB]{datetime2}
+\usepackage{bib-commons}
+
+\usetheme{Dresden}
+
+\setbeamerfont{institute}{size=\small}
+\addtobeamertemplate{institute}{\vskip-1em}{}
+
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\beamer@compresstrue
+\makeatother
+
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+\newtheorem{oquestion}{Open Question}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\CZF}{\mathrm{CZF}}
+\newcommand{\CZFP}{\CZF\mleft(\mathcal{P}\mright)}
+
+\newcommand{\IKP}{\mathrm{IKP}}
+\newcommand{\IKPP}{\IKP\mleft(\mathcal{P}\mright)}
+
+\newcommand{\Ord}{\mathrm{Ord}}
+
+\title{Analysing G\"odel's \texorpdfstring{$L$}{L} in Realisability Models of \texorpdfstring{$\CZF$}{CZF}}
+\author{Shuwei Wang}
+\institute{University of Leeds}
+\date{{\small Computability in Europe 2025}\\\DTMdate{2025-07-14}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{\texorpdfstring{$\CZF$}{CZF}}
+
+\begin{frame}{Constructive Zermelo--Fraenkel set theory $\CZF$}
+  \nocite{aczel-rathjen10-cst-book}
+
+  \vspace{-2em}
+  \begin{gather*}
+    \text{Extensionality} + \text{Pairing} + \text{Union} + \text{Strong Infinity} + \text{Set Induction} \\
+    {} + \Delta_0\text{-Separation} + \text{Strong Collection} + \text{Subset Collection}
+  \end{gather*}
+
+  \pause
+
+  \only<1-2>{
+    \vspace{1em}
+    \textbf{Set Induction}: $\forall x \left(\forall y \in x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \ \varphi\mleft(x\mright)$
+
+    \vspace{0.6em}
+    \textbf{Strong Collection}: $\forall x \in a \ \exists y \ \varphi\mleft(x, y\mright) \rightarrow {}$ \\
+    \quad $\exists b \left(\forall x \in a \ \exists y \in b \ \varphi\mleft(x, y\mright) \land \forall y \in b \ \exists x \in a \ \varphi\mleft(x, y\mright)\right)$
+  }
+
+  \vspace{0.6em}
+  \textbf{Subset Collection}: $\exists c \ \forall u \left(\forall x \in a \ \exists y \in b \ \varphi\mleft(x, y, u\mright) \rightarrow {}\right.$ \\
+    \quad $\left.\exists d \in c \left(\forall x \in a \ \exists y \in d \ \varphi\mleft(x, y, u\mright) \land \forall y \in d \ \exists x \in a \ \varphi\mleft(x, y, u\mright)\right)\right)$
+
+  \pause
+
+  \only<3>{
+    \vspace{0.6em}
+    \textbf{Exponentiation}: \\
+    \quad $\forall x \ \forall y \ \text{the set $y^x$ of all functions from $x$ to $y$ exists}$
+
+    \begin{proposition}
+      $\text{Powerset} \Rightarrow \text{Subset Collection} \Rightarrow \text{Exponentiation}$.
+    \end{proposition}
+  }
+
+  \vspace{1em}
+  We denote $\CZFP = \CZF + \text{Powerset}$
+\end{frame}
+
+\begin{frame}{Ordinals and $L$}
+  An \emph{ordinal} is a transitive set of transitive sets. For ordinals $\alpha$, we construct the usual hierarchy
+  \[L_\alpha = \bigcup_{\beta \in \alpha} \mathrm{def}\mleft(L_\beta\mright)\]
+  where $\mathrm{def}\mleft(L_\beta\mright)$ is the collection of all first-order definable sets in $\tuple{L_\beta; \in}$ with parameters. Then $L = \bigcup_{\alpha \in \Ord} L_\alpha$.
+
+  \vspace{1em}
+  The intuitionistic $L$ was first treated by Robert Lubarsky \cite{lubarsky93-intuitionistic-l}. Other ways to define $L$ are still intuitionistically equivalent, such as iterating finitely many fundamental operations, as verified recently by Matthews \& Rathjen \cite{matthews-rathjen24-constructible-universe}.
+\end{frame}
+
+\begin{frame}{Intuitionistic ordinals (and $L$)}
+  \begin{proposition}[$\mathrm{ZF}$]
+    If $\alpha \subseteq \beta$ are ordinals, then either $\alpha = \beta$ or $\alpha \in \beta$. Especially, it follows that $\Ord$ is linearly ordered.
+  \end{proposition}
+
+  \vspace{0.6em}
+  The proof of this starts with ``{\usebeamercolor[fg]{frametitle} either $\beta \subseteq \alpha$, or there exists $\gamma \in \beta$ such that $\gamma \not\in \alpha$\textellipsis}'', which is not intuitionistically valid! \pause Likewise, the following corollary only works in classical logic:
+
+  \vspace{0.4em}
+  \begin{corollary}[$\mathrm{ZF}$]
+    If $\alpha$ is an ordinal, then $\alpha = L_\alpha \cap \Ord \in L_{\alpha + 1}$.
+  \end{corollary}
+
+  \vspace{0.6em}
+  It remains \emph{open} whether any intuitionistic set theories suffice to prove $\Ord \subseteq L$!
+\end{frame}
+
+\section{Realisability}
+
+\begin{frame}{Partial combinatory algebras}
+  A \emph{partial combinatory algebra} (PCA) is a set $\mathcal{A}$ with a partial application operation $\mathcal{A} \times \mathcal{A} \rightharpoonup \mathcal{A}$, with two distinguished combinators:
+  \begin{itemize}
+    \item for any $a, b \in \mathcal{A}$, $\mathbf{k}ab {\downarrow}$ and $\mathbf{k}ab = a$;
+    \item for any $a, b, c \in \mathcal{A}$, $\mathbf{s}ab {\downarrow}$ and $\mathbf{s}abc \simeq \mleft(ac\mright)\mleft(bc\mright)$.
+  \end{itemize}
+
+  \only<1>{Here, we say that a (formal) application term $t$ \emph{converges}, denoted $t {\downarrow}$ if all application operations involved are defined, and we write $t \simeq s$ if both converges to the same value, or if both diverges.
+
+    \vspace{0.6em}
+
+    For example, $\mathcal{A} = \mathbb{N}$ where $ab$ evaluates to the result of running the $a^\text{th}$ Turing machine on input $b$ is a PCA.}
+
+  \pause
+
+  \only<2>{
+    \vspace{0.6em}
+    PCAs give one some generalised notion of computation. For example, we have the following basic properties:
+    \begin{itemize}
+      \item When $t$ is a (formal) term containing some variable symbol $x$, then $\lambda x. t$ is also a term in $\mathcal{A}$.
+      \item We have the usual fixed-point combinators in PCAs, so we can define functions by recursion.
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}{Additional structures on PCAs}
+  A \emph{PCA over the natural numbers} is some $\mathcal{A} \supseteq \mathbb{N}$ with:
+  \begin{itemize}
+    \item $\mathbf{s}_N, \mathbf{p}_N \in \mathcal{A}$ such that for any $n \in \mathbb{N}$, $\mathbf{s}_N n {\downarrow} = n + 1$ and $\mathbf{p}_N n {\downarrow} = \max\mleft\{n - 1, 0\mright\}$;
+    \item definition by cases $\mathbf{d} \in \mathcal{A}$, such that for any terms $a, b$ and $c_1, c_2 \in \mathbb{N}$,
+          \[\mathbf{d}abc_1c_2 \simeq \left\{\begin{aligned}
+               & a &  & \text{if } c_1 = c_2, \\
+               & b &  & \text{otherwise}.
+            \end{aligned}\right.\]
+  \end{itemize}
+
+  \pause
+
+  \vspace{0.6em}
+  We also often identify distinguished pairing functions $\mathbf{p}, \mathbf{p}_0, \mathbf{p}_1 \in \mathcal{A}$ in a PCA such that
+  \[\mathbf{p}_0\mleft(\mathbf{p}ab\mright) \simeq a, \qquad \mathbf{p}_1\mleft(\mathbf{p}ab\mright) \simeq b.\]
+\end{frame}
+
+\begin{frame}{Kleene realisability $\CZF \hookrightarrow \CZF$ (Rathjen 2006)}
+  \nocite{rathjen06-czf-realizability}
+
+  Fix a PCA $\mathcal{A}$ (over the natural numbers), the class of names $V\mleft(\mathcal{A}\mright) = \bigcup_{\alpha \in \Ord} V\mleft(\mathcal{A}\mright)_\alpha$ is given by
+  \[V\mleft(\mathcal{A}\mright)_\alpha = \bigcup_{\beta \in \alpha} \mathcal{P}\mleft(\mathcal{A} \times V\mleft(\mathcal{A}\mright)_\beta\mright).\]
+
+  \pause
+
+  Realisability conditions:
+  \begin{align*}
+    e \Vdash a \in b \quad & \Leftrightarrow \quad \exists c \left(\tuple{\mathbf{p}_0e {\downarrow}, c} \in b \land \mathbf{p}_1e \Vdash a = c\right), \\
+    e \Vdash a = b \quad   & \Leftrightarrow \quad \begin{aligned}[t]
+                                                     \forall f, d & \left(\left(\tuple{f, d} \in a \rightarrow \mathbf{p}_0ef \Vdash d \in b\right)\right.           \\
+                                                                  & \left.{} \land \left(\tuple{f, d} \in b \rightarrow \mathbf{p}_1ef \Vdash d \in a\right)\right).
+                                                   \end{aligned}
+  \end{align*}
+
+  \vspace{-1em}
+  \begin{proposition}
+    There is a fixed $\mathbf{i} \in \mathcal{A}$ such that $\mathbf{i} \Vdash a = a$ for all $a \in V\mleft(\mathcal{A}\mright)$.
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Kleene realisability $\CZF \hookrightarrow \CZF$ (Rathjen 2006)}
+  Realisability conditions (continued):
+  \begin{align*}
+    e \Vdash \varphi \land \psi \quad                        & \Leftrightarrow \quad \mathbf{p}_0e \Vdash \varphi \land \mathbf{p}_1e \Vdash \psi,                                                         \\
+    e \Vdash \varphi \lor \psi \quad                         & \Leftrightarrow \quad \begin{aligned}[t]
+                                                                                        & \left(\mathbf{p}_0e {\downarrow} = 0 \land \mathbf{p}_1e \Vdash \varphi\right)       \\
+                                                                                        & {} \lor \left(\mathbf{p}_0e {\downarrow} = 1 \land \mathbf{p}_1e \Vdash \psi\right),
+                                                                                     \end{aligned}                               \\
+    e \Vdash \neg \varphi \quad                              & \Leftrightarrow \quad \forall f \in \mathcal{A} \ f \nVdash \varphi,                                                                        \\
+    e \Vdash \varphi \rightarrow \psi \quad                  & \Leftrightarrow \quad \forall f \in \mathcal{A} \left(f \Vdash \varphi \rightarrow ef \Vdash \psi\right),                                   \\
+    e \Vdash \forall x \in a \ \varphi\mleft(x\mright) \quad & \Leftrightarrow \quad \forall \tuple{f, c} \in a \ ef  \Vdash \varphi\mleft(c\mright),                                                      \\
+    e \Vdash \exists x \in a \ \varphi\mleft(x\mright) \quad & \Leftrightarrow \quad \exists c\left(\tuple{\mathbf{p}_0e {\downarrow}, c} \in a \land \mathbf{p}_1e \Vdash \varphi\mleft(c\mright)\right), \\
+    e \Vdash \forall x \ \varphi\mleft(x\mright) \quad       & \Leftrightarrow \quad \forall c \in V\mleft(\mathcal{A}\mright) \ e \Vdash \varphi\mleft(c\mright),                                         \\
+    e \Vdash \exists x \ \varphi\mleft(x\mright) \quad       & \Leftrightarrow \quad \exists c \in V\mleft(\mathcal{A}\mright) \ e \Vdash \varphi\mleft(c\mright).
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Kleene realisability $\CZF \hookrightarrow \CZF$ (Rathjen 2006)}
+  \begin{theorem}[Rathjen, 2006]
+    $\CZF$ proves that for every theorem $\varphi$ of $\CZF$, there is a realiser $e \in \mathcal{A}$ such that $e \Vdash \varphi$.
+  \end{theorem}
+
+  \pause
+
+  \vspace{1em}
+  \begin{proposition}[W.]
+    There is a realiser $e \in \mathcal{A}$ such that
+    \[e \Vdash \exists \alpha \in \Ord \ \alpha \subsetneq L_\alpha \cap \Ord.\]
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{``Exotic'' ordinals}
+  Here are the usual constructions for $\omega$ in $V\mleft(\mathcal{A}\mright)$:
+  \begin{align*}
+    \overline{n}      & = \left\{\tuple{m, \overline{m}} : m \in n\right\},      \\
+    \overline{\omega} & = \left\{\tuple{n, \overline{n}} : n \in \omega\right\},
+  \end{align*}
+  then some $e \Vdash \text{$\overline{\omega}$ is the smallest inductive set}$.
+
+  \pause
+
+  \vspace{1.6em}
+  If we consider $\overline{2}' = \left\{\tuple{1, \overline{0}}, \tuple{0, \overline{1}}\right\}$, then some $f \Vdash \overline{2} = \overline{2}'$.
+
+  \vspace{0.6em}
+
+  However, any realiser
+  \[g \nVdash \left\{\tuple{1, \overline{2}}, \tuple{1, \overline{2}'}\right\} = \left\{\tuple{1, \overline{2}}\right\},\]
+  so the left-hand side is actually a \emph{proper} superset!
+\end{frame}
+
+\begin{frame}{``Exotic'' ordinals}
+  Here, we will look at
+  \[\overline{3}^* = \left\{\tuple{0, \overline{0}}, \tuple{0, \overline{1}}, \tuple{1, \overline{2}}, \tuple{1, \overline{2}'}\right\}.\]
+  \only<1-2>{We shall sketch a proof that $L_{\overline{3}^*} \cap \Ord \subseteq \overline{3}^*$ is \emph{not} realised!}
+
+  \pause
+
+  \only<2>{
+    \vspace{0.6em}
+    The general idea is that a same realiser realises $\overline{0} \in \overline{2}$ and $\overline{1} \in \overline{2}'$. From this, also a same realiser realises
+    \[\overline{0} = L_{\overline{0}} \cap \Ord \in L_{\overline{2}} \quad \text{and} \quad \overline{1} = L_{\overline{1}} \cap \Ord \in L_{\overline{2}'}.\]
+    Consequently, we have a same realiser for the successors
+    \[\overline{0}^+ \in \mathrm{def}\mleft(L_{\overline{2}}\mright) \subseteq L_{\overline{3}^*} \quad \text{and} \quad \overline{1}^+ \in \mathrm{def}\mleft(L_{\overline{2}'}\mright) \subseteq L_{\overline{3}^*}.\]
+  }
+
+  \pause
+
+  \only<3-4>{However, suppose that $f \Vdash L_{\overline{3}^*} \cap \Ord \subseteq \overline{3}^*$, while $e \Vdash \text{both } \overline{0}^+, \overline{1}^+ \in L_{\overline{3}} \cap \Ord$, then
+    \[0 = \mathbf{p}_0\mleft(f\mleft(\mathbf{p}_0e\mright)\mright) = 1,\]
+    a contradiction.}
+
+  \pause
+
+  \only<3-4>{
+    \vspace{0.6em}
+    In fact, we can realise
+      {\small
+        \begin{align*}
+          \overline{3}^* = & \left\{x \in L_{\overline{3}^*} \cap \Ord : \left(x \subseteq 1 \land \left(\neg \neg 0 \in x \rightarrow 0 \in x\right)\right) \lor {}\right.                  \\
+                           & \quad \left.\left(\neg \neg x = 2 \land \forall y \in x \left(y = 0 \rightarrow 1 \in x\right) \land \exists y, z \in x \left(\neg y = z\right)\right)\right\}.
+        \end{align*}
+      }}
+\end{frame}
+
+\section{Exponentiation}
+
+\begin{frame}{Not an inner model!}
+  A more important recent result proved through a realisability model is
+  \begin{theorem}[Matthews \& Rathjen, 2024]
+    $\CZF \nvdash L \vDash \CZF$.
+  \end{theorem}
+
+  \vspace{0.6em}
+
+  More specifically, it is shown that even $\CZFP$ does not prove that $L$ satisfies the axiom of Exponentiation, a consequence of Subset Collection. Namely, it is shown that
+  \begin{proposition}
+    $\CZFP \nvdash L \vDash \text{the set of all functions from $\omega$ to $\omega$ exists}$.
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{$E_\wp$-recursive functions}
+  We use the definition of a PCA consisting of (class) functions acting on all sets, as given in Rathjen \cite{rathjen12-weak-strong-existence-property}. There we have $\omega$ as a constant and additional distinguished combinators:
+  \begin{align*}
+    \bm{\pi}xy    & \simeq \left\{x, y\right\}, & \bm{\nu}x   & \simeq \bigcup x,                   \\
+    \bm{\gamma}xy & \simeq x \cap \bigcap y,    & \bm{\rho}xy & \simeq \left\{xu : u \in y\right\},
+  \end{align*}
+  \vspace{-2em}
+  \begin{align*}
+    \mathbf{i}_1xyz & \simeq \left\{u \in x : y \in z\right\},                     \\
+    \mathbf{i}_2xyz & \simeq \left\{u \in x : u \in y \rightarrow u \in z\right\}, \\
+    \mathbf{i}_3xyz & \simeq \left\{u \in x : u \in y \rightarrow z \in u\right\}, \\[0.6em]
+    \bm{\wp}x       & \simeq \mathcal{P}\mleft(x\mright).
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Weakened-realisability-with-truth of $\CZFP$}
+  The names for this realisability model are just arbitrary sets themselves.
+
+  \vspace{1em}
+
+  \only<1>{\emph{Weakened} realisability: we are allowed to produce a (non-empty) set of realisers without actually computing a specific inhabitant.
+    \begin{align*}
+      a \Vdash \varphi \lor \psi \quad                         & \Leftrightarrow \quad a \neq \varnothing \land \forall e \in a \begin{aligned}[t]
+                                                                                                                                   & \left(\left(\mathbf{p}_0e {\downarrow} = 0 \land \mathbf{p}_1e \Vdash \varphi\right)\right.       \\
+                                                                                                                                   & \left.{} \lor \left(\mathbf{p}_0e {\downarrow} = 1 \land \mathbf{p}_1e \Vdash \psi\right)\right),
+                                                                                                                                \end{aligned}                                                               \\
+      a \Vdash \exists x \in b \ \varphi\mleft(x\mright) \quad & \Leftrightarrow \quad a \neq \varnothing \land \forall e \in a \left(\mathbf{p}_0e {\downarrow} \in b \land \mathbf{p}_1e \Vdash \varphi\mleft(\mathbf{p}_0e\mright)\right), \\
+      a \Vdash \exists x \ \varphi\mleft(x\mright) \quad       & \Leftrightarrow \quad a \neq \varnothing \land \forall e \in a \ \mathbf{p}_1e \Vdash \varphi\mleft(\mathbf{p}_0e {\downarrow}\mright).
+    \end{align*}
+  }
+
+  \pause
+
+  \only<2-3>{Realisability \emph{with truth}: any realised formula must simultaneously have a computational realiser AND hold in the meta-theory.
+    \begin{align*}
+      a \Vdash b \in c \quad                  & \Leftrightarrow \quad b \in c,                                                                                                        \\
+      a \Vdash \neg \varphi \quad             & \Leftrightarrow \quad \neg \varphi \land \forall e \ e \nVdash \varphi,                                                               \\
+      a \Vdash \varphi \rightarrow \psi \quad & \Leftrightarrow \quad \left(\varphi \rightarrow \psi\right) \land \forall f \left(f \Vdash \varphi \rightarrow af \Vdash \psi\right).
+    \end{align*}
+  }
+
+  \pause
+
+  \only<3>{
+    \begin{proposition}[Rathjen, 2012]
+      For any formula $\varphi$, $\CZFP \vdash \left(\exists a \ a \Vdash_{\mathfrak{wt}} \varphi\right) \rightarrow \varphi$.
+    \end{proposition}
+  }
+\end{frame}
+
+\begin{frame}{Computational content}
+  \begin{theorem}[Rathjen, 2012]
+    For any formula $\varphi\mleft(x_1, \ldots, x_n\mright)$ (with all free variables listed), if $\CZFP \vdash \varphi$, then one can effectively construct the index of an $E_\wp$-recursive function $f$ such that
+    \[\CZFP \vdash \forall a_1, \ldots, a_n \ f a_1 \cdots a_n \Vdash_{\mathfrak{wt}} \varphi\mleft(a_1, \ldots, a_n\mright).\]
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Proof of $\CZFP \nvdash L \vDash \text{Exponentiation}$}
+  Suppose that
+  \[\CZFP \vdash \exists \alpha \in \Ord \ \exists x \in L_\alpha \ \forall f : \omega \rightarrow \omega \left(f \in L \rightarrow f \in x\right).\]
+  We use the previous theorems to convert into realisability and back into truth, which means we can find an $E_\wp$-recursive term $t$ that computes to a set of ordinals $\alpha$ satisfying the condition above.
+
+  \pause
+
+  \vspace{1em}
+  Now, one key result in the 2012 paper, Rathjen \cite{rathjen12-weak-strong-existence-property}, (proved using a variant of this realisability model) is that
+  \begin{proposition}
+    $\CZFP$ is $\Pi_2^\mathcal{P}$-conservative over $\IKPP$.
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Proof of $\CZFP \nvdash L \vDash \text{Exponentiation}$}
+  Using this conservativity, $\IKPP$ already proves that the $E_\wp$-recursive term $t$ evaluates to a set. By Cook \& Rathjen's relativised ordinal analysis of $\IKPP$ \cite{cook-rathjen16-ikp-power-exp}, this set additionally lies in $V_\sigma$ for some recursive ordinal $\sigma < \text{BH}$. In other words,
+  \[\CZFP \vdash \exists \alpha \in V_\sigma \cap \Ord \ \forall f : \omega \rightarrow \omega \left(f \in L_\sigma \rightarrow f \in L_\alpha\right).\]
+
+  This sentence is $\Sigma_1^\mathcal{P}$, so by conservativity again, it is also provable in $\IKPP$ and thus $\mathrm{KP}\mleft(\mathcal{P}\mright)$. So $\alpha$ is a gap ordinal, but classically, the smallest gap ordinal is much larger than $\text{BH}$, as a result by Leeds \& Putnam \cite{leeds-putnam71-constructible-sets}. A contradiction.
+\end{frame}
+
+\section{\texorpdfstring{$V = L$}{V=L}}
+
+\begin{frame}{Relativised ordinal analysis}
+  The key step in the preceding proof is the relativised ordinal analysis (first used on the classical theory $\mathrm{KP}\mleft(\mathcal{P}\mright)$ in Rathjen \cite{rathjen14-power-kp}), which essentially implies that $\IKPP$ (and $\mathrm{KP}\mleft(\mathcal{P}\mright)$) cannot prove the existence of ordinals beyond $\text{BH}$.
+
+  \vspace{1em}
+  In \cite{rathjen20-power-kp-choice}, this is applied to show that
+  \begin{theorem}[Rathjen, 2020]
+    $\mathrm{KP}\mleft(\mathcal{P}\mright) + V = L$ is much stronger than $\mathrm{KP}\mleft(\mathcal{P}\mright)$.
+  \end{theorem}
+
+  \pause
+
+  \begin{question}
+    Is there a similar proof that $\CZF + V = L$ is much stronger than $\CZF$?
+  \end{question}
+\end{frame}
+
+\begin{frame}{The $V = L$ model}
+  \begin{question}
+    Is there a similar proof that $\CZF + V = L$ is much stronger than $\CZF$?
+  \end{question}
+
+  \vspace{0.6em}
+  The answer is \emph{no}.
+
+  \begin{theorem}[W.]
+    $\CZF + V = L$ is equi-consistent with $\CZF$.
+  \end{theorem}
+
+  \pause
+
+  \vspace{0.6em}
+  We shall sketch an interpretation
+  \[\CZF + V = L \hookrightarrow \mathrm{ML}_1\mathrm{V}^X \hookrightarrow \mathrm{BI} \equiv_{\mathrm{Con}} \CZF.\]
+\end{frame}
+
+\begin{frame}{The type theory $\mathrm{ML}_1\mathrm{V}^X$}
+  We have the following types:
+  \begin{enumerate}
+    \item finite types $\overline{n}$ for each $n \in \mathbb{N}$,
+    \item the type $\overline{\mathbb{N}}$ of natural numbers,
+    \item an arbitrary type $\overline{X}$, given by a set $X \subseteq \mathbb{N}$ in the interpretation $\mathrm{ML}_1\mathrm{V}^X \hookrightarrow \mathrm{BI}$,
+    \item dependent $\Sigma$ and $\Pi$ types,
+    \item one universe $U$, closed under the type constructions above,
+    \item a single $W$-type denoted $V$, with the following constructor:
+          \[\AxiomC{$\Gamma \vdash A : U, f : A \rightarrow V$}
+            \UnaryInfC{$\Gamma \vdash \mathrm{sup}\mleft(A, f\mright) : V$}
+            \DisplayProof\]
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Interpretations}
+  The interpretation $\CZF \hookrightarrow \mathrm{ML}_1\mathrm{V}$ introduced by Aczel \cite{aczel78-type-theoretic-cst} is essentially a realisability model: the names are terms of type $V$; the notion of computation is given by corresponding function types.
+
+  \vspace{1em}
+
+  The interpretation $\mathrm{ML}_1\mathrm{V} \hookrightarrow \mathrm{BI}$ (which, combined with the above, gives an formal realisability model $\CZF \hookrightarrow \mathrm{BI}$ over the PCA of Turing machines) is then set-up in Rathjen \cite{rathjen14-czf-lpo}.
+\end{frame}
+
+\begin{frame}{Subcountability}
+  A crucial feature of the interpretation $\mathrm{ML}_1\mathrm{V} \hookrightarrow \mathrm{BI}$ is that every type $A$ is interpreted by a subset of $\mathbb{N}$. This means that the realisability model realises the following set-theoretic axiom:
+
+  \vspace{0.6em}
+  \textbf{Subcountability}: $\forall x \ \exists y \subseteq \omega \ \exists f : y \rightarrow x \text{ surjection}$.
+
+  \pause
+
+  \vspace{0.6em}
+  \begin{corollary}[$\CZF + \text{Subcountability}$]
+    If every $x \subseteq \omega$ lies in $L$, then $V = L$.
+  \end{corollary}
+  \begin{proof}
+    W.l.o.g.\ consider some transitive $x \in V$. Then $\left(x, \in\right) \cong \left(U, E\right)$ where $U \subseteq \mathbb{N}$, $E \subseteq \mathbb{N} \times \mathbb{N}$. Now, $U, E \in L$ by assumption, so we can reconstruct $x$.
+  \end{proof}
+\end{frame}
+
+\begin{frame}{Setting-up for realising $\mathcal{P}\mleft(\omega\mright) \subseteq L$}
+  In \cite{lubarsky93-intuitionistic-l}, Lubarsky shows that $\CZF \vdash \forall n \in \omega \ n = L_n \cap \Ord$. It follows:
+
+  \begin{lemma}
+    If $\alpha \in \mathcal{P}\mleft(\omega\mright) \cap \Ord$, then
+    \[\alpha = \bigcup_{n \in \alpha} n^+ = \bigcup_{n \in \alpha} \mathrm{def}\mleft(L_n\mright) \cap \Ord = L_\alpha \cap \Ord.\]
+  \end{lemma}
+
+  \pause
+
+  Fix $\alpha_0 \in \mathcal{P}\mleft(\omega\mright) \cap \Ord$, we can extract $f_0 : \omega \rightarrow \mathcal{P}\mleft(\omega\mright) \cap \Ord$ given by
+  \[f_0\mleft(i\mright) = \left\{n \in \omega : \forall k \leq n \ \pi\mleft(i, k\mright) \in \alpha_0\right\} \in L,\]
+  where $\pi : \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$ is some (recursive) pairing bijection.
+\end{frame}
+
+\begin{frame}{Incomparable ordinals}
+  We say that $f : \omega \rightarrow \mathcal{P}\mleft(\omega\mright) \cap \Ord$ is \emph{pairwise incomparable} iff (intuitively) for any $i \neq j \in \omega$, $f\mleft(i\mright)$ and $f\mleft(j\mright)$ are not subsets of each other. Formally, we want
+  \[\forall i, j \in \omega \left(f\mleft(i\mright) \subseteq f\mleft(j\mright) \rightarrow i = j\right).\]
+
+  \pause
+
+  \begin{proposition}
+    If aforementioned $f_0 \in L$ is pairwise incomparable, then $\mathcal{P}\mleft(\omega\mright) \subseteq L$.
+  \end{proposition}
+
+  \begin{proof}
+    For any $x \subseteq \omega$, we take $\sigma = \bigcup_{n \in x} \mathrm{def}\mleft(L_{f_0\mleft(n\mright)}\mright) \cap \Ord \in L$ and verify
+    \[x = \left\{n \in \omega : L_\eta \vDash f_0\mleft(n\mright) \in \sigma\right\} \in L\]
+    for some large enough $\eta \in \Ord$.
+  \end{proof}
+\end{frame}
+
+\begin{frame}{A priority argument}
+  \only<1-2>{A ordinal $\alpha \subseteq \omega$ in the realisability model can be (roughly) given by the name $\mathrm{sup}\mleft(A, f\mright)$ where $A$ is a type (i.e.\ a subset of $\mathbb{N}$ in the meta-theory) and $f : A \rightarrow \mathbb{N}$ is a recursive bijection. $\omega \not\subseteq \alpha$ is realised iff the inverse of $f$ is not recursive.
+
+    \vspace{0.6em}
+    More generally, names $\alpha = \mathrm{sup}\mleft(A, f\mright)$ and $\beta = \mathrm{sup}\mleft(B, g\mright)$ are both not subsets of each other iff both $g^{-1} \circ f$ and $f^{-1} \circ g$ are not recursive.}
+
+  \pause
+
+  \only<1-2>{
+    \vspace{0.6em}
+    Thus, to get the $f_0$ we need, we want the distinguished type $\overline{X}$ in our $\mathrm{ML}_1\mathrm{V}^X$ to interpret some $X \subseteq \mathbb{N}$ satisfying
+  }
+  \begin{quote}
+    $\mathcal{R}_{i,j,f}$: there exists $m \in \mathbb{N}$ such that if we input the first $\pi\mleft(i, m\mright)$ elements of $X$ to the Turing machine $\Phi_f$, it does not compute the first $\pi\mleft(j, m\mright)$ elements of $X$
+    \vspace{-0.4em}
+  \end{quote}
+  \only<1-2>{
+    for all $i, j, f \in \mathbb{N}$.
+  }
+
+  \pause
+
+  \only<3>{
+    \vspace{1em}
+    But this is possible so long as for any $i, j \in \mathbb{N}$, there are arbitrarily large numbers $m$ such that $\pi\mleft(i, m\mright) < \pi\mleft(j, m\mright)$. Then we just use arithmetic recursion to construct the set $X$.
+
+    \vspace{0.6em}
+
+    We just need to pick an appropriate pairing function. For example,
+    \[\pi\mleft(a, b\mright) = \left\{\begin{aligned}
+         & \mathrm{max}\mleft\{a, b\mright\} \cdot \left(\mathrm{max}\mleft\{a, b\mright\} + 1\right) - a + b &  & \text{if $\mathrm{max}\mleft\{a, b\mright\}$ is even}, \\
+         & \mathrm{max}\mleft\{a, b\mright\} \cdot \left(\mathrm{max}\mleft\{a, b\mright\} + 1\right) + a - b &  & \text{otherwise};
+      \end{aligned}\right.\]
+  }
+\end{frame}
+
+\begin{frame}{Finally,}
+  Combining all these constructions, we have a realisability model
+  \[\CZF + \text{Subcountability} + V = L \hookrightarrow \mathrm{BI} \equiv_{\mathrm{Con}} \CZF.\]
+
+  \pause
+
+  \begin{oquestion}
+    What about $\CZFP$? Is $\CZFP + V = L$ equi-consistent with $\CZFP$ or stronger?
+  \end{oquestion}
+
+  \begin{oquestion}
+    It is even harder to construct non-classical models of $V \neq L$. Ultimately, can we violate $\Ord \subseteq L$?
+  \end{oquestion}
+\end{frame}
+
+\miniframesoff
+
+\section*{}
+
+\begin{frame}
+  \Large Thank you!
+\end{frame}
+
+\begin{frame}[allowframebreaks=1]
+  \renewcommand{\section}[2]{}
+  \bibmain
+\end{frame}
+
+\end{document}
