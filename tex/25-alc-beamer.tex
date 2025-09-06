@@ -1,0 +1,443 @@
+%?deps @bib-commons
+
+\documentclass{beamer}
+\usepackage{amsmath,amssymb,amsthm,bm,bussproofs,hyperref,mathtools,mleftright,xcolor}
+\usepackage[en-GB]{datetime2}
+\usepackage[nobysame,author-year]{amsrefs}
+\usepackage{bib-commons}
+
+\usetheme{Dresden}
+
+\setbeamerfont{institute}{size=\small}
+\addtobeamertemplate{institute}{\vskip-1em}{}
+
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\beamer@compresstrue
+\makeatother
+
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+\newtheorem{oquestion}{Open Question}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\CM}{\mathrm{CM}}
+\newcommand{\GWO}{\mathrm{GWO}}
+
+\newcommand{\SigAC}{\Sigma^1_1\text{-}\mathrm{AC}}
+\newcommand{\BI}{\mathrm{BI}}
+
+\DeclareMathOperator{\TJ}{TJ}
+
+\title{Realisability semantics and choice principles for Weaver's third-order conceptual mathematics}
+\author{Shuwei Wang}
+\institute{University of Leeds}
+\date{{\small Asian Logic Conference}\\\DTMdate{2025-09-09}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Weaver's conceptualism}
+
+\begin{frame}{Mathematical conceptualism in \cite{weaver05-conceptualism}}
+  \begin{quote}
+    Classical set theory presents us with a picture of an incredibly vast universe. [\textellipsis] Yet virtually all important objects in mainstream mathematics are either countable or separable. This is not because the uncountable/nonseparable case has not yet been sufficiently studied but rather because on mainstream questions it tends to be either pathological or undecidable.
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Mathematical conceptualism in \cite{weaver05-conceptualism}}
+  \begin{quote}
+    Any domain in which set-theoretic reasoning is to take place must be in some sense constructed. [\textellipsis And] in order for a construction to be considered valid it need not be physically realizable, but it must be \emph{conceptually definite}, meaning that we must be able to form a completely clear mental picture of how the construction would proceed.
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Surveyable and definite collections}
+  As described in \cite{weaver11-kinds-of-concepts}:
+  \begin{itemize}
+    \item \textit{a concept is} surveyable \textit{if it is possible, in principle, to exhaustively survey all of the individuals which fall under it; whereas}
+    \item \textit{a concept is} definite \textit{if any individual either does or does not fall under it.}
+  \end{itemize}
+
+  \vspace{2em}
+
+  {\small For a more detailed analysis of Weaver's philosophy, see upcoming: Michael Rathjen and Shuwei Wang, \emph{Recent developments on predicative foundations}, Pillars of Enduring Strength: Learning from Hermann Weyl (Laura Crosilla, \O{}ystein Linnebo and Michael Rathjen, eds.).}
+\end{frame}
+
+\begin{frame}{$\CM$ in \cite{weaver09-cm}}
+  Third-order intuitionistic arithmetic with:
+
+  \vspace{0.2em}
+
+  \begin{itemize}
+    \item induction: for any $\varphi\mleft(n\mright)$,
+          \[\varphi\mleft(0\mright) \land \forall n \left(\varphi\mleft(n\mright) \rightarrow \varphi\mleft(n + 1\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright);\]
+    \item recursion/dependent choice: for any $\varphi\mleft(n, X, Y\mright)$,
+          \[\mathclap{\forall n \, \forall X \, \exists Y \, \varphi\mleft(n, X, Y\mright) \rightarrow \forall X \, \exists Z \left(\left(Z\right)_0 = X \land \forall n \, \varphi\mleft(n, \left(Z\right)_n, \left(Z\right)_{n + 1}\mright)\right);}\]
+    \item limited principle of omniscience:
+          \[\forall n \left(\varphi\mleft(n\mright) \lor \psi\mleft(n\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright) \lor \exists n \, \psi\mleft(n\mright);\]
+    \item decidable comprehension:
+          \begin{align*}
+            \forall n \left(\varphi\mleft(n\mright) \lor \neg \varphi\mleft(n\mright)\right) & \rightarrow \exists X \, \forall n \left(n \in X \leftrightarrow \varphi\mleft(n\mright)\right),                   \\
+            \forall X \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right) & \rightarrow \exists \mathbf{X} \, \forall X \left(X \in \mathbf{X} \leftrightarrow \varphi\mleft(X\mright)\right);
+          \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{A glimpse of mathematics in $\CM$}
+  \begin{theorem}[\cite{weaver09-cm}, 3.10]
+    $\mathbb{R}$ is a sequentially complete ordered field. Every sequentially complete ordered field is isomorphic to $\mathbb{R}$.
+  \end{theorem}
+
+  \begin{theorem}[Baire category theorem, \cite{weaver09-cm}, 3.41]
+    The intersection of any countable family of open dense subsets of a separable (Cauchy) complete metric space is dense.
+  \end{theorem}
+
+  \begin{theorem}[Hahn--Banach theorem, \cite{weaver09-cm}, 3.72]
+    Let $\mathbf{E}$ be a separable Banach space, let $\mathbf{E}_0$ be a separable closed subspace, and let $\mathbf{f}_0 : \mathbf{E}_0 \rightarrow \mathbb{R}$ be a bounded linear functional on $\mathbf{E}_0$. Then $\mathbf{f}_0$ extends to a bounded linear functional $\mathbf{f}$ on $\mathbf{E}$ with $\left\|\mathbf{f}\right\| = \left\|\mathbf{f}_0\right\|$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Extending $\CM$}
+  In order to admit choice principles on uncountable sets (e.g.\ sets of reals), we need to extend $\CM$. In \cite{weaver09-cm}*{section 2.3}, Weaver proposed:
+
+  \begin{itemize}
+    \item $\prec$ is a global linear ordering on second-order objects;
+    \item transfinite induction:
+          \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright);\]
+    \item countable initial segments:
+          \[\forall X \, \exists Z \, \forall Y \left(Y \prec X \rightarrow \exists n \, Y = \left(Z\right)_n\right).\]
+  \end{itemize}
+
+  We shall henceforth denote these as the \emph{global well-ordering axioms} ($\GWO$).
+\end{frame}
+
+\begin{frame}{Zorn's lemma}
+  \nocite{wang-sw25-cm}
+  \begin{proposition}[$\CM + \GWO$, (W., 2025), 3.2]
+    Fix a third-order set $\mathbf{A}$ and let $\varphi\mleft(X\mright)$ be a decidable formula (possibly with other parameters) on the countable subsets of $\mathbf{A}$. If $\varphi$ as a predicate is
+    \begin{itemize}
+      \item downward closed; and also
+      \item closed under unions of countable chains,
+    \end{itemize}
+    then there exists some $\mathbf{X} \subseteq \mathbf{A}$ satisfying $\forall X \subseteq \mathbf{X} \ \varphi\mleft(X\mright)$, and is maximal among such subsets in the sense that
+    \[\forall Y \left(Y \not\in \mathbf{X} \rightarrow \exists Z \subseteq \mathbf{X} \ \neg \varphi\mleft(Z \cup \left\{Y\right\}\mright)\right).\]
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Some corollaries of Zorn's lemma}
+  \begin{itemize}
+    \item $\mathbb{R}$ has a basis as a $\mathbb{Q}$-vector space;
+    \item uncountable inner product spaces and $\mathbb{R}$-normed spaces also have bases;
+    \item Hahn--Banach theorem for a non-separable Banach space $\mathbf{E}$;
+    \item etc.
+  \end{itemize}
+\end{frame}
+
+\section{Realisability semantics}
+
+\begin{frame}{Partial combinatory algebra}
+  A partial combinatory algebra (PCA) with arithmetic is a set $\mathcal{A} \supseteq \mathbb{N}$ with a partial binary operation, such that there exist the following distinguished objects in $\mathcal{A}$:
+  \begin{itemize}
+    \item $k \cdot a \cdot b = a$,
+    \item $s \cdot a \cdot b \cdot c = a \cdot c \cdot \left(b \cdot c\right)$,
+    \item $\mathrm{succ} \cdot n = n + 1$ for $n \in \mathbb{N}$,
+    \item $\mathrm{pred} \cdot n = n - 1$ for $n \in \mathbb{N}^+$,
+    \item $d \cdot a \cdot b \cdot c \cdot d = \left\{\begin{aligned}
+               & a &  & \text{if } c = d,    \\
+               & b &  & \text{if } c \neq d,
+            \end{aligned}\right.$
+    \item and pairing and unpairing functions $p$, $p_0$, $p_1$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Arithmetic decidability}
+  To capture the Limited Principle of Omniscience, we need a (higher) notion of computability that decides arithmetical quantifiers. That is, a PCA $\mathcal{A}$ such that
+
+  \vspace{1em}
+
+  \begin{quote}
+    There is a function $e \in \mathcal{A}$ such that, for any total $f : \mathbb{N} \rightarrow \mathbb{N}$ in the PCA,
+    \[e \cdot f = f'.\]
+  \end{quote}
+\end{frame}
+
+\begin{frame}{$\Sigma^1_1$-functions}
+  Working in classical second-order arithmetic, Kleene's normal form theorem gives the following universal $\Sigma^1_1$-formula (with all free variables indicated) where $\pi$ is (universal) $\Pi^0_1$:
+  \[\exists X \, \pi\mleft(e, m, a, b, X\mright).\]
+
+  We define
+  \begin{align*}
+    \mleft\{e\mright\}\mleft(a\mright) = b \ \           & \Leftrightarrow \ \ \exists X \, \pi\mleft(e_0, e_1, a, b, X\mright),     \\
+    \mleft\{e\mright\}\mleft(a\mright) {\downarrow} \ \  & \Leftrightarrow \ \ \exists b! \, \mleft\{e\mright\}\mleft(a\mright) = b.
+  \end{align*}
+
+  We can write
+  \begin{align*}
+    \mathrm{dom}\mleft(e\mright)    & \coloneqq \left\{a : \mleft\{e\mright\}\mleft(a\mright) {\downarrow}\right\},                                            \\
+    \mathrm{ran}\mleft(e, X\mright) & \coloneqq \left\{b : \exists a \in X \, \mleft\{e\mright\}\mleft(a\mright) = b\right\},                                  \\
+    \left[X, Y\right]               & \coloneqq \left\{e : X \subseteq \mathrm{dom}\mleft(e\mright) \land \mathrm{ran}\mleft(e, X\mright) \subseteq Y\right\}.
+  \end{align*}
+\end{frame}
+
+\begin{frame}{$\Sigma^1_1$-functions}
+  \begin{proposition}[S-m-n theorem, (W., 2025), 2.3]
+    Given any definable class $A$ of natural numbers and a $\Sigma^1_1$-formula $\varphi\mleft(m, a, b\mright)$ such that, for any $a \in A$, there exists a unique $b \in \mathbb{N}$ satisfying $\varphi\mleft(a_0, a_1, b\mright)$, then there exists $e$ such that for any $a \in A$, we have $a_0 \in \mathrm{dom}\mleft(e\mright)$, $a_1 \in \mathrm{dom}\mleft(\mleft\{e\mright\}\mleft(a_0\mright)\mright)$ and
+    \[\varphi\mleft(a_0, a_1, \mleft\{\mleft\{e\mright\}\mleft(a_0\mright)\mright\}\mleft(a_1\mright)\mright).\]
+  \end{proposition}
+
+  \begin{corollary}
+    The set of natural numbers $\mathbb{N}$ form a partial combinatory algebra with arithmetic under the application operation $\mleft\{-\mright\}\mleft(-\mright)$.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{$\Sigma^1_1$-axiom of choice}
+  Over the base theory of arithmetic comprehension, $\mathrm{ACA}_0$, $\SigAC_0$ add the following axiom:
+  \[\forall x \, \exists Y \, \varphi\mleft(x, Y\mright) \rightarrow \exists Z \, \forall x \, \varphi\mleft(x, Z_x\mright)\]
+  for any arithmetic formula $\varphi$.
+
+  \vspace{1em}
+
+  In $\SigAC_0$ we can show that the pointclass of (equivalently) $\Sigma^1_1$-formulae is closed under arithmetic quantifiers. It follows that the PCA of $\Sigma^1_1$-functions decides arithmetic quantifiers.
+\end{frame}
+
+\begin{frame}{Realisability conditions}
+  \vspace{0.4em}
+  Let second-order variables range over $S_2 = \left[\mathbb{N}, \left\{0, 1\right\}\right]$, and third-order variables range over $S_3 = \left[S_2, \left\{0, 1\right\}\right]$. We define:
+  \vspace{-0.5em}
+  {\scriptsize
+    \begin{align*}
+      d \Vdash t = s \ \                                                   & \Leftrightarrow \ \ t = s \text{ for any arithmetic terms $t$ and $s$},                                                                                          \\
+      d \Vdash t \in_1 e \ \                                               & \Leftrightarrow \ \ \mleft\{e\mright\}\mleft(t\mright) = 1 \text{ for any arithmetic terms $t$},                                                                 \\
+      d \Vdash e \in_2 f \ \                                               & \Leftrightarrow \ \ \mleft\{f\mright\}\mleft(e\mright) = 1,                                                                                                      \\
+      d \Vdash \varphi \land \psi \ \                                      & \Leftrightarrow \ \ d_0 \Vdash \varphi \land d_1 \Vdash \psi,                                                                                                    \\
+      d \Vdash \varphi \lor \psi \ \                                       & \Leftrightarrow \ \ \left(d_0 = 0 \land d_1 \Vdash \varphi\right) \lor \left(d_0 = 1 \land d_1 \Vdash \psi\right),                                               \\
+      d \Vdash \neg \varphi \ \                                            & \Leftrightarrow \ \ \forall e \, \neg e \Vdash \varphi,                                                                                                          \\
+      d \Vdash \varphi \rightarrow \psi \ \                                & \Leftrightarrow \ \ \forall e \left(e \Vdash \varphi \rightarrow e \in \mathrm{dom}\mleft(d\mright) \land \mleft\{d\mright\}\mleft(e\mright) \Vdash \psi\right), \\
+      d \Vdash \forall x \, \varphi\mleft(x\mright) \ \                    & \Leftrightarrow \ \ d \in \left[\mathbb{N}, \mathbb{N}\right] \land \forall n \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),              \\
+      d \Vdash \exists x \, \varphi\mleft(x\mright) \ \                    & \Leftrightarrow \ \ d_1 \Vdash \varphi\mleft(d_0\mright),                                                                                                        \\
+      d \Vdash \forall X \, \varphi\mleft(X\mright) \ \                    & \Leftrightarrow \ \ d \in \left[S_2, \mathbb{N}\right] \land \forall n \in S_2 \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),             \\
+      d \Vdash \exists X \, \varphi\mleft(X\mright) \ \                    & \Leftrightarrow \ \ d_0 \in S_2 \land d_1 \Vdash \varphi\mleft(d_0\mright),                                                                                      \\
+      d \Vdash \forall \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) \ \  & \Leftrightarrow \ \ d \in \left[S_3, \mathbb{N}\right] \land \forall n \in S_3 \, \mleft\{d\mright\}\mleft(n\mright) \Vdash \varphi\mleft(n\mright),             \\
+      d \Vdash \exists \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) \ \  & \Leftrightarrow \ \ d_0 \in S_3 \land d_1 \Vdash \varphi\mleft(d_0\mright).
+    \end{align*}}
+\end{frame}
+
+\begin{frame}{Realisability model}
+  \begin{fact}
+    Let $\mathcal{A}$ be any PCA, if the sentence $\varphi$ is a theorem in intuitionistic logic, then there exists $d \in \mathcal{A}$ such that $d \Vdash \varphi$.
+  \end{fact}
+
+  \begin{theorem}[$\SigAC$ (with full induction), (W., 2025), 2.10]
+    Over the previously defined specific PCA, whenever
+    \[\CM \vdash \varphi\mleft(x, \ldots, X, \ldots, \mathbf{X}, \ldots\mright),\]
+    there exists $d \in \mathbb{N}$ such that $\mleft\{d\mright\}\mleft(\vec{p}\mright) \Vdash \varphi\mleft(\vec{p}\mright)$ for any valid parameter assignment $\vec{p}$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\CM$}
+  Let $\SigAC^i$ denote the intuitionistic fragment of $\SigAC$, then it is due to \cite{aczel77-martin-lof} that
+  \[\SigAC^i \equiv_\text{Con} \SigAC.\]
+
+  Observe that $\SigAC^i$ is trivially a subtheory of $\CM$. Thus
+  \begin{corollary}
+    The proof-theoretic strength of $\CM$ is
+    \[\left|\CM\right| = \left|\SigAC\right| = \varphi_{\varepsilon_0}\mleft(0\mright).\]
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Hyperarithmetic sets}
+  Given a universal $\Pi^0_1$-formula $\pi\mleft(e, m, X\mright)$, we define the \emph{Turing jump}
+  \[\TJ\mleft(X\mright) = \left\{\tuple{e, m} : \pi\mleft(e, m, X\mright)\right\}.\]
+  Let $\alpha$ denote a recursive ordinal, then the \emph{iterated Turing jump} $\TJ^{\alpha}\mleft(X\mright)$ is a set $Y$ such that
+  \[\forall \beta \leq \alpha \, Y_\beta = \TJ\mleft(Y_{<\beta}\mright).\]
+  A set $X$ is \emph{hyperarithmetic} if there exists a recursive ordinal $\alpha$ such that $X$ is Turing reducible to $\TJ^{\alpha}\mleft(\varnothing\mright)$.
+
+  \begin{theorem}[Suslin--Kleene theorem, $\mathrm{ATR}_0$]
+    A set is $\Delta^1_1$-definable if and only if it is hyperarithmetic.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Well-ordering of $S_2 = \left[\mathbb{N}, \left\{0, 1\right\}\right]$}
+  \begin{theorem}[$\mathrm{ATR}_0$, (W., 2025), 4.3]
+    There exists $\mathrm{hyp}$ such that
+    \begin{itemize}
+      \item for each $e \in S_2$, $\mleft\{\mathrm{hyp}\mright\}\mleft(e\mright)$ computes a pair $\tuple{\alpha, r}$ such that
+            \[\left\{e\right\} = \Phi^{\TJ^\alpha\mleft(\varnothing\mright)}_r;\]
+      \item for $d, e \in S_2$, $\mleft\{\mathrm{hyp}\mright\}\mleft(d\mright) = \mleft\{\mathrm{hyp}\mright\}\mleft(e\mright)$ if and only if $\forall n \, \mleft\{d\mright\}\mleft(n\mright) = \mleft\{e\mright\}\mleft(n\mright)$.
+    \end{itemize}
+  \end{theorem}
+
+  \begin{proposition}[$\mathrm{ACA}_0$]
+    There exists $\mathrm{inv}$ such that, for any recursive well-ordering $\alpha$,
+    \[\left\{\mleft\{\mleft\{\mathrm{inv}\mright\}\mleft(\tuple{\alpha, r}\mright)\mright\}\right\} = \Phi^{\TJ^\alpha\mleft(\varnothing\mright)}_r.\]
+  \end{proposition}
+\end{frame}
+
+\begin{frame}{Well-ordering of $S_2 = \left[\mathbb{N}, \left\{0, 1\right\}\right]$}
+  \only<1>{
+    \begin{fact}[$\mathrm{ATR}_0$]
+      Recursive well-orderings are $\Sigma^1_1$-comparable. Specifically, for any recursive ordinal $\alpha$, the set of recursive well-orderings${} \leq \alpha$ is arithmetic in $\TJ^\alpha\mleft(\varnothing\mright)$.
+    \end{fact}
+
+    \vspace{0.6em}
+  }
+
+  Let $\mathrm{cmp}$ denote the following computation: for input $d, e$, we compute $\mleft\{\mathrm{hyp}\mright\}\mleft(d\mright) = \tuple{\alpha, r}$ and $\mleft\{\mathrm{hyp}\mright\}\mleft(e\mright) = \tuple{\beta, s}$ (if they converge). We set $\mleft\{\mleft\{\mathrm{cmp}\mright\}\mleft(d\mright)\mright\}\mleft(e\mright) = 1$ if all of the following:
+  \begin{itemize}
+    \item $\beta \leq \alpha$,
+    \item either $\alpha \not\leq \beta$, or $\alpha \leq \beta$ and $\mleft\{\mathrm{hyp}\mright\}\mleft(e\mright) < \mleft\{\mathrm{hyp}\mright\}\mleft(d\mright)$ as natural numbers,
+    \item $\Phi^{\TJ^\beta\mleft(\varnothing\mright)}_s$ is total $\mathbb{N} \rightarrow \left\{0, 1\right\}$.
+  \end{itemize}
+
+  \pause
+
+  \only<2>{
+    \begin{theorem}[$\mathrm{ATR}_0$, (W., 2025)]
+      \begin{itemize}
+        \item $\mathrm{cmp}$ computes a well-ordering on $S_2$ (up to extensionality).
+        \item For $d \in S_2$, $\mleft\{\mathrm{hyp}\mright\}\mleft(d\mright) = \tuple{\alpha, r}$, the initial segment of this well-ordering before $d$ is arithmetic in $\TJ^\alpha\mleft(\varnothing\mright)$.
+      \end{itemize}
+    \end{theorem}
+  }
+\end{frame}
+
+\begin{frame}{Realisability of $\GWO$}
+  $\BI$ denotes $\mathrm{ACA}_0$ with the additional axiom
+  \[\mathclap{\forall X \left(\mathrm{WO}\mleft(X\mright) \rightarrow \forall x \in X \left(\forall y <_X x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \in X \, \varphi\mleft(x\mright)\right).}\]
+
+  \begin{theorem}[$\BI$, (W., 2025), \S 4.3-4]
+    Interpret the global well-ordering $\prec$ as $\mathrm{cmp}$, then whenever
+    \[\CM + \GWO \vdash \varphi\mleft(x, \ldots, X, \ldots, \mathbf{X}, \ldots\mright),\]
+    there exists $d \in \mathbb{N}$ such that $\mleft\{d\mright\}\mleft(\vec{p}\mright) \Vdash \varphi\mleft(\vec{p}\mright)$ for any valid parameter assignment $\vec{p}$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\CM + \GWO$}
+  \begin{theorem}[(W., 2025)]
+    For any strictly positive first-order formula $\varphi\mleft(X, x\mright)$, there exists $\theta_\varphi\mleft(x\mright)$ such that
+    \[\CM + \GWO \vdash \forall x \left(\varphi\mleft(\theta_\varphi, x\mright) \rightarrow \theta_\varphi\mleft(x\mright)\right),\]
+    and also for any formula $\eta\mleft(x\mright)$
+    \[\CM + \GWO \vdash \forall x \left(\varphi\mleft(\eta, x\mright) \rightarrow \eta\mleft(x\mright)\right) \rightarrow \forall x \left(\theta_\varphi\mleft(x\mright) \rightarrow \eta\mleft(x\mright)\right).\]
+  \end{theorem}
+
+  In other words, the first-order intuitionistic theory of inductive definitions $\mathrm{ID}_1^i$ is interpretable in $\CM + \GWO$.
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\CM + \GWO$}
+  The proof-theoretic ordinal of $\mathrm{ID}_1^i$ is computed in \cite{buchholz-pohlers78-iterated-id} as $\left|\mathrm{ID}_1^i\right| = \theta_{\varepsilon_{\Omega + 1}}\mleft(0\mright) = \left|\mathrm{BI}\right|$. Thus
+
+  \begin{corollary}
+    The proof-theoretic strength of $\mathrm{CM} + \mathrm{GWO}$ is the Bachmann--Howard ordinal
+    \[\left|\CM + \GWO\right| = \left|\mathrm{BI}\right| = \theta_{\varepsilon_{\Omega + 1}}\mleft(0\mright).\]
+  \end{corollary}
+\end{frame}
+
+\section{Predicativity problems}
+
+\begin{frame}{Weaver worries about impredicative transfinite induction}
+  \begin{quote}
+    [transfinite induction] should only be asserted for formulas that do not contain $\prec$, for reasons having to do with the circularity involved in making sense of a relation that is well-ordered with respect to properties that are defined in terms of that relation.
+  \end{quote}
+
+  \pause
+
+  \vspace{0.6em}
+
+  \textellipsis Only that this literal restriction does not work, since formulae can contain higher-order parameters, which in turn can involve $\prec$ in non-trivial ways:
+  \[\mathbf{W} \quad \coloneqq \quad \left\{\tuple{X, Y} \mid X \prec Y\right\}.\]
+\end{frame}
+
+\begin{frame}{Fragments of $\CM + \GWO$}
+  \begin{itemize}
+    \item Any decidable formula $\varphi\mleft(X\mright)$ is equivalent to $X \in \mathbf{X}$ for some parameter $\mathbf{X}$; we can let $\GWO_0$ include the single induction axiom
+          \[\forall X \left(\forall Y \prec X \ Y \in \mathbf{X} \rightarrow X \in \mathbf{X}\right) \rightarrow \forall X \, X \in \mathbf{X}.\]
+
+    \item Likewise, let $\GWO_\Sigma$ include the single induction axiom
+          \begin{align*}
+            \forall X & \left(\forall Y \prec X \ \exists Z \tuple{Y, Z} \in \mathbf{X} \rightarrow \exists Z \tuple{X, Z} \in \mathbf{X}\right) \\
+                      & \qquad {} \rightarrow \forall X \, \exists Z \tuple{X, Z} \in \mathbf{X}.
+          \end{align*}
+  \end{itemize}
+
+  Both are nice classes of formulae, closed under arithmetic quantifiers $\forall n$, $\exists n$ and bounded quantifiers $\forall Y \prec X$, $\exists Y \prec X$.
+\end{frame}
+
+\begin{frame}{Fragments of $\CM + \GWO$}
+  \begin{theorem}
+    The fragment $\CM + \GWO_0$ is interpreted in $\mathrm{ATR}$ (with full induction);
+
+    The fragment $\CM + \GWO_\Sigma$ is interpreted in $\Pi^1_2\text{-}\mathrm{TI}$.
+  \end{theorem}
+
+  \vspace{1em}
+
+  We have
+  \[\left|\mathrm{ATR}\right| = \Gamma_{\varepsilon_0}, \qquad \left|\Pi^1_2\text{-}\mathrm{TI}\right| = \theta_{\Omega^{\varepsilon_0}}\mleft(0\mright)\]
+  (the latter is due to \cite{rathjen-weiermann93-kruskal-theorem}). It is yet \emph{open} whether these upper bounds for fragments of $\CM + \GWO$ are tight.
+\end{frame}
+
+\begin{frame}{Mathematics in weak fragments}
+  \begin{proposition}
+    $\CM + \GWO_\Sigma$ suffices for Zorn's lemma in (W., 2025).
+  \end{proposition}
+  (We need a slightly modified proof than in the original paper.)
+
+  \pause
+
+  \vspace{1.6em}
+
+  For specific results, we may have weaker bounds, e.g.
+  \begin{proposition}
+    $\mathrm{ATR}$ interprets $\CM + \GWO_0$ together with:
+    \[\text{$\mathbb{R}$ has a basis as a $\mathbb{Q}$-vector space}.\]
+  \end{proposition}
+  (But there is no good axiomatisation of this theory.)
+\end{frame}
+
+\begin{frame}{Weaver's predicativity}
+  Since Weaver's conceptualism claims that we have a predicative (mental) grasp of any countable procedure, he agrees with the following criticism of the Feferman--Sch\"utte limit in \cite{howard96-proof-theory}:
+
+  \vspace{0.6em}
+
+  Let $\gamma_1, \gamma_2, \ldots, \gamma_n, \ldots$ be an increasing sequence of recursive ordinals with limit $\Gamma_0$. Suppose that for each $n$, the predicativist has a valid formal justification that $\gamma_n$ is well-ordered. Then he should be able to \emph{reflect} on the predicative validity of his formal systems and infer that ``for each $n$, $\gamma_n$ is indeed well-ordered'', thus justify the well-orderedness of $\Gamma_0$ and beyond.
+\end{frame}
+
+\begin{frame}{Weaver's strong ``predicative'' systems}
+  In \cites{weaver09-predicativity,weaver22-tarskian-truth-predicates}, he tried to produce such strong systems by iterating truth predicates and reflection principles. He had
+  \begin{itemize}
+    \item $\mathrm{Tarski}_{\Gamma_0}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\Gamma_0$ for all formulae in its language;
+    \item $\mathrm{Tarski}_{\kappa^\kappa}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\theta_{\Omega^2}\mleft(0\mright)$ for all formulae in its language;
+    \item $\mathrm{Tarski}_{\lambda^{\lambda^{\omega}}}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\theta_{\Omega^\omega}\mleft(0\mright)$ for all formulae in its language;
+  \end{itemize}
+  \textellipsis and claims that the process can continue to at least reach the large Veblen ordinal.
+\end{frame}
+
+\miniframesoff
+
+\section*{}
+
+\begin{frame}
+  \Large Thank you!
+\end{frame}
+
+\begin{frame}[allowframebreaks=0.9]
+  \renewcommand{\section}[2]{}
+  \bibmain
+\end{frame}
+
+\end{document}
