@@ -7,10 +7,13 @@
 
 @string{jsl="The Journal of Symbolic Logic"}
 @string{bsl="Bulletin of Symbolic Logic"}
+@string{rsl="The Review of Symbolic Logic"}
 
 @string{apal="Annals of Pure and Applied Logic"}
 
 @string{ml-arch="Archive for Mathematical Logic"}
+
+@string{stud-log="Studia Logica: An International Journal for Symbolic Logic"}
 
 @string{ndjfl="{Notre Dame} Journal of Formal Logic"}
 
@@ -35,6 +38,14 @@
 
 -- references --
 
+@inproceedings{abbott-altenkirch-ghani03-containers,
+  author   = "Abbott, Michael and Altenkirch, Thorsten and Ghani, Neil",
+  title    = "Categories of Containers",
+  crossref = "fossacs03",
+  pages    = "23--38",
+  doi      = "10.1007/3-540-36576-1_2",
+}
+
 @article{abramson-sacks76-gandy-ordinals,
   author  = "Abramson, Fred Gilbert and Sacks, Gerald Enoch",
   title   = "Uncountable {Gandy} Ordinals",
@@ -53,12 +64,20 @@
   pages    = "1--32",
 }
 
-@incollection{aczel78-type-theoretic-cst,
+@incollection{aczel77-inductive-definitions,
+  author   = "Aczel, Peter",
+  title    = "An Introduction to Inductive Definitions",
+  crossref = "handbook-logic77",
+  pages    = "739--782",
+  doi      = "10.1016/s0049-237x(08)71120-0",
+}
+
+@inproceedings{aczel78-type-theoretic-cst,
   author   = "Aczel, Peter",
   title    = "The Type Theoretic Interpretation of Constructive Set Theory",
   crossref = "logic-col77",
   pages    = "55--66",
-  doi      = "10.1016/S0049-237X(08)71989-X",
+  doi      = "10.1016/s0049-237x(08)71989-x",
 }
 
 @incollection{aczel-hinman74-superjump,
@@ -108,9 +127,22 @@
   doi       = "10.1090/proc/15859",
 }
 
+
+@article{antos24-models-set-theory,
+  author    = "Antos, Carolin",
+  title     = "Models as Fundamental Entities in Set Theory: A Naturalistic and Practice-based Approach",
+  journal   = "Erkenntnis",
+  volume    = "89",
+  number    = "4",
+  year      = "2024",
+  pages     = "1683--1710",
+  publisher = "Springer",
+  doi       = "10.1007/s10670-022-00600-3",
+}
+
 @article{arai03-ordinals,
   author    = "Arai, Toshiyasu",
-  title     = "Proof theory for theories of ordinals--{I}: recursively {Mahlo} ordinals",
+  title     = "Proof theory for theories of ordinals---{I}: recursively {Mahlo} ordinals",
   journal   = apal,
   volume    = "122",
   number    = "1--3",
@@ -163,6 +195,18 @@
   year      = "1969",
   series    = "Addison--Wesley Series in Mathematics",
   publisher = "Westview Press",
+}
+
+@article{avigad96-atr0-id,
+  author    = "Avigad, Jeremy",
+  title     = "On the relationship between {$ATR_0$} and {$\widehat{ID}_{<\omega}$}",
+  journal   = jsl,
+  number    = "3",
+  volume    = "61",
+  year      = "1996",
+  pages     = "768--779",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2275783",
 }
 
 @incollection{avigad02-oa-without-proofs,
@@ -253,8 +297,20 @@
   url    = "https://philarchive.org/rec/BARALC-5",
 }
 
+@article{barwise74-abstract-model-theory,
+  author    = "Barwise, Kenneth Jon",
+  title     = "Axioms for abstract model theory",
+  journal   = "Annals of Mathematical Logic",
+  volume    = "7",
+  number    = "2",
+  year      = "1974",
+  pages     = "221--265",
+  publisher = "North-Holland",
+  doi       = "doi.org/10.1016/0003-4843(74)90016-3",
+}
+
 @book{barwise76-admissible-sets,
-  author    = "Barwise, Jon",
+  author    = "Barwise, Kenneth Jon",
   title     = "Admissible Sets and Structures: An Approach to Definability Theory",
   year      = "1976",
   series    = "Perspectives in mathematical logic",
@@ -346,6 +402,25 @@
   doi       = "10.1017/s0956796899003627",
 }
 
+@book{bishop67-constructive-analysis,
+  author    = "Bishop, Errett",
+  title     = "Foundations of Constructive Analysis",
+  year      = "1967",
+  series    = "McGraw-Hill Series in Higher Mathematics",
+  publisher = "McGraw-Hill",
+}
+
+@article{bloom71-theories-of-kind-w,
+  author  = "Bloom, Stephen Louis",
+  title   = "A Completeness Theorem for ``Theories of Kind {W}''",
+  journal = stud-log,
+  volume  = "27",
+  number  = "1",
+  year    = "1971",
+  pages   = "43--56",
+  doi     = "10.1007/bf02282544",
+}
+
 @book{bocklandt21-homological-mirror-symmetry,
   author    = "Bocklandt, Raf",
   title     = "A Gentle Introduction to Homological Mirror Symmetry",
@@ -355,15 +430,31 @@
   doi       = "10.1017/9781108692458",
 }
 
+@article{bouverot-dupuis25-meta-programming,
+  author    = "Bouverot-Dupuis, Mathis and Forster, Yannick",
+  title     = "Code Generation via Meta-programming in Dependently Typed Proof Assistants",
+  year      = "2025",
+  publisher = "HAL",
+  eprint    = "hal-05024207",
+}
+
 @article{bozic-dosen84-normal-intuitionistic-modal-logics,
   author  = "Bo\v{z}i\'c, Milan and Do\v{s}en, Kosta",
   title   = "Models for normal intuitionistic modal logics",
-  journal = "Studia Logica: An International Journal for Symbolic Logic",
+  journal = stud-log,
   volume  = "43",
   number  = "3",
   year    = "1984",
   pages   = "217--245",
   doi     = "10.1007/bf02429840",
+}
+
+@phdthesis{brugger10-wkl,
+  author = "Brugger, Jon",
+  title  = "Proof-theoretic aspects of weak {K\"onig}'s lemma",
+  year   = "2010",
+  type   = "Master's Thesis",
+  school = "ETH Z{\"u}rich",
 }
 
 @article{brunner83-choice-in-topology,
@@ -469,6 +560,17 @@
   school = "University of Leeds",
 }
 
+@article{chen-rm-rathjen12-lifschitz-realizability,
+  author  = "Chen, Ray-Ming and Rathjen, Michael",
+  title   = "{Lifschitz} realizability for intuitionistic {Zermelo}--{Fraenkel} set theory",
+  journal = ml-arch,
+  volume  = "51",
+  number  = "7",
+  year    = "2012",
+  pages   = "789--818",
+  doi     = "10.1007/s00153-012-0299-2",
+}
+
 @inproceedings{chlipala08-parametric-hoas,
   author   = "Chlipala, Adam",
   title    = "Parametric Higher-Order Abstract Syntax for Mechanized Semantics",
@@ -569,6 +671,36 @@
   doi       = "10.1016/j.apal.2005.06.014",
 }
 
+@incollection{crosilla17-predicativity-feferman,
+  author   = "Crosilla, Laura",
+  title    = "Predicativity and {Feferman}",
+  crossref = "feferman17",
+  pages    = "423--447",
+  doi      = "10.1007/978-3-319-63334-3_15",
+}
+
+@article{crosilla-linnebo24-definiteness-set-theory,
+  author    = "Crosilla, Laura and Linnebo, {\O}ystein",
+  title     = "Definiteness in Early Set Theory",
+  journal   = "Journal for the Philosophy of Mathematics",
+  volume    = "1",
+  year      = "2024",
+  pages     = "43--62",
+  publisher = "Firenze University Press",
+  doi       = "10.36253/jpm-2933",
+}
+
+@article{crosilla-linnebo24-weyl,
+  author  = "Crosilla, Laura and Linnebo, {\O}ystein",
+  title   = "{Weyl} and two kinds of potential domains",
+  journal = "No\^us",
+  volume  = "58",
+  number  = "2",
+  year    = "2024",
+  pages   = "409--430",
+  doi     = "10.1111/nous.12457",
+}
+
 @incollection{cummings10-iterated-forcing,
   author   = "Cummings, James",
   title    = "Iterated Forcing and Elementary Embeddings",
@@ -587,6 +719,26 @@
   pages     = "1--34",
   publisher = "Elsevier",
   doi       = "10.1016/0168-0072(95)00018-6",
+}
+
+@article{das-vd-giessen-marin24-godel-lob,
+  author   = "Das, Anupam and \noopsort{Giessen}van der Giessen, Iris and Marin, Sonia",
+  title    = "Intuitionistic {G\"odel}--{L\"ob} Logic, \`a la {Simpson}: Labelled Systems and Birelational Semantics",
+  crossref = "csl24",
+  pages    = "22:1--22:18",
+  doi      = "10.4230/lipics.csl.2024.22",
+}
+
+@article{davis73-hilbert-tenth-problem,
+  author    = "Davis, Martin",
+  title     = "{Hilbert}'s Tenth Problem is Unsolvable",
+  journal   = "The {American} Mathematical Monthly",
+  volume    = "80",
+  number    = "3",
+  year      = "1973",
+  pages     = "233--269",
+  publisher = "Taylor \& Francis",
+  doi       = "10.2307/2318447",
 }
 
 @article{denef-dries88-subanalytic-sets,
@@ -698,6 +850,16 @@
   publisher = "North-Holland",
 }
 
+@article{dreyfus-eisenberg86-aesthetics,
+  author  = "Dreyfus, Tommy and Eisenberg, Theodore",
+  title   = "On the Aesthetics of Mathematical Thought",
+  journal = "For the Learning of Mathematics",
+  volume  = "6",
+  number  = "1",
+  year    = "1986",
+  pages   = "2--10",
+}
+
 @article{dries86-tarski-seidenberg,
   author    = lvd-dries,
   title     = "A generalization of the {Tarski}--{Seidenberg} theorem, and some nondefinability results",
@@ -806,6 +968,18 @@
   publisher = ams,
 }
 
+@article{feferman62-recursive-progressions,
+  author    = "Feferman, Solomon",
+  title     = "Transfinite recursive progressions of axiomatic theories",
+  journal   = jsl,
+  volume    = "27",
+  number    = "3",
+  year      = "1962",
+  pages     = "259--316",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2964649",
+}
+
 @article{feferman64-predicative-analysis,
   author    = "Feferman, Solomon",
   title     = "Systems of predicative analysis",
@@ -818,12 +992,28 @@
   doi       = "10.2307/2269764",
 }
 
+@incollection{feferman68-autonomous-progressions,
+  author   = "Feferman, Solomon",
+  title    = "Autonomous Transfinite Progressions and the Extent of Predicative Mathematics",
+  crossref = "logic68",
+  pages    = "121--135",
+  doi      = "10.1016/s0049-237x(08)71190-x",
+}
+
 @inproceedings{feferman75-em,
   author   = "Feferman, Solomon",
   title    = "A language and axioms for explicit mathematics",
   crossref = "algebra-logic75",
   pages    = "87--139",
   doi      = "10.1007/bfb0062852",
+}
+
+@incollection{feferman77-finite-type,
+  author   = "Feferman, Solomon",
+  title    = "Theories of Finite Type Related to Mathematical Practice",
+  crossref = "handbook-logic77",
+  pages    = "913--971",
+  doi      = "10.1016/s0049-237x(08)71126-1",
 }
 
 @incollection{feferman78-predicativity,
@@ -834,12 +1024,36 @@
   doi      = "10.1515/9783110875560-008",
 }
 
+@inproceedings{feferman79-constructive-theories,
+  author   = "Feferman, Solomon",
+  title    = "Constructive Theories of Functions and Classes",
+  crossref = "logic78",
+  pages    = "159--224",
+  doi      = "10.1016/s0049-237x(08)71625-2",
+}
+
 @incollection{feferman81-em-analysis,
   author   = "Feferman, Solomon and Sieg, Wilfried",
   title    = "Proof theoretic equivalences between classical and constructive theories for analysis",
   crossref = "id-proof-theory81",
   pages    = "78--142",
   doi      = "10.1007/bfb0091896",
+}
+
+@incollection{feferman82-monotone-id,
+  author   = "Feferman, Solomon",
+  title    = "Monotone Inductive Definitions",
+  crossref = "brouwer82",
+  pages    = "77--89",
+  doi      = "10.1016/s0049-237x(09)70124-7",
+}
+
+@inproceedings{feferman82-iterated-fixed-point,
+  author   = "Feferman, Solomon",
+  title    = "Iterated Inductive Fixed-Point Theories: Application to {Hancock}'s Conjecture",
+  crossref = "patras82",
+  pages    = "171--196",
+  doi      = "10.1016/s0049-237x(08)71364-8",
 }
 
 @inproceedings{feferman84-em,
@@ -924,6 +1138,14 @@
   year    = "2020",
   pages   = "527--548",
   doi     = "10.1111/nous.12267",
+}
+
+@incollection{fontanella-geoffrey-matthews24-large-cardinals,
+  author   = "Fontanella, Laura and Geoffroy, Guillaume and Matthews, Richard",
+  title    = "Realizability Models for Large Cardinals",
+  crossref = "csl24",
+  pages    = "28:1--28:18",
+  doi      = "10.4230/lipics.csl.2024.28",
 }
 
 @article{forti-honsell85-card-universality,
@@ -1014,6 +1236,17 @@
   pages    = "435--442",
 }
 
+@article{friedman77-set-constructive-analysis,
+  author  = "Friedman, Harvey Martin",
+  title   = "Set Theoretic Foundations for Constructive Analysis",
+  journal = "Annals of Mathematics",
+  volume  = "105",
+  number  = "1",
+  year    = "1977",
+  pages   = "1--28",
+  doi     = "10.2307/1971023",
+}
+
 @article{friedman98-finite-functions,
   author  = "Friedman, Harvey Martin",
   title   = "Finite Functions and the Necessary Use of Large Cardinals",
@@ -1042,6 +1275,18 @@
   title  = "Boolean relation theory and incompleteness",
   year   = "2011",
   url    = "https://u.osu.edu/friedman.8/files/2014/01/0EntireBook061311-wh0yjy.pdf",
+}
+
+@article{friedman-scedrov84-intuitionistic-large-sets,
+  author    = "Friedman, Harvey Martin and Scedrov, Andre",
+  title     = "Large sets in intuitionistic set theory",
+  journal   = apal,
+  volume    = "27",
+  number    = "1",
+  year      = "1984",
+  pages     = "1--24",
+  publisher = "Elsevier",
+  doi       = "10.1016/0168-0072(84)90033-2",
 }
 
 @article{friedman-scedrov85-provably-recursive-functions,
@@ -1141,7 +1386,7 @@
 @article{gaifman12-ontology,
   author    = "Gaifman, Haim",
   title     = "On Ontology and Realism in Mathematics",
-  journal   = "The Review of Symbolic Logic",
+  journal   = rsl,
   volume    = "5",
   number    = "3",
   year      = "2012",
@@ -1209,6 +1454,13 @@
   doi       = "10.1305/ndjfl/1040067315",
 }
 
+@phdthesis{gibbons02-veblen-hierarchy,
+  author = "Gibbons, Ben John",
+  title  = "The {Veblen} hierarchy explained via {Mahlo} hierarchies in constructive set theory",
+  year   = "2002",
+  school = "University of Leeds",
+}
+
 @article{girard-normann92-ptykes,
   author    = "Girard, Jean-Yves and Normann, Dag",
   title     = "Embeddability of ptykes",
@@ -1230,6 +1482,18 @@
   year    = "1980",
   pages   = "61--88",
   doi     = "10.1007/bf02760939",
+}
+
+@article{glas-rathjen-schluter97-monotone-induction-em,
+  author    = "Gla\ss, Thomas and Rathjen, Michael and Schl{\"u}ter, Andreas",
+  title     = "On the proof-theoretic strength of monotone induction in explicit mathematics",
+  journal   = apal,
+  volume    = "85",
+  number    = "1",
+  year      = "1997",
+  pages     = "1--46",
+  publisher = "Elsevier",
+  doi       = "10.1016/s0168-0072(96)00040-1",
 }
 
 @book{godel40-ch,
@@ -1257,6 +1521,13 @@
   title    = "What is {Cantor}'s Continuum Problem?",
   crossref = "godel-collected-works-ii89",
   pages    = "254--270",
+}
+
+@incollection{godel95-foundations-of-maths,
+  author   = "G{\"o}del, Kurt",
+  title    = "The present situation in the foundations of mathematics",
+  crossref = "godel-collected-works-iii95",
+  pages    = "45--55",
 }
 
 @incollection{godel95-maths-syntax-of-language,
@@ -1327,12 +1598,20 @@
 @article{hamkins12-set-theoretic-multiverse,
   author  = "Hamkins, Joel David",
   title   = "The set-theoretic multiverse",
-  journal = "The Review of Symbolic Logic",
+  journal = rsl,
   volume  = "5",
   number  = "3",
   year    = "2012",
   pages   = "416--449",
   doi     = "10.1017/s1755020311000359",
+}
+
+@article{hamkins22-large-cardinal-nonlinearity,
+  author    = "Hamkins, Joel David",
+  title     = "Nonlinearity and illfoundedness in the hierarchy of large cardinal consistency strength",
+  year      = "2022",
+  publisher = "arXiv",
+  eprint    = "arXiv:2208.07445 [math.LO]",
 }
 
 @article{hamkins24-ch,
@@ -1343,6 +1622,18 @@
   year    = "2024",
   pages   = "141-159",
   doi     = "10.36253/jpm-2936",
+}
+
+@article{hauser91-indescribable-cardinals,
+  author    = "Hauser, Kai",
+  title     = "Indescribable cardinals and elementary embeddings",
+  journal   = jsl,
+  volume    = "56",
+  number    = "2",
+  year      = "1991",
+  pages     = "439--457",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2274692",
 }
 
 @phdthesis{henry16-heyting-valued-models,
@@ -1379,6 +1670,13 @@
   year    = "2012",
   pages   = "409--426",
   doi     = "10.1007/s10817-010-9207-9",
+}
+
+@incollection{howard96-proof-theory,
+  author   = "Howard, William Alvin",
+  title    = "Some Proof Theory in the 1960's",
+  crossref = "kreiseliana96",
+  pages    = "275--288",
 }
 
 @article{howard-kreisel66-transfinite-induction,
@@ -1424,6 +1722,13 @@
   publisher = "Bibliopolis",
 }
 
+@inproceedings{jager05-metapredicative,
+  author   = "J{\"a}ger, Gerhard",
+  title    = "Metapredicative and explicit {Mahlo}: a proof-theoretic perspective",
+  crossref = "logic00",
+  pages    = "272--293",
+}
+
 @incollection{jager22-kp-cut-elimination,
   author   = "J{\"a}ger, Gerhard",
   title    = "Simplified Cut Elimination for {Kripke}--{Platek} Set Theory",
@@ -1432,12 +1737,60 @@
   doi      = "10.1007/978-3-030-77799-9_2",
 }
 
+@article{jager-kahle-setzer-strahm99-fixed-point,
+  author    = "J{\"a}ger, Gerhard and Kahle, Reinhard and Setzer, Anton and Strahm, Thomas",
+  title     = "The proof-theoretic analysis of transfinitely iterated fixed point theories",
+  journal   = jsl,
+  volume    = "64",
+  number    = "1",
+  year      = "1999",
+  pages     = "53--67",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2586750",
+}
+
+@article{jager-kahle-studer01-em-universes,
+  author    = "J{\"a}ger, Gerhard and Kahle, Reinhard and Studer, Thomas",
+  title     = "Universes in explicit mathematics",
+  journal   = apal,
+  volume    = "109",
+  number    = "3",
+  year      = "2001",
+  pages     = "141--162",
+  publisher = "Elsevier",
+  doi       = "10.1016/s0168-0072(00)00057-9",
+}
+
 @article{jager-rathjen23-admissible-extensions,
   author    = "J{\"a}ger, Gerhard and Rathjen, Michael",
   title     = "Admissible extensions of subtheories of second order arithmetic",
   year      = "2023",
   publisher = "arXiv",
   eprint    = "arXiv:2202.03476 [math.LO]",
+}
+
+@article{jager-rathjen24-admissible-extensions,
+  author    = "J{\"a}ger, Gerhard and Rathjen, Michael",
+  title     = "Admissible extensions of subtheories of second order arithmetic",
+  journal   = apal,
+  volume    = "175",
+  number    = "7",
+  year      = "2024",
+  note      = "Article: 103425",
+  publisher = "Elsevier",
+  doi       = "10.1016/j.apal.2024.103425",
+}
+
+@article{jager-strahm01-metapredicative-mahlo,
+  author    = "J{\"a}ger, Gerhard and Strahm, Thomas",
+  title     = "Upper bounds for metapredicative {Mahlo} in explicit mathematics and admissible set theory",
+  journal   = jsl,
+  volume    = "66",
+  number    = "2",
+  year      = "2001",
+  pages     = "935--958",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2695054",
 }
 
 @article{jeandal-rao21-aperiodic-wang-tiles,
@@ -1553,6 +1906,27 @@
   doi       = "10.2178/jsl/1080938834",
 }
 
+@article{kant25-multiverse-view,
+  author    = "Kant, Deborah",
+  title     = "The Multiverse View and Set-Theoretic Practice",
+  journal   = "KRITERION -- Journal of Philosophy",
+  year      = "2025",
+  publisher = "De Gruyter",
+  doi       = "10.1515/krt-2024-0001",
+}
+
+@article{kant-sarikaya21-mathematizing,
+  author    = "Kant, Deborah and Sarikaya, Deniz",
+  title     = "Mathematizing as a virtuous practice: different narratives and their consequences for mathematics education and society",
+  journal   = "Synthese",
+  volume    = "199",
+  number    = "1",
+  year      = "2021",
+  pages     = "3405--3429",
+  publisher = "Springer",
+  doi       = "10.1007/s11229-020-02939-y",
+}
+
 @article{karagila14-embedding-orders,
   author  = "Karagila, Asaf",
   title   = "Embedding orders into the cardinals with {$\mathsf{DC}_{\kappa}$}",
@@ -1577,6 +1951,14 @@
   title  = "Lecture Notes: Forcing \& Symmetric Extensions",
   year   = "2023",
   url    = "https://karagila.org/files/Forcing-2023.pdf",
+}
+
+@article{kihara20-incomputability-realizability,
+  author    = "Kihara, Takayuki",
+  title     = "Degrees of incomputability, realizability and constructive reverse mathematics",
+  year      = "2020",
+  publisher = "arXiv",
+  eprint    = "arXiv:2002.10712 [math.LO]",
 }
 
 @article{knight-pillay-steinhorn86-definable-sets,
@@ -1636,6 +2018,15 @@
   doi      = "10.1007/978-1-4020-5764-9_24",
 }
 
+@article{konecny-park-thies24-exact-real-computation,
+  author  = "Kone\v{c}n\'y, Michal and Park, Sewon and Thies, Holger",
+  title   = "Extracting efficient exact real number computation from proofs in constructive type theory",
+  journal = "Journal of Logic and Computation",
+  year    = "2024",
+  note    = "Advance article exae066",
+  doi     = "10.1093/logcom/exae066",
+}
+
 @article{kovacsics17-liouville-theorem,
   author    = "Kovacsics, Pablo Cubides",
   title     = "A proof of {Liouville}'s theorem via o-minimality",
@@ -1664,6 +2055,12 @@
   pages   = "307--319",
   year    = "1962",
   doi     = "10.1016/s1385-7258(62)50029-2",
+}
+
+@inproceedings{kreisel63-generalized-id,
+  author   = "Kreisel, Georg",
+  title    = "Generalized Inductive Definitions",
+  crossref = "stanford-analysis63",
 }
 
 @article{kunen71-elementary-embeddings,
@@ -1698,6 +2095,14 @@
   pages     = "213--224",
   publisher = "Cambridge University Press",
   doi       = "10.2178/bsl/1052669290",
+}
+
+@inproceedings{leeds-putnam71-constructible-sets,
+  author   = "Leeds, Stephen and Putnam, Hilary",
+  title    = "An Intrinsic Characterization of the Hierarchy of Constructible Sets of Integers",
+  crossref = "logic69",
+  pages    = "311--350",
+  doi      = "10.1016/s0049-237x(08)71236-9",
 }
 
 @book{lindstrom17-incompleteness,
@@ -1845,6 +2250,29 @@
   doi     = "10.1016/0022-314x(81)90010-x",
 }
 
+@article{maietti09-two-level-foundation,
+  author    = "Maietti, Maria Emilia",
+  title     = "A minimalist two-level foundation for constructive mathematics",
+  journal   = apal,
+  volume    = "160",
+  number    = "3",
+  year      = "2009",
+  pages     = "319--354",
+  publisher = "Elsevier",
+  doi       = "10.1016/j.apal.2009.01.006",
+}
+
+@article{maksimova79-superintuitionistic-interpolation,
+  author  = "Maksimova, Larisa L'vovna",
+  title   = "Interpolation properties of superintuitionistic logics",
+  journal = stud-log,
+  volume  = "38",
+  number  = "4",
+  year    = "1979",
+  pages   = "419--428",
+  doi     = "10.1007/bf00370479",
+}
+
 @article{mancini-zambella01-recursive-models-set-theory,
   author    = "Mancini, Antonella and Zambella, Domenico",
   title     = "A Note on Recursive Models of Set Theories",
@@ -1855,6 +2283,17 @@
   pages     = "109--115",
   publisher = "Duke University Press",
   doi       = "10.1305/ndjfl/1054837937",
+}
+
+@article{mannone19-aesthetics,
+  author  = "Mannone, Maria",
+  title   = "{cARTegory} Theory: Framing Aesthetics of Mathematics",
+  journal = "Journal of Humanistic Mathematics",
+  volume  = "9",
+  number  = "1",
+  year    = "2019",
+  pages   = "277--294",
+  doi     = "10.5642/jhummath.201901.16",
 }
 
 @book{mansfield-weitkamp85-recursive-dst,
@@ -1908,6 +2347,22 @@
   crossref = "scandinavian71",
   pages    = "179--216",
   doi      = "10.1016/s0049-237x(08)70847-4",
+}
+
+@inproceedings{martin-lof75-intuitionistic-theory-predicative,
+  author   = "Martin-L{\"o}f, Per",
+  title    = "An Intuitionistic Theory of Types: Predicative Part",
+  crossref = "logic73",
+  pages    = "73--118",
+  doi      = "10.1016/s0049-237x(08)71945-1",
+}
+
+@book{martin-lof84-ist,
+  author    = "Martin-L{\"o}f, Per",
+  title     = "Intuitionistic Type Theory",
+  year      = "1984",
+  series    = "Studies in Proof Theory",
+  publisher = "Bibliopolis",
 }
 
 @article{martin-steel89-projective-determinacy,
@@ -2072,6 +2527,18 @@
   doi       = "10.1090/surv/155",
 }
 
+@article{myhill75-cst,
+  author    = "Myhill, John",
+  title     = "Constructive set theory",
+  journal   = jsl,
+  volume    = "40",
+  number    = "3",
+  year      = "1975",
+  pages     = "347--382",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2272159",
+}
+
 @book{nederpelt-geuvers14-type-theory,
   author    = "Nederpelt, Rob and Geuvers, Herman",
   title     = "Type Theory and Formal Proof: An Introduction",
@@ -2114,6 +2581,32 @@
   number  = "2",
   year    = "2008",
   pages   = "207--220",
+}
+
+@unpublished{palmgren91-transfinite-hierarchies,
+  author = "Palmgren, Erik",
+  title  = "Transfinite hierarchies of universes",
+  year   = "1991",
+  note   = "Uppsala University Department of Mathematics Report",
+}
+
+@article{palmgren93-mltt-universes,
+  author  = "Palmgren, Erik",
+  title   = "An Information System Interpretation of {Martin-L\"of}'s Partial Type Theory with Universes",
+  journal = "Information and Computation",
+  volume  = "106",
+  number  = "1",
+  year    = "1993",
+  pages   = "26--60",
+  doi     = "10.1006/inco.1993.1048",
+}
+
+@incollection{palmgren98-type-theory-universes,
+  author   = "Palmgren, Erik",
+  title    = "On universes in type theory",
+  crossref = "ctt98",
+  pages    = "191--204",
+  doi      = "10.1093/oso/9780198501275.003.0012",
 }
 
 @article{parikh73-proof-length,
@@ -2196,6 +2689,14 @@
   doi       = "10.1007/978-3-540-69319-2",
 }
 
+@incollection{pohlers20-predicativity,
+  author   = "Pohlers, Wolfram",
+  title    = "The Limits of Predicativity Revisited",
+  crossref = "schutte20",
+  pages    = "129--165",
+  doi      = "10.1007/978-3-030-49424-7_10",
+}
+
 @article{probst06-iterated-quasi-least-fixed-points,
   author    = "Probst, Dieter",
   title     = "The proof-theoretic analysis of transfinitely iterated quasi least fixed points",
@@ -2259,6 +2760,14 @@
   publisher = "Springer",
 }
 
+@phdthesis{quintanilla22-real-numbers-inner-model,
+  author = "Quintanilla, Mart\'in Soto",
+  title  = "The real numbers in inner models of set theory",
+  year   = "2022",
+  type   = "Bachlor's Thesis",
+  school = "Universitat de Barcelona",
+}
+
 @article{rathjen91-bar-rule-parameters,
   author    = "Rathjen, Michael",
   title     = "The role of parameters in bar rule and bar induction",
@@ -2314,12 +2823,84 @@
   doi       = "10.2307/421132",
 }
 
+@article{rathjen96-inductive-definitions-em,
+  author    = "Rathjen, Michael",
+  title     = "Monotone inductive definitions in explicit mathematics",
+  journal   = jsl,
+  volume    = "61",
+  number    = "1",
+  year      = "1996",
+  pages     = "125--146",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2275601",
+}
+
+@inproceedings{rathjen98-higher-infinite,
+  author   = "Rathjen, Michael",
+  title    = "The Higher Infinite in Proof Theory",
+  crossref = "logic95-original",
+  pages    = "275--304",
+}
+
+@article{rathjen98-em,
+  author    = "Rathjen, Michael",
+  title     = "Explicit mathematics with the monotone fixed point principle",
+  volume    = "63",
+  number    = "2",
+  year      = "1998",
+  pages     = "509--542",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2586846",
+}
+
 @incollection{rathjen99-ordinal-analysis,
   author   = "Rathjen, Michael",
   title    = "The Realm of Orinal Analysis",
   crossref = "set-proofs99",
   pages    = "219--280",
   doi      = "10.1017/cbo9781107325944.011",
+}
+
+@article{rathjen99-em-models,
+  author    = "Rathjen, Michael",
+  title     = "Explicit mathematics with the monotone fixed point principle. {II}: Models",
+  journal   = jsl,
+  volume    = "64",
+  number    = "2",
+  year      = "1999",
+  pages     = "517--550",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2586483",
+}
+
+@article{rathjen00-mltt-superuniverse,
+  author  = "Rathjen, Michael",
+  title   = "The strength of {Martin-L\"of} type theory with a superuniverse. Part {I}",
+  journal = ml-arch,
+  volume  = "39",
+  number  = "1",
+  year    = "2000",
+  pages   = "1--39",
+  doi     = "10.1007/s001530050001",
+}
+
+@article{rathjen01-mltt-superuniverse,
+  author  = "Rathjen, Michael",
+  title   = "The strength of {Martin-L\"of} type theory with a superuniverse. Part {II}",
+  journal = ml-arch,
+  volume  = "40",
+  number  = "3",
+  year    = "2001",
+  pages   = "207--233",
+  doi     = "10.1007/s001530000051",
+}
+
+@incollection{rathjen02-em-survey,
+  author   = "Rathjen, Michael",
+  title    = "Explicit mathematics with monotone inductive definitions: A survey",
+  crossref = "reflections-feferman02",
+  pages    = "329--346",
+  doi      = "10.1017/9781316755983.016",
 }
 
 @article{rathjen05-czf-disjunction-property,
@@ -2344,6 +2925,18 @@
   pages     = "156--174",
   publisher = "Elsevier",
   doi       = "10.1016/j.apal.2005.05.010",
+}
+
+@article{rathjen05-constructive-hilbert-program,
+  author    = "Rathjen, Michael",
+  title     = "The Constructive {Hilbert} Program and the Limits of {Martin-L\"of} Type Theory",
+  journal   = "Synthese",
+  volume    = "147",
+  number    = "1",
+  year      = "2005",
+  pages     = "81--120",
+  publisher = "Springer",
+  doi       = "10.1007/s11229-004-6208-4",
 }
 
 @article{rathjen05-brouwerian-principles,
@@ -2410,6 +3003,14 @@
   year    = "2008",
   pages   = "83--97",
   doi     = "10.1002/malq.200710036",
+}
+
+@incollection{rathjen09-constructive-hilbert-program,
+  author   = "Rathjen, Michael",
+  title    = "The Constructive {Hilbert} Program and the Limits of {Martin-L\"of} Type Theory",
+  crossref = "logicism09",
+  pages    = "397--433",
+  doi      = "10.1007/978-1-4020-8926-8_17",
 }
 
 @incollection{rathjen12-czf-powerset,
@@ -2522,6 +3123,26 @@
   doi     = "10.1098/rsta.2022.0019",
 }
 
+@article{rathjen-swan20-lifschitz-realizability,
+  author    = "Rathjen, Michael and Swan, Andrew Wakelin",
+  title     = "{Lifschitz} Realizability as a Topological Construction",
+  journal   = jsl,
+  volume    = "85",
+  number    = "4",
+  year      = "2020",
+  pages     = "1342--1375",
+  publisher = "Cambridge University Press",
+  doi       = "10.1017/jsl.2021.1",
+}
+
+@incollection{rathjen-tupailo20-em-fixed-point,
+  author   = "Rathjen, Michael and Tupailo, Sergei",
+  title    = "On the Strength of the Uniform Fixed Point Principle in Intuitionistic Explicit Mathematics",
+  crossref = "schutte20",
+  pages    = "377--399",
+  doi      = "10.1007/978-3-030-49424-7_19",
+}
+
 @article{rathjen-weiermann93-kruskal-theorem,
   author    = "Rathjen, Michael and Weiermann, Andreas",
   title     = "Proof-theoretic investigations on {Kruskal}'s theorem",
@@ -2584,6 +3205,45 @@
   pages     = "485--503",
   publisher = "Cambridge University Press",
   doi       = "10.2307/2687795",
+}
+
+@article{schutte51-verzweigten-analysis,
+  author  = "Sch{\"u}tte, Kurt",
+  title   = "Beweistheoretische {U}ntersuchung der verzweigten {A}nalysis",
+  journal = "Mathematische Annalen",
+  volume  = "124",
+  number  = "1",
+  year    = "1951",
+  pages   = "123--147",
+  doi     = "10.1007/bf01343554",
+}
+
+@article{schutte64-transfiniten-induktion,
+  author  = "Sch{\"u}tte, Kurt",
+  title   = "Eine {G}renze F{\"u}r die {B}eweisbarkeit der Transfiniten {I}nduktion in der Verzweigten {T}ypenlogik",
+  journal = "Archiv f{\"u}r mathematische Logik und Grundlagenforschung",
+  volume  = "7",
+  number  = "1",
+  year    = "1964",
+  pages   = "45--60",
+  doi     = "10.1007/bf01972460",
+}
+
+@incollection{schutte65-predicative-well-orderings,
+  author   = "Sch{\"u}tte, Kurt",
+  title    = "Predicative Well-Orderings",
+  crossref = "formal-systems65",
+  pages    = "280--303",
+  doi      = "10.1016/s0049-237x(08)71694-x",
+}
+
+@book{schutte77-proof-theory,
+  author    = "Sch{\"u}tte, Kurt",
+  title     = "Proof Theory",
+  year      = "1977",
+  series    = "Grundlehren der mathematischen Wissenschaften",
+  publisher = "Springer Berlin, Heidelberg",
+  doi       = "10.1007/978-3-642-66473-1",
 }
 
 @incollection{schwichtenberg77-cut-elimination,
@@ -2671,6 +3331,14 @@
   doi     = "10.1007/bf02801471",
 }
 
+@inproceedings{shimomichi-takeda-yokoyama25-modal-completeness,
+  author   = "Shimomichi, Sho and Takeda, Yuto and Yokoyama, Keita",
+  title    = "Completeness Theorems for Modal Logic in Second-Order Arithmetic",
+  crossref = "cie25",
+  pages    = "452--466",
+  doi      = "10.1007/978-3-031-95908-0_32",
+}
+
 @book{shoenfield67-logic,
   author    = "Shoenfield, Joseph Robert",
   title     = "Mathematical logic",
@@ -2726,6 +3394,16 @@
   publisher = "Cambridge University Press",
 }
 
+@article{sinclair01-aesthetics,
+  author  = "Sinclair, Nathalie",
+  title   = "The Aesthetic Is Relevant",
+  journal = "For the Learning of Mathematics",
+  volume  = "21",
+  number  = "1",
+  year    = "2001",
+  pages   = "25--32",
+}
+
 @article{solovay70-lebesgue-measurable,
   author  = "Solovay, Robert Martin",
   title   = "A Model of Set-Theory in Which Every Set of Reals is {Lebesgue} Measurable",
@@ -2742,6 +3420,34 @@
   title  = "Ordinal Proof Theory of {Kripke}--{Platek} Set Theory Augmented by Strong Reflection Principles",
   year   = "2010",
   school = "Westf{\"a}lische Wilhelms-Universit{\"a}t M{\"u}nster",
+}
+
+@incollection{strahm99-metapredicativity,
+  author   = "Strahm, Thomas",
+  title    = "First Steps into Metapredicativity in Explicit Mathematics",
+  crossref = "set-proofs99",
+  pages    = "383--402",
+  doi      = "10.1017/cbo9781107325944.016",
+}
+
+@inproceedings{strahm00-autonomous-fixed-point,
+  author   = "Strahm, Thomas",
+  title    = "Autonomous Fixed Point Progressions and Fixed Point Transfinite Recursion",
+  crossref = "logic98",
+  pages    = "449--464",
+  doi      = "10.1017/9781316756140.031",
+}
+
+@article{strahm02-metapredicative-mahlo,
+  author    = "Strahm, Thomas",
+  title     = "Wellordering proofs for metapredicative {Mahlo}",
+  journal   = jsl,
+  volume    = "67",
+  number    = "1",
+  year      = "2002",
+  pages     = "260--278",
+  publisher = "Cambridge University Press",
+  doi       = "10.2178/jsl/1190150043",
 }
 
 @article{streicher13-krivine-realisability,
@@ -2763,6 +3469,16 @@
   volume  = "164",
   year    = "1917",
   pages   = "88--91",
+}
+
+@article{suzuki25-relative-lpp,
+  author  = "Suzuki, Yudai",
+  title   = "Relative leftmost path principles and omega-model reflections of transfinite inductions",
+  journal = jsl,
+  year    = "2025",
+  pages   = "1--17",
+  note    = "Accepted manuscript",
+  doi     = "10.1017/jsl.2025.10096",
 }
 
 @article{suzuki-yokoyama24-atr,
@@ -2802,6 +3518,18 @@
   pages    = "133-154",
 }
 
+@article{takahashi89-constructive-id,
+  author    = "Takahashi, Shuzo",
+  title     = "Monotone inductive definitions in a constructive theory of functions and classes",
+  journal   = apal,
+  volume    = "42",
+  number    = "3",
+  year      = "1989",
+  pages     = "255--297",
+  publisher = "Elsevier",
+  doi       = "10.1016/0168-0072(89)90019-5",
+}
+
 @book{takeuti78-applications-of-logic,
   author    = "Takeuti, Gaisi",
   title     = "Two Applications of Logic to Mathematics",
@@ -2829,6 +3557,37 @@
   doi       = "10.2307/2275781",
 }
 
+@article{tharp73-monadic-logic,
+  author    = "Tharp, Leslie Howard",
+  title     = "The characterization of monadic logic",
+  journal   = jsl,
+  volume    = "38",
+  number    = "3",
+  year      = "1973",
+  pages     = "481--488",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2273046",
+}
+
+@phdthesis{thiel03-metapredicative-set-theories,
+  author = "Thiel, Klaus",
+  title  = "Metapredicative set theories and provable ordinals",
+  year   = "2003",
+  school = "University of Leeds",
+}
+
+@article{tupailo04-intuitionistic-mid,
+  author    = "Tupailo, Sergei",
+  title     = "On the intuitionistic strength of monotone inductive definitions",
+  journal   = jsl,
+  volume    = "69",
+  number    = "3",
+  year      = "2004",
+  pages     = "790--798",
+  publisher = "Cambridge University Press",
+  doi       = "10.2178/jsl/1096901767",
+}
+
 @article{uftring23-effective-transfinite-recursion,
   author    = "Uftring, Patrick",
   title     = "Weak and strong versions of Effective Transfinite Recursion",
@@ -2839,6 +3598,18 @@
   note      = "Article: 103232",
   publisher = "Elsevier",
   doi       = "10.1016/j.apal.2022.103232",
+}
+
+@article{vaananen01-sol,
+  author    = "V{\"a}{\"a}n{\"a}nen, Jouko",
+  title     = "Second-Order Logic and Foundations of Mathematics",
+  journal   = bsl,
+  volume    = "7",
+  number    = "4",
+  year      = "2001",
+  pages     = "504--520",
+  publisher = "Cambridge University Press",
+  doi       = "10.2307/2687796",
 }
 
 @article{wang58-foundational-studies,
@@ -2862,7 +3633,7 @@
 
 @article{wang-sw25-cm,
   author    = "Wang, Shuwei",
-  title     = "An ordinal analysis of CM and its extensions",
+  title     = "An ordinal analysis of {CM} and its extensions",
   year      = "2025",
   publisher = "arXiv",
   eprint    = "arXiv:2501.12631 [math.LO]",
@@ -2981,6 +3752,26 @@
   doi       = "10.1515/9783112451144",
 }
 
+@article{weyl1919-circulus-vitiosus,
+  author  = "Weyl, Hermann",
+  title   = "Der circulus vitiosus in der heutigen {B}egründung der {A}nalysis",
+  journal = "Jahresbericht der Deutschen Mathematiker-Vereinigung",
+  volume  = "28",
+  year    = "1919",
+  pages   = "85--102",
+}
+
+@article{weyl1921-grundlagenkrise,
+  author  = "Weyl, Hermann",
+  title   = "{\"U}ber die neue {G}rundlagenkrise der {M}athematik",
+  journal = "Mathematische Zeitschrift",
+  volume  = "10",
+  number  = "1",
+  year    = "1921",
+  pages   = "39--79",
+  doi     = "10.1007/bf02102305",
+}
+
 @article{weyl46-mathematics-logic,
   author    = "Weyl, Hermann",
   title     = "Mathematics and Logic: A brief survey serving as preface to a review of The Philosophy of {Bertrand Russell}",
@@ -2991,6 +3782,14 @@
   pages     = "2--13",
   publisher = "Taylor \& Francis",
   doi       = "10.1080/00029890.1946.11991619",
+}
+
+@book{weyl94-continuum,
+  author     = "Weyl, Hermann",
+  translator = "Pollard, Stephen and Bole, Thomas",
+  title      = "The Continuum: A Critical Examination of the Foundation of Analysis",
+  year       = "1994",
+  publisher  = "Dover Publications",
 }
 
 @book{whyburn64-topological-analysis,
@@ -3051,12 +3850,35 @@
   doi       = "10.1515/9781400881970",
 }
 
+@proceedings{stanford-analysis63,
+  organization = "Stanford University",
+  booktitle    = "Reports of the Seminar on the Foundations of Analysis",
+  year         = "1963",
+  note         = "(mimeographed)",
+}
+
+@book{formal-systems65,
+  editor    = "Crossley, John Newsome and Dummett, Michael",
+  booktitle = "Formal Systems and Recursive Functions",
+  year      = "1965",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
+}
+
 @proceedings{categorical-algebra66,
   editor    = "Eilenberg, Samuel and Harrison, David Kent and Mac Lane, Saunders and R{\"o}hrl, Helmut",
   booktitle = "Proceedings of the {Conference on Categorical Algebra}",
   year      = "1966",
   publisher = "Springer Berlin, Heidelberg",
   doi       = "10.1007/978-3-642-99902-4",
+}
+
+@collection{logic68,
+  editor    = "\noopsort{Rootselaar}van Rootselaar, Bob and Staal, J.{\ }F.",
+  booktitle = "Logic, Methodology and Philosophy of Science {III}",
+  year      = "1968",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
 }
 
 @proceedings{buffalo68,
@@ -3068,12 +3890,20 @@
 }
 
 @proceedings{infinitary-languages68,
-  editor    = "Barwise, Jon",
+  editor    = "Barwise, Kenneth Jon",
   booktitle = "The Syntax and Semantics of Infinitary Languages",
   year      = "1968",
   series    = "Lecture Notes in Mathematics",
   publisher = "Springer Berlin, Heidelberg",
   doi       = "10.1007/bfb0079679",
+}
+
+@proceedings{logic69,
+  editor    = "Gandy, Robin Oliver and Yates, C.{\ }E.{\ }Mike",
+  booktitle = "Logic Colloquium '69",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  year      = "1971",
+  publisher = "North-Holland",
 }
 
 @book{london70,
@@ -3097,6 +3927,14 @@
   editor    = "Fenstad, Jens Erik and Hinman, Peter Greayer",
   booktitle = "Generalized Recursion Theory: Proceedings of the 1972 {Oslo} Symposium",
   year      = "1974",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
+}
+
+@proceedings{logic73,
+  editor    = "Rose, H.{\ }E. and Shepherdson, John C.",
+  booktitle = "Logic Colloquium '73",
+  year      = "1975",
   series    = "Studies in Logic and the Foundations of Mathematics",
   publisher = "North-Holland",
 }
@@ -3143,7 +3981,7 @@
   doi       = "10.1007/978-94-010-1138-9",
 }
 
-@book{logic-col77,
+@proceedings{logic-col77,
   editor    = "Macintyre, Angus John and Pacholski, Leszek and Paris, Jeffrey B.",
   booktitle = "Logic Colloquium '77",
   year      = "1978",
@@ -3152,7 +3990,7 @@
 }
 
 @book{handbook-logic77,
-  editor    = "Barwise, Jon",
+  editor    = "Barwise, Kenneth Jon",
   booktitle = "Handbook of mathematical logic",
   year      = "1977",
   series    = "Studies in Logic and the Foundations of Mathematics",
@@ -3163,6 +4001,14 @@
   editor    = "Fenstad, Jens Erik and Gandy, Robin Oliver and Sacks, Gerald Enoch",
   booktitle = "Generalized Recursion Theory {II}: Proceedings of the 1977 {Oslo} Symposium",
   year      = "1978",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
+}
+
+@proceedings{logic78,
+  editor    = "Boffa, Maurice and " # dv-dalen # " and McAloon, Kenneth Walter",
+  booktitle = "Logic Colloquium '78",
+  year      = "1979",
   series    = "Studies in Logic and the Foundations of Mathematics",
   publisher = "North-Holland",
 }
@@ -3201,6 +4047,22 @@
   doi       = "10.1007/bfb0091894",
 }
 
+@proceedings{patras82,
+  editor    = "Metakides, George",
+  booktitle = "Patras Logic Symposium",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
+  year      = "1982",
+}
+
+@collection{brouwer82,
+  editor    = "Troelstra, Anne Sjerp and " # dv-dalen,
+  booktitle = "The {L.\ E.\ J.\ Brouwer} Centenary Symposium",
+  year      = "1982",
+  series    = "Studies in Logic and the Foundations of Mathematics",
+  publisher = "North-Holland",
+}
+
 @proceedings{computation-proof-theory84,
   editor    = "B{\"o}rger, Egon and Oberschelp, Walter and Richter, Michael M. and Schinzel, Brigitta and Thomas, Wolfgang",
   booktitle = "Computation and Proof Theory",
@@ -3234,7 +4096,7 @@
 }
 
 @book{godel-collected-works-ii89,
-  editor    = "Feferman, Solomon and Dawson, Jr., John William and Kleene, Stephen Cole and Moore, Gregory H. and Solovay, Robert Martin and van Heijenoort, Jean",
+  editor    = "Feferman, Solomon and Dawson, Jr., John William and Kleene, Stephen Cole and Moore, Gregory H. and Solovay, Robert Martin and \noopsort{Heijenoort}van Heijenoort, Jean",
   booktitle = "{Kurt G\"odel} Collected Works Volume {II}: Publications 1938--1974",
   year      = "1989",
   publisher = "Oxford University Press",
@@ -3271,6 +4133,14 @@
   doi       = "10.1007/978-1-4612-0325-4",
 }
 
+@proceedings{logic95-original,
+  editor    = "Makowsky, Johann Andreas and Ravve, Elena V.",
+  booktitle = "Logic Colloquium '95: Proceedings of the Annual {European} Summer Meeting of the {Association of Symbolic Logic}, Held in {Haifa}, {Israel}, {August} 9--18, 1995",
+  year      = "1998",
+  series    = "Lecture Notes in Logic",
+  publisher = "Springer Berlin, Heidelberg",
+}
+
 @proceedings{logic95,
   editor    = "Makowsky, Johann Andreas and Ravve, Elena V.",
   booktitle = "Logic Colloquium '95: Proceedings of the Annual {European} Summer Meeting of the {Association of Symbolic Logic}, held in {Haifa}, {Israel}, {August} 9--18, 1995",
@@ -3295,6 +4165,30 @@
   publisher = "University of Minnesota Press",
 }
 
+@book{kreiseliana96,
+  editor    = "Odifreddi, Piergiorgio",
+  booktitle = "Kreiseliana: About and Around {Georg Kreisel}",
+  year      = "1996",
+  publisher = "A K Peters",
+}
+
+@proceedings{logic98,
+  editor    = "Buss, Samuel R. and H\'ajek, Petr and Pudl\'ak, Pavel",
+  booktitle = "Logic Colloquium '98",
+  year      = "2000",
+  series    = "Lecture Notes in Logic",
+  publisher = "Cambridge University Press",
+  doi       = "10.1017/9781316756140",
+}
+
+@collection{ctt98,
+  editor    = "Sambin, Giovanni and Smith, Jan M.",
+  booktitle = "Twenty Five Years of Constructive Type Theory",
+  year      = "1998",
+  publisher = "Oxford University Press",
+  doi       = "10.1093/oso/9780198501275.001.0001",
+}
+
 @book{set-proofs99,
   editor    = "Cooper, S.{\ }Barry and Truss, John Kenneth",
   booktitle = "Sets and Proofs",
@@ -3302,6 +4196,14 @@
   series    = lms-lecture,
   publisher = "Cambridge University Press",
   doi       = "10.1017/cbo9781107325944",
+}
+
+@proceedings{logic00,
+  editor    = "Cori, Ren\'e and Razborov, Alexander and Todor\v{c}evi\'c, Stevo and Wood, Carol",
+  booktitle = "Logic Colloquium 2000",
+  year      = "2005",
+  series    = "Lecture Notes in Logic",
+  publisher = "Cambridge University Press",
 }
 
 @proceedings{csl00,
@@ -3363,6 +4265,15 @@
   doi          = "10.1145/944705",
 }
 
+@proceedings{fossacs03,
+  editor    = "Gordon, Andrew D.",
+  booktitle = "Foundations of Software Science and Computation Structures",
+  year      = "2003",
+  series    = "Lecture Notes in Computer Science",
+  publisher = "Springer Berlin, Heidelberg",
+  doi       = "10.1007/3-540-36576-1",
+}
+
 @book{barcelona-set-theory03-04,
   editor    = "Bagaria, Joan and Todorcevic, Stevo",
   booktitle = "Set Theory: {Centre de Recerca Matem\`atica Barcelona}, 2003--2004",
@@ -3400,6 +4311,15 @@
   booktitle    = "{ICFP} '08: Proceedings of the 13th {ACM} {SIGPLAN} {International Conference on Functional Programming}",
   year         = "2008",
   doi          = "10.1145/1411204",
+}
+
+@book{logicism09,
+  editor    = "Lindstr{\"o}m, Sten and Palmgren, Erik and Segerberg, Krister and Stoltenberg-Hansen, Viggo",
+  booktitle = "Logicism, Intuitionism, and Formalism: What has Become of Them?",
+  year      = "2009",
+  series    = "Synthese Library",
+  publisher = "Springer Dordrecht",
+  doi       = "10.1007/978-1-4020-8926-8",
 }
 
 @book{philosophy-of-maths09,
@@ -3502,6 +4422,15 @@
   doi       = "10.1017/9781316716991",
 }
 
+@book{feferman17,
+  editor    = "J{\"a}ger, Gerhard and Sieg, Wilfried",
+  booktitle = "{Feferman} on Foundations",
+  year      = "2017",
+  series    = "Outstanding Contributions to Logic",
+  publisher = "Springer Cham",
+  doi       = "10.1007/978-3-319-63334-3",
+}
+
 @proceedings{eacsl20,
   editor    = "Fern\'andez, Maribel and Muscholl, Anca",
   booktitle = "28th {EACSL} Annual Conference on Computer Science Logic",
@@ -3509,6 +4438,14 @@
   series    = "{Leibniz} International Proceedings in Informatics",
   publisher = "Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik",
   doi       = "10.4230/lipics.csl.2020",
+}
+
+@book{schutte20,
+  editor    = "Kahle, Reinhard and Rathjen, Michael",
+  booktitle = "The Legacy of {Kurt Sch\"utte}",
+  year      = "2020",
+  publisher = "Springer Cham",
+  doi       = "10.1007/978-3-030-49424-7",
 }
 
 @proceedings{lics21,
@@ -3532,4 +4469,21 @@
   series    = "Encyclopedia of Mathematics and its Applications",
   publisher = "Cambridge University Press",
   doi       = "10.1017/9781009039888",
+}
+
+@proceedings{csl24,
+  editor    = "Murano, Aniello and Silva, Alexandra",
+  booktitle = "32nd {EACSL} Annual Conference on Computer Science Logic ({CSL} 2024)",
+  series    = "{Leibniz} International Proceedings in Informatics",
+  year      = "2024",
+  publisher = "Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik",
+  doi       = "10.4230/lipics.csl.2024",
+}
+
+@proceedings{cie25,
+  editor    = "Beckmann, Arnold and Oitavem, Isabel and Manea, Florin",
+  booktitle = "Crossroads of Computability and Logic: Insights, Inspirations, and Innovations",
+  year      = "2025",
+  publisher = "Springer Cham",
+  doi       = "10.1007/978-3-031-95908-0",
 }
