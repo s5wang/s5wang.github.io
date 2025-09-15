@@ -60,39 +60,39 @@ Leeds LS2 9JT, UK}
 
 \section{Introduction}
 
-This paper aims to report on a canonical way of constructing arbitrarily sized antichains of ordinals in intuitionistic set theory, developed during research on the behaviours of G\"odel's constructible universe $L$ in intuitionistic contexts. As surveyed by Lubarsky \cite{lubarsky93-intuitionistic-l} and more recently by Matthews and Rathjen \cite{matthews-rathjen24-constructible-universe}, the situation is much more complicated than the classical case and, notably, it still remains open whether any intuitionistic set theory can prove the statement $\Ord \subseteq L$. In this paper, we present some results about intuitionistic ordinals that will suggest that this may not be as innocent a claim as it seems to be.
+This paper aims to report on a canonical way of constructing arbitrarily sized antichains of ordinals in intuitionistic set theory, developed during research on the behaviours of G\"odel's constructible universe $L$ in intuitionistic contexts. As surveyed by Lubarsky \cite{lubarsky93-intuitionistic-l} and more recently by Matthews and Rathjen \cite{matthews-rathjen24-constructible-universe}, the situation for $L$ is much more complicated than the classical case and, notably, it still remains open whether any intuitionistic set theory can prove the statement $\Ord \subseteq L$. In this paper, we present some results about intuitionistic ordinals that will suggest that this may not be as innocent a claim as it seems to be.
 
 In classical set theory, the class $\Ord$ of \emph{ordinals}, i.e.\ transitive sets of transitive sets, satisfies the trichotomy
 \[\forall \alpha, \beta \in \Ord \left(\alpha \in \beta \lor \alpha = \beta \lor \beta \in \alpha\right).\]
 However, the same is not true in intuitionistic set theory. For example, if $\varphi$ is a formula such that the instance of excluded middle $\varphi \lor \neg \varphi$ does not hold, then none of the three disjuncts above can hold for the assignment $\alpha \colonequals 1$, $\beta \colonequals \left\{x \in 1 : \varphi\right\}$.
 
-Given a more specific model of intuitionistic set theory, we can often find stronger counter-examples where the negation of the disjunction can be demonstrated. For example, in \cite{rathjen06-czf-realizability}, Rathjen introduced the realisability model $V\mleft(\mathcal{A}\mright)$ over any partial combinatory algebra $\mathcal{A}$ and verified that $\mathrm{CZF} \vdash V\mleft(\mathcal{A}\mright) \vDash \mathrm{CZF}$. Using notations in that paper, we take
-\[\alpha = \left\{\tuple{0, \varnothing}, \tuple{1, \left\{\tuple{0, \varnothing}\right\}}\right\}, \quad \beta = \left\{\tuple{0, \varnothing}, \tuple{0, \left\{\tuple{0, \varnothing}\right\}}\right\},\]
-then one can prove
+We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when the negation of this trichotomy holds, or more concisely written as
+\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
+We shall start by justifying formally that such ordinals may indeed exist in intuitionistic set theory:
+
 \begin{proposition}
-  $\mathrm{CZF} \vdash V\mleft(\mathcal{A}\mright) \vDash \alpha, \beta \in \Ord \land \neg \alpha \in \beta \land \neg \alpha = \beta \land \neg \beta \in \alpha$.
+  \label{prop:perp-consistent}
+  Assuming that $\mathrm{IZF}$ is consistent, then so is the theory
+  \[\mathrm{IZF} + \exists \alpha, \beta \in \Ord \ \alpha \perp \beta.\]
 \end{proposition}
 
 \begin{proof}
-  For a name $x \in V\mleft(\mathcal{A}\mright)$, the realisability model reads its elements $\tuple{n, y} \in x$ as informally expressing ``$n$ is a witness for the fact that $y$ is an element inside $x$''. In this way, $V\mleft(\mathcal{A}\mright)$ will see $\alpha$ as the classical ordinal $2$, whereas $\beta$ is a different ordinal because the witness cannot be used to distinguish the two elements inside, i.e.\
-  \[V\mleft(\mathcal{A}\mright) \nvDash \forall x \in \beta \left(x = 0 \lor x = 1\right),\]
-  since the ``correct side'' of the disjunction cannot be computed from the witness alone. This is the intuition behind the construction.
-
-  To prove the claim formally, we use the application terms defined in \cite{rathjen06-czf-realizability} and let
-  \[\boldsymbol{m}_0 \colonequals \boldsymbol{p}\mleft(\lambda ab \cdot \boldsymbol{p}b\boldsymbol{i}_r\mright)\mleft(\lambda abc \cdot \boldsymbol{p}c\boldsymbol{i}_r\mright),\]
-  then conveniently we have both $\boldsymbol{m}_0 \Vdash \alpha \in \Ord$ and $\boldsymbol{m}_0 \Vdash \beta \in \Ord$.
-
-  Essentially, the only elements inside $\alpha$ and $\beta$ are both $\varnothing$ and $\left\{\tuple{0, \varnothing}\right\}$, so trivially none of the elements can be equal to $\alpha$ or $\beta$, in other words $V\mleft(\mathcal{A}\mright) \vDash \neg \alpha \in \beta \land \neg \beta \in \alpha$. Now, $V\mleft(\mathcal{A}\mright)$ also does not think that $\alpha$ and $\beta$ are equal, because if some $e \Vdash \alpha = \beta$, then $\boldsymbol{p}_1 e \Vdash \beta \subseteq \alpha$, i.e.\ explicitly we must have some $\tuple{n_1, x_1}, \tuple{n_2, x_2} \in \alpha$ such that both
+  Suppose otherwise, that is, $\mathrm{IZF} \vdash \neg \exists \alpha, \beta \in \Ord \ \alpha \perp \beta$. Specifically, for an arbitrary formula $\psi\mleft(x_1, \ldots, x_n\mright)$ with all free variables listed, we can consider the set
+  \[\alpha_\psi = 2 \cup \left\{\beta \in \mathcal{P}\mleft(1\mright) : \exists x_1, \ldots, x_n \left(0 \in \beta \leftrightarrow \psi\mleft(x_1, \ldots, x_n\mright)\right)\right\}.\]
+  It is easy to see that
   \begin{align*}
-    \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = n_1 \land {} & \boldsymbol{p}_1 \mleft(\boldsymbol{p}_1 e 0\mright) \Vdash \varnothing = x_1,                          \\
-    \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = n_2 \land {} & \boldsymbol{p}_1 \mleft(\boldsymbol{p}_1 e 0\mright) \Vdash \left\{\tuple{0, \varnothing}\right\} = x_2
+    \mathrm{IZF} \vdash {} & \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi                                                                                                       \\
+                           & \quad {} \land \left(\alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)\right).
   \end{align*}
-  hold. However, the only reasonable choice is then $n_1 = 0$, $n_2 = 1$, which implies $0 = \boldsymbol{p}_0 \mleft(\boldsymbol{p}_1 e 0\mright) = 1$, a contradiction. Therefore, no such realiser $e$ can exist and thus $V\mleft(\mathcal{A}\mright) \vDash \neg \alpha = \beta$.
+  By our assumption, we have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and the double negated instance of excluded middle also follows:
+  \[\mathrm{IZF} \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
+
+  However, this is impossible! We say that $\varphi$ is an \emph{anti-classical axiom} if $\mathrm{ZF} \vdash \neg \varphi$, then it is well-known that $\mathrm{IZF}$ is consistent with many anti-classical axioms. For example, see the realisability model in \cite{chen-rm-rathjen12-lifschitz-realizability} interpreting Church's thesis, etc. Now, let $\varphi$ be any such anti-classical axiom and $\chi_1, \ldots, \chi_k$ be an enumeration of the necessary instances of excluded middle such that
+  \[\mathrm{IZF} + \chi_1 + \cdots + \chi_k \vdash \neg \varphi,\]
+  then by the analysis above we must have $\mathrm{IZF} \vdash \neg \neg \chi_i$ for all $i$ and consequently $\mathrm{IZF} \vdash \neg \neg \neg \varphi$. This is a contradiction to the consistency of $\varphi$ and thus our initial assumption must be false.
 \end{proof}
 
-Hence, the negation of the above trichotomy is indeed consistent with intuitionistic set theory. We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when this negation holds, or more concisely written as
-\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
-In this paper, we shall show that incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
+In this paper, we shall show that such incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
 
 Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in the constructible universe. We shall utilise this encoding to prove the following result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
 
@@ -105,7 +105,7 @@ Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object
   \end{itemize}
 \end{theorem}
 
-One immediate consequence of this, as we shall comment at the end, is that the existence of any non-classical model of $\mathrm{IZF} + V \neq L$ will imply $\mathrm{IZF} \nvdash \Ord \subseteq L$, and will resolve the long-standing open problem mentioned above.
+One immediate consequence of this, as we shall comment at the end, is that the consistency of any theory $\mathrm{IZF} + \varphi + V \neq L$, where $\varphi$ is any anti-classical axiom, will imply $\mathrm{IZF} \nvdash \Ord \subseteq L$, and will resolve the long-standing open problem mentioned above.
 
 \section{Constructing antichains}
 
@@ -333,27 +333,19 @@ In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ a
 
 \section{A final remark}
 
-Let $\mathrm{IZF}$ denote the intuitionistic theory with the same axioms as $\mathrm{ZF}$ except the axiom of set induction is substituted for foundation. We shall conclude by showing that \autoref{thm:main-equiv} implies finding any non-classical model of $\mathrm{IZF} + V \neq L$ would immediate disprove $\mathrm{IZF} \vdash \Ord \subseteq L$. More precisely,
+Using the same constructions as in \autoref{prop:perp-consistent}, we observe that \autoref{thm:main-equiv} implies finding any non-classical model of $\mathrm{IZF} + V \neq L$ would immediate disprove $\mathrm{IZF} \vdash \Ord \subseteq L$. More precisely,
 
 \begin{corollary}
-  Let $\varphi$ be any formula such that $\mathrm{ZF} \vdash \neg \varphi$, if $\mathrm{IZF} + V \neq L + \varphi$ is consistent, then $\mathrm{IZF} \nvdash \Ord \subseteq L$.
+  Let $\varphi$ be any anti-classical axiom, that is, $\mathrm{ZF} \vdash \neg \varphi$. If $\mathrm{IZF} + \varphi + V \neq L$ is consistent, then $\mathrm{IZF} \nvdash \Ord \subseteq L$.
 \end{corollary}
 
 \begin{proof}
-  We assume that $\mathrm{IZF} \vdash \Ord \subseteq L$. Let $T$ denote the theory $\mathrm{IZF} + V \neq L + \varphi$. For an arbitrary formula $\psi\mleft(x_1, \ldots, x_n\mright)$ with all free variables listed, we can consider the set
-  \[\alpha_\psi = 2 \cup \left\{\beta \in \mathcal{P}\mleft(1\mright) : \exists x_1, \ldots, x_n \left(0 \in \beta \leftrightarrow \psi\mleft(x_1, \ldots, x_n\mright)\right)\right\}\]
-  then
-  \begin{align*}
-    \mathrm{IZF} \vdash {} & \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi                                                                                                       \\
-                           & \quad {} \land \left(\alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)\right).
-  \end{align*}
-  In other words, $\neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)$ implies $\alpha_\psi \perp 2$ and thus, by \autoref{thm:main-equiv}, $\mathrm{IZF} + \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right) \vdash V = L$, i.e.\
-  \[T \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
-
-  Using the fact that $\mathrm{ZF} = \mathrm{IZF} + \mathrm{EM}$ as an intuitionistic theory, we can say that the double negation of every axiom of $\mathrm{ZF}$ holds in $T$. Thus, $T$ must also prove the double negation of every theorem of $\mathrm{ZF}$; more specifically, $T \vdash \neg \neg \neg \varphi$. Since intuitionistic logic admits triple-negation elimination, it follows that $T \vdash \neg \varphi$ and thus the inconsistency of $T$. Therefore, by contradiction, we must have $\mathrm{IZF} \nvdash \Ord \subseteq L$.
+  We assume that $\mathrm{IZF} \vdash \Ord \subseteq L$. Then by \autoref{thm:main-equiv},
+  \[\mathrm{IZF} + V \neq L \vdash \neg \exists \alpha, \beta \in \Ord \ \alpha \perp \beta.\]
+  Looking at the same ordinals $\alpha_\psi$ and $2$ as in the proof of \autoref{prop:perp-consistent}, we would then conclude that $\mathrm{IZF} + V \neq L$ is inconsistent with any anti-classical axioms. This contradicts the consistency of $\mathrm{IZF} + \varphi + V \neq L$.
 \end{proof}
 
-Unfortunately, no such consistency results have been known, and we hope that further research will be able to close the problem regarding $\Ord \subseteq L$ in intuitionistic set theories in this direction.
+However, constructing intuitionistic models of $V \neq L$ has proven to be very difficult, precisely due to the complicated structure of ordinals and G\"odel's $L$ discussed in this paper, and no such consistency results have been known to the author. We hope that further research will be able to settle the problem regarding $\Ord \subseteq L$ in intuitionistic set theories in this direction.
 
 \bibliographystyle{asl}
 \bibliography{\jobname}
