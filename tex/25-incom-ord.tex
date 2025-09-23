@@ -68,7 +68,7 @@ However, the same is not true in intuitionistic set theory. For example, if $\va
 
 We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when the negation of this trichotomy holds, or more concisely written as
 \[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
-We shall start by justifying formally that such ordinals may indeed exist in intuitionistic set theory:
+We shall start by justifying formally that such ordinals may indeed exist in intuitionistic set theory\footnote{There are various other ways to justify the consistency of incomparable ordinals in different base theories such as $\mathrm{IKP}$ or $\mathrm{CZF}$. For example, the realisability model in Rathjen \cite{rathjen06-czf-realizability} contains plenty of incomparable ordinals. Here, we will present a construction that is most relevant to the final section of this paper.}:
 
 \begin{proposition}
   \label{prop:perp-consistent}
@@ -87,12 +87,12 @@ We shall start by justifying formally that such ordinals may indeed exist in int
   By our assumption, we have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and the double negated instance of excluded middle also follows:
   \[\mathrm{IZF} \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
 
-  However, this is impossible! We say that $\varphi$ is an \emph{anti-classical axiom} if $\mathrm{ZF} \vdash \neg \varphi$, then it is well-known that $\mathrm{IZF}$ is consistent with many anti-classical axioms. For example, see the realisability model in \cite{chen-rm-rathjen12-lifschitz-realizability} interpreting Church's thesis, etc. Now, let $\varphi$ be any such anti-classical axiom and $\chi_1, \ldots, \chi_k$ be an enumeration of the necessary instances of excluded middle such that
+  However, this is impossible. We say that $\varphi$ is an \emph{anti-classical axiom} if $\mathrm{ZF} \vdash \neg \varphi$, then it is well-known that $\mathrm{IZF}$ is consistent with many anti-classical axioms. For example, see the realisability model in \cite{chen-rm-rathjen12-lifschitz-realizability} interpreting such axioms like Church's thesis, etc. Now, let $\varphi$ be any such anti-classical axiom and $\chi_1, \ldots, \chi_k$ be an enumeration of the necessary instances of excluded middle such that
   \[\mathrm{IZF} + \chi_1 + \cdots + \chi_k \vdash \neg \varphi,\]
   then by the analysis above we must have $\mathrm{IZF} \vdash \neg \neg \chi_i$ for all $i$ and consequently $\mathrm{IZF} \vdash \neg \neg \neg \varphi$. This is a contradiction to the consistency of $\varphi$ and thus our initial assumption must be false.
 \end{proof}
 
-In this paper, we shall show that such incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
+In the main portion of this paper, we shall show that such incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
 
 Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in the constructible universe. We shall utilise this encoding to prove the following result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
 
