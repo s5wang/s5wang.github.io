@@ -84,7 +84,7 @@ We shall start by justifying formally that such ordinals may indeed exist in int
     \mathrm{IZF} \vdash {} & \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi                                                                                                       \\
                            & \quad {} \land \left(\alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)\right).
   \end{align*}
-  By our assumption, we have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and the double negated instance of excluded middle also follows:
+  By our assumption, we have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and thus the corresponding double negated instance of excluded middle:
   \[\mathrm{IZF} \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
 
   However, this is impossible. We say that $\varphi$ is an \emph{anti-classical axiom} if $\mathrm{ZF} \vdash \neg \varphi$, then it is well-known that $\mathrm{IZF}$ is consistent with many anti-classical axioms. For example, see the realisability model in \cite{chen-rm-rathjen12-lifschitz-realizability} interpreting such axioms like Church's thesis, etc. Now, let $\varphi$ be any such anti-classical axiom and $\chi_1, \ldots, \chi_k$ be an enumeration of the necessary instances of excluded middle such that
@@ -92,7 +92,7 @@ We shall start by justifying formally that such ordinals may indeed exist in int
   then by the analysis above we must have $\mathrm{IZF} \vdash \neg \neg \chi_i$ for all $i$ and consequently $\mathrm{IZF} \vdash \neg \neg \neg \varphi$. This is a contradiction to the consistency of $\varphi$ and thus our initial assumption must be false.
 \end{proof}
 
-In the main portion of this paper, we shall show that such incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
+In the main portion of this paper, we shall proceed to show that such incomparable ordinals are highly pathological objects --- this is probably hinted at in Lubarsky's recent survey \cite{lubarsky23-inner-outer-models-cst}, section 6, where he claimed ``there are [unpublished] constructions showing that it is not hard to get an arbitrary set into $L$ by coding it into an ordinal'' --- and we shall make it precise here that, from merely a pair of two incomparable ordinals, one can construct an injection $f$ from an arbitrarily large domain to an \emph{antichain} of ordinals, that is, for any $x \neq y \in \dom\mleft(f\mright)$, we will have $f\mleft(x\mright) \perp f\mleft(y\mright)$.
 
 Additionally, we construct this map $f$ as a canonical $\Sigma$-definable object in the language of set theory. It induces a method to uniformly encode any subsets of its domain as ordinals and is now even preserved in the constructible universe. We shall utilise this encoding to prove the following result, which demonstrates how intuitionistic $L$ behaves vastly different from its classical counterpart:
 
@@ -109,13 +109,13 @@ One immediate consequence of this, as we shall comment at the end, is that the c
 
 \section{Constructing antichains}
 
-A very weak intuitionistic set theory, $\mathrm{IKP}$, suffices for our construction, which means the same results easily apply to any stronger extensions such as $\mathrm{CZF}$ or $\mathrm{IZF}$.  Essentially, the construction uses the fact that $\mathrm{IKP}$ proves $\Sigma$-recursion and also separation by any $\Delta_0$-formula containing $\Sigma$-function symbols. We also assume that $\mathrm{IKP}$ here includes the axiom of strong infinity, which is needed for the existence of transitive closures that will become convenient later.
+A very weak intuitionistic set theory, $\mathrm{IKP}$, suffices for our construction, which means the same results easily apply to any intuitionistic extensions such as $\mathrm{CZF}$ or $\mathrm{IZF}$.  Essentially, the construction uses the fact that $\mathrm{IKP}$ proves $\Sigma$-recursion and also separation by any $\Delta_0$-formula containing $\Sigma$-definable class functions. We also assume that $\mathrm{IKP}$ here includes the axiom of strong infinity, which is needed for the existence of transitive closures that will become convenient later.
 
 Like in a classical set theory, we say that a set $\alpha$ is an \emph{ordinal} if it is a transitive set of transitive sets; the class of all ordinals is denoted $\Ord$. For any $\alpha \in \Ord$, we define its \emph{successor} as
 \[\alpha^+ \colonequals \alpha \cup \left\{\alpha\right\} \in \Ord.\]
 We cannot intuitionistically classify all ordinals into the cases of zero, successors and limits. Thus, to obtain the addition operator $\alpha + \cdot : \Ord \rightarrow \Ord$, we need to modify the recursive definition to use a uniform clause. We let
 \[\alpha + \beta = \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha + \gamma\right)^+,\]
-which is common practice in intuitionistic set theory such as in \cite{aczel-rathjen10-cst-book}.
+which is common practice in intuitionistic contexts such as in \cite{aczel-rathjen10-cst-book}.
 
 To begin, we shall verify that a few basic classical properties of ordinal addition still hold in intuitionistic set theory. $\mathrm{IKP}$ uses the weaker axiom of set induction instead of foundation, but it still forbids self-containing sets:
 
@@ -152,7 +152,7 @@ To begin, we shall verify that a few basic classical properties of ordinal addit
   for any $\delta \in \beta$. By the inductive hypothesis, we have $\delta \in \gamma$ for any $\delta \in \beta$, i.e.\ $\beta \subseteq \gamma$. An entirely symmetrical argument shows that $\gamma \subseteq \beta$ as well, hence $\beta = \gamma$ as desired.
 \end{proof}
 
-Recall from introduction that incomparability is defined as
+Recall from the introduction that incomparability is defined as
 \[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
 We check that this is preserved by carefully constructed sums:
 
@@ -177,7 +177,9 @@ We check that this is preserved by carefully constructed sums:
   Assume $\left(\alpha^+ + \gamma_1\right) \cup \left(\beta^+ + \gamma_2\right) = \left(\alpha^+ + \delta_1\right) \cup \left(\beta^+ + \delta\right)$. For any $\eta \in \gamma_1$, we have $\alpha^+ + \eta \in \alpha^+ + \gamma_1 \subseteq \left(\alpha^+ + \delta_1\right) \cup \left(\beta^+ + \delta_2\right)$. Suppose that $\alpha^+ + \eta \in \beta^+ + \delta_2$, then $\alpha \in \beta^+ + \delta_2$ by transitivity, and this contradicts \autoref{lem:perp-plus-still-perp}. This means we must have $\alpha^+ + \eta \in \alpha^+ + \delta_1$ and thus $\eta \in \delta_1$ by \autoref{lem:ord-plus-inj}, i.e.\ $\gamma_1 \subseteq \delta_1$. Entirely symmetrical arguments show that $\delta_1 \subseteq \gamma_1$, $\gamma_2 \subseteq \delta_2$ and $\delta_2 \subseteq \gamma_2$ as well, hence $\gamma_1 = \delta_1$ and $\gamma_2 = \delta_2$ as desired.
 \end{proof}
 
-Before proceeding to treat antichains, we observe that the classical way to defines this notion, i.e.
+Observe that \autoref{cor:ord-pair} essentially claims that given two incomparable ordinals, there is a method to represent any pair of two ordinals as a single ordinal uniformly.
+
+Now, before proceeding to treat antichains, we observe that the classical way to defines this notion, i.e.
 \[\forall a, b \in \dom\mleft(f\mright) \left(a \neq b \leftrightarrow f\mleft(a\mright) \perp f\mleft(b\mright)\right),\]
 is intuitionistically ``weak'' because the both sides of the biconditional consist of negated formulae, so we cannot derive positive statements like $a = b$ when we need them since intuitionistic logic lacks double-negation elimination. We will alternatively consider the formula
 \[\Theta\mleft(a, a', b, b'\mright) \colonequals \neg a' \in b' \land \neg b' \in a' \land \left(a' = b' \leftrightarrow a = b\right).\]
@@ -222,7 +224,7 @@ Then by \autoref{prop:perp-ineq-to-perp}, $f^\perp$ is pairwise incomparable.
   i.e.\ $h$ is injective. Therefore, $g = h^\perp$ is pairwise incomparable.
 \end{proof}
 
-Additionally, observe that \autoref{cor:ord-pair} is essentially a method to represent pairs of ordinals as single ordinals. Using this we can merge ordinal-indexed families of pairwise incomparable functions:
+Additionally, using \autoref{cor:ord-pair} we can merge ordinal-indexed families of pairwise incomparable functions:
 
 \begin{proposition}
   \label{prop:perp-to-ord-seq-union}
@@ -241,9 +243,9 @@ Additionally, observe that \autoref{cor:ord-pair} is essentially a method to rep
   We now construct $g : \bigcup_{\gamma \in s} a\mleft(\gamma\mright) \rightarrow \Ord$ as $x \mapsto h\mleft(b_x\mright)$. It suffices to verify $\forall x, y \in \bigcup_{\gamma \in s} a\mleft(\gamma\mright) \left(g\mleft(x\mright) = g\mleft(y\mright) \rightarrow x = y\right)$. We know that $g\mleft(x\mright) = g\mleft(y\mright)$ implies $b_x = b_y$, but we also know that there exists $\gamma \in s$ such that $x \in a\mleft(\gamma\mright)$. This means $\tuple{\gamma, x} \in b_x = b_y$, i.e.\ there exists $\delta \in s$ such that $\tuple{\gamma, x} = \tuple{\delta, y}$. It follows immediately that $x = y$.
 \end{proof}
 
-Finally, fix any set $x$ and its transitive closure can be given as
+Finally, fix any set $x$ and its transitive closure is given as
 \[\tc{x} = \left\{x\right\} \cup x \cup \bigcup x \cup \bigcup \bigcup x \cup \cdots\]
-by recursion on $\omega$. We will construct a pairwise incomparable function with domain $\tc{x}$ canonically.
+by recursion on $\omega$. Assuming that there exists incomparable ordinals, we will construct a pairwise incomparable function with domain $\tc{x}$ canonically.
 
 To this end, we shall divide the transitive closure into a hierarchy
 \[\tc{x}_\alpha = \left\{y \in \tc{x} : \exists \beta \in \alpha \ y \subseteq \tc{x}_\beta\right\}.\]
@@ -262,9 +264,9 @@ The following lemma immediately shows that $\tc{x} = \bigcup_{\alpha \in \Ord} \
 
 It is easy to verify that $\forall \alpha, \beta \in \Ord \left(\alpha \subseteq \beta \rightarrow \tc{x}_\alpha \subseteq \tc{x}_\beta\right)$, thus
 \[\tc{x}_{\alpha^+} = \tc{x} \cap \mathcal{P}\mleft(\tc{x}_\alpha\mright),\]
-and hence also $\forall \alpha \in \Ord \ \tc{x}_\alpha = \bigcup_{\beta \in \alpha} \tc{x}_{\beta^+}$.
+and also $\forall \alpha \in \Ord \ \tc{x}_\alpha = \bigcup_{\beta \in \alpha} \tc{x}_{\beta^+}$.
 
-Observe that in the proofs of both \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union}, we gave explicit constructions of the desired $g$ from $f$, and it is not hard to verify that the described functions can be uniquely defined from $f$ using a $\Sigma$-formula. Fix $\alpha \perp \beta \in \Ord$ and we can iterate the following process: given a family $\left(f_\delta\right)_{\delta \in \gamma}$ where each $f_\delta : \tc{x}_\delta \rightarrow \Ord$ is a pairwise incomparable function, then we collect the family $\left(g_\delta\right)_{\delta \in \gamma}$ of functions $g_\delta : \tc{x}_{\delta^+} \rightarrow \Ord$ by \autoref{cor:perp-to-pow} through $\Sigma$-replacement and thus get a pairwise incomparable function $f_\gamma : \tc{x}_\gamma \rightarrow \Ord$ by \autoref{prop:perp-to-ord-seq-union}. By $\Sigma$-recursion, we then have a $\Sigma$-definable class-family $\left(f_{x, \gamma}\right)_{\gamma \in \Ord}$ where each $f_{x, \gamma} : \tc{x}_\gamma \rightarrow \Ord$ is pairwise incomparable.
+Observe that in the proofs of both \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union}, we gave explicit constructions of the desired $g$ from $f$, and it is not hard to verify that the described functions can be uniquely defined from $f$ using a $\Sigma$-formula. Fix $\alpha \perp \beta \in \Ord$ and we can iterate the following process: given a family $\left(f_\delta\right)_{\delta \in \gamma}$ where each $f_\delta : \tc{x}_\delta \rightarrow \Ord$ is a pairwise incomparable function, then we collect the family $\left(g_\delta\right)_{\delta \in \gamma}$ of functions $g_\delta : \tc{x}_{\delta^+} \rightarrow \Ord$ built in \autoref{cor:perp-to-pow} through $\Sigma$-replacement and thus get a pairwise incomparable function $f_\gamma : \tc{x}_\gamma \rightarrow \Ord$ by \autoref{prop:perp-to-ord-seq-union}. By $\Sigma$-recursion, we then have a $\Sigma$-definable class-family $\left(f_{x, \gamma}\right)_{\gamma \in \Ord}$ where each $f_{x, \gamma} : \tc{x}_\gamma \rightarrow \Ord$ is pairwise incomparable.
 
 Additionally, by \autoref{lem:tc-hier-contains-all}, there must exist some $\gamma \in \Ord$ such that $x \in \tc{x}_\gamma$. Since it is easy to verify that each $\tc{x}_\alpha$ is transitive, we must have
 \[x \subseteq \tc{x} = \tc{x}_\gamma.\]
@@ -297,7 +299,7 @@ We need to verify an additional lemma, that each specific value $f_{x, \gamma}\m
   \[y \subseteq \bigcup_{z \in y} \tc{z}_\delta \subseteq \tc{y}_\delta\]
   as well.
 
-  Additionally, it is easy to check with the constructions in \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union} that the values of $f_{x, \gamma}\mleft(y\mright)$ and $f_{y, \gamma}\mleft(y\mright)$ only depend on the values of $f_{x, \delta}\mleft(z\mright)$ and $f_{y, \delta}\mleft(z\mright)$ respectively for any $\delta \in \gamma$ and $z \in y$ such that $z \in \tc{x}_\delta$. Again in an induction on $y$, the inductive hypothesis implies that for such $\delta$ and $z$ we always have
+  Additionally, it is easy to check with the explcit constructions in \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union} that the values of $f_{x, \gamma}\mleft(y\mright)$ and $f_{y, \gamma}\mleft(y\mright)$ only depend on the values of $f_{x, \delta}\mleft(z\mright)$ and $f_{y, \delta}\mleft(z\mright)$ respectively for any $\delta \in \gamma$ and $z \in y$ such that $z \in \tc{x}_\delta$. We again use an induction on $y$, and notice that the inductive hypothesis implies that for such $\delta$ and $z$ we always have
   \[f_{x, \delta}\mleft(z\mright) = f_{z, \delta}\mleft(z\mright) = f_{y, \delta}\mleft(z\mright),\]
   thus $f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright)$ as well.
 \end{proof}
@@ -320,7 +322,7 @@ In other words, the value $f_{x, \gamma}\mleft(y\mright)$ is determined by $y$ a
 
   From the inductive hypothesis, we will know that $x \subseteq L$, so by strong $\Sigma$-collection we have a set $s \subseteq \Ord$ such that $\forall y \in x \ \exists \gamma \in s \ y \in L_\gamma$. Take $\sigma = \bigcup_{\gamma \in s} \gamma$, then $x \subseteq L_\sigma$.
 
-  Now, by \autoref{lem:tc-hier-contains-all}, there is some $\gamma \in \Ord$ such that $x \in \tc{x}_{\gamma^+}$. For any $y \in x$, we then know from \autoref{lem:tc-hier-and-f-agree} that $y \in \tc{y}_\gamma$ and
+  Now, by \autoref{lem:tc-hier-contains-all}, there is some $\gamma \in \Ord$ such that $x \in \tc{x}_{\gamma^+}$ (and we know $\gamma \in L$ from our assumption). For any $y \in x$, we then know from \autoref{lem:tc-hier-and-f-agree} that $y \in \tc{y}_\gamma$ and
   \[f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright) = f_{y, \gamma}^L\mleft(y\mright).\]
   We can now consider the set
   \[z = \left\{t \in L_\sigma : t \in \tc{t}_\gamma \land f_{t, \gamma}^L\mleft(t\mright) \in \tau\right\}\]
