@@ -1,0 +1,47 @@
+%?deps asl.cls
+
+% workaround for asl.cls compile error
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+
+\documentclass[bsl,meeting]{asl}
+
+\AbstractsOn
+
+\pagestyle{plain}
+
+\def\urladdr#1{\endgraf\noindent{\it URL Address}: {\tt #1}.}
+\newcommand{\NP}{}
+
+\begin{document}
+\thispagestyle{empty}
+
+\NP
+\absauth{Shuwei Wang}
+\meettitle{Realisability semantics and choice principles for Weaver's third-order conceptual mathematics}
+\affil{School of Mathematics, University of Leeds, Leeds LS2 9JT, UK}
+\meetemail{mmsw@leeds.ac.uk}
+
+In \cite{weaver09-cm}, Nik Weaver introduced a formal semi-intuitionistic third-order arithmetic as an alternative foundation for mainstream mathematics. This system is claimed to follow his philosophical vision of \emph{mathematical conceptualism}, which is a variant of predicativitism and admits all and only countable procedurals built up from below as concrete mathematical objects. Supplemented by a layer of class-like third-order objects, Weaver maintains that his arithmetic can be utilised for much of modern mathematics that mainly concerns uncountable structure with a tame, countable description, such as separable metric spaces and second-countable topological spaces.
+
+In section 2.3 of his paper, Weaver proposed a direction to further extend this theory to accommodate for uncountable choice principles that are commonly used in mainstream mathematics, by assuming a global well-ordering structure on the second-order objects. However, it remains suspectable how such an extension may stay loyal to his predicative philosophical ideals. In this talk, we shall present a realisability interpretation for Weaver's mathematics through hyperarithmetic functions in a classical second-order meta-theory. By doing this, we compare the proof-theoretic strength of Weaver's base theory and possible extensions to well-known fragments of second-order arithmetic --- ranging in strength from $\Sigma^1_1$-choice to Bar induction --- and use this as a benchmark to discuss how well they fit into the predicativity picture.
+
+Detailed proofs of many results in this talk are available in the speaker's arXiv preprint \cite{wang-sw25-cm}, with some more recent improvements.
+
+\begin{thebibliography}{10}
+
+  \bibitem{weaver09-cm}
+  {\scshape Nik Weaver},
+  {\itshape Axiomatizing mathematical conceptualism in third order arithmetic}, 2009.
+  Preprint available at \texttt{arXiv:0905.1675 [math.HO]}.
+
+  \bibitem{wang-sw25-cm}
+  {\scshape Shuwei Wang},
+  {\itshape An ordinal analysis of CM and its extensions}, 2025.
+  Preprint available at \texttt{arXiv:2501.12631 [math.LO]}.
+
+\end{thebibliography}
+
+\vspace*{-0.5\baselineskip}
+
+\end{document}
