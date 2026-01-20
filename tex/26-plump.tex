@@ -1,0 +1,503 @@
+%?deps @bib-commons
+
+\documentclass[11pt]{article}
+\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,textgreek,xcolor}
+\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\usepackage[unicode]{hyperref}
+\usepackage[en-GB]{datetime2}
+
+\usepackage{bib-commons}
+
+\newcommand{\newaliastheorem}[2]{%
+  \newaliascnt{#1}{theorem}
+  \newtheorem{#1}[#1]{#2}
+  \aliascntresetthe{#1}
+  \expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newaliastheorem{lemma}{Lemma}
+\newaliastheorem{proposition}{Proposition}
+\newaliastheorem{corollary}{Corollary}
+
+\theoremstyle{definition}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\Ord}{\mathrm{Ord}}
+\newcommand{\PlOrd}{\mathrm{PlOrd}}
+
+\newcommand{\pl}{\mathrm{pl}}
+\newcommand{\pls}{{\pl +}}
+
+\DeclareMathOperator{\dd}{def}
+
+\DeclareMathOperator{\relpl}{relpl}
+
+\title{Some notes on plump ordinals}
+\author{Shuwei Wang}
+\date{\DTMdate{2026-01-20}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  In this exposition, we attempt to formalise a treatment of Paul Taylor's notion of plump ordinals \cite{taylor96-intuitionistic-ordinals} in weak intuitionistic axiomatic set theories such as $\mathrm{IKP}$. We will explore basic properties of plump ordinals, especially in relation to G\"odel's constructible universe $L$ and incomparable codings. As a quick application, we explain at the end how plump ordinals can be used to build a Heyting-valued model $V^\mathbb{H}$ from a classical $V \vDash \mathrm{ZFC}$ such that for some arbitrary, fixed $x \in V$ we have
+  \[V^\mathbb{H} \vDash \mathcal{P}\mleft(\check{x}\mright) \in L.\]
+\end{abstract}
+
+\section{Introduction}
+
+Paul Taylor introduced the notion of plump ordinals in \cite{taylor96-intuitionistic-ordinals} as a distinguished sub-class of usual (transitive) ordinals with tamer properties in intuitionistic set theory. However, his work is based in the context of category-theoretic ensembles, and does not characterise precisely how much first-order axiomatic set theory is needed to set-up such a notion (which seemingly requires recursive constructions over the powerset operation). In this exposition, we shall reconsider Taylor's idea formally in the weak base theory $\mathrm{IKP}$ which includes strong infinity, adding additional axioms explicitly where necessary.
+
+To begin, we follow Taylor and say that a class $\mathcal{O} \subseteq \Ord$ is \emph{the class of plump ordinals} if for any $\alpha \in \Ord$, we have $\alpha \in \mathcal{O}$ if and only if both of the following hold:
+\begin{itemize}
+  \item $\alpha \subseteq \mathcal{O}$,
+  \item for any $\beta \in \alpha$, the class $\mathcal{P}\mleft(\beta\mright) \cap \mathcal{O} \subseteq \alpha$.
+\end{itemize}
+
+Formally speaking, this is not a definition for the class $\mathcal{O}$, because it is self-referential and some form of recursion theorem is needed to justify that such a class $\mathcal{O}$ is indeed definable. But first observe that the class of plump ordinals, if it exists, is at least unique:
+
+\begin{proposition}
+  Suppose that $\mathcal{O}_1, \mathcal{O}_2$ are both ``classes of plump ordinals'' as defined above, then $\mathcal{O}_1 = \mathcal{O}_2$.
+\end{proposition}
+
+\begin{proof}
+  We shall prove by set induction that for any $\alpha \in \mathcal{O}_1 \cup \mathcal{O}_2$, the classes
+  \[\mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_1 = \mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_2.\]
+
+  To begin, assume that $\alpha \in \mathcal{O}_1$, and we shall first show using the inductive hypothesis that $\mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_1 \subseteq \mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_2$. Consider any $\beta \subseteq \alpha$ such that $\beta \in \mathcal{O}_1$, then for any $\gamma \in \beta \subseteq \alpha$, we also have $\gamma \in \mathcal{O}_1$. By the inductive hypothesis,
+  \[\gamma \in \mathcal{P}\mleft(\gamma\mright) \cap \mathcal{O}_1 = \mathcal{P}\mleft(\gamma\mright) \cap \mathcal{O}_2,\]
+  i.e.\ $\gamma \in \mathcal{O}_2$ as well. Therefore, $\beta \subseteq \mathcal{O}_2$.
+
+  Additionally, for any $\gamma \in \beta \subseteq \alpha$, we have $\mathcal{P}\mleft(\gamma\mright) \cap \mathcal{O}_1 \subseteq \beta$. Thus again by the inductive hypothesis,
+  \[\mathcal{P}\mleft(\gamma\mright) \cap \mathcal{O}_2 = \mathcal{P}\mleft(\gamma\mright) \cap \mathcal{O}_1 \subseteq \beta.\]
+  Therefore, both criteria are verified, and by the definition of $\mathcal{O}_2$, we must also have $\beta \in \mathcal{O}_2$.
+
+  Now, by an entirely symmetrical argument, we can show that $\alpha \in \mathcal{O}_2$ implies $\mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_2 \subseteq \mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_1$. Notice that as $\alpha \in \mathcal{P}\mleft(\alpha\mright)$, this suffices for the conclusion that for any $\alpha \in \mathcal{O}_1 \cup \mathcal{O}_2$, we have
+  \[\alpha \in \mathcal{O}_1 \leftrightarrow \alpha \in \mathcal{O}_2.\]
+  In other words, $\alpha \in \mathcal{O}_1 \cup \mathcal{O}_2$ implies both $\alpha \in \mathcal{O}_1$ and $\alpha \in \mathcal{O}_2$, and thus $\mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_1 = \mathcal{P}\mleft(\alpha\mright) \cap \mathcal{O}_2$ as desired.
+
+  Finally, simply observe that we have already shown $\mathcal{O}_1 = \mathcal{O}_2$ in this process.
+\end{proof}
+
+Now, using a similar recursion, it is not hard to show that such a class $\mathcal{O}$ exists as a $\Sigma_1\mleft(\mathcal{P}\mright)$-class, in the theory $\mathrm{IKP}\mleft(\mathcal{P}\mright)$ (where in addition to the axioms of $\mathrm{IKP}$, we have a primitive powerset operation $\mathcal{P}$ that can appear in the clauses of $\Delta_0$-separation and collection). Following the construction in Taylor's original proof of \cite{taylor96-intuitionistic-ordinals}*{Proposition 4.3}, we can define the class function $\vartheta_\alpha\mleft(\beta\mright)$, which maps two parameters $\alpha \in \Ord$, $\beta \in \mathcal{P}\mleft(\alpha\mright)$ to an element in the set $\Omega = \mathcal{P}\mleft(1\mright)$ of all truth values, by recursion on $\alpha$ as the following:
+\[\vartheta_\alpha\mleft(\beta\mright) = \left\{\varnothing : \forall \gamma \in \beta \left(\varnothing \in \vartheta_\gamma\mleft(\gamma\mright) \land \forall \delta \subseteq \gamma \left(\varnothing \in \vartheta_\gamma\mleft(\delta\mright) \rightarrow \delta \in \beta\right)\right)\right\}.\]
+Then $\mathcal{O} = \left\{\alpha \in \Ord : \vartheta_\alpha\mleft(\alpha\mright) = 1\right\}$ will be the class of plump ordinals.
+
+However, for our purpose of studying the interaction of the plump ordinals and G\"odel's constructible universe $L$, it can be difficult to adapt this construction since the powerset axiom is known to fail in $L$ even when it holds in $V$ (cf.\ \cite{matthews-rathjen24-constructible-universe}*{section 7}), if the background theory does not have $\Sigma_1$-separation.
+
+Thus, in this exposition we shall start by developing an alternative definition that characterise the plump ordinals without involving the powersets. The goal is to show that the class of plump ordinals, as characterised above, exists in the base theory $\mathrm{IKP}$ already. Afterwards we shall observe its basic properties, some not available to the larger class $\Ord$, especially in relation to $L$. For example, while it remains open whether any intuitionistic set theory, even the stronger ones like $\mathrm{IZF}$, prove that the class $L$ contains all ordinals, it is much simpler to show (already in $\mathrm{IKP}$) that $L$ contains all plump ordinals. We will look at how this can be useful together with arithmetic on the plump ordinals and techniques of incomparable coding.
+
+\section{A formal definition of plumpness}
+
+To grasp the precise formal complexity of the class of plump ordinals, we now opt to write down an explicit definition for the class. We denote
+\[\relpl_\alpha\mleft(\gamma\mright) \coloneqq \forall \delta \in \gamma \ \forall \varepsilon \in \alpha \left(\varepsilon \subseteq \delta \rightarrow \varepsilon \in \gamma\right)\]
+and say that \emph{$\gamma$ is plump relative to $\alpha$} when this holds. We then define the following sub-class of $\Ord$:
+\[\PlOrd = \left\{\alpha \in \Ord : \forall \beta \in \alpha \ \forall \gamma \subseteq \beta \left(\relpl_\alpha\mleft(\gamma\mright) \rightarrow \gamma \in \alpha \land \forall \delta \in \alpha \left(\beta \in \delta \rightarrow \gamma \in \delta\right)\right)\right\}.\]
+
+\begin{lemma}
+  \label{lem:pl-ord-elem-rel-pl}
+  For any $\alpha \in \PlOrd$, if $\beta \in \alpha$, then $\relpl_\alpha\mleft(\beta\mright)$ holds.
+\end{lemma}
+
+\begin{proof}
+  We show by set induction on $\beta$ that if $\beta \in \alpha$, then
+  \[\forall \gamma \in \alpha \left(\gamma \subseteq \beta \rightarrow \relpl_\alpha\mleft(\gamma\mright)\right)\]
+  holds.
+
+  Fix $\gamma, \beta \in \alpha$ such that $\gamma \subseteq \beta$, and assume that $\delta \in \gamma$, $\varepsilon \in \alpha$ and $\varepsilon \subseteq \delta$. It follows that $\delta \in \beta$ (and $\delta \in \alpha$ by transitivity), thus by inductive hypothesis $\relpl_\alpha\mleft(\varepsilon\mright)$ holds. We know that $\varepsilon \subseteq \delta$, $\gamma \in \alpha$ and $\delta \in \gamma$, thus the assumption $\alpha \in \PlOrd$ must imply that $\varepsilon \in \gamma$, precisely what we need to conclude that $\relpl_\alpha\mleft(\gamma\mright)$ holds.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:pl-ord-subset-rel-pl-is-pl-ord}
+  For any $\alpha \in \PlOrd$, if $\beta \subseteq \alpha$ and $\relpl_\alpha\mleft(\beta\mright)$ holds, then $\beta \in \PlOrd$.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $\beta' \in \beta$, $\gamma \subseteq \beta'$ and $\relpl_\beta\mleft(\gamma\mright)$ holds. For any $\delta \in \gamma$ and $\varepsilon \in \alpha$ such that $\varepsilon \subseteq \delta$, we know by transitivity that $\delta \in \beta$, so it follows from $\relpl_\alpha\mleft(\beta\mright)$ that $\varepsilon \in \beta$, and it follows again from $\relpl_\beta\mleft(\gamma\mright)$ that $\varepsilon \in \gamma$. In other words, $\relpl_\alpha\mleft(\gamma\mright)$ holds.
+
+  From the assumption that $\alpha \in \PlOrd$, we then know that $\gamma \in \alpha$. Since also $\beta' \in \beta$ and $\gamma \subseteq \beta'$, it follows from $\relpl_\alpha\mleft(\beta\mright)$ that $\gamma \in \beta$. For any $\delta \in \beta$, we now have $\beta' \in \alpha$, $\gamma \subseteq \beta'$ and $\delta \in \alpha$, so it follows from $\relpl_\alpha\mleft(\gamma\mright)$ that $\beta' \in \delta$ implies $\gamma \in \delta$. We have shown that $\beta \in \PlOrd$.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:pl-ord-class-trans}
+  For any $\alpha \in \PlOrd$, if $\beta \in \alpha$, then $\beta \in \PlOrd$.
+\end{proposition}
+
+\begin{proof}
+  We have $\relpl_\alpha\mleft(\beta\mright)$ by \autoref{lem:pl-ord-elem-rel-pl}, and we also have $\beta \subseteq \alpha$ by transitivity. Thus we have $\beta \in \PlOrd$ by \autoref{lem:pl-ord-subset-rel-pl-is-pl-ord}.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:subset-pl-ord-sat-relpl}
+  For any $\alpha, \beta \in \PlOrd$, if $\beta \subseteq \alpha$, then $\relpl_\alpha\mleft(\beta\mright)$ holds.
+\end{lemma}
+
+\begin{proof}
+  Suppose that $\delta \in \beta$, $\varepsilon \in \alpha$ and $\varepsilon \subseteq \delta$. By \autoref{lem:pl-ord-elem-rel-pl}, we know that $\relpl_\alpha\mleft(\varepsilon\mright)$ holds. Since $\beta \subseteq \alpha$, it is easy to check that $\relpl_\beta\mleft(\varepsilon\mright)$ also holds. Then the assumption that $\beta \in \PlOrd$ immediately implies $\varepsilon \in \beta$, precisely what we need to show.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:pl-ord-closed-under-pl-ord-subset}
+  For any $\alpha, \gamma \in \PlOrd$, if $\gamma \subseteq \beta$ for some $\beta \in \alpha$, then $\gamma \in \alpha$.
+\end{proposition}
+
+\begin{proof}
+  Since $\alpha \in \PlOrd$, it suffices to show that $\relpl_\alpha\mleft(\gamma\mright)$ holds. By we know that $\gamma \subseteq \beta \subseteq \alpha$ by transitivity, thus \autoref{lem:subset-pl-ord-sat-relpl} suffices for the proof.
+\end{proof}
+
+\autoref{prop:pl-ord-class-trans} and \autoref{prop:pl-ord-closed-under-pl-ord-subset} together form the forward direction of the claim that $\PlOrd$ is indeed the class of plump ordinals we defined at the beginning of the exposition. We now show that the same criteria are also sufficient:
+
+\begin{proposition}
+  \label{prop:pl-ord-crit}
+  For any set $x$, we have $x \in \PlOrd$ if both of the following holds:
+  \begin{itemize}
+    \item for any $\beta \in x$, $\beta \in \PlOrd$;
+    \item for any $\gamma \in \PlOrd$, if $\gamma \subseteq \beta$ for some $\beta \in x$, then $\gamma \in x$.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Suppose that $\beta \in x$, $\gamma \subseteq \beta$ and $\relpl_x\mleft(\gamma\mright)$ holds. Since $\beta \subseteq x$, it follows immediately from the definition of the formula that $\relpl_\beta\mleft(\gamma\mright)$ also holds. Here $\beta \in \PlOrd$, so by \autoref{lem:pl-ord-subset-rel-pl-is-pl-ord}, $\gamma \in \PlOrd$, thus our assumption already ensures that $\gamma \in x$.
+
+  Additionally, for any $\delta \in x$, suppose that $\beta \in \delta$. Observe that we also have $\relpl_\delta\mleft(\gamma\mright)$, so it follows immediately that $\gamma \in \delta$ as well.
+\end{proof}
+
+So we can finally conclude that $\PlOrd$ is indeed the class of plump ordinals.
+
+Now, observe that one can combine \autoref{lem:pl-ord-subset-rel-pl-is-pl-ord} and \autoref{lem:subset-pl-ord-sat-relpl} to show that for any $\alpha \in \PlOrd$ and any $\beta \subseteq \alpha$,
+\[\beta \in \PlOrd \leftrightarrow \relpl_\alpha\mleft(\beta\mright),\]
+where the right-hand side of the equivalence is $\Delta_0$. Therefore, for any $\alpha \in \PlOrd$, we can define its \emph{plump successor} as
+\[\alpha^\pls = \left\{\beta \in \mathcal{P}\mleft(\alpha\mright) : \relpl_\alpha\mleft(\beta\mright)\right\} = \mathcal{P}\mleft(\alpha\mright) \cap \PlOrd\]
+if this exists as a set, and we know that whenever the powerset $\mathcal{P}\mleft(\alpha\mright)$ exists, the plump successor $\alpha^\pls$ also exists. (We use the original notation $\alpha^+ = \alpha \cup \left\{\alpha\right\}$ to still denote the \emph{thin successor} for any $\alpha \in \Ord$.)
+
+\begin{lemma}
+  \label{lem:pl-successor-still-pl}
+  For any $\alpha \in \PlOrd$, if $\alpha^\pls$ exists, then $\alpha^\pls \in \PlOrd$.
+\end{lemma}
+
+\begin{proof}
+  We just need to check the two criteria in \autoref{prop:pl-ord-crit}: for any $\beta \in \alpha^\pls$, we have $\beta \in \PlOrd$ by definition; for any $\gamma \in \PlOrd$, if $\gamma \subseteq \beta$ for some $\beta \in \alpha^\pls$, then $\gamma \subseteq \alpha$ and $\gamma \in \alpha^\pls$ again by definition.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:pl-union-still-pl}
+  For any set $s \subseteq \PlOrd$, $\bigcup s \in \PlOrd$.
+\end{lemma}
+
+\begin{proof}
+  We check the two criteria in \autoref{prop:pl-ord-crit}: for any $\beta \in \bigcup s$, we have $\beta \in \alpha$ for some $\alpha \in s \subseteq \PlOrd$. Then $\beta \in \PlOrd$ by \autoref{prop:pl-ord-class-trans}. For any $\gamma \in \PlOrd$, if $\gamma \subseteq \beta$ for some $\beta \in \bigcup s$, then again we have $\beta \in \alpha$ for some $\alpha \in s \subseteq \PlOrd$, and it follows that $\gamma \in \alpha \subseteq \bigcup s$ by \autoref{prop:pl-ord-closed-under-pl-ord-subset}.
+\end{proof}
+
+We can thus construct the $\omega$-sequence of plump ordinals $\left(n_\pl\right)_{n \in \omega}$ where $0_\pl = 0 = \varnothing$, and each $\left(n + 1\right)_\pl = \left(n_\pl\right)^\pls$, assuming that they all exists as sets. Let $\omega_\pl = \bigcup_{n \in \omega} n_\pl \in \PlOrd$ by \autoref{lem:pl-union-still-pl}.
+
+\section{Constructible universe and inner model}
+
+\subsection{Axiom of unboundedness}
+
+A natural assumption to make when studying plump ordinals is the axiom $\mathrm{PlUb}$ that the class $\PlOrd$ is unbounded, i.e.
+\[\forall \alpha \in \PlOrd \ \exists \beta \in \PlOrd \ \alpha \in \beta.\]
+
+\begin{lemma}
+  The following are equivalent:
+  \begin{itemize}
+    \item $\mathrm{PlUb}$;
+    \item for any $\alpha \in \PlOrd$, $\alpha^\pls$ exists as a set.
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  Suppose that $\alpha, \beta \in \PlOrd$ and $\alpha \in \beta$, then for any $\gamma \subseteq \alpha$, by \autoref{prop:pl-ord-closed-under-pl-ord-subset} $\gamma \in \PlOrd$ implies $\gamma \in \beta$. Therefore,
+  \[\alpha^\pls = \left\{\gamma \in \beta : \gamma \subseteq \alpha \land \relpl_\alpha\mleft(\gamma\mright)\right\}\]
+  is a set by $\Delta_0$-separation.
+
+  The backward direction is trivial as $\alpha \in \alpha^\pls$ by definition.
+\end{proof}
+
+\begin{lemma}
+  The following are equivalent:
+  \begin{itemize}
+    \item $\mathrm{PlUb} + \text{Exponentation}$;
+    \item Every set has a powerset.
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  For the forward direction, we only need the assumption that $\left(\varnothing^\pls\right)^\pls$ exists. It is easy to check that
+  \[\left(\varnothing^\pls\right)^\pls = \mathcal{P}\mleft(\left\{\varnothing\right\}\mright)\]
+  since every subset of $\left\{\varnothing\right\}$ is trivially a plump ordinal. Now, for any set $x$, suppose that the exponentiation $x^{\left(\varnothing^\pls\right)^\pls}$ exists, then we have
+  \[\mathcal{P}\mleft(x\mright) = \left\{\left\{y \in x : \varnothing \in f\mleft(y\mright)\right\} : f \in x^{\left(\varnothing^\pls\right)^\pls}\right\}\]
+  by $\Delta_0$-replacement.
+
+  The backward direction is trivial, since for any $\alpha \in \PlOrd$, if $\mathcal{P}\mleft(\alpha\mright)$ is a set, then so does
+  \[\alpha^\pls = \left\{\beta \in \mathcal{P}\mleft(\alpha\mright) : \relpl_\alpha\mleft(\beta\mright)\right\}.\qedhere\]
+\end{proof}
+
+\subsection{The plump constructible universe}
+
+Let the constructible universe $L = \bigcup_{\alpha \in \Ord} L_\alpha$ be given by a $\Sigma_1$-formula recursively through
+\[L_\alpha = \bigcup_{\beta \in \alpha} \dd\mleft(L_\beta\mright),\]
+as done in Lubarsky \cite{lubarsky93-intuitionistic-l}. Each $L_\alpha$ is a transitive set.
+
+\begin{lemma}
+  \label{lem:uniform-def-pl-ord-in-l}
+  For any $\alpha \in \PlOrd$, we have
+  \[\alpha = \left\{x \in L_\alpha : L_\alpha \vDash x \in \PlOrd\right\} \in \dd\mleft(L_\alpha\mright).\]
+\end{lemma}
+
+\begin{proof}
+  We shall prove this by set induction on $\alpha$. Fix some $\alpha \in \PlOrd$, then the inductive hypothesis says that for any $\beta \in \alpha$,
+  \[\beta = \left\{x \in L_\beta : L_\beta \vDash x \in \PlOrd\right\} \in \dd\mleft(L_\beta\mright),\]
+  so immediately $\alpha \subseteq L_\alpha$. Notice additionally that $\PlOrd$ is a $\Pi$-class, which is downward absolute on transitive sets/classes, thus for any $\beta \in \alpha$, since $\beta \in \PlOrd$, we must also have $L_\alpha \vDash \beta \in \PlOrd$.
+
+  It remains to prove the converse: for any $x \in L_\alpha$ such that $L_\alpha \vDash x \in \PlOrd$, we want to show that $x \in \alpha$. There must exist some $\beta \in \alpha$ such that $x \in \dd\mleft(L_\beta\mright)$. Consider any $y \in x$, we observe that \autoref{lem:pl-ord-elem-rel-pl} and \autoref{lem:pl-ord-subset-rel-pl-is-pl-ord} use no other assumptions than the axiom of set induction, thus their relativisations to any transitive set still hold, and we can relativise \autoref{prop:pl-ord-class-trans}:
+  \[L_\alpha \vDash \forall x \in \PlOrd \ \forall y \in x \ y \in \PlOrd.\]
+  Here, $\alpha$ is by definition transitive, thus $\beta \subseteq \alpha$ and $L_\beta \subseteq L_\alpha$. By downward absoluteness again, we know that $y \in L_\beta$ satisfies $L_\beta \vDash y \in \PlOrd$. By the inductive hypothesis, this means $y \in \beta$, i.e.\ $x \subseteq \beta$.
+
+  Finally, we observe that \autoref{lem:subset-pl-ord-sat-relpl} also relativises to the transitive set $L_\alpha$, thus we have $L_\alpha \vDash \relpl_\beta\mleft(x\mright)$. However, $\relpl_\beta\mleft(x\mright)$ is a $\Delta_0$-formula, so it also holds in the original universe. Thus, $x \in \PlOrd$, and $\alpha \in \PlOrd$ immediately implies that $x \in a$.
+\end{proof}
+
+We shall denote $L_\pl = \bigcup_{\alpha \in \PlOrd} L_\alpha$.
+
+\begin{corollary}
+  \label{cor:l-preserve-pl-ord}
+  Assuming $\mathrm{PlUb}$, then $\PlOrd = \PlOrd^{L_\pl}$.
+\end{corollary}
+
+\begin{proof}
+  For any $\alpha \in \PlOrd$, by \autoref{lem:uniform-def-pl-ord-in-l}, $\alpha \in \dd\mleft(L_\alpha\mright)$, thus $\alpha \in L_\beta$ for any $\beta \in \PlOrd$ such that $\alpha \in \beta$. We also have $L_\pl \vDash \alpha \in \PlOrd$ by downward absoluteness, thus $\PlOrd \subseteq \PlOrd^{L_\pl}$.
+
+  On the other hand, suppose that $L_\pl \vDash x \in \PlOrd$. Then there is some $\alpha \in \PlOrd$ such that $x \in L_\alpha$. By downward absoluteness, $L_\alpha \vDash x \in \PlOrd$ as well. However, by \autoref{lem:uniform-def-pl-ord-in-l} this means $x \in \alpha$, which implies $x \in \PlOrd$ by \autoref{lem:pl-ord-elem-rel-pl}.
+\end{proof}
+
+We cannot show that $\omega$ is a plump ordinal. Therefore, to find $\omega$ in $L_\pl$, we need the following helpful lemma:
+
+\begin{lemma}
+  \label{lem:delta-0-def-omega}
+  Let $x$ be any transitive set such that $\omega \subseteq x$, then
+  \[\omega = \left\{y \in x : y \in \Ord \land \left(y = \varnothing \lor \exists z \in y \ y = z^+\right) \land \forall z \in y \left(z = \varnothing \lor \exists t \in y \ z = t^+\right)\right\}.\]
+\end{lemma}
+
+\begin{proof}
+  For the forward direction, we can easily show by induction on $\omega$ such that
+  \[\forall n \in \omega \left(n = \varnothing \lor \exists m \in n \ n = m^+\right).\]
+  That every $n \in \omega$ additionally satisfies $\forall m \in n \left(m = \varnothing \lor \exists k \in n \ m = k^+\right)$ follows immediately from transitivity.
+
+  For the backward direction, we can show by set induction on $y$ that every $y \in x$ lying in the set on the right-hand side is also in $\omega$: we know that either $y = \varnothing$ or there exists $z \in y$ such that $y = z^+$, and the former case is trivial. In the latter case, we additionally know that either $z = \varnothing$ or there exists $t \in y$ such that $z = t^+$. If this $t$ exists, then $t \in z$ by definition of the successor $t^+$, and for any $s \in z$, we know by transitivity that additionally $s \in y$ and hence either $s = \varnothing$ or there exists $r \in y$ such that $s = r^+$, where by transitivity we can easily check that also $r \in z$. In other words, we have
+  \[\left(z = \varnothing \lor \exists t \in z \ z = t^+\right) \land \forall s \in z \left(s = \varnothing \lor \exists r \in z \ s = r^+\right).\]
+  By the inductive hypothesis, we must have $z \in \omega$ and hence $y = z^+ \in \omega$ as well.
+\end{proof}
+
+\begin{proposition}
+  \label{prop:l-pl-ikp-minus-coll}
+  Assuming $\mathrm{PlUb}$, then $L_\pl \vDash \mathrm{IKP} - \text{$\Delta_0$-collection} + \mathrm{PlUb}$.
+\end{proposition}
+
+\begin{proof}
+  Firstly, the axiom of empty set is trivial; the axioms of extensionality and set induction are also trivial since $L_\pl$ is a transitive class. The axioms of union and $\Delta_0$-separation follows from the fact that any $\Delta_0$-definable subset of $L_\alpha$ lies in $\dd\mleft(L_\alpha\mright)$ and hence $L_{\alpha^\pls}$, which exists by the assumption $\mathrm{PlUb}$. Likewise, for any $a \in L_\alpha$, $b \in L_\beta$ where $\alpha, \beta \in \PlOrd$, we know by \autoref{lem:pl-union-still-pl} that $\alpha \cup \beta \in \PlOrd$ with $\left\{a, b\right\} \subseteq L_{\alpha \cup \beta}$. Thus
+  \[\left\{a, b\right\} \in \dd\mleft(L_{\alpha \cup \beta}\mright) \subseteq L_{\left(\alpha \cup \beta\right)^\pls}.\]
+
+  For the axiom of strong infinity, we will consider the specific formulation
+  \[\exists \omega \left(\varnothing \in \omega \land \forall x \in \omega \ x^+ \in \omega \land \forall x \in \omega \left(x = \varnothing \lor \exists y \in \omega \ x = y^+\right)\right).\]
+  This is simply asserting that a set $\omega$ satisfying some $\Delta_0$-formula exists and the axiom of set induction suffices to show that $\omega$ defined in this way is the unique intersection of all inductive sets. Therefore, by absoluteness of $\Delta_0$-formulae, it suffices to show that $\omega \in L_\pl$.
+
+  Now, each $n \in \omega$ is hereditarily finite, thus uniquely definable by a $\Delta_0$-formula. Therefore, a simple induction on $\omega$ shows that
+  \[\forall n \in \omega \ n \in \dd\mleft(L_{n_\pl}\mright),\]
+  i.e.\ $\omega \subseteq L_{\omega_\pl}$. By \autoref{lem:delta-0-def-omega}, $\omega$ is definable through $\Delta_0$-separation from any transitive superset, thus $\omega \in \dd\mleft(L_{\omega_\pl}\mright) \subseteq L_{\left(\omega_\pl\right)^\pls}$ as we wanted.
+
+  Finally, $L_\pl \vDash \mathrm{PlUb}$ follows trivially from \autoref{cor:l-preserve-pl-ord} that $\PlOrd^{L_\pl} = \PlOrd$.
+\end{proof}
+
+\subsection{Bounding axioms}
+
+The difficulty of relativising $\Delta_0$-collection to $L_\pl$ lies in the fact that $\PlOrd$ is a $\Pi_1$-class, thus the premise $\forall x \in a \ \exists y \in L_\pl \ \varphi\mleft(x, y\mright)$, where $\varphi\mleft(x, y\mright)$ is $\Delta_0$, fails to be a $\Sigma_1$-formula. A natural alternative is to consider the following axiom scheme
+\[\forall x \in a \ \exists \alpha \in \PlOrd \ \varphi\mleft(x, \alpha\mright) \rightarrow \exists \alpha \in \PlOrd \ \forall x \in a \ \exists \beta \in \alpha \ \varphi\mleft(x, \beta\mright),\]
+which shall be denoted as $\mathrm{PlB}\Gamma$, read as \emph{$\Gamma$-bounding for plump ordinals}, when $\varphi$ ranges over all $\Gamma$-formulae.
+
+\begin{lemma}
+  \label{lem:delta-0-bounding-implies-plub}
+  $\mathrm{PlB}\Delta_0$ implies $\mathrm{PlUb}$.
+\end{lemma}
+
+\begin{proof}
+  For any $\alpha \in \PlOrd$, we trivially have $\forall x \in \left\{\alpha\right\} \ \exists \beta \in \PlOrd \ x = \beta$. Therefore, by $\Delta_0$-bounding, there must exist $\gamma \in \PlOrd$ such that
+  \[\forall x \in \left\{\alpha\right\} \ \exists \beta \in \gamma \ x = \beta,\]
+  i.e.\ $\alpha \in \gamma$ as needed.
+\end{proof}
+
+We now have the following:
+
+\begin{proposition}
+  \label{prop:l-preserve-sigma-1-bounding}
+  Assuming $\mathrm{PlB}\Sigma_1$, then $L_\pl \vDash \text{$\Sigma_1$-collection} + \mathrm{PlB}\Sigma_1$.
+\end{proposition}
+
+\begin{proof}
+  Assume $a \in L_\pl$ and we have
+  \[\forall x \in a \ \exists y, z \in L_\pl \ \varphi\mleft(x, y, z\mright),\]
+  where $\varphi\mleft(x, y, z\mright)$ is $\Delta_0$ and hence absolute. This can be equivalently written as
+  \[\forall x \in a \ \exists \alpha \in \PlOrd \ \exists y, z \in L_\alpha \ \varphi\mleft(x, y, z\mright),\]
+  where $L_\alpha$ is $\Sigma_1$-definable, so by $\mathrm{PlB}\Sigma_1$, there must exist $\alpha \in \PlOrd$ such that $\forall x \in a \ \exists \beta \in \alpha \ \exists y, z \in L_\beta \ \varphi\mleft(x, y, z\mright)$. It follows that
+  \[\forall x \in a \ \exists y \in L_\alpha \ \exists z \in L_\pl \ \varphi\mleft(x, y, z\mright)\]
+  where $L_\alpha \in L_\pl$. Thus $L_\pl \vDash \text{$\Sigma_1$-collection}$.
+
+  $L_\pl \vDash \mathrm{PlB}\Sigma_1$ follows from an entirely analogous argument by letting $y$ above range over $\PlOrd$ instead, using the fact that $\mathrm{PlUb}$ holds by \autoref{lem:delta-0-bounding-implies-plub} and thus $\PlOrd^{L_\pl} = \PlOrd$ by \autoref{cor:l-preserve-pl-ord}.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:l-pl-ikp-inner-model}
+  Assuming $\mathrm{PlB}\Sigma_1$, then $L_\pl$ is an inner model satisfying
+  \[\mathrm{IKP} + \mathrm{PlB}\Sigma_1 + V = L_\pl.\]
+\end{corollary}
+
+\begin{proof}
+  This follows immediately from \autoref{prop:l-pl-ikp-minus-coll}, \autoref{prop:l-preserve-sigma-1-bounding} and \autoref{cor:l-preserve-pl-ord}.
+\end{proof}
+
+Observe also that $\mathrm{PlB}\Sigma_1$ is an consequence of $\mathrm{IKP}\mleft(\mathcal{P}\mright)$ (through \autoref{lem:pl-union-still-pl} above), since $\PlOrd$ is a $\Delta_0\mleft(\mathcal{P}\mright)$-class, where the powerset operation is treated as primitive.
+
+\section{Plump ordinal arithmetic}
+
+\subsection{Basic properties of ordinal arithmetic}
+
+We now work in $\mathrm{IKP} + \mathrm{PlB}\Sigma_1$. Let $\Sigma^\pl$ be the class of formulae with strictly positive occurrences of unbounded $\exists x$ and $\exists x \in \PlOrd$ and no occurrences of $\forall x$ and $\forall x \in \PlOrd$, then $\mathrm{PlB}\Sigma_1$ implies that every $\Sigma^\pl$-formula is equivalent to $\exists \alpha \in \PlOrd \ \varphi\mleft(\alpha\mright)$ where $\varphi$ is $\Sigma_1$, by replacing every occurrence of $x \in \PlOrd$ with $\relpl_\alpha\mleft(x\mright)$. This means the usual proof for $\Sigma$-recursion in $\mathrm{IKP}$ carries over for $\Sigma^\pl$-formulae in this system.
+
+Thus following section 7 of Taylor \cite{taylor96-intuitionistic-ordinals}, we can define the usual arithmetic operations on plump ordinals:
+\begin{align*}
+  \alpha + \beta     & = \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha + \gamma\right)^{\pl+}, \\
+  \alpha \cdot \beta & = \bigcup_{\gamma \in \beta} \left(\alpha \cdot \gamma + \alpha\right),       \\
+  \alpha^\beta       & = 1 \cup \bigcup_{\gamma \in \beta} \left(\alpha^\gamma \cdot \alpha\right).
+\end{align*}
+This will yield different results from the usual ordinal arithmetic, due to the initial step being defined as $\alpha + 1 = \alpha^{\pl+}$. To be clear of ambiguity, in this exposition we will only use plump ordinal arithmetic. Also notice that $\beta \in \Ord$ suffices for the following:
+
+\begin{lemma}
+  For any $\alpha \in \PlOrd$, $\beta \in \Ord$, we have $\alpha + \beta, \alpha \cdot \beta, \alpha^\beta \in \PlOrd$.
+\end{lemma}
+
+\begin{proof}
+  This follows from induction on $\beta$, using \autoref{lem:pl-successor-still-pl} and \autoref{lem:pl-union-still-pl}.
+\end{proof}
+
+If additionally $\beta \in \PlOrd$, then we can recover the following properties, which are only true for the usual ordinal arithmetic in a classical setting:
+
+\begin{lemma}
+  \label{lem:pl-add-inj}
+  For any $\alpha, \beta, \gamma \in \PlOrd$, $\alpha + \beta \subseteq \alpha + \gamma$ implies $\beta \subseteq \gamma$. In other words, the class function $F_\alpha : \PlOrd \rightarrow \PlOrd$ given by $\beta \mapsto \alpha + \beta$ is injective.
+\end{lemma}
+
+\begin{proof}
+  We show this by induction on $\gamma$: consider any $\delta \in \beta$, then $\alpha + \delta \in \left(\alpha + \delta\right)^{\pl+} \subseteq \alpha + \beta$. By definition, $\alpha \subseteq \alpha \cup \delta$, thus $\alpha \cup \delta \in \alpha$ would imply $\alpha \in \alpha$ by plumpness, thus a contradiction. Therefore, we must have $\alpha + \delta \in \left(\alpha + \varepsilon\right)^{\pl+}$ for some $\varepsilon \in \gamma$. This means $\alpha + \delta \subseteq \alpha + \varepsilon$, and thus $\delta \subseteq \varepsilon$ by the inductive hypothesis. Since $\gamma \in \PlOrd$, we must have $\delta \in \gamma$.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:pl-mul-inj}
+  For any $\alpha, \beta, \beta', \gamma \in \PlOrd$, if $\gamma \in \alpha$, then $\alpha \cdot \beta \subseteq \alpha \cdot \beta' + \gamma$ implies $\beta \subseteq \beta'$.
+\end{lemma}
+
+\begin{proof}
+  We show this by induction on $\beta'$: consider any $\delta \in \beta$, we know that $\alpha \cdot \delta + \gamma \in \left(\alpha \cdot \delta + \gamma\right)^{\pl+} \subseteq \alpha \cdot \delta + \alpha$. Thus $\alpha \cdot \delta + \gamma \in \alpha \cdot \beta \subseteq \alpha \cdot \beta' + \gamma$.
+
+  Now, it suffices to show, by another induction on $\gamma$ here, that $\alpha \cdot \delta + \gamma \in \alpha \cdot \beta' + \gamma$ implies $\delta \in \beta'$ (for the fixed $\beta'$ above). By the definition of plump ordinal addition, we must have either $\alpha \cdot \delta + \gamma \in \alpha \cdot \beta'$, or $\alpha \cdot \delta + \gamma \in \left(\alpha \cdot \beta' + \gamma'\right)^{\pl+}$ for some $\gamma' \in \gamma$.
+
+  In the first case, there must exist $\varepsilon \in \beta'$ such that $\alpha \cdot \delta + \gamma \in \alpha \cdot \varepsilon + \alpha$, i.e.\ there exists $\gamma' \in \alpha$ such that $\alpha \cdot \delta + \gamma \subseteq \left(\alpha \cdot \varepsilon + \gamma'\right)^{\pl+}$ and hence $\alpha \cdot \delta \subseteq \alpha \cdot \delta + \gamma \subseteq \alpha \cdot \varepsilon + \gamma'$. By the inductive hypothesis of the first induction, $\delta \subseteq \varepsilon$, thus $\delta \in \beta'$ by plumpness.
+
+  In the second case, we must have $\alpha \cdot \delta + \gamma' \in \left(\alpha \cdot \delta + \gamma'\right)^{\pl+} \subseteq \alpha \cdot \delta + \gamma \subseteq \alpha \cdot \beta' + \gamma'$, and thus $\delta \in \beta'$ by the inductive hypothesis of the second induction.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:pl-ord-code-pairs}
+  For any $\alpha, \beta \in \PlOrd$, the function $f : \alpha \times \beta \rightarrow \alpha \cdot \beta$ given by $\tuple{\gamma, \delta} \mapsto \alpha \cdot \delta + \gamma$ is injective.
+\end{corollary}
+
+\begin{proof}
+  We first check that $f$ is indeed well-defined on codomain $\alpha \cdot \beta$: for any $\gamma \in \alpha, \delta \in \beta$, we see that $\alpha \cdot \delta + \gamma \in \left(\alpha \cdot \delta + \gamma\right)^{\pl+} \subseteq \alpha \cdot \delta + \alpha \subseteq \alpha \cdot \beta$.
+
+  Now, suppose that $f\mleft(\gamma, \delta\mright) = f\mleft(\gamma', \delta'\mright)$. Observe that we have $\alpha \cdot \delta \subseteq f\mleft(\gamma, \delta\mright) = \alpha \cdot \delta' + \gamma'$ and thus $\delta \subseteq \delta'$ by \autoref{lem:pl-mul-inj}. Likewise, we have $\delta' \subseteq \delta$ as well, i.e.\ $\delta = \delta'$. This implies $\alpha \cdot \delta = \alpha \cdot \delta'$ and hence furthermore $\gamma = \gamma'$ by \autoref{lem:pl-add-inj}.
+\end{proof}
+
+We now have the infrastructure to prove the following claim intuitionistically:
+
+\begin{theorem}
+  \label{thm:l-pl-ord-surj}
+  There exists class functions $\Theta, I$ on domain $\PlOrd$, such that for any $\alpha \in \PlOrd$, we have $\Theta\mleft(\alpha\mright) \in \PlOrd$ and $I\mleft(\alpha\mright) \subseteq \Theta\mleft(\alpha\mright) \times L_\alpha$ is a surjection from a subset of $\Theta\mleft(\alpha\mright)$ onto $L_\alpha$.
+  %  $I\mleft(\alpha\mright) \subseteq L_\alpha \times \Theta\mleft(\alpha\mright)$ satisfying
+  % \begin{itemize}
+  %   \item for every $x \in L_\alpha$, there exists $\beta \in \Theta\mleft(\alpha\mright)$ such that $\tuple{x, \beta} \in I\mleft(\alpha\mright)$,
+  %   \item for any $x, y \in L_\alpha$ and $\beta \in \Theta\mleft(\alpha\mright)$, if both $\tuple{x, \beta}, \tuple{y, \beta} \in I\mleft(\alpha\mright)$ then $x = y$.
+  % \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  We define $\Theta$ and $I$ simultaneously by $\Sigma^\pl$-recursion. Fix some $\alpha \in \PlOrd$, denote $\gamma = \bigcup_{\beta \in \alpha} \Theta\mleft(\beta\mright)$ and let
+  \[\Theta\mleft(\alpha\mright) = \alpha \cdot \omega_\pl \cdot \gamma^\omega.\]
+  Then $I\mleft(\alpha\mright)$ will precisely contain those $\tuple{\delta, x} \in \Theta\mleft(\alpha\mright) \times L_\alpha$ such that there exists $\beta \in \alpha$, formula $\varphi$ and $\varepsilon_1, \ldots, \varepsilon_n \in \mathrm{dom}\mleft(I\mleft(\beta\mright)\mright) \subseteq \Theta\mleft(\beta\mright)$ such that
+  \begin{itemize}
+    \item $\delta = \sum_{i = 0}^{n - 1} \alpha \cdot \omega_\pl \cdot \gamma^{n - i} \cdot \varepsilon_{n - i} + \alpha \cdot n_\pl + \beta$, where $n \in \omega$ is the G\"odel numbering of $\varphi$;
+    \item $x = \left\{z \in L_\beta : \varphi\mleft(z, I\mleft(\beta\mright)\mleft(\varepsilon_1\mright), \ldots, I\mleft(\beta\mright)\mleft(\varepsilon_n\mright)\mright)\right\} \in \dd\mleft(L_\beta\mright)$.
+  \end{itemize}
+  It is easy to verify through \autoref{cor:pl-ord-code-pairs} and induction on elements in $\omega$ that $\Theta$ and $I$ has the desired properties.
+\end{proof}
+
+\subsection{Strong incomparables and coding}
+
+We say that two plump ordinals $\alpha, \beta \in \PlOrd$ are \emph{strongly incomparable} if neither is a subset of the other, i.e.
+\[\neg \alpha \subseteq \beta \land \neg \beta \subseteq \alpha,\]
+which is equivalent to saying $\alpha \not\in \beta^\pls \land \beta \not\in \alpha^\pls$. Moreover, let $\alpha, \beta \in \PlOrd$ and $f : \alpha \rightarrow \beta$ be an arbitrary function. We say that $f$ is \emph{pairwise (strongly) incomparable} if the following holds:
+\[\forall \gamma, \gamma' \in \alpha \left(f\mleft(\gamma'\mright) \subseteq f\mleft(\gamma\mright) \rightarrow \gamma = \gamma'\right).\]
+
+Now, using our constructions in the previous section, we can show that:
+
+\begin{proposition}
+  Any pairwise incomparable function can be encoded by a single plump ordinal. In other words, for any $\alpha, \beta \in \PlOrd$, if $f : \alpha \rightarrow \beta$ is pairwise incomparable, then there exists some $\sigma \in \PlOrd$ with a formula $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ such that
+  \[f\mleft(\gamma\mright) = \delta \leftrightarrow \varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright).\]
+\end{proposition}
+
+\begin{proof}
+  We take
+  \[\sigma = \bigcup_{\gamma \in \alpha} \left(\alpha \cdot f\mleft(\gamma\mright) + \gamma\right)^\pls,\]
+  and define $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ as the formula
+  \[x \in \alpha \land y \in \beta \land \exists \tau \in \sigma \left(\forall \tau' \in \sigma \left(\tau \subseteq \tau' \rightarrow \tau = \tau'\right) \land \tau = \alpha \cdot y + x\right).\]
+
+  For the forward direction, we check for any $\gamma \in \alpha$ that indeed $\alpha \cdot f\mleft(\gamma\mright) + \gamma \in \sigma$. Additionally, for any $\tau \in \sigma$, there must exist $\gamma' \in \alpha$ such that $\tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$. Now, if
+  \[\alpha \cdot f\mleft(\gamma\mright) \subseteq \alpha \cdot f\mleft(\gamma\mright) + \gamma \subseteq \tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma',\]
+  then by \autoref{lem:pl-mul-inj}, we must also have $f\mleft(\gamma\mright) \subseteq f\mleft(\gamma'\mright)$, which by pairwise incomparability implies $\gamma = \gamma'$. It then follows trivially that $\tau = \alpha \cdot f\mleft(\gamma\mright) + \gamma$.
+
+  For the backward direction, assume that $\varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright)$ holds. Then we must have $\alpha \cdot \delta + \gamma \in \sigma$, i.e.\ $\alpha \cdot \delta + \gamma \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ for some $\gamma' \in \alpha$, which also implies $\alpha \cdot \delta + \gamma = \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ by stipulation in $\varphi$. Since also $\gamma \in \alpha$, $\delta \in \beta$, it follows from \autoref{cor:pl-ord-code-pairs} that $\delta = f\mleft(\gamma'\mright)$ and $\gamma = \gamma'$. Thus we have $\delta = f\mleft(\gamma\mright)$ as desired.
+\end{proof}
+
+Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}, we can show the following result:
+
+\begin{theorem}
+  \label{thm:l-pl-code-power}
+  Suppose that $\alpha \in \PlOrd$ and $f : \alpha \rightarrow \PlOrd$ is pairwise incomparable, then $\mathcal{P}\mleft(\alpha\mright) \subseteq L_\pl$.
+\end{theorem}
+
+\begin{proof}
+  Let $x \in \mathcal{P}\mleft(\alpha\mright)$ be any subset. We consider
+  \[\sigma_x = \bigcup_{\beta \in x} f\mleft(\beta\mright)^{\pl+},\]
+  then $\sigma_x$ is a plump ordinal, thus $\sigma_x \in L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}. We then then define the set
+  \[s_x = \left\{\beta \in \alpha : f\mleft(\beta\mright) \in \sigma_x\right\},\]
+  which is a set in $L_\pl$ because the condition $f\mleft(\beta\mright) \in \sigma_x$ can be written as $\exists \gamma \in \sigma_x \ \varphi\mleft(\beta, \gamma\mright)$ for some $\Delta_0$-formula $\varphi\mleft(x, y\mright)$ (except containing functions defined through $\Sigma^\pl$-recursion). Obviously, for any $\beta \in x$, we have $f\mleft(\beta\mright) \in \sigma_x$, thus $\beta \in s_x$. On the other hand, for any $\beta \in s_x$, there exists $\gamma \in x$ such that $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)^{\pl+}$, i.e.\ $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)$, thus $\beta = \gamma \in x$ by incomparability. Therefore, we indeed have $x = s_x \in L_\pl$.
+\end{proof}
+
+\begin{corollary}
+  Suppose that for any $\alpha \in \PlOrd$, there exists a pairwise incomparable function $f : \alpha \rightarrow \PlOrd$, then we have $V = L_\pl$.
+\end{corollary}
+
+\begin{proof}
+  By set induction, it suffices to show that for any set $x \subseteq L_\pl$, we also have $x \in L_\pl$. Now, by $\mathrm{PlB}\Sigma_1$, we can find some $\alpha \in \PlOrd$ such that $x \subseteq L_\alpha$. Consider the plump ordinal $\Theta\mleft(\alpha\mright)$ given in \autoref{thm:l-pl-ord-surj}, then \autoref{thm:l-pl-code-power} implies that $\mathcal{P}\mleft(\Theta\mleft(\alpha\mright)\mright) \subseteq L_\pl$. Specifically, the following set
+  \[\sigma = \left\{\beta \in \Theta\mleft(\alpha\mright) : \exists y \in x \tuple{\beta, y} \in I\mleft(\alpha\mright)\right\} \in L_\pl.\]
+
+  Now, we work inside $L_\pl$, which is a model of $\mathrm{IKP} + \mathrm{PlB}\Sigma_1$ by \autoref{cor:l-pl-ikp-inner-model}, and can construct the same $I\mleft(\alpha\mright)$ through $\Sigma^\pl$-recursion. It follows that
+  \[s = \left\{I\mleft(\alpha\mright)\mleft(\beta\mright) : \beta \in \sigma\right\} \in L_\pl.\]
+  For any $y \in x$, there exists $\beta \in \Theta\mleft(\alpha\mright)$ such that $I\mleft(\alpha\mright)\mleft(\beta\mright) = y$ by stipulations in \autoref{thm:l-pl-ord-surj} and $\beta \in \sigma$ by its definition, thus $x \subseteq s$. On the other hand, since $I\mleft(\alpha\mright)$ is a function, for any $\beta \in \sigma$, $I\mleft(\alpha\mright)\mleft(\beta\mright) \in x$ by definition of $\sigma$. Therefore, indeed $x = s \in L_\pl$.
+\end{proof}
+
+\section{An application through forcing}
+
+\bibmain
+
+\end{document}
