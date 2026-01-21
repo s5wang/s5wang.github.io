@@ -451,36 +451,37 @@ which is equivalent to saying $\alpha \not\in \beta^\pls \land \beta \not\in \al
 Now, using our constructions in the previous section, we can show that:
 
 \begin{proposition}
-  Any pairwise incomparable function can be encoded by a single plump ordinal. In other words, for any $\alpha, \beta \in \PlOrd$, if $f : \alpha \rightarrow \beta$ is pairwise incomparable, then there exists some $\sigma \in \PlOrd$ with a formula $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ such that
-  \[f\mleft(\gamma\mright) = \delta \leftrightarrow \varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright).\]
+  \label{prop:incom-func-as-pl-ord}
+  Any pairwise incomparable function on plump ordinals can be encoded by a single plump ordinal. In other words, for any $\alpha, \beta \in \PlOrd$, if $f : s \rightarrow \beta$ is pairwise incomparable on domain $s \subseteq \alpha$, then there exists some $\sigma \in \PlOrd$ with a formula $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ such that
+  \[\left(\gamma \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\gamma\mright) = \delta\right) \leftrightarrow \varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright).\]
 \end{proposition}
 
 \begin{proof}
   We take
-  \[\sigma = \bigcup_{\gamma \in \alpha} \left(\alpha \cdot f\mleft(\gamma\mright) + \gamma\right)^\pls,\]
+  \[\sigma = \bigcup_{\gamma \in s} \left(\alpha \cdot f\mleft(\gamma\mright) + \gamma\right)^\pls,\]
   and define $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ as the formula
   \[x \in \alpha \land y \in \beta \land \exists \tau \in \sigma \left(\forall \tau' \in \sigma \left(\tau \subseteq \tau' \rightarrow \tau = \tau'\right) \land \tau = \alpha \cdot y + x\right).\]
 
-  For the forward direction, we check for any $\gamma \in \alpha$ that indeed $\alpha \cdot f\mleft(\gamma\mright) + \gamma \in \sigma$. Additionally, for any $\tau \in \sigma$, there must exist $\gamma' \in \alpha$ such that $\tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$. Now, if
+  For the forward direction, we check for any $\gamma \in s$ that indeed $\alpha \cdot f\mleft(\gamma\mright) + \gamma \in \sigma$. Additionally, for any $\tau \in \sigma$, there must exist $\gamma' \in s$ such that $\tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$. Now, if
   \[\alpha \cdot f\mleft(\gamma\mright) \subseteq \alpha \cdot f\mleft(\gamma\mright) + \gamma \subseteq \tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma',\]
   then by \autoref{lem:pl-mul-inj}, we must also have $f\mleft(\gamma\mright) \subseteq f\mleft(\gamma'\mright)$, which by pairwise incomparability implies $\gamma = \gamma'$. It then follows trivially that $\tau = \alpha \cdot f\mleft(\gamma\mright) + \gamma$.
 
-  For the backward direction, assume that $\varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright)$ holds. Then we must have $\alpha \cdot \delta + \gamma \in \sigma$, i.e.\ $\alpha \cdot \delta + \gamma \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ for some $\gamma' \in \alpha$, which also implies $\alpha \cdot \delta + \gamma = \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ by stipulation in $\varphi$. Since also $\gamma \in \alpha$, $\delta \in \beta$, it follows from \autoref{cor:pl-ord-code-pairs} that $\delta = f\mleft(\gamma'\mright)$ and $\gamma = \gamma'$. Thus we have $\delta = f\mleft(\gamma\mright)$ as desired.
+  For the backward direction, assume that $\varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright)$ holds. Then we must have $\alpha \cdot \delta + \gamma \in \sigma$, i.e.\ $\alpha \cdot \delta + \gamma \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ for some $\gamma' \in s$, which also implies $\alpha \cdot \delta + \gamma = \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ by stipulation in $\varphi$. Since also $\gamma \in \alpha$, $\delta \in \beta$, it follows from \autoref{cor:pl-ord-code-pairs} that $\delta = f\mleft(\gamma'\mright)$ and $\gamma = \gamma'$. Thus we have $\gamma \in \mathrm{dom}\mleft(f\mright) \land \delta = f\mleft(\gamma\mright)$ as desired.
 \end{proof}
 
 Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}, we can show the following result:
 
 \begin{theorem}
   \label{thm:l-pl-code-power}
-  Suppose that $\alpha \in \PlOrd$ and $f : \alpha \rightarrow \PlOrd$ is pairwise incomparable, then $\mathcal{P}\mleft(\alpha\mright) \subseteq L_\pl$.
+  Suppose that $s \subseteq \PlOrd$ and $f : s \rightarrow \PlOrd$ is pairwise incomparable, then $\mathcal{P}\mleft(s\mright) \subseteq L_\pl$.
 \end{theorem}
 
 \begin{proof}
-  Let $x \in \mathcal{P}\mleft(\alpha\mright)$ be any subset. We consider
+  Let $\alpha = \bigcup_{\beta \in s} \beta^\pls$ so that $s \subseteq \alpha$ and $x \in \mathcal{P}\mleft(s\mright)$ be any subset. We consider
   \[\sigma_x = \bigcup_{\beta \in x} f\mleft(\beta\mright)^{\pl+},\]
   then $\sigma_x$ is a plump ordinal, thus $\sigma_x \in L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}. We then then define the set
-  \[s_x = \left\{\beta \in \alpha : f\mleft(\beta\mright) \in \sigma_x\right\},\]
-  which is a set in $L_\pl$ because the condition $f\mleft(\beta\mright) \in \sigma_x$ can be written as $\exists \gamma \in \sigma_x \ \varphi\mleft(\beta, \gamma\mright)$ for some $\Delta_0$-formula $\varphi\mleft(x, y\mright)$ (except containing functions defined through $\Sigma^\pl$-recursion). Obviously, for any $\beta \in x$, we have $f\mleft(\beta\mright) \in \sigma_x$, thus $\beta \in s_x$. On the other hand, for any $\beta \in s_x$, there exists $\gamma \in x$ such that $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)^{\pl+}$, i.e.\ $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)$, thus $\beta = \gamma \in x$ by incomparability. Therefore, we indeed have $x = s_x \in L_\pl$.
+  \[s_x = \left\{\beta \in \alpha : \beta \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\beta\mright) \in \sigma_x\right\},\]
+  which is a set in $L_\pl$ because the condition $\beta \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\beta\mright) \in \sigma_x$ can be written as $\exists \gamma \in \sigma_x \ \varphi\mleft(\beta, \gamma\mright)$ through the $\Delta_0$-formula $\varphi\mleft(x, y\mright)$ (except containing functions defined through $\Sigma^\pl$-recursion) with plump parameters given in \autoref{prop:incom-func-as-pl-ord}. Obviously, for any $\beta \in x$, we have $f\mleft(\beta\mright) \in \sigma_x$, thus $\beta \in s_x$. On the other hand, for any $\beta \in s_x$, $\beta \in \mathrm{dom}\mleft(f\mright)$ and there exists $\gamma \in x$ such that $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)^{\pl+}$, i.e.\ $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)$, thus $\beta = \gamma \in x$ by incomparability. Therefore, we indeed have $x = s_x \in L_\pl$.
 \end{proof}
 
 \begin{corollary}
@@ -496,7 +497,7 @@ Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in
   For any $y \in x$, there exists $\beta \in \Theta\mleft(\alpha\mright)$ such that $I\mleft(\alpha\mright)\mleft(\beta\mright) = y$ by stipulations in \autoref{thm:l-pl-ord-surj} and $\beta \in \sigma$ by its definition, thus $x \subseteq s$. On the other hand, since $I\mleft(\alpha\mright)$ is a function, for any $\beta \in \sigma$, $I\mleft(\alpha\mright)\mleft(\beta\mright) \in x$ by definition of $\sigma$. Therefore, indeed $x = s \in L_\pl$.
 \end{proof}
 
-\section{An application through forcing}
+\section{An application in forcing models}
 
 \bibmain
 
