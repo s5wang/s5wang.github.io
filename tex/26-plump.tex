@@ -1,7 +1,7 @@
 %?deps @bib-commons
 
 \documentclass[11pt]{article}
-\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,textgreek,xcolor}
+\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,stmaryrd,textgreek,xcolor}
 \usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
 \usepackage[unicode]{hyperref}
 \usepackage[en-GB]{datetime2}
@@ -192,8 +192,6 @@ if this exists as a set, and we know that whenever the powerset $\mathcal{P}\mle
   We check the two criteria in \autoref{prop:pl-ord-crit}: for any $\beta \in \bigcup s$, we have $\beta \in \alpha$ for some $\alpha \in s \subseteq \PlOrd$. Then $\beta \in \PlOrd$ by \autoref{prop:pl-ord-class-trans}. For any $\gamma \in \PlOrd$, if $\gamma \subseteq \beta$ for some $\beta \in \bigcup s$, then again we have $\beta \in \alpha$ for some $\alpha \in s \subseteq \PlOrd$, and it follows that $\gamma \in \alpha \subseteq \bigcup s$ by \autoref{prop:pl-ord-closed-under-pl-ord-subset}.
 \end{proof}
 
-We can thus construct the $\omega$-sequence of plump ordinals $\left(n_\pl\right)_{n \in \omega}$ where $0_\pl = 0 = \varnothing$, and each $\left(n + 1\right)_\pl = \left(n_\pl\right)^\pls$, assuming that they all exists as sets. Let $\omega_\pl = \bigcup_{n \in \omega} n_\pl \in \PlOrd$ by \autoref{lem:pl-union-still-pl}.
-
 \section{Constructible universe and inner model}
 
 \subsection{Axiom of unboundedness}
@@ -217,6 +215,39 @@ A natural assumption to make when studying plump ordinals is the axiom $\mathrm{
   The backward direction is trivial as $\alpha \in \alpha^\pls$ by definition.
 \end{proof}
 
+\begin{proposition}
+  \label{prop:ikp-maybe-no-1-pls}
+  $\mathrm{IKP}$ alone does not prove $\mathrm{PlUb}$. Specifically, $1 \in \PlOrd$ yet $\mathrm{IKP} \nvdash \text{$1^\pls$ exists}$.
+\end{proposition}
+
+\begin{proof}
+  We first observe that any $\alpha \subseteq 1$ is a plump ordinal: for any $\beta \in \alpha$, we have $\beta = \varnothing$, thus for any $\gamma \subseteq \beta$, clearly $\gamma = \beta$ and thus $\gamma \in \alpha$ as well. Therefore, $\mathcal{P}\mleft(1\mright) \subseteq \PlOrd$. It follows that $1^\pls$, if exists, is precisely $\mathcal{P}\mleft(1\mright) \cap \PlOrd = \mathcal{P}\mleft(1\mright)$.
+
+  It is conventional to show that $\mathrm{IKP} \nvdash \text{$\mathcal{P}\mleft(1\mright)$ exists (as a set)}$.
+\end{proof}
+
+Assuming $\mathrm{PlUb}$, we can define the \emph{plump operator} $\left(-\right)^\pl : \Ord \rightarrow \PlOrd$ as the following:
+\[\alpha^\pl = \bigcup_{\beta \in \alpha} \left(\beta^\pl\right)^\pls.\]
+It follows from \autoref{lem:pl-successor-still-pl} and \autoref{lem:pl-union-still-pl} that this is well-defined and $\alpha^\pl \in \PlOrd$ for every $\alpha \in \Ord$. However, we note that this map is very likely not injective.
+
+\begin{proposition}
+  Assuming $\mathrm{PlUb}$, then the following are equivalent:
+  \begin{itemize}
+    \item $\left(-\right)^\pl : \Ord \rightarrow \PlOrd$ is injective;
+    \item Restricted excluded middle, i.e.\ $\forall x \ \forall y \left(x \in y \lor \neg x \in y\right)$.
+  \end{itemize}
+\end{proposition}
+
+\begin{proof}
+  We start with the easier, backward direction. Assuming restricted excluded middle, i.e.\ excluded middle for any $\Delta_0$-formulae as well, we know that the classical proof for the trichotomy property of ordinals goes through. It follows that for any ordinals $\alpha, \beta \in \Ord$ such that $\alpha \subseteq \beta$, we must have $\alpha \in \beta \lor \alpha = \beta$. Thus every ordinal is plump, $\alpha^\pls = \alpha^+$ and $\left(-\right)^\pl$ is simply the identity map.
+
+  For the forward direction, as in the proof of \autoref{prop:ikp-maybe-no-1-pls}, we know that $\mathrm{PlUb}$ implies that $1^\pls = \mathcal{P}\mleft(1\mright)$ exists. For any sets $x, y$, by considering the truth value
+  \[\sigma_{x, y} = \left\{\varnothing : x \in y\right\} \in \mathcal{P}\mleft(1\mright),\]
+  we know that restricted excluded middle holds if and only if $\forall x \ \forall y \ \sigma_{x, y} \in 2$, if and only if\footnote{The backward direction here depends on the observation that for any $\alpha \in \mathcal{P}\mleft(1\mright)$, $\sigma_{\varnothing, \alpha} = \alpha$.} $\mathcal{P}\mleft(1\mright) = 2$. It suffices to show that $\left(-\right)^\pl$ is injective implies $\mathcal{P}\mleft(1\mright) = 2$.
+
+  We look at $2^\pl$ and $\mathcal{P}\mleft(1\mright)^\pl$. Since $2 \subseteq \mathcal{P}\mleft(1\mright)$, by definition we have $2^\pl \subseteq \mathcal{P}\mleft(1\mright)^\pl$. On the other hand, for any $\alpha \in \mathcal{P}\mleft(1\mright)^\pl$, there exists $\beta \subseteq 1$ such that $\alpha \in \left(\beta^\pl\right)^\pls$, i.e.\ $\alpha \subseteq \beta^\pl \subseteq 1^\pl$. It follows that $\alpha \in \left(1^\pl\right)^\pls \subseteq 2^\pl$. Thus, we have $2^\pl = \mathcal{P}\mleft(1\mright)^\pl$, and the injectivity of $\left(-\right)^\pl$ indeed implies $\mathcal{P}\mleft(1\mright) = 2$ as desired.
+\end{proof}
+
 \begin{lemma}
   The following are equivalent:
   \begin{itemize}
@@ -226,10 +257,8 @@ A natural assumption to make when studying plump ordinals is the axiom $\mathrm{
 \end{lemma}
 
 \begin{proof}
-  For the forward direction, we only need the assumption that $\left(\varnothing^\pls\right)^\pls$ exists. It is easy to check that
-  \[\left(\varnothing^\pls\right)^\pls = \mathcal{P}\mleft(\left\{\varnothing\right\}\mright)\]
-  since every subset of $\left\{\varnothing\right\}$ is trivially a plump ordinal. Now, for any set $x$, suppose that the exponentiation $x^{\left(\varnothing^\pls\right)^\pls}$ exists, then we have
-  \[\mathcal{P}\mleft(x\mright) = \left\{\left\{y \in x : \varnothing \in f\mleft(y\mright)\right\} : f \in x^{\left(\varnothing^\pls\right)^\pls}\right\}\]
+  For the forward direction, we only need the assumption that $1^\pls = \mathcal{P}\mleft(1\mright)$ exists. For any set $x$, suppose that the exponentiation $x^{\mathcal{P}\mleft(1\mright)}$ exists, then we have
+  \[\mathcal{P}\mleft(x\mright) = \left\{\left\{y \in x : \varnothing \in f\mleft(y\mright)\right\} : f \in x^{\mathcal{P}\mleft(1\mright)}\right\}\]
   by $\Delta_0$-replacement.
 
   The backward direction is trivial, since for any $\alpha \in \PlOrd$, if $\mathcal{P}\mleft(\alpha\mright)$ is a set, then so does
@@ -305,8 +334,8 @@ We cannot show that $\omega$ is a plump ordinal. Therefore, to find $\omega$ in 
   This is simply asserting that a set $\omega$ satisfying some $\Delta_0$-formula exists and the axiom of set induction suffices to show that $\omega$ defined in this way is the unique intersection of all inductive sets. Therefore, by absoluteness of $\Delta_0$-formulae, it suffices to show that $\omega \in L_\pl$.
 
   Now, each $n \in \omega$ is hereditarily finite, thus uniquely definable by a $\Delta_0$-formula. Therefore, a simple induction on $\omega$ shows that
-  \[\forall n \in \omega \ n \in \dd\mleft(L_{n_\pl}\mright),\]
-  i.e.\ $\omega \subseteq L_{\omega_\pl}$. By \autoref{lem:delta-0-def-omega}, $\omega$ is definable through $\Delta_0$-separation from any transitive superset, thus $\omega \in \dd\mleft(L_{\omega_\pl}\mright) \subseteq L_{\left(\omega_\pl\right)^\pls}$ as we wanted.
+  \[\forall n \in \omega \ n \in \dd\mleft(L_{n^\pl}\mright),\]
+  i.e.\ $\omega \subseteq L_{\omega^\pl}$. By \autoref{lem:delta-0-def-omega}, $\omega$ is definable through $\Delta_0$-separation from any transitive superset, thus $\omega \in \dd\mleft(L_{\omega^\pl}\mright) \subseteq L_{\left(\omega^\pl\right)^\pls}$ as we wanted.
 
   Finally, $L_\pl \vDash \mathrm{PlUb}$ follows trivially from \autoref{cor:l-preserve-pl-ord} that $\PlOrd^{L_\pl} = \PlOrd$.
 \end{proof}
@@ -349,7 +378,7 @@ We now have the following:
 
 \begin{corollary}
   \label{cor:l-pl-ikp-inner-model}
-  Assuming $\mathrm{PlB}\Sigma_1$, then $L_\pl$ is an inner model satisfying
+  Assuming $\mathrm{PlB}\Sigma_1$, then $L_\pl$ is an inner model (in the sense that it contains precisely the same plump ordinals as $V$) satisfying
   \[\mathrm{IKP} + \mathrm{PlB}\Sigma_1 + V = L_\pl.\]
 \end{corollary}
 
@@ -360,6 +389,7 @@ We now have the following:
 Observe also that $\mathrm{PlB}\Sigma_1$ is an consequence of $\mathrm{IKP}\mleft(\mathcal{P}\mright)$ (through \autoref{lem:pl-union-still-pl} above), since $\PlOrd$ is a $\Delta_0\mleft(\mathcal{P}\mright)$-class, where the powerset operation is treated as primitive.
 
 \section{Plump ordinal arithmetic}
+\label{sec:plump-ord-arith}
 
 \subsection{Basic properties of ordinal arithmetic}
 
@@ -423,37 +453,33 @@ We now have the infrastructure to prove the following claim intuitionistically:
 \begin{theorem}
   \label{thm:l-pl-ord-surj}
   There exists class functions $\Theta, I$ on domain $\PlOrd$, such that for any $\alpha \in \PlOrd$, we have $\Theta\mleft(\alpha\mright) \in \PlOrd$ and $I\mleft(\alpha\mright) \subseteq \Theta\mleft(\alpha\mright) \times L_\alpha$ is a surjection from a subset of $\Theta\mleft(\alpha\mright)$ onto $L_\alpha$.
-  %  $I\mleft(\alpha\mright) \subseteq L_\alpha \times \Theta\mleft(\alpha\mright)$ satisfying
-  % \begin{itemize}
-  %   \item for every $x \in L_\alpha$, there exists $\beta \in \Theta\mleft(\alpha\mright)$ such that $\tuple{x, \beta} \in I\mleft(\alpha\mright)$,
-  %   \item for any $x, y \in L_\alpha$ and $\beta \in \Theta\mleft(\alpha\mright)$, if both $\tuple{x, \beta}, \tuple{y, \beta} \in I\mleft(\alpha\mright)$ then $x = y$.
-  % \end{itemize}
 \end{theorem}
 
 \begin{proof}
   We define $\Theta$ and $I$ simultaneously by $\Sigma^\pl$-recursion. Fix some $\alpha \in \PlOrd$, denote $\gamma = \bigcup_{\beta \in \alpha} \Theta\mleft(\beta\mright)$ and let
-  \[\Theta\mleft(\alpha\mright) = \alpha \cdot \omega_\pl \cdot \gamma^\omega.\]
+  \[\Theta\mleft(\alpha\mright) = \alpha \cdot \omega^\pl \cdot \gamma^\omega.\]
   Then $I\mleft(\alpha\mright)$ will precisely contain those $\tuple{\delta, x} \in \Theta\mleft(\alpha\mright) \times L_\alpha$ such that there exists $\beta \in \alpha$, formula $\varphi$ and $\varepsilon_1, \ldots, \varepsilon_n \in \mathrm{dom}\mleft(I\mleft(\beta\mright)\mright) \subseteq \Theta\mleft(\beta\mright)$ such that
   \begin{itemize}
-    \item $\delta = \sum_{i = 0}^{n - 1} \alpha \cdot \omega_\pl \cdot \gamma^{n - i} \cdot \varepsilon_{n - i} + \alpha \cdot n_\pl + \beta$, where $n \in \omega$ is the G\"odel numbering of $\varphi$;
+    \item $\delta = \sum_{i = 0}^{n - 1} \alpha \cdot \omega^\pl \cdot \gamma^{n - i} \cdot \varepsilon_{n - i} + \alpha \cdot n^\pl + \beta$, where $n \in \omega$ is the G\"odel numbering of $\varphi$;
     \item $x = \left\{z \in L_\beta : \varphi\mleft(z, I\mleft(\beta\mright)\mleft(\varepsilon_1\mright), \ldots, I\mleft(\beta\mright)\mleft(\varepsilon_n\mright)\mright)\right\} \in \dd\mleft(L_\beta\mright)$.
   \end{itemize}
   It is easy to verify through \autoref{cor:pl-ord-code-pairs} and induction on elements in $\omega$ that $\Theta$ and $I$ has the desired properties.
 \end{proof}
 
 \subsection{Strong incomparables and coding}
+\label{subsec:incom-code}
 
 We say that two plump ordinals $\alpha, \beta \in \PlOrd$ are \emph{strongly incomparable} if neither is a subset of the other, i.e.
 \[\neg \alpha \subseteq \beta \land \neg \beta \subseteq \alpha,\]
-which is equivalent to saying $\alpha \not\in \beta^\pls \land \beta \not\in \alpha^\pls$. Moreover, let $\alpha, \beta \in \PlOrd$ and $f : \alpha \rightarrow \beta$ be an arbitrary function. We say that $f$ is \emph{pairwise (strongly) incomparable} if the following holds:
-\[\forall \gamma, \gamma' \in \alpha \left(f\mleft(\gamma'\mright) \subseteq f\mleft(\gamma\mright) \rightarrow \gamma = \gamma'\right).\]
+which is equivalent to saying $\alpha \not\in \beta^\pls \land \beta \not\in \alpha^\pls$. Moreover, let $f : s \rightarrow \PlOrd$ be an arbitrary function on some domain $s$, we say that $f$ is \emph{pairwise (strongly) incomparable} if the following holds:
+\[\forall \gamma, \gamma' \in s \left(f\mleft(\gamma'\mright) \subseteq f\mleft(\gamma\mright) \rightarrow \gamma = \gamma'\right).\]
 
 Now, using our constructions in the previous section, we can show that:
 
 \begin{proposition}
   \label{prop:incom-func-as-pl-ord}
   Any pairwise incomparable function on plump ordinals can be encoded by a single plump ordinal. In other words, for any $\alpha, \beta \in \PlOrd$, if $f : s \rightarrow \beta$ is pairwise incomparable on domain $s \subseteq \alpha$, then there exists some $\sigma \in \PlOrd$ with a formula $\varphi\mleft(x, y; \alpha, \beta, \sigma\mright)$ such that
-  \[\left(\gamma \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\gamma\mright) = \delta\right) \leftrightarrow \varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright).\]
+  \[\left(\gamma \in s \land f\mleft(\gamma\mright) = \delta\right) \leftrightarrow \varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright).\]
 \end{proposition}
 
 \begin{proof}
@@ -466,7 +492,7 @@ Now, using our constructions in the previous section, we can show that:
   \[\alpha \cdot f\mleft(\gamma\mright) \subseteq \alpha \cdot f\mleft(\gamma\mright) + \gamma \subseteq \tau \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma',\]
   then by \autoref{lem:pl-mul-inj}, we must also have $f\mleft(\gamma\mright) \subseteq f\mleft(\gamma'\mright)$, which by pairwise incomparability implies $\gamma = \gamma'$. It then follows trivially that $\tau = \alpha \cdot f\mleft(\gamma\mright) + \gamma$.
 
-  For the backward direction, assume that $\varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright)$ holds. Then we must have $\alpha \cdot \delta + \gamma \in \sigma$, i.e.\ $\alpha \cdot \delta + \gamma \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ for some $\gamma' \in s$, which also implies $\alpha \cdot \delta + \gamma = \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ by stipulation in $\varphi$. Since also $\gamma \in \alpha$, $\delta \in \beta$, it follows from \autoref{cor:pl-ord-code-pairs} that $\delta = f\mleft(\gamma'\mright)$ and $\gamma = \gamma'$. Thus we have $\gamma \in \mathrm{dom}\mleft(f\mright) \land \delta = f\mleft(\gamma\mright)$ as desired.
+  For the backward direction, assume that $\varphi\mleft(\gamma, \delta; \alpha, \beta, \sigma\mright)$ holds. Then we must have $\alpha \cdot \delta + \gamma \in \sigma$, i.e.\ $\alpha \cdot \delta + \gamma \subseteq \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ for some $\gamma' \in s$, which also implies $\alpha \cdot \delta + \gamma = \alpha \cdot f\mleft(\gamma'\mright) + \gamma'$ by stipulation in $\varphi$. Since also $\gamma \in \alpha$, $\delta \in \beta$, it follows from \autoref{cor:pl-ord-code-pairs} that $\delta = f\mleft(\gamma'\mright)$ and $\gamma = \gamma'$. Thus we have $\gamma \in s \land \delta = f\mleft(\gamma\mright)$ as desired.
 \end{proof}
 
 Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}, we can show the following result:
@@ -477,11 +503,11 @@ Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in
 \end{theorem}
 
 \begin{proof}
-  Let $\alpha = \bigcup_{\beta \in s} \beta^\pls$ so that $s \subseteq \alpha$ and $x \in \mathcal{P}\mleft(s\mright)$ be any subset. We consider
+  Let $\alpha = \bigcup_{\beta \in s} \beta^\pls$ so that $s \subseteq \alpha$ and let $x \subseteq s$ be any subset. We consider
   \[\sigma_x = \bigcup_{\beta \in x} f\mleft(\beta\mright)^{\pl+},\]
   then $\sigma_x$ is a plump ordinal, thus $\sigma_x \in L_\pl$ by \autoref{lem:uniform-def-pl-ord-in-l}. We then then define the set
-  \[s_x = \left\{\beta \in \alpha : \beta \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\beta\mright) \in \sigma_x\right\},\]
-  which is a set in $L_\pl$ because the condition $\beta \in \mathrm{dom}\mleft(f\mright) \land f\mleft(\beta\mright) \in \sigma_x$ can be written as $\exists \gamma \in \sigma_x \ \varphi\mleft(\beta, \gamma\mright)$ through the $\Delta_0$-formula $\varphi\mleft(x, y\mright)$ (except containing functions defined through $\Sigma^\pl$-recursion) with plump parameters given in \autoref{prop:incom-func-as-pl-ord}. Obviously, for any $\beta \in x$, we have $f\mleft(\beta\mright) \in \sigma_x$, thus $\beta \in s_x$. On the other hand, for any $\beta \in s_x$, $\beta \in \mathrm{dom}\mleft(f\mright)$ and there exists $\gamma \in x$ such that $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)^{\pl+}$, i.e.\ $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)$, thus $\beta = \gamma \in x$ by incomparability. Therefore, we indeed have $x = s_x \in L_\pl$.
+  \[s_x = \left\{\beta \in \alpha : \beta \in s \land f\mleft(\beta\mright) \in \sigma_x\right\},\]
+  which is a set in $L_\pl$ because the condition $\beta \in s \land f\mleft(\beta\mright) \in \sigma_x$ can be written as $\exists \gamma \in \sigma_x \ \varphi\mleft(\beta, \gamma\mright)$ through the $\Delta_0$-formula $\varphi\mleft(x, y\mright)$ (except containing functions defined through $\Sigma^\pl$-recursion) with plump parameters given in \autoref{prop:incom-func-as-pl-ord}. Obviously, for any $\beta \in x$, we have $f\mleft(\beta\mright) \in \sigma_x$, thus $\beta \in s_x$. On the other hand, for any $\beta \in s_x$ we have $\beta \in s$ and some $\gamma \in x$ such that $f\mleft(\beta\mright) \in f\mleft(\gamma\mright)^{\pl+}$, i.e.\ $f\mleft(\beta\mright) \subseteq f\mleft(\gamma\mright)$, thus $\beta = \gamma \in x$ by incomparability. Therefore, we indeed have $x = s_x \in L_\pl$.
 \end{proof}
 
 \begin{corollary}
@@ -498,6 +524,181 @@ Since plump ordinals are always in $L_\pl$ by \autoref{lem:uniform-def-pl-ord-in
 \end{proof}
 
 \section{An application in forcing models}
+
+In various occasions plump ordinals and their arithmetic can be more useful than their counterparts on the full class $\Ord$ of ordinals. For example, the incomparable phenomenon in \autoref{subsec:incom-code} can manifest among arbitrary (non-plump) ordinals with much less effort (c.f.\ \cite{wang-sw25-antichain-pre}), but since whether all ordinals are in $L$ remains an open problem in intuitionistic set theories, it can be difficult to relate definability with ordinal parameters to definability in $L$.
+
+However, as \autoref{lem:uniform-def-pl-ord-in-l} guarantees that all plump ordinals are in $L_\pl$, building an explicit coding function as considered in \autoref{subsec:incom-code} will enable one to automatically encode large swathes of ``non-constructive sets'' into $L$ in an intuitionistic context. In this section, we shall see a basic example where we put an arbitrary classical set $x$ (and all its subsets) inside $L$ through Heyting forcing.
+
+\subsection{Heyting forcing on generalised Cantor space}
+
+Working in $\mathrm{ZFC}$, let $\kappa$ be any infinite cardinal and consider the generalised Cantor topology on $2^\kappa$ generated by basic open sets
+\[U_f = \left\{g \in 2^\kappa : f \subseteq g\right\}\]
+for any $f : \alpha \rightarrow 2$ with $\alpha \in \kappa$. Following Bell \cite{bell05-boolean-valued-models}*{Chapter 0}, the open sets of this topology form a complete Heyting algebra, which we shall denote $\mathbb{H}_\kappa$.
+
+For any $\alpha, \beta \in \kappa$ and $f : \alpha \rightarrow 2$, we pick an element in the space $2^\kappa$ to represent the ordered pair $\tuple{\beta, f}$; we denote it as $f \oplus \beta : \kappa \rightarrow 2$, given by
+\[\mleft(f \oplus \beta\mright)\mleft(\gamma\mright) = \left\{\begin{aligned}
+     & f\mleft(\gamma\mright) &  & \text{if $\gamma \in \alpha$},                                \\
+     & 1                      &  & \text{if $\gamma = \alpha$ or $\gamma = \alpha + 1 + \beta$}, \\
+     & 0                      &  & \text{otherwise}.
+  \end{aligned}\right.\]
+For any $\alpha \in \kappa$, we denote
+\[D_\alpha = \left\{f \oplus \alpha : \beta \in \kappa, f : \beta \rightarrow 2\right\} \subseteq 2^\kappa,\]
+which is clearly dense in $2^\kappa$. Observe that
+\begin{lemma}
+  \label{lem:d-alpha-disjoint}
+  For any $\alpha_1, \alpha_2, \beta_1, \beta_2 \in \kappa$ and $f_1 : \alpha_1 \rightarrow 2$, $f_2 : \alpha_2 \rightarrow 2$, we have
+  \[f_1 \oplus \beta_1 = f_2 \oplus \beta_2 \rightarrow \left(f_1 = f_2 \wedge \beta_1 = \beta_2\right).\]
+  In other words, the dense sets $D_\alpha$ are disjoint for different $\alpha \in \kappa$.
+\end{lemma}
+
+\begin{proof}
+  By definition of $\oplus$, the last $\gamma \in \kappa$ such that $\mleft(f \oplus \beta\mright)\mleft(\gamma\mright) = 1$ is $\gamma = \alpha_1 + 1 + \beta_1$ and the second last is $\gamma = \alpha_1$. The same holds for $f_2 \oplus \beta_2$, thus we know that
+  \[\alpha_1 = \alpha_2 \quad \text{and} \quad \alpha_1 + 1 + \beta_1 = \alpha_2 + 1 + \beta_2.\]
+  It follows that $\beta_1 = \beta_2$ and also $f_1 = f_2$ immediately.
+\end{proof}
+
+Using choice, we can fix an ordinal $\lambda$ and a bijection $\rho : \lambda \rightarrow 2^{<\kappa}$ into the set of all functions $f : \alpha \rightarrow 2$, $\alpha \in \kappa$ that respects the well-ordering by inclusion on the domains of these functions, i.e.\ for any $\alpha, \beta \in \lambda$,
+\[\alpha \in \beta \rightarrow \mathrm{dom}\mleft(\rho\mleft(\alpha\mright)\mright) \subseteq \mathrm{dom}\mleft(\rho\mleft(\beta\mright)\mright).\]
+For any $\alpha \in \kappa$, let $\rho \oplus \alpha$ denote the map $\beta \mapsto \rho\mleft(\beta\mright) \oplus \alpha$, which is a bijection $\lambda \rightarrow D_\alpha$. We observe that
+\begin{lemma}
+  \label{lem:d-alpha-initial-segments-closed}
+  For any $\alpha \in \kappa$, $\beta \in \lambda$, the image
+  \[\mleft(\rho \oplus \alpha\mright)``\beta = \left\{\rho\mleft(\gamma\mright) \oplus \alpha : \gamma \in \beta\right\}\]
+  is closed.
+\end{lemma}
+
+\begin{proof}
+  Let $\sigma = \mathrm{dom}\mleft(\rho\mleft(\beta\mright)\mright) + 1 + \alpha$. By our stipulation of $\rho$, for any $\gamma \in \beta$ we have $\mathrm{dom}\mleft(\rho\mleft(\gamma\mright)\mright) \subseteq \mathrm{dom}\mleft(\rho\mleft(\beta\mright)\mright)$, thus for any $f \in \mleft(\rho \oplus \alpha\mright)``\beta$ it follows that $f\mleft(\gamma\mright) = 0$ for any $\gamma > \sigma$. It suffices to show that any $S \subseteq 2^\kappa$ with this property is closed.
+
+  We consider some arbitrary $g \in 2^\kappa \setminus S$; there are two cases: either there exists some $\gamma > \sigma$ such that $g\mleft(\gamma\mright) = 1$, or there is no such $\gamma$. In the first case, clearly $g \in U_{g \upharpoonright \left(\gamma + 1\right)}$ and $U_{g \upharpoonright \left(\gamma + 1\right)} \cap S = \varnothing$. In the second case, since $g \not\in S$, for any $f \in S$ there must be some $\gamma \leq \sigma$ such that $f\mleft(\gamma\mright) \neq g\mleft(\gamma\mright)$. Thus $g \in U_{g \upharpoonright \left(\sigma + 1\right)}$ and $U_{g \upharpoonright \left(\sigma + 1\right)} \cap S = \varnothing$. Therefore $S$ is closed.
+\end{proof}
+
+Now, as in Bell \cite{bell05-boolean-valued-models}*{Chapter 8}, we consider Heyting forcing over names
+\[V^{\mathbb{H}_\kappa}_\alpha = \left\{f : \text{$f$ is partial function} \bigcup_{\beta \in \alpha} V^{\mathbb{H}_\kappa}_\beta \rightharpoonup \mathbb{H}_\kappa\right\},\]
+and finally $V^{\mathbb{H}_\kappa} = \bigcup_{\alpha \in \Ord} V^{\mathbb{H}_\kappa}_\alpha$. The valuation of a formula is denoted as $\left\llbracket\varphi\right\rrbracket \in \mathbb{H}_\kappa$ and we write $V^{\mathbb{H}_\kappa} \vDash \varphi$ when
+\[\left\llbracket\varphi\right\rrbracket = \mathbf{1}_{\mathbb{H}_\kappa} = 2^\kappa.\]
+Naturally, $V^{\mathbb{H}_\kappa} \vDash \mathrm{IZF}$.
+
+By \autoref{lem:d-alpha-initial-segments-closed}, we can consider the names
+\[\dot{\lambda}_\alpha = \left\{\tuple{\check{\beta}, 2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\beta} : \beta \in \lambda\right\}\]
+for any $\alpha \in \kappa$. We verify that
+\begin{lemma}
+  For any $\alpha \in \kappa$, $V^{\mathbb{H}_\kappa} \vDash \dot{\lambda}_\alpha \in \Ord \land \dot{\lambda}_\alpha \subseteq \check{\lambda}$. Also for any $\alpha \neq \beta \in \kappa$,
+  \[V^{\mathbb{H}_\kappa} \vDash \neg \dot{\lambda}_\alpha \subseteq \dot{\lambda}_\beta.\]
+\end{lemma}
+
+\begin{proof}
+  It is trivial to check that $\left\llbracket \dot{\lambda}_\alpha \subseteq \check{\lambda} \right\rrbracket = \mathbf{1}_{\mathbb{H}_\kappa}$ and it follows immediate that $V^{\mathbb{H}_\kappa} \vDash \forall \beta \in \dot{\lambda}_\alpha \ \text{$\beta$ is transitive}$. It remains to evaluate that
+  \begin{align*}
+    \left\llbracket \forall \beta \in \dot{\lambda}_\alpha \ \forall \gamma \in \beta \ \gamma \in \dot{\lambda}_\alpha \right\rrbracket & = \bigwedge_{\beta \in \lambda} \left(2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\beta \Rightarrow \bigwedge_{\gamma \in \beta} \left\llbracket \check{\gamma} \in \dot{\lambda}_\alpha \right\rrbracket\right)                                    \\
+                                                                                                                                         & = \bigwedge_{\beta \in \lambda} \left(2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\beta \Rightarrow \bigwedge_{\gamma \in \beta} \left(2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\gamma\right)\right) = \mathbf{1}_{\mathbb{H}_\kappa},
+  \end{align*}
+  since $\mleft(\rho \oplus \alpha\mright)``\gamma \subseteq \mleft(\rho \oplus \alpha\mright)``\beta$ for $\gamma \in \beta$.
+
+  On the other hand, for any $\alpha \neq \beta \in \kappa$, we have
+  \begin{align*}
+    \left\llbracket \dot{\lambda}_\alpha \subseteq \dot{\lambda}_\beta \right\rrbracket & = \bigwedge_{\gamma \in \lambda} \left(2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\gamma \Rightarrow 2^\kappa \setminus \mleft(\rho \oplus \beta\mright)``\gamma\right)          \\
+                                                                                        & = \bigwedge_{\gamma \in \lambda} \left(2^\kappa \setminus \mleft(\rho \oplus \beta\mright)``\gamma\right) = \left(2^\kappa \setminus D_\beta\right)^\circ = \mathbf{0}_{\mathbb{H}_\kappa},
+  \end{align*}
+  where we use the fact that $\mleft(\rho \oplus \alpha\mright)``\gamma$ and $\mleft(\rho \oplus \beta\mright)``\gamma$ are disjoint by \autoref{lem:d-alpha-disjoint}, thus $2^\kappa \setminus \mleft(\rho \oplus \alpha\mright)``\gamma \Rightarrow 2^\kappa \setminus \mleft(\rho \oplus \beta\mright)``\gamma = 2^\kappa \setminus \mleft(\rho \oplus \beta\mright)``\gamma$.
+\end{proof}
+
+Finally, we combine these into the canonical name
+\[\dot{\Lambda} = \left\{\tuple{\check{\alpha}, \dot{\lambda}_\alpha}^\bullet : \alpha \in \kappa\right\}^\bullet,\]
+such that $V^{\mathbb{H}_\kappa}$ thinks that $\dot{\Lambda}$ is a function $\check{\kappa} \rightarrow \Ord$ that maps each $\check{\alpha}$ to $\dot{\lambda}_\alpha$. It follows easily that
+\begin{corollary}
+  \label{cor:thin-incom-coding-func}
+  $V^{\mathbb{H}_\kappa} \vDash \forall \alpha, \beta \in \check{\kappa} \left(\dot{\Lambda}\mleft(\alpha\mright) \subseteq \dot{\Lambda}\mleft(\beta\mright) \rightarrow \alpha = \beta\right)$.
+\end{corollary}
+
+\subsection{Thin ordinals and incomparable coding}
+
+As shown above, when building specific forcing names it's usually natural to work with classical ordinals such as $\check{\lambda}$ and their subsets, but these are apparently not plump.
+
+However, we may say that an ordinal $\alpha \in \Ord$ is \emph{thin} if for any $\beta, \gamma \in \alpha$,
+\[\gamma \subseteq \beta \rightarrow \left(\gamma \in \beta \lor \gamma = \beta\right).\]
+It is easy to verify that the forcing model $V^{\mathbb{H}_\kappa}$ recognise any classical $\check{\lambda}$ is thin. In other words, \autoref{cor:thin-incom-coding-func} concerns a function $\dot{\Lambda} : \check{\kappa} \rightarrow \Ord \cap \mathcal{P}\mleft(\check{\lambda}\mright)$ for some thin ordinals $\check{\kappa}, \check{\lambda} \in \Ord$ in $V^{\mathbb{H}_\kappa}$.
+
+From here onwards, we can reason entirely within $V^{\mathbb{H}_\kappa}$ as a model of $\mathrm{IZF}$. We first observe that
+\begin{lemma}
+  \label{lem:pl-subset-retract}
+  Let $\alpha \in \Ord$ be thin and $\beta, \gamma \in \mathcal{P}\mleft(\alpha\mright) \cap \Ord$. Then
+  \[\gamma \subseteq \beta \leftrightarrow \gamma^\pl \subseteq \beta^\pl.\]
+\end{lemma}
+
+\begin{proof}
+  The forward direction is trivial from the definition of $\left(-\right)^\pl$; for the backward direction, we prove by simultaneous set induction on the parameters $\beta, \gamma$. Assume that $\gamma^\pl \subseteq \beta^\pl$ and take any $\delta \in \gamma$. We have $\delta^\pl \in \left(\delta^\pl\right)^\pls \subseteq \gamma^\pl$ and hence $\delta^\pl \in \beta^\pl$. In other words, there is some $\epsilon \in \beta$ such that $\delta^\pl \in \left(\epsilon^\pl\right)^\pls$, i.e.\ $\delta^\pl \subseteq \epsilon^\pl$. Now, we still have $\delta, \epsilon \subseteq \alpha$ by transitivity, so the inductive hypothesis implies $\delta \subseteq \epsilon$, and by thinness of $\alpha$ we further have $\delta \in \epsilon^+$. Thus $\delta \in \epsilon^+ \subseteq \beta$ as desired.
+\end{proof}
+
+We define $\dot{\Lambda}^\pl = \left\{\tuple{\alpha^\pl, \beta^\pl} : \tuple{\alpha, \beta} \in \dot{\Lambda}\right\}$. Observe that for any $\tuple{\alpha, \beta} \in \dot{\Lambda}$, we have $\alpha \subseteq \check{\kappa}$ and $\beta \subseteq \check{\lambda}$ for thin ordinals $\check{\kappa}, \check{\lambda} \in \Ord$. Thus by \autoref{lem:pl-subset-retract} we first have
+\[\alpha^\pl = \beta^\pl \ \ \text{implies} \ \ \alpha = \beta, \ \ \text{implies} \ \ \gamma = \delta, \ \ \text{implies} \ \ \gamma^\pl = \delta^\pl\]
+for any $\tuple{\alpha, \gamma}, \tuple{\beta, \delta} \in \dot{\Lambda}$, i.e.\ $\dot{\Lambda}^\pl$ is a well-defined function on some domain $s = \left\{\alpha^\pl : \alpha \in \check{\kappa}\right\}$. Combining \autoref{lem:pl-subset-retract} with \autoref{cor:thin-incom-coding-func} we also have
+\[\dot{\Lambda}^\pl\mleft(\alpha^\pl\mright) \subseteq \dot{\Lambda}^\pl\mleft(\beta^\pl\mright) \ \ \text{implies} \ \ \dot{\Lambda}\mleft(\alpha\mright) \subseteq \dot{\Lambda}\mleft(\beta\mright), \ \ \text{implies} \ \ \alpha = \beta, \ \ \text{implies} \ \ \alpha^\pl = \beta^\pl\]
+for any $\alpha, \beta \in \check{\kappa}$, i.e.\ $\dot{\Lambda}^\pl : s \rightarrow \PlOrd$ is a pairwise incomparable function.
+
+\begin{theorem}
+  \label{thm:powerset-plump-in-l}
+  $V^{\mathbb{H}_\kappa} \vDash \mathcal{P}\mleft(s\mright) \in L_\pl$ where the set $s = \left\{\alpha^\pl : \alpha \in \check{\kappa}\right\}$.
+\end{theorem}
+
+\begin{proof}
+  This follows immediately from \autoref{thm:l-pl-code-power} on $\dot{\Lambda}^\pl$.
+\end{proof}
+
+We can now proceed with the main goal of this example, i.e.\ showing that some $V^{\mathbb{H}_\kappa} \vDash \mathcal{P}\mleft(\check{x}\mright) \in L_\pl$ for an arbitrary, fixed $x$:
+
+\begin{lemma}[$\mathrm{ZFC}$]
+  \label{lem:arith-pl-commute}
+  For any $\alpha, \beta \in \Ord$, let $\gamma = \alpha + \beta$ and $\delta = \alpha \cdot \beta$ as in classical ordinal arithmetic\footnote{Technically speaking, in a classical set theory we have $\PlOrd = \Ord$ and thus plump ordinal arithmetic coincides with usual ordinal arithmetic. Hence we still abide by the stipulations in \autoref{sec:plump-ord-arith} and are not abusing notations here.}, then
+  \[V^{\mathbb{H}_\kappa} \vDash \check{\gamma}^\pl = \check{\alpha}^\pl + \check{\beta}^\pl \quad \text{and} \quad \check{\delta}^\pl = \check{\alpha}^\pl \cdot \check{\beta}^\pl\]
+  for any infinite cardinal $\kappa$.
+\end{lemma}
+
+\begin{proof}
+  This follows from simple induction on $\beta$, using the basic facts in $\mathrm{IKP} + \mathrm{PlUb}$ that
+  \begin{enumerate}[label=(\roman*)]
+    \item For any $\alpha \in \Ord$, $\left(\alpha^+\right)^\pl = \left(\alpha^\pl\right)^\pls$;
+    \item For any $s \subseteq \Ord$, $\left(\bigcup s\right)^\pl = \bigcup_{\alpha \in s} \alpha^\pl$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}[$\mathrm{ZFC}$]
+  \label{lem:force-set-in-l}
+  Fix any set $x$, then for any large enough cardinal $\kappa$ we have
+  \[V^{\mathbb{H}_\kappa} \vDash \check{x} \in L_\pl.\]
+\end{lemma}
+
+\begin{proof}
+  Using choice, we fix a cardinal $\lambda$ with a surjection $f : \lambda \rightarrow \mathrm{trcl}\mleft(\mleft\{x\mright\}\mright)$ onto the transitive closure of $\left\{x\right\}$, and we can assume without loss of generality that $f\mleft(\varnothing\mright) = x$. Let $\kappa$ be the cardinal successor of $\lambda$, and consider the set
+  \[\tau = \left\{\kappa \cdot \alpha + \beta : \alpha, \beta \in \lambda, f\mleft(\alpha\mright) \in f\mleft(\beta\mright)\right\} \subseteq \kappa.\]
+
+  We now work inside $V^{\mathbb{H}_\kappa}$ with the names $\check{f}$ and $\check{\tau}$. We construct $\tilde{\tau} = \left\{\alpha^\pl : \alpha \in \check{\tau}\right\}$ and clearly $\tilde{\tau} \subseteq \left\{\alpha^\pl : \alpha \in \check{\kappa}\right\}$. Thus by \autoref{thm:powerset-plump-in-l}, we have $\tilde{\tau} \in L_\pl$.
+
+  Now, we define
+  \[g = \left\{\tuple{\alpha^\pl, y} : \tuple{\alpha, y}\in \check{f}\right\},\]
+  then $V^{\mathbb{H}_\kappa}$ recognised that $g$ is a well-defined function on domain $s = \left\{\alpha^\pl : \alpha \in \check{\lambda}\right\}$ by \autoref{lem:pl-subset-retract}. By \autoref{lem:arith-pl-commute}, we also have
+  \[V^{\mathbb{H}_\kappa} \vDash \tilde{\tau} = \left\{\check{\kappa}^\pl \cdot \alpha + \beta : \alpha, \beta \in s, g\mleft(\alpha\mright) \in g\mleft(\beta\mright)\right\}.\]
+
+  Now, since also $s \in L_\pl$ trivially by \autoref{thm:powerset-plump-in-l}, we can define inside $L_\pl$ a partial function $h$ on domain $s$ satisfying the recursive condition
+  \[h\mleft(\alpha\mright) = \left\{h\mleft(\beta\mright) : \beta \in s, \check{\kappa}^\pl \cdot \alpha + \beta \in \tilde{\tau}\right\}\]
+  if $h\mleft(\beta\mright)$ exists for all such $\beta$, through a $\Sigma$-formula. Using the fact that $L_\pl$ is a model of $\mathrm{IKP} + \mathrm{PlB}\Sigma_1$ (in fact, a model of $\mathrm{IZF}$ by \cite{matthews-rathjen24-constructible-universe}*{Corollary 6.9}), we can prove by induction on $u$ that, for any set $u$, if $g\mleft(\alpha\mright) = u$, then $h\mleft(\alpha\mright)$ exists and equals $u$. Specifically, we know that $g\mleft(\varnothing\mright) = \check{x}$ and $h \in L_\pl$, thus $\check{x} = h\mleft(\varnothing\mright) \in L_\pl$ as desired.
+\end{proof}
+
+\begin{corollary}[$\mathrm{ZFC}$]
+  Fix any set $x$, then for any large enough cardinal $\kappa$ we have
+  \[V^{\mathbb{H}_\kappa} \vDash \mathcal{P}\mleft(\check{x}\mright) \in L_\pl.\]
+  Since $L_\pl \subseteq L$, we $V^{\mathbb{H}_\kappa} \vDash \mathcal{P}\mleft(\check{x}\mright) \in L$ as well.
+\end{corollary}
+
+\begin{proof}
+  Using choice, we fix a cardinal $\lambda$ with an injection $f : x \rightarrow \lambda$. By \autoref{lem:force-set-in-l}, we can choose $\kappa \geq \lambda$ large enough so that $V^{\mathbb{H}_\kappa} \vDash \check{f} \in L_\pl$. Now, since \autoref{cor:l-preserve-pl-ord} guarantees that $L$ is correct about plump ordinals, we can define inside $L$ the function $\tilde{f} : \check{x} \rightarrow \PlOrd$ as
+  \[\tilde{f}\mleft(z\mright) = \check{f}\mleft(z\mright)^\pl,\]
+  so that the range of $\tilde{f}$ is a subset of $s = \left\{\alpha^\pl : \alpha \in \check{\kappa}\right\}$.
+
+  Consider any subset $y \subseteq x$, then by \autoref{thm:powerset-plump-in-l} we have
+  \[u = \left\{\tilde{f}\mleft(z\mright) : z \in y\right\} \in L_\pl\]
+  since $u \subseteq s$. It follows that $v = \left\{z \in \mathrm{dom}\mleft(\tilde{f}\mright) : \tilde{f}\mleft(z\mright) \in u\right\} \in L_\pl$. Observe that $\check{f}$ is trivially injective, and thus so is $\tilde{f}$ by \autoref{lem:pl-subset-retract}. Hence we have $y = v \in L_\pl$ as desired.
+\end{proof}
 
 \bibmain
 
