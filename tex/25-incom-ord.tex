@@ -67,8 +67,8 @@ In classical set theory, the class $\Ord$ of \emph{ordinals}, i.e.\ transitive s
 However, the same is not true in intuitionistic set theory. For example, if $\varphi$ is a formula such that the instance of excluded middle $\varphi \lor \neg \varphi$ does not hold, then none of the three disjuncts above can hold for the assignment $\alpha \colonequals 1$, $\beta \colonequals \left\{x \in 1 : \varphi\right\}$.
 
 We will say that two ordinals $\alpha, \beta$ are \emph{incomparable} when the negation of this trichotomy holds, or more concisely written as
-\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+.\]
-We shall start by justifying formally that such ordinals may indeed exist in intuitionistic set theory\footnote{There are various other ways to justify the consistency of incomparable ordinals in different base theories such as $\mathrm{IKP}$ or $\mathrm{CZF}$. For example, the realisability model in Rathjen \cite{rathjen06-czf-realizability} contains plenty of incomparable ordinals. Here, we will present a construction that is most relevant to the final section of this paper.}:
+\[\alpha \perp \beta \quad \colonequals \quad \neg \alpha \in \beta^+ \land \neg \beta \in \alpha^+,\]
+where $\alpha^+ = \alpha \cup \left\{\alpha\right\}$ denotes its ordinal \emph{successor}. We shall start by justifying formally that such ordinals may indeed exist in intuitionistic set theory\footnote{There are various other ways to justify the consistency of incomparable ordinals in different base theories such as $\mathrm{IKP}$ or $\mathrm{CZF}$. For example, the realisability model in Rathjen \cite{rathjen06-czf-realizability} contains plenty of incomparable ordinals. Here, we will present a construction that is most relevant to the final section of this paper.}:
 
 \begin{proposition}
   \label{prop:perp-consistent}
@@ -80,11 +80,14 @@ We shall start by justifying formally that such ordinals may indeed exist in int
   Suppose otherwise, that is, $\mathrm{IZF} \vdash \neg \exists \alpha, \beta \in \Ord \ \alpha \perp \beta$. Specifically, for an arbitrary formula $\psi\mleft(x_1, \ldots, x_n\mright)$ with all free variables listed, we can consider the set
   \[\alpha_\psi = 2 \cup \left\{\beta \in \mathcal{P}\mleft(1\mright) : \exists x_1, \ldots, x_n \left(0 \in \beta \leftrightarrow \psi\mleft(x_1, \ldots, x_n\mright)\right)\right\}.\]
   It is easy to see that
-  \begin{align*}
-    \mathrm{IZF} \vdash {} & \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi                                                                                                       \\
-                           & \quad {} \land \left(\alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right)\right).
-  \end{align*}
-  By our assumption, we have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and thus the corresponding double negated instance of excluded middle:
+  \[\mathrm{IZF} \vdash \alpha_\psi \in \Ord \land \neg \alpha_\psi \in 2 \land \neg 2 \in \alpha_\psi.\]
+  Additionally, for any $x_1, \ldots, x_n$ there exists a set
+  \[\beta = \left\{\gamma \in 1 : \psi\mleft(x_1, \ldots, x_n\mright)\right\} \in \alpha_\psi\]
+  by comprehension in $\mathrm{IZF}$, i.e.\ $0 \in \beta \leftrightarrow \psi\mleft(x_1, \ldots, x_n\mright)$ and thus $\beta \in 2$ if and only if $\beta = 0 \lor \beta = 1$, if and only if
+  \[\neg \psi\mleft(x_1, \ldots, x_n\mright) \lor \psi\mleft(x_1, \ldots, x_n\mright).\]
+  In other words,
+  \[\mathrm{IZF} \vdash \alpha_\psi = 2 \leftrightarrow \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
+  By our assumption, we now have $\mathrm{IZF} \vdash \neg \alpha_\psi \perp 2$. Then we must have $\mathrm{IZF} \vdash \neg \neg \alpha_\psi = 2$ and thus the corresponding double negated instance of excluded middle:
   \[\mathrm{IZF} \vdash \neg \neg \forall x_1, \ldots, x_n \left(\psi\mleft(x_1, \ldots, x_n\mright) \lor \neg \psi\mleft(x_1, \ldots, x_n\mright)\right).\]
 
   However, this is impossible. We say that $\varphi$ is an \emph{anti-classical axiom} if $\mathrm{ZF} \vdash \neg \varphi$, then it is well-known that $\mathrm{IZF}$ is consistent with many anti-classical axioms. For example, see the realisability model in \cite{chen-rm-rathjen12-lifschitz-realizability} interpreting such axioms like Church's thesis, etc. Now, let $\varphi$ be any such anti-classical axiom and $\chi_1, \ldots, \chi_k$ be an enumeration of the necessary instances of excluded middle such that
@@ -111,9 +114,7 @@ One immediate consequence of this, as we shall comment at the end, is that the c
 
 A very weak intuitionistic set theory, $\mathrm{IKP}$, suffices for our construction, which means the same results easily apply to any intuitionistic extensions such as $\mathrm{CZF}$ or $\mathrm{IZF}$.  Essentially, the construction uses the fact that $\mathrm{IKP}$ proves $\Sigma$-recursion and also separation by any $\Delta_0$-formula containing $\Sigma$-definable class functions. We also assume that $\mathrm{IKP}$ here includes the axiom of strong infinity, which is needed for the existence of transitive closures that will become convenient later.
 
-Like in a classical set theory, we say that a set $\alpha$ is an \emph{ordinal} if it is a transitive set of transitive sets; the class of all ordinals is denoted $\Ord$. For any $\alpha \in \Ord$, we define its \emph{successor} as
-\[\alpha^+ \colonequals \alpha \cup \left\{\alpha\right\} \in \Ord.\]
-We cannot intuitionistically classify all ordinals into the cases of zero, successors and limits. Thus, to obtain the addition operator $\alpha + \cdot : \Ord \rightarrow \Ord$, we need to modify the recursive definition to use a uniform clause. We let
+Like in a classical set theory, we formally say that a set $\alpha$ is an \emph{ordinal} if it is a transitive set of transitive sets; the class of all ordinals is denoted $\Ord$. We cannot intuitionistically classify all ordinals into the cases of zero, successors and limits. Thus, to obtain the addition operator $\alpha + \cdot : \Ord \rightarrow \Ord$, we need to modify the recursive definition to use a uniform clause. We let
 \[\alpha + \beta = \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha + \gamma\right)^+,\]
 which is common practice in intuitionistic contexts such as in \cite{aczel-rathjen10-cst-book}.
 
@@ -179,29 +180,30 @@ We check that this is preserved by carefully constructed sums:
 
 Observe that \autoref{cor:ord-pair} essentially claims that given two incomparable ordinals, there is a method to represent any pair of two ordinals as a single ordinal uniformly.
 
-Now, before proceeding to treat antichains, we observe that the classical way to defines this notion, i.e.
+Now, before proceeding to treat antichains, we observe that the classical way to define an antichain, i.e.
 \[\forall a, b \in \dom\mleft(f\mright) \left(a \neq b \leftrightarrow f\mleft(a\mright) \perp f\mleft(b\mright)\right),\]
-is intuitionistically ``weak'' because the both sides of the biconditional consist of negated formulae, so we cannot derive positive statements like $a = b$ when we need them since intuitionistic logic lacks double-negation elimination. We will alternatively consider the formula
-\[\Theta\mleft(a, a', b, b'\mright) \colonequals \neg a' \in b' \land \neg b' \in a' \land \left(a' = b' \leftrightarrow a = b\right).\]
-$\Theta\mleft(a, f\mleft(a\mright), b, f\mleft(b\mright)\mright)$ is then classical equivalent to the biconditional above but intuitionistically stronger. Let $x$ be any set, we say that a function $f : x \rightarrow \Ord$ is \emph{pairwise incomparable} if $\forall y, z \in x \ \Theta\mleft(y, f\mleft(y\mright), z, f\mleft(z\mright)\mright)$.
+is intuitionistically ``weak'' because the both sides of the biconditional consist of negated formulae, so we cannot derive positive statements like $a = b$ when we need them since intuitionistic logic lacks double-negation elimination. Thus, we choose to adopt an alternative definition and say that for any set $x$, a function $f : x \rightarrow \Ord$ on it is \emph{pairwise incomparable} if
+\[\forall a, b \in x \left(\neg f\mleft(a\mright) \in f\mleft(b\mright) \land \left(f\mleft(a\mright) = f\mleft(b\mright) \rightarrow a = b\right)\right).\]
+This is classical equivalent to the biconditional above, but intuitionistically stronger.
 
 \begin{proposition}
   \label{prop:perp-ineq-to-perp}
-  When $\alpha \perp \beta \in \Ord$, for any $\gamma, \delta \in \Ord$, we have
-  \[\Theta\mleft(\gamma, \alpha^+ \cup \left(\beta^+ + \gamma\right), \delta, \alpha^+ \cup \left(\beta^+ + \delta\right)\mright).\]
+  When $\alpha \perp \beta \in \Ord$, for any set $s \subseteq \Ord$ of ordinals, the function $f : s \rightarrow \Ord$ given by
+  \[\gamma \mapsto \alpha^+ \cup \left(\beta^+ + \gamma\right)\]
+  is pairwise incomparable.
 \end{proposition}
 
 \begin{proof}
-  First suppose that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$. Notice that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+$ implies $\alpha \in \alpha^+ \cup \left(\beta^+ + \gamma\right) \subseteq \alpha$, contradicting \autoref{lem:no-in-self}, thus we must have $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \beta^+ + \delta$ instead. However, by \autoref{lem:perp-plus-still-perp}, we have $\neg \alpha \in \beta^+ + \delta$ and hence another contradiction. In other words, we have $\neg \alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$ and by a symmetrical argument, $\neg \alpha^+ \cup \left(\beta^+ + \delta\right) \in \alpha^+ \cup \left(\beta^+ + \gamma\right)$ as well.
+  We first show that $\neg f\mleft(\gamma\mright) \in f\mleft(\delta\mright)$ for any $\gamma, \delta \in s$. Suppose that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$. Notice that $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+$ implies $\alpha \in \alpha^+ \cup \left(\beta^+ + \gamma\right) \subseteq \alpha$, contradicting \autoref{lem:no-in-self}, thus we must have $\alpha^+ \cup \left(\beta^+ + \gamma\right) \in \beta^+ + \delta$ instead. However, by \autoref{lem:perp-plus-still-perp}, we have $\neg \alpha \in \beta^+ + \delta$ and hence another contradiction. Thus we must have $\neg \alpha^+ \cup \left(\beta^+ + \gamma\right) \in \alpha^+ \cup \left(\beta^+ + \delta\right)$.
 
   Now, it remains to show that
   \[\alpha^+ \cup \left(\beta^+ + \gamma\right) = \alpha^+ \cup \left(\beta^+ + \delta\right) \rightarrow \gamma = \delta.\]
   This is simply an instance of \autoref{cor:ord-pair} where $\gamma_1 = \delta_1 = \varnothing$.
 \end{proof}
 
-Immediately, given fixed $\alpha \perp \beta \in \Ord$, if any function $f : x \rightarrow \Ord$ is injective, i.e.\ satisfying $\forall y, z \in x \left(f\mleft(y\mright) = f\mleft(z\mright) \rightarrow y = z\right)$, we can construct $f^\perp : x \rightarrow \Ord$ as
+Observe that, given fixed $\alpha \perp \beta \in \Ord$, if any function $f : x \rightarrow \Ord$ is injective, i.e.\ satisfying $\forall y, z \in x \left(f\mleft(y\mright) = f\mleft(z\mright) \rightarrow y = z\right)$, we can construct $f^\perp : x \rightarrow \Ord$ as
 \[y \mapsto \alpha ^+ \cup \left(\beta^+ + f\mleft(y\mright)\right).\]
-Then by \autoref{prop:perp-ineq-to-perp}, $f^\perp$ is pairwise incomparable.
+Then we know $f^\perp$ must be pairwise incomparable by combining \autoref{prop:perp-ineq-to-perp} and the injectivity of $f$.
 
 \begin{proposition}
   \label{prop:pairwise-perp-powerset-ord}
@@ -299,7 +301,7 @@ We need to verify an additional lemma, that each specific value $f_{x, \gamma}\m
   \[y \subseteq \bigcup_{z \in y} \tc{z}_\delta \subseteq \tc{y}_\delta\]
   as well.
 
-  Additionally, it is easy to check with the explcit constructions in \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union} that the values of $f_{x, \gamma}\mleft(y\mright)$ and $f_{y, \gamma}\mleft(y\mright)$ only depend on the values of $f_{x, \delta}\mleft(z\mright)$ and $f_{y, \delta}\mleft(z\mright)$ respectively for any $\delta \in \gamma$ and $z \in y$ such that $z \in \tc{x}_\delta$. We again use an induction on $y$, and notice that the inductive hypothesis implies that for such $\delta$ and $z$ we always have
+  Additionally, it is easy to check with the explicit constructions in \autoref{cor:perp-to-pow} and \autoref{prop:perp-to-ord-seq-union} that the values of $f_{x, \gamma}\mleft(y\mright)$ and $f_{y, \gamma}\mleft(y\mright)$ only depend on the values of $f_{x, \delta}\mleft(z\mright)$ and $f_{y, \delta}\mleft(z\mright)$ respectively for any $\delta \in \gamma$ and $z \in y$ such that $z \in \tc{x}_\delta$. We again use an induction on $y$, and notice that the inductive hypothesis implies that for such $\delta$ and $z$ we always have
   \[f_{x, \delta}\mleft(z\mright) = f_{z, \delta}\mleft(z\mright) = f_{y, \delta}\mleft(z\mright),\]
   thus $f_{x, \gamma}\mleft(y\mright) = f_{y, \gamma}\mleft(y\mright)$ as well.
 \end{proof}
