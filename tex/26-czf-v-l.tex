@@ -1,9 +1,6 @@
-\documentclass[11pt]{article}
-\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,stmaryrd,textgreek,xcolor}
-\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\documentclass[preprint]{elsarticle}
+\usepackage{aliascnt,amsmath,amssymb,amsthm,colonequals,enumitem,mathtools,mleftright,stmaryrd}
 \usepackage[unicode]{hyperref}
-
-\usepackage{bib-commons}
 
 \newcommand{\newaliastheorem}[2]{%
   \newaliascnt{#1}{theorem}
@@ -29,43 +26,48 @@
 \DeclareMathOperator{\dnin}{\dot{\not\in}}
 
 \DeclareMathOperator{\deq}{\dot{=}}
-\DeclareMathOperator{\dsub}{\dot{\subseteq}}
-
-\title{An equiconsistency proof for $\mathrm{CZF} + V = L$}
-\author{Shuwei Wang}
+\DeclareMathOperator{\dseq}{\dot{\subseteq}}
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
+  \title{An equiconsistency proof for \texorpdfstring{$\mathrm{CZF} + V = L$}{CZF + V = L}}
+  \author{Shuwei Wang}
+  \ead{mmsw@leeds.ac.uk}
+  \affiliation{organization={School of Mathematics, University of Leeds},city={Leeds},citysep={},postcode={LS2 9JT},country={UK}}
 
-\begin{abstract}
-  In many axiomatic set theories, G\"odel's constructible universe $L$ is known as an inner model, that is, a definable class satisfying the same axioms (and contains the same ordinals). This gives a trivial proof that adding the axiom $V = L$ does not increase the consistency strength of the theory. In this paper, we shall look at a system of intuitionistic set theory known as $\mathrm{CZF}$, where $L$ fails to exhibit such nice properties. We will demonstrate that, here, the theory $\mathrm{CZF} + V = L$ is still equiconsistent with $\mathrm{CZF}$, but the proof will involve a much more complicated realisability model and a recursion-theoretic argument.
-\end{abstract}
+  \begin{abstract}
+    In many axiomatic set theories, G\"odel's constructible universe $L$ is known as an inner model, that is, a definable class satisfying the same axioms (and contains the same ordinals). This gives a trivial proof that adding the axiom $V = L$ does not increase the consistency strength of the theory. In this paper, we shall look at a system of intuitionistic set theory known as $\mathrm{CZF}$, where $L$ fails to exhibit such nice properties. We will demonstrate that, here, the theory $\mathrm{CZF} + V = L$ is still equiconsistent with $\mathrm{CZF}$, but the proof will involve a much more complicated realisability model and a recursion-theoretic argument.
+  \end{abstract}
+
+  \begin{keyword}
+    constructive set theory \sep ordinal \sep constructible universe \sep realisability \sep Turing computability
+    \MSC[2020] Primary: 03E70 \sep 03F25 \sep Secondary: 03F55 \sep 03D10
+  \end{keyword}
+\end{frontmatter}
 
 It is established in Lubarsky's paper \cite{lubarsky93-intuitionistic-l} that the intuitionistic fragment of Kripke--Platek set theory, usually denoted $\mathrm{IKP}$, suffices for constructing G\"odel's constructible universe $L$. This is the first-order theory consisting of the axioms of extensionality, empty set, pairing, union, the axiom schemes of set induction, $\Delta_0$-comprehension and $\Delta_0$-collection as well as the axiom of strong infinity\footnote{Some formulations of $\mathrm{IKP}$ would omit the infinity axiom. In \cite{matthews-rathjen24-constructible-universe}, it is shown that when $L$ is constructed alternatively through Barwise's fundamental operations, the axiom of infinity is not needed, and the resulting class is precisely the same as the usual construction through definable subsets. In this paper, we will be working with extensions of $\mathrm{IKP}$ that always admit the axiom of infinity, thus we shall stick to the conventional definition instead.}. Since intuitionistic set theories do not prove the classification of ordinals into zero, successors and limits, i.e.\ that every ordinal is either $\varnothing$, a successor or a non-empty set closed under successors, it is usually more appropriate to form recursive definitions with a uniform clause for all ordinals, i.e.
 \[L_\alpha = \bigcup_{\beta \in \alpha} \dd\mleft(L_\beta\mright)\]
-for all $\alpha \in \Ord$ and $L = \bigcup_{\alpha \in \Ord} L_\alpha$, where $\dd\mleft(X\mright)$ is the collection of definable sets in the first-order structure $\tuple{X; \in}$. Lubarsky also showed that
+for all $\alpha \in \Ord$ and $L = \bigcup_{\alpha \in \Ord} L_\alpha$, where $\dd\mleft(X\mright)$ is the collection of definable sets in the first-order structure $\tuple{X; \in}$. Lubarsky also showed that, despite requiring a more complicated proof in the intuitionistic setting (due to the fact that the classical statement $\forall \alpha \in \Ord \ \alpha = L_\alpha \cap \Ord$ is no longer a theorem), we have
 \begin{theorem}[$\mathrm{IKP}$, \cite{lubarsky93-intuitionistic-l}]
-  $L \vDash V = L$,
+  $L \vDash V = L$.
 \end{theorem}
-even though the proof is much more complicated in the intuitionistic setting (due to the fact that the classical statement $\forall \alpha \in \Ord \ \alpha = L_\alpha \cap \Ord$ is no longer a theorem).
 
-As an immediate consequence, let $T$ be any classical or intuitionistic extension of $\mathrm{IKP}$, then as long as $T \vdash L \vDash T$, we know that
+As an immediate consequence, let $T$ be any classical or intuitionistic extension of $\mathrm{IKP}$, then as long as we can show $T \vdash L \vDash T$, we know that
 \[T \equiv_{\mathrm{Con}} T + V = L.\]
-This is the case for well-known classical theories $\mathrm{KP}$, $\mathrm{ZF}$ and $\mathrm{ZFC}$; as we know from Lubarsky \cite{lubarsky93-intuitionistic-l} and Matthews \& Rathjen \cite{matthews-rathjen24-constructible-universe}, this is also the case for intuitionistic theories $\mathrm{IKP}$ and $\mathrm{IZF}$.
+i.e.\ the two theories are equiconsistent. This is the case for well-known classical theories $\mathrm{KP}$, $\mathrm{ZF}$ and $\mathrm{ZFC}$; as we know from Lubarsky \cite{lubarsky93-intuitionistic-l} and Matthews \& Rathjen \cite{matthews-rathjen24-constructible-universe}, this is also the case for intuitionistic theories $\mathrm{IKP}$ and $\mathrm{IZF}$.
 
 However, there are also known theories $T$ that do not satisfy $T \vdash L \vDash T$ and violate the equiconsistency claim above. For example, Rathjen proved that
-\begin{theorem}[\cite{rathjen20-power-kp-choice}*{Theorem 4.6}]
+\begin{theorem}[{\cite[Theorem 4.6]{rathjen20-power-kp-choice}}]
   $\mathrm{KP}\mleft(\mathcal{P}\mright) + V = L$ is much stronger than $\mathrm{KP}\mleft(\mathcal{P}\mright)$,
 \end{theorem}
 where $\mathrm{KP}\mleft(\mathcal{P}\mright)$ is the theory of Kripke--Platek set theory with the powerset operation $\mathcal{P}$ defined as a new primitive function symbol, thus allowed to appear in comprehension and collection schemes.
 
 Important intuitionistic extensions of $\mathrm{IKP}$ include the constructive Zermelo--Fraenkel set theory $\mathrm{CZF}$, which adds the axioms of unrestricted strong collection and subset collection (see \cite{aczel-rathjen10-cst-book} for details), as well as its further extension $\mathrm{CZF}\mleft(\mathcal{P}\mright) = \mathrm{CZF} + \mathrm{Powerset}$. Recently, it is shown in \cite{matthews-rathjen24-constructible-universe} that
-\begin{theorem}[\cite{matthews-rathjen24-constructible-universe}*{Theorem 7.12}]
-  $\mathrm{CZF}\mleft(\mathcal{P}\mright) \nvdash L \vDash \mathrm{Exp}$,
+\begin{theorem}[{\cite[Theorem 7.12]{matthews-rathjen24-constructible-universe}}]
+  $\mathrm{CZF}\mleft(\mathcal{P}\mright) \nvdash L \vDash \mathrm{Exp}$, where $\mathrm{Exp}$ is the axiom of exponentiation stating
+  \[\forall x, y \ \exists z \ \forall f \left(f \in z \leftrightarrow \text{$f$ is a function with domain $x$ and codomain $y$}\right).\]
 \end{theorem}
-where $\mathrm{Exp}$ is the axiom of exponentiation stating
-\[\forall x, y \ \exists z \ \forall f \left(f \in z \leftrightarrow \text{$f$ is a function with domain $x$ and codomain $y$}\right).\]
 $\mathrm{Exp}$ is a weakening of the powerset axiom and a theorem of $\mathrm{CZF}$. Consequently, for any fragment $T \subseteq \mathrm{CZF}\mleft(\mathcal{P}\mright)$ that proves $\mathrm{Exp}$, we do not have $T \vdash L \vDash T$. This leaves open the question whether we still have $T \equiv_{\mathrm{Con}} T + V = L$ for such theories, most notably when $T = \mathrm{IKP}\mleft(\mathcal{P}\mright)$, $\mathrm{CZF}$ and $\mathrm{CZF}\mleft(\mathcal{P}\mright)$.
 
 In this paper, we shall resolve the case for $\mathrm{CZF}$ and prove that, still,
@@ -118,7 +120,7 @@ Here we need a specific definition for the pairing function $\mathbf{p}$, which 
 
 It follows that $\mathbf{p}$ defines a recursive bijection $\mathbb{N}^2 \rightarrow \mathbb{N}$, which automatically ensures that the recursive inverses $\mathbf{p}_0, \mathbf{p}_1$ exist.
 
-We now define an instance of Aczel's Martin-L\"of type theory with a single $W$-type \cite{aczel78-type-theoretic-cst} (a theory now known as $\mathrm{ML}_1\mathrm{V}$), together with one arbitrary distinguished type, in $\mathrm{BI}$ and a realisability interpretation on top. This is analogous to the constructions in \cite{rathjen14-czf-lpo}*{section 5--6} and is possible thanks to the availability of inductive definitions in $\mathrm{BI}$ (c.f.\ \cite{rathjen14-czf-lpo}*{Lemma 3.2}). We fix an arbitrary set $X \subseteq \mathbb{N}$ and denote type names $\overline{n}, \overline{\mathbb{N}}, \overline{X}$ and type constructors $\sigma, \pi$ as elements of the pca:
+We now define an instance of Aczel's Martin-L\"of type theory with a single $W$-type \cite{aczel78-type-theoretic-cst} (a theory now known as $\mathrm{ML}_1\mathrm{V}$), together with one arbitrary distinguished type, in $\mathrm{BI}$ and a realisability interpretation on top. This is analogous to the constructions in \cite[section 5--6]{rathjen14-czf-lpo} and is possible thanks to the availability of inductive definitions in $\mathrm{BI}$ (c.f.\ \cite[Lemma 3.2]{rathjen14-czf-lpo}). We fix an arbitrary set $X \subseteq \mathbb{N}$ and denote type names $\overline{n}, \overline{\mathbb{N}}, \overline{X}$ and type constructors $\sigma, \pi$ as elements of the pca:
 \begin{alignat*}{2}
   \overline{n}          & = \mathbf{p}0n \quad \mathrlap{\text{for each $n \in \mathbb{N}$},}                                                                         \\
   \overline{\mathbb{N}} & = \mathbf{p}10,                                                     & \qquad \sigma & = \lambda nm. \mathbf{p}2\mleft(\mathbf{p}nm\mright), \\
@@ -139,7 +141,7 @@ We then inductively define classes $\mathbf{U}, \mathbf{V} \subseteq \mathbb{N}$
 
   \item[$2'$.] Assume $\sigma ne \in \mathbf{U}$, for any $k, u \in \mathbb{N}$, if $k \din n$ and $u \din ek$ then $\mathbf{p}ku \din \sigma ne$; if $k \dnin n$ or $u \dnin ek$ then $\mathbf{p}ku \dnin \sigma ne$.
 
-  \item[$3'$.] Assume $\pi ne \in \mathbf{U}$, for any $d \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(dk {\downarrow} \land dk \din ek\right)\right)$ then $d \din \pi ne$; if $\exists k \left(k \din n \land \left(dk {\downarrow} \rightarrow dk \dnin ek\right)\right)$ then $d \dnin \pi ne$.
+  \item[$3'$.] Assume $\pi ne \in \mathbf{U}$, for $d \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(dk {\downarrow} \land dk \din ek\right)\right)$ then $d \din \pi ne$; if $\exists k \left(k \din n \land \left(dk {\downarrow} \rightarrow dk \dnin ek\right)\right)$ then $d \dnin \pi ne$.
 
   \item[$4$.] For any $n \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(ek {\downarrow} \land ek \in \mathbf{V}\right)\right)$ then $\mathbf{p}ne \in \mathbf{V}$.
 \end{enumerate}
@@ -148,8 +150,8 @@ Clearly, the rules stipulate that every $\overline{n} \in \mathbf{U}$ denotes a 
 
 By the recursion theorem for Turing computations, we can then define a binary function $\alpha, \beta \mapsto \alpha \deq \beta$ using a term in the pca to satisfy the mutual recursive definitions
 \begin{align*}
-  \alpha \deq \beta \quad  & = \quad \sigma \mleft(\alpha \dsub \beta\mright) \mleft(\lambda x. \beta \dsub \alpha\mright),                                                                                           \\
-  \alpha \dsub \beta \quad & = \quad \pi \mleft(\mathbf{p}_0 \alpha\mright) \mleft(\lambda x. \sigma \mleft(\mathbf{p}_0 \beta\mright) \mleft(\lambda y. \mathbf{p}_1 \alpha x = \mathbf{p}_1 \beta y\mright)\mright)
+  \alpha \deq \beta \quad  & = \quad \sigma \mleft(\alpha \dseq \beta\mright) \mleft(\lambda x. \beta \dseq \alpha\mright),                                                                                           \\
+  \alpha \dseq \beta \quad & = \quad \pi \mleft(\mathbf{p}_0 \alpha\mright) \mleft(\lambda x. \sigma \mleft(\mathbf{p}_0 \beta\mright) \mleft(\lambda y. \mathbf{p}_1 \alpha x = \mathbf{p}_1 \beta y\mright)\mright)
 \end{align*}
 for any $\alpha, \beta \in \mathbf{V}$. The totality of this function on $\mathbf{V}^2$ follows from induction on $\mathbf{V}$.
 
@@ -170,13 +172,10 @@ We now let first-order variables in a language of set theory range over elements
 It is routine to verify in $\mathrm{BI}$ that the axioms of $\mathrm{CZF}$ are all realised in this interpretation, for example following the detailed working in \cite{aczel78-type-theoretic-cst} or \cite{rathjen06-formulae-as-classes-interpretation}. We will mention below a few common constructions in the literature that will become convenient for our later use:
 
 Firstly, by the recursion theorem, we can easily construct some $\iota, \delta \in \mathbb{N}$ such that
-\begin{align*}
-  \delta n & = \mathbf{p} n \iota,       \\
-  \iota    & = \mathbf{p} \delta \delta.
-\end{align*}
+\[\delta n = \mathbf{p} n \iota, \qquad \iota = \mathbf{p} \delta \delta.\]
 By induction on $\mathbf{V}$, $\iota \Vdash \alpha = \alpha$ for any $\alpha \in \mathbf{V}$.
 
-Secondly, the canonical unordered pair is given by $\left\{\alpha, \beta\right\}^V = \mathbf{p}\overline{2}\mleft(\lambda x. \mathbf{d}x0\alpha\beta\mright)$. The canonical ordered pair can then be define as $\tuple{\alpha, \beta}^V = \left\{\left\{\alpha, \alpha\right\}^V, \left\{\alpha, \beta\right\}^V\right\}^V$ in the usual way. These representations are all computable in the pca.
+Secondly, the canonical unordered pair is given by $\left\{\alpha, \beta\right\}^V = \mathbf{p}\overline{2}\mleft(\lambda x. \mathbf{d}x0\alpha\beta\mright)$. The canonical ordered pair can then simply be $\tuple{\alpha, \beta}^V = \left\{\left\{\alpha, \alpha\right\}^V, \left\{\alpha, \beta\right\}^V\right\}^V$ in the usual way. These representations are all computable in the pca.
 
 Also, for $n \in \mathbb{N}$, we can recursively construct $n^V = \mathbf{p}\overline{n}\mleft(\lambda x. x^V\mright)$. Then we also have $\omega^V = \mathbf{p}\overline{\mathbb{N}}\mleft(\lambda x. x^V\mright)$. The object $\omega^V \in \mathbf{V}$ will be what the realisability model thinks is the ordinal $\omega$.
 
@@ -233,7 +232,7 @@ This construction is possible due to our specific choice of the pairing function
 
 We now take our distinguished type $\overline{X}$ in the realisability model to be given by
 \[X = \left\{t \in \mathbb{N} : t \sqsubseteq h\right\},\]
-i.e.\ the (coded) finite initial segments of $h$. Consider the set $\alpha_0 = \mathbf{p}\overline{X}\mleft(\lambda t. \left(\mathbf{l}_s t\right)^V\mright) \in \mathbf{V}$ in the realisability model. We first see that it has the following basic properties:
+i.e.\ the (coded) finite initial segments of $h$. Consider $\alpha_0 = \mathbf{p}\overline{X}\mleft(\lambda t. \left(\mathbf{l}_s t\right)^V\mright) \in \mathbf{V}$ in the realisability model. We first see that it has the following basic properties:
 
 \begin{lemma}
   The following are realised:
@@ -279,7 +278,7 @@ It is easy to check within $\mathrm{CZF}$ that this definition guarantees each $
 
   Consequently, for any $n > \mathrm{max}\mleft\{i, j\mright\}$, let $t \in X$ be any long enough finite sequence such that $\mathbf{p}in, \mathbf{p}jn \leq \mathbf{l}_s t$. Observe that our stipulation of the pairing function $\mathbf{p}$ also ensures $\forall k \leq n \ \mathbf{p}ik \leq \mathbf{p}in$. Therefore,
   \[\lambda k. \mathbf{p} \mleft(\mathbf{p}ik\mright) \mleft(\mathbf{p} \mleft(\mathbf{t}_s t \mleft(\mathbf{p}ik\mright)\mright) \mleft(qik\mright)\mright) \Vdash \forall k \in \left(\mathbf{s}_N n\right)^V \overline{p}\mleft(i^V, k\mright) \in \alpha_0.\]
-  In other words, if we take $f = \lambda nt. d\mleft(\mathbf{s}_N n\mright) \mleft(\lambda k. \mathbf{p} \mleft(\mathbf{p}ik\mright) \mleft(\mathbf{p} \mleft(\mathbf{t}_s t \mleft(\mathbf{p}ik\mright)\mright) \mleft(qik\mright)\mright)\mright) n$, then $fnt \Vdash \overline{p}\mleft(j^V, n^V\mright) \in \alpha_0$ and $\mathbf{p}_0 \mleft(\mathbf{p}_1 \mleft(fnt\mright)\mright) = \mathbf{t}_s t \mleft(\mathbf{p}jn\mright)$.
+  In other words, if we take $f = \lambda nt. d\mleft(\mathbf{s}_N n\mright) \mleft(\lambda k. \mathbf{p} \mleft(\mathbf{p}ik\mright) \mleft(\mathbf{p} \mleft(\mathbf{t}_s t \mleft(\mathbf{p}ik\mright)\mright) \mleft(qik\mright)\mright)\mright) n$, then we have $fnt \Vdash \overline{p}\mleft(j^V, n^V\mright) \in \alpha_0$ and $\mathbf{p}_0 \mleft(\mathbf{p}_1 \mleft(fnt\mright)\mright) = \mathbf{t}_s t \mleft(\mathbf{p}jn\mright)$.
 
   Observe that $\mathbf{l}_s \mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright) = \mathbf{p}in$, i.e.\ $\mathbf{p}_1 \mleft(\mathbf{l}_s \mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright)\mright) = n$. This means we can have a single-parameter function $g = \lambda s. \mathbf{p}_0\mleft(\mathbf{p}_1\mleft(f \mleft(\mathbf{p}_1 \mleft(\mathbf{l}_s s\mright)\mright) s\mright)\mright)$, such that
   \[g\mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright) {\downarrow} \land g\mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright) = \mathbf{t}_s t \mleft(\mathbf{p}jn\mright).\]
@@ -289,10 +288,7 @@ It is easy to check within $\mathrm{CZF}$ that this definition guarantees each $
 
 \section{The coding mechanism}
 
-We now finally work entirely within the realised theory of $\mathrm{CZF} + \text{Subcountability}$ with our distinguished ordinal $\alpha_0$ to prove that $V = L$.
-
-Firstly, we show that:
-
+We now work entirely within the realised theory of $\mathrm{CZF} + \text{Subcountability}$ with our distinguished ordinal $\alpha_0$ to prove that $V = L$. Firstly, we show that
 \begin{lemma}[$\mathrm{CZF}$]
   \label{lem:subset-omega-l}
   $\mathcal{P}\mleft(\omega\mright) \cap \Ord \subseteq L$. Namely, for any ordinal $\alpha \in \mathcal{P}\mleft(\omega\mright)$, we have $\alpha = L_\alpha \cap \Ord$.
@@ -317,7 +313,7 @@ This means that $\alpha_0 \subseteq \omega$ defined in \autoref{sec:dist-ord} li
   \[\alpha = \bigcup_{n \in u} L_{f_0\mleft(n\mright)^+} \cap \Ord = L_{\bigcup_{n \in u} f_0\mleft(n\mright)^+} \cap \Ord \in L.\]
   We take some large enough $\eta \in \Ord$ such that $f_0, \omega, \alpha \in L_\eta$, and let
   \[v = \left\{n \in \omega : f_0\mleft(n\mright) \in \alpha\right\} \in \dd\mleft(L_\eta\mright).\]
-  Since each $f_0\mleft(n\mright) \in \mathcal{P}\mleft(\omega\mright)$, by \autoref{lem:subset-omega-l}, each $f_0\mleft(n\mright) = L_{f_0\mleft(n\mright)} \cap \Ord \in \dd\mleft(L_{f_0\mleft(n\mright)}\mright) \cap \Ord$, thus $u \subseteq v$. On the other hand, for any $m \in v$, there exists $n \in u$ such that $f_0\mleft(m\mright) \in \dd\mleft(L_{f_0\mleft(n\mright)}\mright) \cap \Ord$, i.e.\ $f_0\mleft(m\mright) \subseteq L_{f_0\mleft(n\mright)} \cap \Ord = f_0\mleft(n\mright)$. This immediately implies $m = n$ by \autoref{prop:f-subset-eq} and thus $m \in u$. Therefore, $u = v \in L$.
+  Since each $f_0\mleft(n\mright) \in \mathcal{P}\mleft(\omega\mright)$, by \autoref{lem:subset-omega-l}, also each $f_0\mleft(n\mright) = L_{f_0\mleft(n\mright)} \cap \Ord \in \dd\mleft(L_{f_0\mleft(n\mright)}\mright) \cap \Ord$, thus $u \subseteq v$. On the other hand, for any $m \in v$, there exists $n \in u$ such that $f_0\mleft(m\mright) \in \dd\mleft(L_{f_0\mleft(n\mright)}\mright) \cap \Ord$, i.e.\ $f_0\mleft(m\mright) \subseteq L_{f_0\mleft(n\mright)} \cap \Ord = f_0\mleft(n\mright)$. This immediately implies $m = n$ by \autoref{prop:f-subset-eq} and thus $m \in u$. Therefore, $u = v \in L$.
 \end{proof}
 
 \begin{theorem}
@@ -335,8 +331,13 @@ This means that $\alpha_0 \subseteq \omega$ defined in \autoref{sec:dist-ord} li
   Hence $g$ must be a well-defined total function, $g \in L$ and $s = g\mleft(0\mright) \in L$.
 \end{proof}
 
-We have thus shown that $\mathrm{BI}$ realises $\mathrm{CZF} + V = L$. Using the fact that $\mathrm{BI} \equiv_{\mathrm{Con}} \mathrm{CZF}$, we effectively know that $\mathrm{CZF}$ is equiconsistent with $\mathrm{CZF} + V = L$.
+We have thus shown that $\mathrm{BI}$ realises $\mathrm{CZF} + V = L$. Using the fact that $\mathrm{BI} \equiv_{\mathrm{Con}} \mathrm{CZF}$ (c.f.\ \cite[Theorem 2.2]{rathjen14-czf-lpo}), we effectively know that $\mathrm{CZF}$ is equiconsistent with $\mathrm{CZF} + V = L$.
 
-\bibmain
+\section*{Acknowledgements}
+
+The author thanks the support from the UK Engineering and Physical Sciences Research Council [EP/W523860/1] during the preparation of this paper.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{\jobname}
 
 \end{document}
