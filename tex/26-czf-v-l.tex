@@ -37,7 +37,7 @@
   \affiliation{organization={School of Mathematics, University of Leeds},city={Leeds},citysep={},postcode={LS2 9JT},country={UK}}
 
   \begin{abstract}
-    In many axiomatic set theories, G\"odel's constructible universe $L$ is known as an inner model, that is, a definable class satisfying the same axioms (and contains the same ordinals). This gives a trivial proof that adding the axiom $V = L$ does not increase the consistency strength of the theory. In this paper, we shall look at a system of intuitionistic set theory known as $\mathrm{CZF}$, where $L$ fails to exhibit such nice properties. We will demonstrate that, here, the theory $\mathrm{CZF} + V = L$ is still equiconsistent with $\mathrm{CZF}$, but the proof will involve a much more complicated realisability model and a recursion-theoretic argument.
+    In many axiomatic set theories, G\"odel's constructible universe $L$ is known as an inner model, that is, a definable class satisfying the same axioms (and containing the same ordinals). This gives a trivial proof that adding the axiom $V = L$ does not increase the consistency strength of the theory. In this paper, we shall look at a system of intuitionistic set theory known as $\mathrm{CZF}$, where $L$ fails to exhibit such nice properties. We will demonstrate that, here, the theory $\mathrm{CZF} + V = L$ is still equiconsistent with $\mathrm{CZF}$, but the proof will involve a much more complicated realisability model and a recursion-theoretic argument.
   \end{abstract}
 
   \begin{keyword}
@@ -46,9 +46,9 @@
   \end{keyword}
 \end{frontmatter}
 
-It is established in Lubarsky's paper \cite{lubarsky93-intuitionistic-l} that the intuitionistic fragment of Kripke--Platek set theory, usually denoted $\mathrm{IKP}$, suffices for constructing G\"odel's constructible universe $L$. This is the first-order theory consisting of the axioms of extensionality, empty set, pairing, union, the axiom schemes of set induction, $\Delta_0$-comprehension and $\Delta_0$-collection as well as the axiom of strong infinity\footnote{Some formulations of $\mathrm{IKP}$ would omit the infinity axiom. In \cite{matthews-rathjen24-constructible-universe}, it is shown that when $L$ is constructed alternatively through Barwise's fundamental operations, the axiom of infinity is not needed, and the resulting class is precisely the same as the usual construction through definable subsets. In this paper, we will be working with extensions of $\mathrm{IKP}$ that always admit the axiom of infinity, thus we shall stick to the conventional definition instead.}. Since intuitionistic set theories do not prove the classification of ordinals into zero, successors and limits, i.e.\ that every ordinal is either $\varnothing$, a successor or a non-empty set closed under successors, it is usually more appropriate to form recursive definitions with a uniform clause for all ordinals, i.e.
+It is established in Lubarsky's paper \cite{lubarsky93-intuitionistic-l} that the intuitionistic fragment of Kripke--Platek set theory, usually denoted $\mathrm{IKP}$, suffices for constructing G\"odel's constructible universe $L$. This is the first-order theory consisting of the axioms of extensionality, empty set, pairing, union, the axiom schemes of set induction, $\Delta_0$-comprehension and $\Delta_0$-collection as well as the axiom of strong infinity\footnote{Some formulations of $\mathrm{IKP}$ would omit the infinity axiom. In \cite{matthews-rathjen24-constructible-universe}, it is shown that when $L$ is constructed alternatively through Barwise's fundamental operations, the axiom of infinity is not necessary, and the resulting class is precisely the same as the usual construction through definable subsets. In this paper, we will be working with extensions of $\mathrm{IKP}$ that always admit the axiom of infinity, thus we shall stick to the conventional definition instead.}. Since intuitionistic set theories do not prove the classification of ordinals into zero, successors and limits, i.e.\ that every ordinal is either $\varnothing$, a successor or a non-empty set closed under successors, it is usually more appropriate to form recursive definitions with a uniform clause for all ordinals, i.e.
 \[L_\alpha = \bigcup_{\beta \in \alpha} \dd\mleft(L_\beta\mright)\]
-for all $\alpha \in \Ord$ and $L = \bigcup_{\alpha \in \Ord} L_\alpha$, where $\dd\mleft(X\mright)$ is the collection of definable sets in the first-order structure $\tuple{X; \in}$. Lubarsky also showed that, despite requiring a more complicated proof in the intuitionistic setting (due to the fact that the classical statement $\forall \alpha \in \Ord \ \alpha = L_\alpha \cap \Ord$ is no longer a theorem), we have
+for all $\alpha \in \Ord$ and $L = \bigcup_{\alpha \in \Ord} L_\alpha$, where $\dd\mleft(X\mright)$ is the collection of definable sets in the first-order structure $\tuple{X; \in}$. Lubarsky also showed that, despite requiring a more complicated proof in the intuitionistic setting (due to the fact that the classical statement $\forall \alpha \in \Ord \ \alpha = L_\alpha \cap \Ord$ is no longer a theorem), we still have
 \begin{theorem}[$\mathrm{IKP}$, \cite{lubarsky93-intuitionistic-l}]
   $L \vDash V = L$.
 \end{theorem}
@@ -76,7 +76,7 @@ To do this, we will use a realisability model of $\mathrm{CZF}$ together with th
 \[\forall x \ \exists u, f \left(u \subseteq \omega \land \text{$f$ is a surjection from $u$ onto $x$}\right).\]
 We then tweak this realisability model to include an $\omega$-sequence of \emph{strongly incomparable ordinals} in\footnote{In this paper, we treat the theory $\mathrm{CZF}$ which does not admit the axiom of powerset. Thus, throughout this paper, we shall use the notation $\mathcal{P}\mleft(x\mright)$ to denote a $\Delta_0$-definable class consisting of all subsets of $x$, which may not itself be a set.} $\mathcal{P}\mleft(\omega\mright)$ inside $L$, that is, a distinguished object $f_0 : \omega \rightarrow \mathcal{P}\mleft(\omega\mright)$ in $L$ satisfying
 \[\forall i, j \in \omega \left(f_0\mleft(i\mright) \subseteq f_0\mleft(j\mright) \rightarrow i = j\right).\]
-Finally, we will show that this suffices for implementing a mechanism to encode any set using an ordinal in $L$ and thus conclude that the model satisfies $\mathrm{CZF} + V = L$.
+Finally, we will show that this suffices for implementing a mechanism to encode any subcountable set using an ordinal in $L$ and thus conclude that the model satisfies $\mathrm{CZF} + V = L$.
 
 \section{The realisability model}
 \label{sec:real-model}
@@ -85,7 +85,7 @@ The model we construct in this paper will be a variant of the the procedures in 
 \[\forall X \ \mathrm{TI}\mleft(\prec, x \in X\mright) \rightarrow \mathrm{TI}\mleft(\prec, \varphi\mleft(x\mright)\mright)\]
 for any $\varphi\mleft(x\mright)$, where $\prec$ is any formula defining a binary relation on first-order objects and $\mathrm{TI}\mleft(\prec, \varphi\mleft(x\mright)\mright) = \forall x \left(\forall y \prec x \ \varphi\mleft(y/x\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \ \varphi\mleft(x\mright)$. We will formulate a definable type structure in $\mathrm{BI}$ and realise $\mathrm{CZF} + \text{Subcountability}$ in it.
 
-To begin, we equip $\mathbb{N}$ with a partial combinatory algebra (abbreviated henceforth as pca) using usual Turing computability, i.e.\ we write\footnote{In this paper, computable function application will be used pervasively, so we reserve the juxtaposition notation for convenience. To avoid ambiguity, multiplication on $\mathbb{N}$ will instead always be written with a dot, e.g.\ $p \cdot q$. Additionally, we will not explicitly use any natural number greater than $9$ in this paper, thus the notation $f11$ should be read as $\mleft(f1\mright)1$, instead of $f$ applying to the number $11$.} $pq = r$ to mean that the Turing machine with index $p$ terminates on input $q$ and outputs the result $r$. We use $pq {\downarrow}$ to denote $\exists r \ pq = r$.
+To begin, we equip $\mathbb{N}$ with a partial combinatory algebra (abbreviated henceforth as pca) using usual Turing computability, i.e.\ we write\footnote{In this paper, computable function application will be used pervasively, so we reserve the juxtaposition notation for convenience. To avoid ambiguity, multiplication on $\mathbb{N}$ will instead always be written with a dot, e.g.\ $p \cdot q$. Additionally, we will not explicitly use any natural number greater than $9$ in this paper, thus the notation $f11$ should be read as $\mleft(f1\mright)1$, instead of $f$ being applied to the number $11$.} $pq = r$ to mean that the Turing machine with index $p$ terminates on input $q$ and outputs the result $r$. We use $pq {\downarrow}$ to denote $\exists r \ pq = r$.
 
 We define the following basic combinators in the pca:
 \begin{itemize}
@@ -126,7 +126,7 @@ We now define an instance of Aczel's Martin-L\"of type theory with a single $W$-
   \overline{\mathbb{N}} & = \mathbf{p}10,                                                     & \qquad \sigma & = \lambda nm. \mathbf{p}2\mleft(\mathbf{p}nm\mright), \\
   \overline{X}          & = \mathbf{p}11,                                                     & \pi           & = \lambda nm. \mathbf{p}3\mleft(\mathbf{p}nm\mright).
 \end{alignat*}
-We then inductively define classes $\mathbf{U}, \mathbf{V} \subseteq \mathbb{N}$ and relations ${\din}, {\dnin} \subseteq \mathbb{N} \times \mathbf{U}$ simultaneously through the following rules:
+We then inductively define $\Pi^1_1$-classes $\mathbf{U}, \mathbf{V} \subseteq \mathbb{N}$ and relations ${\din}, {\dnin} \subseteq \mathbb{N} \times \mathbf{U}$ simultaneously through the following rules:
 
 \begin{enumerate}
   \item[$0$.] For any $n \in \mathbb{N}$, $\overline{n} \in \mathbf{U}$.
@@ -146,9 +146,11 @@ We then inductively define classes $\mathbf{U}, \mathbf{V} \subseteq \mathbb{N}$
   \item[$4$.] For any $n \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(ek {\downarrow} \land ek \in \mathbf{V}\right)\right)$ then $\mathbf{p}ne \in \mathbf{V}$.
 \end{enumerate}
 
-Clearly, the rules stipulate that every $\overline{n} \in \mathbf{U}$ denotes a finite type with $n$ elements; $\overline{N} \in \mathbf{U}$ denotes the type of natural numbers. The type constructors $\sigma$ and $\pi$ builds dependent sums and products respectively. Notably, since the elements of $\pi$-types are given specifically as computable functions, by manipulating the computational complexity of the set $X$ we can alter the content of derived $\pi$-types. As an immediate example, see that $X$ is computably enumerable if and only if there exists $e \in \mathbb{N}$ such that $e \din \pi \overline{\mathbb{N}} \mleft(\lambda x. \overline{X}\mright)$.
+Clearly, the rules stipulate that every $\overline{n} \in \mathbf{U}$ denotes a finite type with $n$ elements; $\overline{N} \in \mathbf{U}$ denotes the type of natural numbers. The type constructors $\sigma$ and $\pi$ builds dependent sums and products respectively. Notably, since the elements of $\pi$-types are required specifically to be computable functions, by manipulating the computational complexity of the set $X$ we can alter the content of derived $\pi$-types. For example, let $h : \mathbb{N} \rightarrow \mathbb{N}$ be any function and $X = \left\{t \in \mathbb{N} : t \sqsubseteq h\right\}$ be the set of natural number codes for the finite initial segments of $h$ such that $\mathbf{l}_s : X \rightarrow \mathbb{N}$ is a recursive function mapping each initial segment to its length (c.f.\ the beginning of \autoref{sec:dist-ord} for a more detailed set-up), then the type
+\[\pi \overline{\mathbb{N}} \mleft(\lambda n. \sigma \overline{X}\mleft(\lambda t. \mathbf{d} \overline{1} \overline{0} n \mleft(\mathbf{l}_s t\mright)\mright)\mright)\]
+represents precisely the computable functions that enumerate initial segments of $h$, and thus is non-empty if and only if $h$ is computable. This shall be taken advantage of in \autoref{sec:dist-ord} below.
 
-By the recursion theorem for Turing computations, we can then define a binary function $\alpha, \beta \mapsto \alpha \deq \beta$ using a term in the pca to satisfy the mutual recursive definitions
+For now, by the recursion theorem for Turing computations, we can define a binary function $\alpha, \beta \mapsto \alpha \deq \beta$ using a term in the pca to satisfy the mutual recursive definitions
 \begin{align*}
   \alpha \deq \beta \quad  & = \quad \sigma \mleft(\alpha \dseq \beta\mright) \mleft(\lambda x. \beta \dseq \alpha\mright),                                                                                           \\
   \alpha \dseq \beta \quad & = \quad \pi \mleft(\mathbf{p}_0 \alpha\mright) \mleft(\lambda x. \sigma \mleft(\mathbf{p}_0 \beta\mright) \mleft(\lambda y. \mathbf{p}_1 \alpha x = \mathbf{p}_1 \beta y\mright)\mright)
@@ -175,9 +177,9 @@ Firstly, by the recursion theorem, we can easily construct some $\iota, \delta \
 \[\delta n = \mathbf{p} n \iota, \qquad \iota = \mathbf{p} \delta \delta.\]
 By induction on $\mathbf{V}$, $\iota \Vdash \alpha = \alpha$ for any $\alpha \in \mathbf{V}$.
 
-Secondly, the canonical unordered pair is given by $\left\{\alpha, \beta\right\}^V = \mathbf{p}\overline{2}\mleft(\lambda x. \mathbf{d}x0\alpha\beta\mright)$. The canonical ordered pair can then simply be $\tuple{\alpha, \beta}^V = \left\{\left\{\alpha, \alpha\right\}^V, \left\{\alpha, \beta\right\}^V\right\}^V$ in the usual way. These representations are all computable in the pca.
+Secondly, the canonical unordered pair is given by $\left\{\alpha, \beta\right\}^V = \mathbf{p}\overline{2}\mleft(\lambda x. \mathbf{d}x0\alpha\beta\mright)$. The canonical ordered pair can then simply be $\tuple{\alpha, \beta}^V = \left\{\left\{\alpha, \alpha\right\}^V, \left\{\alpha, \beta\right\}^V\right\}^V$. These representations are all computable in the pca.
 
-Also, for $n \in \mathbb{N}$, we can recursively construct $n^V = \mathbf{p}\overline{n}\mleft(\lambda x. x^V\mright)$. Then we also have $\omega^V = \mathbf{p}\overline{\mathbb{N}}\mleft(\lambda x. x^V\mright)$. The object $\omega^V \in \mathbf{V}$ will be what the realisability model thinks is the ordinal $\omega$.
+Also, for $n \in \mathbb{N}$, we can recursively construct $n^V = \mathbf{p}\overline{n}\mleft(\lambda x. x^V\mright)$, then we also have $\omega^V = \mathbf{p}\overline{\mathbb{N}}\mleft(\lambda x. x^V\mright)$. The object $\omega^V \in \mathbf{V}$ will be what the realisability model thinks is the ordinal $\omega$.
 
 We additionally verify that the axiom of subcountability is realised:
 
@@ -252,10 +254,10 @@ i.e.\ the (coded) finite initial segments of $h$. Consider $\alpha_0 = \mathbf{p
   realising that $\alpha_0$ is transitive. Now it follows immediately from $\alpha_0 \subseteq \omega$ within $\mathrm{CZF}$ that any element in $\alpha_0$ is transitive, thus $\alpha_0 \in \Ord$.
 \end{proof}
 
-Now, we use the fact that our pairing function $\mathbf{p}$ is recursive; this means we can write down the same definition inside the realisability model (or even inside $L$) to define a set-theoretic function from $\omega^2$ to $\omega$ that performs exactly the same computations. More explicitly, this set-theoretic pairing function could bear the name
+Next, we use the fact that our pairing function $\mathbf{p}$ is recursive; this means we can write down the same definition inside the realisability model (or even inside $L$) to define a set-theoretic function from $\omega^2$ to $\omega$ that performs exactly the same computations. More explicitly, this set-theoretic pairing function could bear the name
 \[\overline{p} = \mathbf{p}\overline{\mathbb{N}} \mleft(\lambda x. \tuple{\tuple{\left(\mathbf{p}_0 x\right)^V, \left(\mathbf{p}_1 x\right)^V}^V, x^V}^V\mright) \in \mathbf{V}.\]
 
-We use $\overline{p}$ inside the realisability model to extract the complexity coded into $\alpha_0$ through \autoref{prop:non-comp-path}. We define the set-theoretic function $f_0 : \omega \rightarrow \mathcal{P}\mleft(\omega\mright)$ by
+We use $\overline{p}$ inside the realisability model to extract the complexity coded into $\alpha_0$ in \autoref{prop:non-comp-path}. We define the set-theoretic function $f_0 : \omega \rightarrow \mathcal{P}\mleft(\omega\mright)$ by
 \[f_0\mleft(i\mright) = \left\{n \in \omega : \forall k \in n \ \overline{p}\mleft(i, k\mright) \in \alpha_0\right\}.\]
 It is easy to check within $\mathrm{CZF}$ that this definition guarantees each $f_0\mleft(i\mright) \in \Ord$ as well. We also show that
 
@@ -297,7 +299,7 @@ We now work entirely within the realised theory of $\mathrm{CZF} + \text{Subcoun
 \begin{proof}
   For any ordinal $\alpha \in \mathcal{P}\mleft(\omega\mright) \cap \Ord$, we consider $\alpha^* = \bigcup_{\beta \in \alpha} \beta^{++}$. Here, each $\beta^{++} \in \omega$, so we know $\alpha^* \subseteq \omega$. For any $\beta \in \alpha$, $\beta^+ \in \alpha^*$ and thus $\beta \in \bigcup \alpha^*$. Conversely, for any $\beta \in \bigcup \alpha^*$, there exists $\gamma \in \alpha$ and $\delta \in \gamma^{++}$ that $\beta \in \delta$, which implies $\beta \in \gamma^+ \subseteq \alpha$. Therefore, $\alpha = \bigcup \alpha^*$.
 
-  Now, Lubarsky proved in \cite{lubarsky93-intuitionistic-l} that precisely $L_\omega \cap \Ord = \omega$. Using the additional fact that for any $n \in \omega$, and $\alpha \in L_{n^+} \cap \Ord$ is a subset of $L_n \cap \Ord$, we can easily show by induction that $\forall n \in \omega \ L_n \cap \Ord = n$. This implies
+  Now, Lubarsky proved in \cite{lubarsky93-intuitionistic-l} that precisely $L_\omega \cap \Ord = \omega$. Using the additional fact that for any $n \in \omega$, any $\alpha \in L_{n^+} \cap \Ord$ is a subset of $L_n \cap \Ord$, we can easily show by induction that $\forall n \in \omega \ L_n \cap \Ord = n$. This implies
   \[L_\alpha \cap \Ord = L_{\bigcup \alpha^*} \cap \Ord = \bigcup_{n \in \alpha^*} L_n \cap \Ord = \bigcup \alpha^* = \alpha. \qedhere\]
 \end{proof}
 
@@ -327,8 +329,8 @@ This means that $\alpha_0 \subseteq \omega$ defined in \autoref{sec:dist-ord} li
   Given $\sigma_s$, we can recursively define some (possibly partial) function $g$ on domain $u$ as
   \[g\mleft(n\mright) = \left\{g\mleft(m\mright) : m \in u \land \overline{p}\mleft(m, n\mright) \in \sigma_s\right\}\]
   if $g\mleft(m\mright)$ exists for all such $m \in u$. The function $g$ is defined by a $\Sigma_1$-formula and parameters $u, \sigma_s$, where $u, \sigma_s \in L$ by \autoref{prop:omega-power-in-l}. Using $\Delta_0$-collection, we can easily prove by set induction on $x$ that, for any set $x$,
-  \[\forall n \in u \left(f\mleft(n\mright) = x \rightarrow L \vDash \text{$g\mleft(n\mright)$ exists} \land g\mleft(n\mright) = x\right).\]
-  Hence $g$ must be a well-defined total function, $g \in L$ and $s = g\mleft(0\mright) \in L$.
+  \[\forall n \in u \left(f\mleft(n\mright) = x \rightarrow g\mleft(n\mright) = x \land L \vDash \text{$g\mleft(n\mright)$ exists}\right).\]
+  Since $g$, as a $\Sigma_1$-definable function, must be upwards absolute between transitive classes, clearly $s = g\mleft(0\mright) \in L$.
 \end{proof}
 
 We have thus shown that $\mathrm{BI}$ realises $\mathrm{CZF} + V = L$. Using the fact that $\mathrm{BI} \equiv_{\mathrm{Con}} \mathrm{CZF}$ (c.f.\ \cite[Theorem 2.2]{rathjen14-czf-lpo}), we effectively know that $\mathrm{CZF}$ is equiconsistent with $\mathrm{CZF} + V = L$.
