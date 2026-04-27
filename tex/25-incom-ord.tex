@@ -48,7 +48,6 @@ Classification}
 University of Leeds\\
 Leeds LS2 9JT, UK}
 \email{mmsw@leeds.ac.uk}
-\thanks{During the preparation of this paper the author is supported by the the Engineering and Physical Sciences Research Council [EP/W523860/1].}
 
 \begin{document}
 
@@ -189,7 +188,7 @@ This is classical equivalent to the biconditional above, but intuitionistically 
 \begin{proposition}
   \label{prop:perp-ineq-to-perp}
   When $\alpha \perp \beta \in \Ord$, for any set $s \subseteq \Ord$ of ordinals, the function $f : s \rightarrow \Ord$ given by
-  \[\gamma \mapsto \alpha^+ \cup \left(\beta^+ + \gamma\right)\]
+  \[f\mleft(\gamma\mright) = \alpha^+ \cup \left(\beta^+ + \gamma\right)\]
   is pairwise incomparable.
 \end{proposition}
 
@@ -201,9 +200,9 @@ This is classical equivalent to the biconditional above, but intuitionistically 
   This is simply an instance of \autoref{cor:ord-pair} where $\gamma_1 = \delta_1 = \varnothing$.
 \end{proof}
 
-Observe that, given fixed $\alpha \perp \beta \in \Ord$, if any function $f : x \rightarrow \Ord$ is injective, i.e.\ satisfying $\forall y, z \in x \left(f\mleft(y\mright) = f\mleft(z\mright) \rightarrow y = z\right)$, we can construct $f^\perp : x \rightarrow \Ord$ as
-\[y \mapsto \alpha ^+ \cup \left(\beta^+ + f\mleft(y\mright)\right).\]
-Then we know $f^\perp$ must be pairwise incomparable by combining \autoref{prop:perp-ineq-to-perp} and the injectivity of $f$.
+Given fixed $\alpha \perp \beta \in \Ord$ and any function $f : x \rightarrow \Ord$, we shall define $f^\perp : x \rightarrow \Ord$ by
+\[f^\perp\mleft(y\mright) = \alpha ^+ \cup \left(\beta^+ + f\mleft(y\mright)\right).\]
+Observe that by \autoref{prop:perp-ineq-to-perp}, $f^\perp$ is pairwise incomparable if and only if $f$ is injective, i.e.\ $f$ satisfies $\forall y, z \in x \left(f\mleft(y\mright) = f\mleft(z\mright) \rightarrow y = z\right)$.
 
 \begin{proposition}
   \label{prop:pairwise-perp-powerset-ord}
@@ -350,6 +349,14 @@ Using the same constructions as in \autoref{prop:perp-consistent}, we observe th
 \end{proof}
 
 However, constructing intuitionistic models of $V \neq L$ has proven to be very difficult, precisely due to the complicated structure of ordinals and G\"odel's $L$ discussed in this paper, and no such consistency results have been known to the author. We hope that further research will be able to settle the problem regarding $\Ord \subseteq L$ in intuitionistic set theories in this direction.
+
+% package hyperref seems to break \section* from asl.cls
+% but I used \autoref from the package extensively
+% so we revert to correct font manually by \normalfont
+% the editors are welcome to adjust this as they see fit
+\section*{Funding}\normalfont
+
+During the preparation of this paper the author is supported by the UK Engineering and Physical Sciences Research Council [EP/W523860/1].
 
 \bibliographystyle{asl}
 \bibliography{\jobname}
