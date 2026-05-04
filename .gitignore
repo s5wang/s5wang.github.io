@@ -3,10 +3,7 @@ arxiv/dist/
 arxiv/out/
 arxiv/arxiv.tar.gz
 
-# The following are templates from https://github.com/github/gitignore
-
-### TeX.gitignore
-
+# %START% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/TeX.gitignore
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -35,7 +32,9 @@ arxiv/arxiv.tar.gz
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
+*.bbl-SAVE-ERROR
 *.bcf
+*.bcf-SAVE-ERROR
 *.blg
 *-blx.aux
 *-blx.bib
@@ -66,6 +65,9 @@ acs-*.bib
 # amsthm
 *.thm
 
+# attachfile2
+*.atfi
+
 # beamer
 *.nav
 *.pre
@@ -74,9 +76,15 @@ acs-*.bib
 
 # changes
 *.soc
+*.loc
 
 # comment
 *.cut
+
+# context
+*.tuc
+*.tui
+*.tuo
 
 # cprotect
 *.cpt
@@ -117,8 +125,11 @@ acs-*.bib
 *.acn
 *.acr
 *.glg
+*.glg-abr
 *.glo
+*.glo-abr
 *.gls
+*.gls-abr
 *.glsdefs
 *.lzo
 *.lzs
@@ -161,6 +172,9 @@ acs-*.bib
 # *.tikz
 *-tikzDictionary
 
+# latexindent will create succesive backup files by default
+#*.bak*
+
 # listings
 *.lol
 
@@ -183,6 +197,7 @@ acs-*.bib
 
 # minted
 _minted*
+*.data.minted
 *.pyg
 
 # morewrites
@@ -209,6 +224,10 @@ _minted*
 
 # scrwfile
 *.wrt
+
+# spelling
+*.spell.bad
+*.spell.txt
 
 # svg
 svg-inkscape/
@@ -275,6 +294,9 @@ TSWLatexianTemp*
 *.bak
 *.sav
 
+# latexindent.pl
+*.bak[0-9]*
+
 # Texpad
 .texpadtmp
 
@@ -314,8 +336,24 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
-### Windows.gitignore
+# %ENDMK% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/TeX.gitignore
 
+# %START% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/VisualStudioCode.gitignore
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+!*.code-workspace
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# %ENDMK% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/VisualStudioCode.gitignore
+
+# %START% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Windows.gitignore
 # Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
@@ -341,20 +379,21 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-### macOS.gitignore
+# %ENDMK% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Windows.gitignore
 
+# %START% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore
 # General
 .DS_Store
+.localized
+__MACOSX/
 .AppleDouble
 .LSOverride
+Icon[]
 
-# Icon file end with two \r
-Icon?
-
-# Thumbnails
+# Resource forks
 ._*
 
-# Files that might appear in the root of a volume
+# Files and directories that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -362,6 +401,15 @@ Icon?
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+.com.apple.timemachine.supported
+.PKInstallSandboxManager
+.PKInstallSandboxManager-SystemSoftware
+.hotfiles.btree
+.vol
+.file
+.disk_label*
+lost+found
+.HFS+ Private Directory Data[]
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -370,14 +418,37 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### Linux.gitignore
+# Mac OS 6 to 9
+Desktop DB
+Desktop DF
+TheFindByContentFolder
+TheVolumeSettingsFolder
+.FBCIndex
+.FBCSemaphoreFile
+.FBCLockFolder
 
+# Quota system
+.quota.group
+.quota.user
+.quota.ops.group
+.quota.ops.user
+
+# TimeMachine
+Backups.backupdb
+.MobileBackups
+.MobileBackups.trash
+MobileBackups.trash
+tmbootpicker.efi
+
+# %ENDMK% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/macOS.gitignore
+
+# %START% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Linux.gitignore
 *~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
 
-# KDE directory preferences
+# Metadata left by Dolphin file manager, which comes with KDE Plasma
 .directory
 
 # Linux trash folder which might appear on any partition or disk
@@ -385,3 +456,8 @@ Temporary Items
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+# Log files created by default by the nohup command
+nohup.out
+
+# %ENDMK% https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Linux.gitignore
