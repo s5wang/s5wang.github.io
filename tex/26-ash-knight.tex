@@ -1,0 +1,452 @@
+%?deps @bib-commons
+
+\documentclass[11pt]{article}
+\usepackage{aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,tikz-cd,xcolor}
+\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\usepackage[unicode]{hyperref}
+\usepackage[en-GB]{datetime2}
+
+\usepackage{bib-commons}
+
+\newcommand{\newaliastheorem}[2]{%
+  \newaliascnt{#1}{theorem}
+  \newtheorem{#1}[#1]{#2}
+  \aliascntresetthe{#1}
+  \expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newaliastheorem{proposition}{Proposition}
+\newaliastheorem{corollary}{Corollary}
+\newaliastheorem{lemma}{Lemma}
+
+\makeatletter
+\newcommand{\@thistheoremname}{}
+\newtheorem*{@theorem*}{\@thistheoremname}
+\newenvironment{theorem*}[1]
+  {\renewcommand{\@thistheoremname}{#1}%
+   \begin{@theorem*}}
+  {\end{@theorem*}}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\def\equationautorefname~#1\null{(#1)\null}
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\title{The Ash--Knight metatheorem via true stages}
+\author{Shuwei Wang}
+\date{\DTMdate{2026-04-14}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  In \cite{montalban26-computable-structure}*{Chapters VIII--IX}, Montalb\'an presented and proved a game metatheorem using iterated true-stage systems. This theorem is ``less flexible'' (and more technical) than the original Ash--Knight metatheorem, but comes with a much more structured proof in Montalb\'an's book. In this note, we check that the original metatheorem can also be proved using the same approach.
+\end{abstract}
+
+The Ash--Knight $\alpha$-system metatheorem in \cite{ash-knight00-computable-structures}*{Chapter 14} is a very useful apparatus in recursion theory that allows one to construct computable copies of structures originally built using a $\Delta^0_\alpha$-oracle. However, their original proof is a very intricate, brute-force construction which can be difficult to motivate. Similar results are recently re-established by Montalb\'an \cite{montalban26-computable-structure} using $\alpha$-iterated true-stage systems, but I feel that his version of the game metatheorem \cite{montalban26-computable-structure}*{Theorem VIII.2} has more technical details that may not be relevant to the most immediate uses of the technology. In this note, we shall check that the original statement of Ash and Knight also follows from Montalb\'an's mechanisms.
+
+Let $\alpha$ be an ordinal notation presented as any recursive well-ordering, on which the successor function is also recursive. We assume without loss of generality that the recursive presentation has a downward closed domain, i.e.\ either $\left\{0, 1, \ldots, k\right\}$ (when $\alpha$ is finite) or the whole of $\mathbb{N}$ --- this will be convenient when we use a canonical fundamental sequence for $\alpha$ later in sections \ref{sec:robust-limit} and \ref{sec:gen-instr}.
+
+Now, the Ash--Knight $\alpha$-system $\tuple{L, U, \hat{\ell}, P, E, \left\{\leq_\beta\right\}_{\beta < \alpha}}$ is essentially a two-player infinite game where, starting from $\hat{\ell} \in L$, two players take turns to play finite objects in the recursively enumerable sets $L$ and $U$:
+
+\begin{center}
+  \begin{tabular}{c|cccccc}
+    $L$ & $\ell_0 = \hat{\ell}$ &       & $\ell_1$ &       & $\ell_2$ & $\cdots$ \\
+    \hline
+    $U$ &                       & $u_1$ &          & $u_2$ &          & $\cdots$
+  \end{tabular}
+\end{center}
+
+$P$ is a recursively enumerable tree of finite alternating sequences of elements from $L$ and $U$, and dictates the valid moves in each turn, i.e.\ the players should ensure that
+\[\ell_0, \ell_0 u_1, \ell_0 u_1 \ell_1, \ell_0 u_1 \ell_1 u_2, \ldots \in P.\]
+It is required that $P$ has no leaves, so a single ``wrong move'' cannot cause the game to terminate prematurely.
+
+$E : L \rightarrow \left[\mathbb{N}\right]^{<\mathbb{N}}$ is a recursive operation that maps $L$ to finite subsets of $\mathbb{N}$. It usually represents some description\footnote{In Montalb\'an's game \cite{montalban26-computable-structure}*{Chapter VIII}, he specifically assumed that each move $\ell \in L$ encodes a finite structure in a common language and he took $E\mleft(\ell\mright)$ always to be the \emph{atomic diagram} of the structure $\ell$. Ash and Knight have been more flexible on this matter and used other fragments of true-in-$\ell$ formulae, for example in \cite{ash-knight00-computable-structures}*{section 13.3}} of each finite object $\ell \in L$ and is expected to accumulate as the game goes on, i.e.
+\[i \leq j \rightarrow E\mleft(\ell_i\mright) \subseteq E\mleft(\ell_j\mright),\]
+which is usually stipulated as part of the game rules $P$.
+
+Given any recursively enumerable game specification as above, we say that they form an \emph{$\alpha$-system} if they can be equipped with a uniform family of recursively enumerable binary relations $\left\{\leq_\beta\right\}_{\beta < \alpha}$ on $L$ satisfying the following properties:
+\begin{enumerate}[label=(\arabic*)]
+  \item each $\leq_\beta$ is reflexive and transitive;
+  \item the relations are \emph{nested}, i.e.\ for any $\alpha > \beta > \gamma$, if $\ell \leq_\beta \ell'$ then $\ell \leq_\gamma \ell'$;
+  \item whenever $\ell \leq_0 \ell'$, we also have $E\mleft(\ell\mright) \subseteq E\mleft(\ell'\mright)$;
+  \item the \emph{extendibility condition}\footnote{This name was given to condition (4) in the Ash--Knight metatheorem by Montalb\'an \cite{montalban14-priority-arguments}.}, i.e.\ for any $\alpha > \beta_0 > \cdots > \beta_k$, if there exists $\ell^0, \ldots, \ell^k \in L$ such that
+        \[\ell^0 \leq_{\beta_1 + 1} \ell^1 \leq_{\beta_2 + 1} \cdots \leq_{\beta_k + 1} \ell^k,\]
+        then for any odd sequence $\sigma \in P_\text{odd}$ that ends in $\ell^0$ and any $u \in U$ such that $\sigma u \in P$, there exists $\ell^* \in L$ such that $\sigma u \ell^* \in P$ and $\ell^i \leq_{\beta_i} \ell^*$ for each $0 \leq i \leq k$.
+\end{enumerate}
+
+Note that the indices in the extendibility condition are slightly different from the original presentation in \cite{ash-knight00-computable-structures}*{Chapter 14}, but they will be the more natural choice to use together with the true-stage systems, as we shall see below. We first check that they are equivalent:
+
+\begin{theorem*}{Lemma}
+  Assuming that $\left\{\leq_\beta\right\}_{\beta < \alpha}$ satisfies \emph{(1)} and \emph{(2)} above, then the extendibility condition \emph{(4)} is equivalent to the following original phrasing by Ash and Knight: for any $\alpha > \beta_0 > \cdots > \beta_k$, if there exists $\ell^0, \ldots, \ell^k \in L$ such that
+  \[\ell^0 \leq_{\beta_0} \ell^1 \leq_{\beta_1} \cdots \leq_{\beta_{k-1}} \ell^k,\]
+  then for any sequence $\sigma \in P_\text{odd}$ that ends in $\ell^0$ and any $u \in U$ such that $\sigma u \in P$, there exists $\ell^* \in L$ such that $\sigma u \ell^* \in P$ and $\ell^i \leq_{\beta_i} \ell^*$ for each $0 \leq i \leq k$.
+\end{theorem*}
+
+\begin{proof}
+  The forward direction is trivial, since the binary relations are nested, i.e.\ $\ell \leq_{\beta_i} \ell'$ implies $\ell \leq_{\beta_{i + 1} + 1} \ell'$ as $\beta_i \geq \beta_{i + 1} + 1$, thus $\ell^0 \leq_{\beta_0} \ell^1 \leq_{\beta_1} \cdots \leq_{\beta_{k-1}} \ell^k$ implies $\ell^0 \leq_{\beta_1 + 1} \ell^1 \leq_{\beta_2 + 1} \cdots \leq_{\beta_k + 1} \ell^k$ immediately.
+
+  For the backward direction, assume we have $\ell^0 \leq_{\beta_1 + 1} \ell^1 \leq_{\beta_2 + 1} \cdots \leq_{\beta_k + 1} \ell^k$. Observe that the extendibility condition never requires that the $\ell^i$'s are distinct, thus for any $\beta_i > \beta_{i + 1} + 1$, we can simply replace the $\ell^i \leq_{\beta_{i + 1} + 1} \ell^{i + 1}$ segment in the inequality chain by
+  \[\ell^i \leq_{\beta_i} \ell^i \leq_{\beta_{i + 1} + 1} \ell^{i + 1},\]
+  so it shall follow from Ash and Knight's original condition that still $\ell^i \leq_{\beta_i} \ell^*$ in the final construction.
+\end{proof}
+
+Now, an \emph{instruction function} for the $\alpha$-system is a function $q : P_\text{odd} \rightarrow U$ on the sequences in $P$ of odd length (i.e.\ sequences that end in some $\ell \in L$), such that for any $\sigma \in P_\text{odd}$, $u = q\mleft(\sigma\mright)$ satisfies $\sigma u \in P$. A \emph{$q$-run} is a path
+\[\pi = \ell_0 u_1 \ell_1 u_2 \cdots \in \left[P\right]\]
+where the $U$-player follows the instruction function, i.e.\ where $u_i = q\mleft(\ell_0 u_1 \ell_1 \cdots \ell_{i - 1}\mright)$ for each $i$. Then the Ash--Knight metatheorem states the following:
+
+\begin{theorem*}{Main Theorem}[\cite{ash-knight00-computable-structures}*{Theorem 14.1}]
+  Given an $\alpha$-system, for any instruction function $q$ computable from a $\Delta^0_\alpha$-oracle, there exists a $q$-run $\pi$ such that the set $E\mleft(\pi\mright) = \bigcup_{i \in \mathbb{N}} E\mleft(\ell_i\mright)$ is recursively enumerable.
+\end{theorem*}
+
+To better correlate with how the true-stage systems are used later, we shall focus more closely on how the instruction function $q$ is computed. Fix a $\Delta^0_\alpha$-oracle as a set $X \subseteq \mathbb{N}$, we will read $q$ as an index in $\mathbb{N}$ such that the Turing machine $\Phi_q^X$ on oracle $X$ computes the desired elements in $U$. Given a finite non-empty initial segment $\tau \sqsubseteq X$, i.e.\ a tuple consisting of $x_0 < x_1 < \cdots < x_k$ such that for any $x \leq x_k \in X$, there exists $0 \leq j \leq k$ that $x = x_j$, we say that the partial-oracle computation\footnote{Note that unlike some other literature such as Montalb\'an \cites{montalban26-computable-structure}, we distinguish notations $\Phi_q^\tau$ and $\Phi_{q,s}^\tau$, where the latter only runs for $s$-many steps and diverges if the machine $q$ does not yet terminate, while the former is allowed to run for an indefinite amount of time as long as it does not query the oracle for information beyond what $\tau$ contains. This is designed so that a robust instruction (as the next paragraph specifies) is still practical to use and can perform operations such as searching $P$ for a ``default choice'' if the desirable output cannot be computed with the given information.} $\Phi_q^\tau\mleft(\sigma\mright)$ \emph{terminates}, denoted as $\Phi_q^\tau\mleft(\sigma\mright) {\downarrow}$, if the computation completes in finite time with its use of the oracle bounded in $\tau$, i.e.\ the machine never queries the oracle for any $x > \max \tau$. Otherwise, we say that $\Phi_q^\tau\mleft(\sigma\mright)$ \emph{diverges}.
+
+We shall say that an instruction function $q$ is \emph{robust} if it is an oracle machine index such that, for any infinite subset $X \subseteq \mathbb{N}$, finite initial segment $\tau = \tuple{t_0, \ldots, t_i} \sqsubseteq X$ and any sequence $\sigma = \ell_0 u_1 \ell_1 \cdots \ell_{i - 1} \in P$, i.e.\ where $\left|\sigma\right| = 2i - 1 = 2\left|\tau\right| - 3$, we have
+\[\Phi_q^\tau\mleft(\sigma\mright) {\downarrow}.\]
+A typical way to build a robust instruction $q$ is to simulate a desired oracle machine $\Phi_{q',s}^X$ for some finite number of steps $s$, and if it does not terminate or attempts an out-of-bounds query, then fall back to find some ``default'' $u \in U$ such that $\sigma u \in P$.
+
+In what follows, we shall begin by treating the Ash--Knight metatheorem for robust instruction functions only; the specific use-bound we choose here corresponds nicely to what the true-stage systems can provide and shall make the proof much simpler than in the general case.
+
+\begin{remark}
+  One might be tempted to reduce an arbitrary instruction function $q$ in some $\alpha$-system to a robust one (in a different $\alpha$-system), just like how Montalb\'an \cite{montalban26-computable-structure} transformed general games to variants known as \emph{simplified games} in his proof of the metatheorem. However, this is not immediately possible, since one disadvantage of Ash and Knight's formulation of the metatheorem is that it does not specify which binary relations $\leq_\beta$ are satisfied by the $\ell_i$'s in the $q$-run $\pi$. Consequently, when the robust instruction function fails to predict what the original instruction function will compute, we will not be in a position to apply the extendibility condition readily to fix the deviations.
+
+  However, I suggest that this can be an advantage from a different perspective, since it implies that the user of this result does not have to pay more attention to the nested binary relations when they design an appropriate game for their needs, especially when $\alpha$ is a limit ordinal and there is not a trivial ``maximal'' $\leq_\beta$ below (c.f.\ treatments in \cite{montalban26-computable-structure}*{section IX.7.1}). Anyway, they have to be dealt with in the proofs, so in this note we will start with the robust instructions and then extend technical components of the proof to accommodate the general metatheorem.
+\end{remark}
+
+\section{Robust instructions, successor case}
+\label{sec:robust-succ}
+
+Following the presentation in \cite{montalban26-computable-structure}*{section IX.4}, let an \emph{$\alpha$-true-stage system} be a family of recursive partial orderings $\left\{\preceq_\beta\right\}_{\beta \leq \alpha}$ on $\mathbb{N}$ satisfying the following properties:
+\begin{enumerate}[label=(\roman*)]
+  \item $\preceq_0$ is just the standard ordering on $\mathbb{N}$;
+  \item the orderings are nested, i.e.\ for any $\alpha \geq \beta > \gamma$, if $s \preceq_\beta t$ then $s \preceq_\gamma t$;
+  \item for any $\beta \leq \alpha$, there exists an infinite $\preceq_\beta$-increasing sequence;
+  \item the sequence of orderings is \emph{continuous}, i.e.\ for any limit $\lambda \leq \alpha$, we have $s \preceq_\lambda t$ if and only if $s \preceq_\beta t$ for all $\beta < \lambda$.
+  \item for any $\beta < \alpha$ and any $t < s < r \in \mathbb{N}$, if $t \preceq_{\beta + 1} r$ and $s \preceq_\beta r$, then $t \preceq_{\beta + 1} s$, i.e.
+        \[\label{eqn:ts-succ-red}
+          \begin{tikzcd}[column sep=large]
+            t \arrow[r, dotted, no head, bend right, "\preceq_{\beta + 1}" description] \arrow[rr, no head, bend left=20, "\preceq_{\beta + 1}" description] & s \arrow[r, no head, bend right, "\preceq_\beta" description] & r.
+          \end{tikzcd}
+          \tag{$\clubsuit$}\]
+\end{enumerate}
+
+An immediate consequence is that for any $\beta \leq \alpha$ and any $t < s < r \in \mathbb{N}$, if $t \preceq_\beta r$ and $s \preceq_\beta r$, then $t \preceq_\beta s$, i.e.
+\[\label{eqn:ts-level-red}
+  \begin{tikzcd}[column sep=large]
+    t \arrow[r, dotted, no head, bend right, "\preceq_\beta" description] \arrow[rr, no head, bend left=20, "\preceq_\beta" description] & s \arrow[r, no head, bend right, "\preceq_\beta" description] & r.
+  \end{tikzcd}
+  \tag{$\diamond$}\]
+
+Now, Montalb\'an defines a \emph{$\beta$-true stage} in the system as some $t \in \mathbb{N}$ that is part of some infinite $\preceq_\beta$-increasing sequence and use $\mathcal{T}^\beta$ to denote the set of all $\beta$-true stages. Without loss of generality, we can always assume that $0 \preceq_\beta t$ for any $\beta \leq \alpha$ and $t \in \mathbb{N}$, so that $0$ is always a $\beta$-true stage for any $\beta \leq \alpha$.
+
+Given any $t \in \mathbb{N}$, the \emph{stage-$t$ approximation} of $\mathcal{T}^\beta$ is the finite tuple
+\[\mathcal{T}^\beta_t = \tuple{s : s \preceq_\beta t}\]
+with its elements listed in increasing order. In \cite{montalban26-computable-structure}*{sections IX.8--9}, Montalb\'an proved that:
+
+\begin{theorem}[\cite{montalban26-computable-structure}*{Theorem IX.18}]
+  \label{thm:ts-comp}
+  For any recursive well-ordering $\alpha$, there exists an $\alpha$-true-stage system such that for any $\beta \leq \alpha$, the set $\mathcal{T}^\beta$ is $\Delta^0_{\beta + 1}$-Turing-complete, uniformly in $\beta$.
+\end{theorem}
+
+We fix one such $\alpha$-true-stage system $\left\{\preceq_\beta\right\}_{\beta \leq \alpha}$. Looking at the completeness index in \autoref{thm:ts-comp}, it is only natural that we deal with an $\left(\alpha + 1\right)$-system using $\mathcal{T}^\alpha$. Indeed, given an $\left(\alpha + 1\right)$-system, let $q$ be any robust instruction function, i.e.\ some index in $\mathbb{N}$ such that the specific machine $\Phi_q^{\mathcal{T}^\alpha}$ computes the desired $u_i$'s for our run. Our main theorem for this case shall state that:
+
+\begin{theorem}
+  \label{thm:robust-succ-main}
+  There is a recursive family of alternating sequences $\tuple{\tau_i}_{i \in \mathbb{N}}$ where each $\tau_i \in P$ is of odd length with its final component denoted as $\ell_i \in L$, such that
+  \begin{enumerate}[label=\textnormal{(\alph*)}]
+    \item $\tau_0 = \hat{\ell}$; for any $t > 0$, let $s = \max \left\{r : r \prec_\alpha t\right\}$ (which is always non-empty since we assumed $0 \preceq_\alpha t$), then $\tau_t = \tau_s u_t \ell_t$ where $u_t = \Phi_q^{\mathcal{T}^\alpha_t}\mleft(\tau_s\mright)$;
+    \item for any $s < t$ and any $\beta \leq \alpha$,
+          \[\label{eqn:robust-succ-mc}
+            s \preceq_\beta t \longrightarrow \ell_s \leq_\beta \ell_t.
+            \tag{MC}\]
+  \end{enumerate}
+\end{theorem}
+
+Here condition (a) ensures that the completed construction contains a $q$-run as a subsequence, while condition (b), the \emph{main condition}, ensures that the extendibility condition is applicable in each step of the construction. To prepare for the latter, we need the following lemma from Montalb\'an \cite{montalban26-computable-structure}:
+
+\begin{lemma}[\cite{montalban26-computable-structure}*{Lemma IX.19}, re-indexed to match the Ash--Knight extendibility condition above]
+  \label{lem:ts-index-succ}
+  For each $t > 0$, there exist $t_0 < t_1 < \cdots < t_{k - 1} < t_k = t - 1$ and ordinals $\beta_0 = \alpha > \beta_1 > \cdots > \beta_{k - 1} > \beta_k$ satisfying the diagram below, as well as the following condition: for any $\gamma \leq \alpha$ and any $r \prec_\gamma t$, there exists some $0 \leq i \leq k$ such that $\gamma \leq \beta_i$ and $r \preceq_\gamma t_i$.
+  \begin{center}
+    \begin{tikzcd}[column sep=-0.4em,row sep=large]
+      t_0 \arrow[rrrrrrrrrrd, dotted, no head, start anchor=-50, bend right=5, "\preceq_{\beta_0}"{sloped, description}] & \preceq_{\beta_1 + 1} & t_1 \arrow[rrrrrrrrd, dotted, no head, start anchor=-50, "\preceq_{\beta_1}"{sloped, description}] & \preceq_{\beta_2 + 1} & \cdots & \preceq_{\beta_{k - 1} + 1} & t_{k - 1} \arrow[rrrrd, dotted, no head, start anchor=-60, "\preceq_{\beta_{k - 1}}"{sloped, description}] & \preceq_{\beta_k + 1} & t_k \arrow[rrd, dotted, no head, start anchor=-70, "\preceq_{\beta_k}"{sloped, description}] & \phantom{\preceq} & \\
+      & & & & & & & & & & t
+    \end{tikzcd}
+  \end{center}
+  Additionally, the $t_i$'s and $\beta_i$'s can be computed uniformly from $t$.
+\end{lemma}
+
+\begin{proof}
+  For each $s < t$, there exists
+  \[\beta\mleft(s\mright) = \max \left\{\gamma \leq \alpha : s \preceq_\gamma t\right\},\]
+  since the partial orderings are nested and continuous. Note that $\beta\mleft(s\mright)$ is the sole ordinal such that $s \preceq_{\beta\mleft(s\mright)} s$ and either $\beta\mleft(s\mright) = \alpha$ or $s \npreceq_{\beta\mleft(s\mright) + 1} t$, so $\beta$ is a recursive function.
+
+  Let $t_0 < t_1 < \cdots < t_k$ enumerate the finite set
+  \[B = \left\{s < t : \forall r < t \left(\beta\mleft(r\mright) \geq \beta\mleft(s\mright) \rightarrow r \leq s\right)\right\},\]
+  i.e.\ each $t_i$ is the maximal element satisfying $t_i \preceq_{\beta\mleft(t_i\mright)} t$, and we let each $\beta_i = \beta\mleft(t_i\mright)$. For any $0 \leq i < k$, it is easy to check that $\beta_i > \beta_{i + 1}$, and that $t_i \preceq_{\beta_{i + 1} + 1} t_{i + 1}$ by \autoref{eqn:ts-succ-red}.
+
+  Now clearly $t - 1 \in B$, thus $t_k = t - 1$. Let $s = \max \left\{r : r \prec_\alpha t\right\}$ (which is non-empty since we assumed $0 \preceq_\alpha t$), then also $s \in B$, thus $t_0 = s$ and $\beta_0 = \alpha$.
+
+  Finally, for any $\gamma \leq \alpha$ and any $r \prec_\gamma t$, let $s_\gamma = \max \left\{s : s \prec_\gamma t\right\}$, then $s_\gamma \in B$, $s_\gamma \geq r$ and $\beta\mleft(s_\gamma\mright) \geq \gamma$ by its definition. It follows that $r \preceq_\gamma s_\gamma$ by \autoref{eqn:ts-level-red}.
+\end{proof}
+
+\begin{proof}[Proof of \autoref{thm:robust-succ-main}]
+  It suffices to show by induction that given any $t > 0$, we can recursively construct $\tau_t$ from $\tuple{\tau_s}_{s < t}$ to satisfy the conditions (a) and (b). We now look at $t_0 < t_1 < \cdots < t_{k - 1} < t_k = t - 1$ and $\beta_0 = \alpha > \beta_1 \cdots > \beta_{k - 1} > \beta_k$ as given in \autoref{lem:ts-index-succ}. Using condition (b) in the inductive hypothesis, we have that
+  \[\ell_{t_0} \leq_{\beta_1 + 1} \ell_{t_1} \leq_{\beta_2 + 1} \cdots \leq_{\beta_{k - 1} + 1} \ell_{t_{k - 1}} \leq_{\beta_k + 1} \ell_{t_k}.\]
+
+  Now, since $\beta_0 = \alpha > \beta_1$, it follows that any $r \prec_\alpha t$ must satisfy $r \preceq_\alpha t_0$, i.e.\ $t_0 = \max \left\{r : r \prec_\alpha t\right\}$. We compute $u = \Phi_q^{\mathcal{T}^\alpha_t}\mleft(\tau_{t_0}\mright)$: observe that for any $r \prec_\alpha t$, we must have $r \leq t_0$ and thus $r \preceq_\alpha t_0$ by \autoref{eqn:ts-level-red}, we know that $\mathcal{T}^\alpha_t = \mathcal{T}^\alpha_{t_0} t$. Therefore, it follows by simple induction from condition (a) that for any $t$, $\left|\tau_t\right| = 2\left|\mathcal{T}^\alpha_t\right| - 1$. Therefore, here
+  \[\left|\tau_{t_0}\right| = 2\left|\mathcal{T}^\alpha_{t_0}\right| - 1 = 2\left|\mathcal{T}^\alpha_t\right| - 3,\]
+  thus $u = \Phi_q^{\mathcal{T}^\alpha_t}\mleft(\tau_{t_0}\mright)$ must terminate by the robustness of $q$.
+
+  Finally, by the extendibility condition we know that there exists $\ell_t \in L$ such that $\tau_{t_0} u \ell_t \in P$, and $\ell_{t_i} \leq_{\beta_i} \ell_t$ for each $0 \leq i \leq k$; since $L, P$ and the binary relations on it are recursively enumerable, we can recursively find an arbitrary such $\ell_t$ and set $\tau_t = \tau_{t_0} u \ell_t$. It suffices to check for condition (b) that for any $\beta \leq \alpha$ and $s \prec_\beta t$, we have $\ell_s \leq_\beta \ell_t$. But \autoref{lem:ts-index-succ} ensures that there is $0 \leq i \leq k$ such that $\beta \leq \beta_i$ and $s \preceq_\beta t_i$, so
+  \[\ell_s \leq_\beta \ell_{t_i} \leq_{\beta_i} \ell_t\]
+  by the inductive hypothesis.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:robust-succ-meta}
+  Given an $\left(\alpha + 1\right)$-system and let $q$ be any robust instruction function on oracle $\mathcal{T}^\alpha$, then there exists a $q$-run $\pi$ such that $E\mleft(\pi\mright)$ is recursively enumerable.
+\end{corollary}
+
+\begin{proof}
+  Let $\tuple{\tau_i}_{i \in \mathbb{N}}$ be the family of alternating sequences in \autoref{thm:robust-succ-main} and let $\mathcal{T}^\alpha$ be enumerated increasingly as
+  \[\mathcal{T}^\alpha = \{t_0 = 0 < t_1 < t_2 < \cdots\}.\]
+  We check that $\pi = \bigsqcup_{i \in \mathbb{N}} \tau_{t_i}$ forms a $q$-run. This suffices since for any $s < t$ we have $s \preceq_0 t$, thus $\ell_s \leq_0 \ell_t$ and $E\mleft(\ell_s\mright) \subseteq E\mleft(\ell_t\mright)$ by \autoref{eqn:robust-succ-mc}, therefore $E\mleft(\pi\mright) = \bigcup_{i \in \mathbb{N}} E\mleft(\ell_{t_i}\mright) = \bigcup_{i \in \mathbb{N}} E\mleft(\ell_i\mright)$ is recursively enumerable.
+
+  Now, following \cite{montalban26-computable-structure}*{Lemma IX.15 \& Observation IX.16}, simple transfinite induction with \autoref{eqn:ts-succ-red} shows that for any $t_i < t_j \in \mathcal{T}^\alpha$, $t_i \preceq_\alpha t_j$. It follows that each $\mathcal{T}^\alpha_{t_i} = \tuple{t_0, \ldots, t_i} \sqsubseteq \mathcal{T}^\alpha$. Therefore, we have $\tau_{t_{i + 1}} = \tau_{t_i} u_{t_{i + 1}} \ell_{t_{i + 1}}$ where
+  \[u_{t_{i + 1}} = \Phi_q^{\mathcal{T}^\alpha_{t_{i + 1}}}\mleft(\tau_{t_i}\mright) = \Phi_q^{\mathcal{T}^\alpha}\mleft(\tau_{t_i}\mright),\]
+  and $\pi = \bigsqcup_{i \in \mathbb{N}} \tau_{t_i} = \ell_{t_0} u_{t_1} \ell_{t_1} u_{t_2} \ell_{t_2} \cdots$ is indeed a $q$-run.
+\end{proof}
+
+\section{Robust instructions, limit case}
+\label{sec:robust-limit}
+
+When $\alpha$ is a limit ordinal, let $\left\{\preceq_\beta\right\}_{\beta \leq \alpha}$ be an $\alpha$-true-stage system as in \autoref{thm:ts-comp}. We cannot readily apply the previous construction to an $\alpha$-system, since its family of nested binary relations does not contain a coarsest level corresponding to $\preceq_\alpha$. We need to adapt Montalb\'an's technique in \cite{montalban26-computable-structure}*{section IX.7.1}.
+
+We follow the construction in \cite{montalban26-computable-structure}*{section IX.9} and define a canonical fundamental sequence for $\alpha$, i.e.\ a recursive function $\alpha\mleft[{-}\mright] : \mathbb{N} \rightarrow \alpha$ as given by
+\[\alpha\mleft[s\mright] = \max \left\{\beta < \alpha : \#\mleft(\beta\mright) \leq s\right\},\]
+where $\#\mleft(\beta\mright)$ is the natural number that denotes the ordinal $\beta$ in the fixed recursive presentation of $\alpha$. The set is always non-empty since we assumed that the presentation has a downward closed domain. It follows that $\alpha\mleft[s\mright]$ is a non-decreasing sequence with $\sup_{s \in \mathbb{N}} \alpha\mleft[s\mright] = \alpha$. We now define Montalb\'an's diagonal partial ordering $\unlhd_\alpha$ on $\mathbb{N}$ such that
+\[s \unlhd_\alpha t \longleftrightarrow s \preceq_{\alpha\mleft[s\mright]} t.\]
+Say that $t \in \mathbb{N}$ is a \emph{$\unlhd_\alpha$-true stage} if it is part of some infinite $\unlhd_\alpha$-increasing sequence, and let $\mathcal{S}^\alpha$ denote the set of all $\unlhd_\alpha$-true stages. $\mathcal{S}^\alpha$ is clearly an infinite set since any $\preceq_\alpha$-increasing sequence is also $\unlhd_\alpha$-increasing.
+
+Like the $\alpha$-true-stages, we can define the \emph{stage-$t$ approximation} of $\mathcal{S}^\alpha$ as the finite tuple
+\[\mathcal{S}^\alpha_t = \tuple{s : s \unlhd_\alpha t}\]
+with its elements listed in increasing order. It is not hard to observe that:
+
+\begin{lemma}[\cite{montalban26-computable-structure}*{Corollary IX.29}]
+  $\mathcal{S}^\alpha \equiv_T \bigoplus_{\beta < \alpha} \mathcal{T}^\beta$. It follows that $\mathcal{S}^\alpha$ is $\Delta^0_\alpha$-Turing-complete.
+\end{lemma}
+
+Now, given an $\alpha$-system and any robust instruction function $q$, i.e.\ some index in $\mathbb{N}$, such that the specific machine $\Phi_q^{\mathcal{S}^\alpha}$ computes the desired $u_i$'s for our run. The main theorem shall state that:
+
+\begin{theorem}
+  \label{thm:robust-limit-main}
+  There is a recursive family of alternating sequences $\tuple{\tau_i}_{i \in \mathbb{N}}$ where each $\tau_i \in P$ is of odd length with its final component denoted as $\ell_i \in L$, such that
+  \begin{enumerate}[label=\textnormal{(\alph*)}]
+    \item $\tau_0 = \hat{\ell}$; for any $t > 0$, let $s = \max \left\{r : r \lhd_\alpha t\right\}$ (which is always non-empty since we assumed $0 \preceq_\alpha t$), then $\tau_t = \tau_s u_t \ell_t$ where $u_t = \Phi_q^{\mathcal{S}^\alpha_t}\mleft(\tau_s\mright)$ and $\ell_s \leq_{\alpha\mleft[t\mright]} \ell_t$;
+    \item for any $s < t$ and any $\beta \leq \alpha\mleft[s\mright]$,
+          \[s \preceq_\beta t \longrightarrow \ell_s \leq_\beta \ell_t.
+            \tag{MC}\]
+  \end{enumerate}
+\end{theorem}
+
+Compared to \autoref{thm:robust-succ-main}, here condition (a) additionally require that $\ell_s \leq_{\alpha\mleft[t\mright]} \ell_t$, despite the diagonal partial ordering $\unlhd_\alpha$ only guaranteeing $s \preceq_{\alpha\mleft[s\mright]} t$. This is known in Montalb\'an \cite{montalban26-computable-structure} as (MC$+$) and is necessary to ensure that the chain of stages we computed in the following lemma is still valid to apply the extendibility condition:
+
+\begin{lemma}[\cite{montalban26-computable-structure}*{Lemma IX.30}]
+  \label{lem:ts-index-limit}
+  For each $t > 0$, fix $t_0 = \max \left\{r : r \lhd_\alpha t\right\}$, then there exist $t_0 < t_1 < \cdots < t_{k - 1} < t_k = t - 1$, ordinals\footnote{We pick $\beta_0 = \alpha\mleft[t\mright]$, even though $t_0 \lhd_\alpha t$ does not guarantee $t_0 \preceq_{\alpha\mleft[t\mright]} t$; this is to align with the clause $\ell_s \leq_{\alpha\mleft[t\mright]} \ell_t$ in condition (a) of \autoref{thm:robust-limit-main} above. So this lemma do not produce $t_0, \beta_0$ such that $t_0 \preceq_{\beta_0} t$, unlike \autoref{lem:ts-index-succ}.} $\beta_0 = \alpha\mleft[t\mright] > \beta_1 > \cdots > \beta_{k - 1} > \beta_k$ and some\footnote{Except when $k = 0$ and $t_0 = t - 1$, in which case we do not need such a $u$.} $t_0 \leq u \leq t_1$ with $\alpha\mleft[u\mright] > \beta_1$ and no $r$ such that $t_0 \lhd_\alpha r \lhd_\alpha u$, satisfying the diagram below, as well as the following condition: for any $\gamma < \alpha$ and any $r \prec_\gamma t$, if $\gamma \leq \alpha\mleft[r\mright]$, then there exists some $0 \leq i \leq k$ such that $\gamma \leq \beta_i$ and $r \preceq_\gamma t_i$.
+  \begin{center}
+    \begin{tikzcd}[column sep=-0.4em,row sep=large]
+      t_0 \arrow[rrrrrrrrrrrrd, dotted, no head, start anchor=-50, bend right=4, "\unlhd_\alpha"{sloped, description}] & \unlhd_\alpha & u & \preceq_{\beta_1 + 1} & t_1 \arrow[rrrrrrrrd, dotted, no head, start anchor=-50, "\preceq_{\beta_1}"{sloped, description}] & \preceq_{\beta_2 + 1} & \cdots & \preceq_{\beta_{k - 1} + 1} & t_{k - 1} \arrow[rrrrd, dotted, no head, start anchor=-60, "\preceq_{\beta_{k - 1}}"{sloped, description}] & \preceq_{\beta_k + 1} & t_k \arrow[rrd, dotted, no head, start anchor=-70, "\preceq_{\beta_k}"{sloped, description}] & \phantom{\preceq} & \\
+      & & & & & & & & & & & & t
+    \end{tikzcd}
+  \end{center}
+  Additionally, the $t_i$'s and $\beta_i$'s can be computed uniformly from $t$.
+\end{lemma}
+
+\begin{proof}
+  Let $t_{-j} < \cdots < t_{-1} < t_1 < \cdots < t_k = t - 1$ and $\beta_{-j} = \alpha > \cdots > \beta_{-1} > \beta_1 \cdots > \beta_{k - 1} > \beta_k$ be the sequences given for $t$ by \autoref{lem:ts-index-succ}, where we relabel the indices so that $t_{-1} \leq t_0 < t_1$ for the fixed $t_0 = \max \left\{r : r \lhd_\alpha t\right\}$. Note that the index $0$ is skipped to avoid confusion, and we know that the first element in this sequence satisfies $t_{-j} \preceq_\alpha t$, i.e.\ $t_{-j} \unlhd_\alpha t$, hence there will indeed be at least one negative index after relabelling.
+
+  Now, if $\alpha\mleft[t_0\mright] > \beta_1$, then $t_0 \preceq_{\beta_1 + 1} t$ and thus $t_0 \preceq_{\beta_1 + 1} t_1$ by \autoref{eqn:ts-succ-red}, so $u = t_0$ satisfies the requirements. Otherwise, we have $t_1 \preceq_{\alpha\mleft[t_0\mright]} t$ and thus $t_0 \preceq_{\alpha\mleft[t_0\mright]} t_1$ by \autoref{eqn:ts-level-red}, so $t_0 \lhd_\alpha t_1$. Let $u = \min \left\{r > t_0 : r \unlhd_\alpha t_1\right\}$; it is easy to see that there is no $r$ with $t_0 \lhd_\alpha r \lhd_\alpha u$. Since either $u = t_1$ or $u \prec_{\alpha\mleft[u\mright]} t_1$, we always have $t_0 \preceq_{\alpha\mleft[t_0\mright]} u$ by \autoref{eqn:ts-level-red}, thus $t_0 \unlhd_\alpha u$. Lastly, since $t_0 = \max \left\{r : r \lhd_\alpha t\right\}$, we cannot have $u \preceq_{\alpha\mleft[u\mright]} t$, yet $u \preceq_{\alpha\mleft[u\mright]} t_1 \preceq_{\beta_1} t$, thus $\alpha\mleft[u\mright] > \beta_1$ and we have $u \preceq_{\beta_1 + 1} t_1$ as desired.
+
+  For any $\gamma \leq \alpha$ and any $r \prec_\gamma t$ such that $\gamma \leq \alpha\mleft[r\mright]$, let $-j \leq i \leq k$ ($i \neq 0$) be the index given by \autoref{lem:ts-index-succ}. If $i < 0$, we must have $r \leq t_i \leq t_0$ and thus $\gamma \leq \alpha\mleft[r\mright] \leq \alpha\mleft[t_0\mright]$, so it follows that $r \preceq_\gamma t_0$ as desired by \autoref{eqn:ts-level-red}.
+\end{proof}
+
+\begin{proof}[Proof of \autoref{thm:robust-limit-main}]
+  We follow essentially the same construction as in \autoref{thm:robust-succ-main}, but for each $t > 0$ we apply the extendibility condition to the chain of stages $t_0 < t_1 < \cdots < t_k$ given in \autoref{lem:ts-index-limit} instead. Since there is $t_0 \unlhd_\alpha u \preceq_{\beta_1 + 1} t_1$ with $\alpha\mleft[u\mright] > \beta_1$, thus for each $0 < i < k$ we have $\beta_i + 1 \leq \alpha\mleft[t_i\mright]$ and hence $\ell_{t_i} \leq_{\beta_i + 1} \ell_{t_{i + 1}}$ by condition (b) in the inductive hypothesis. For $i = 0$, we have
+  \[\ell_{t_0} \leq_{\alpha\mleft[u\mright]} \ell_u \leq_{\beta_1 + 1} \ell_{t_1}\]
+  by the inductive hypothesis, and thus the extendibility condition applies to yield $\ell_t \in L$ such that $\ell_{t_i} \leq_{\beta_i} \ell_t$ for each $0 \leq i \leq k$, and most specifically $\ell_{t_0} \leq_{\alpha\mleft[t\mright]} \ell_t$. The extra condition in \autoref{lem:ts-index-limit} ensures that condition (b) is satisfied, as in \autoref{thm:robust-succ-main}.
+\end{proof}
+
+Just like in the previous section, we have the metatheorem as a corollary; notice that the notions $\alpha\mleft[{-}\mright]$, $\unlhd_\alpha$ and $\mathcal{S}^\alpha$ do not really require that $\alpha$ is a limit ordinal (when $\alpha = \beta + 1$ is a successor, $\mathcal{S}^\alpha$ only depends on $\left\{\mathcal{T}^\gamma\right\}_{\gamma \leq \beta}$ and will stabilise towards a tail of $\mathcal{T}^\beta$ eventually), so this is indeed one proof that applies to any recursive ordinal $\alpha$:
+
+\begin{corollary}
+  \label{cor:robust-limit-meta}
+  Given an $\alpha$-system and let $q$ be any robust instruction function on oracle $\mathcal{S}^\alpha$, then there exists a $q$-run $\pi$ such that $E\mleft(\pi\mright)$ is recursively enumerable.
+\end{corollary}
+
+\begin{proof}
+  The same as \autoref{cor:robust-succ-meta}, using the stages in $\mathcal{S}^\alpha$ instead.
+\end{proof}
+
+\section{General instructions}
+\label{sec:gen-instr}
+
+We now attempt to extend the previous proofs to work with an arbitrary instruction function $q$. In what follows, we will consider an $\alpha$-system and the $\Delta^0_\alpha$-Turing-complete oracle $\mathcal{S}^\alpha$, but note that the same technique also applies to instruction functions for an $\left(\alpha + 1\right)$-system using oracle $\mathcal{T}^\alpha$.
+
+Fix an $\alpha$-true-stage system $\left\{\preceq_\beta\right\}_{\beta \leq \alpha}$ as in \autoref{thm:ts-comp} and corresponding $\unlhd_\alpha$ and $\mathcal{S}^\alpha$. Read the instruction function $q$ as the index in $\mathbb{N}$ such that the oracle machine $\Phi_q^{\mathcal{S}^\alpha}$ computes the desired values. We do need a robust instruction function, so let $q'$ be the index of a machine such that for any $\sigma \in P_\text{odd}$, $\Phi_{q'}^X\mleft(\sigma\mright)$ performs the following:
+
+\begin{quote}
+  Enumerate the first $i$ elements $t_0 < t_1 < \cdots < t_{i - 1}$ in $X$ where $i = \left(\left|\sigma\right| + 3\right) / 2$ (i.e.\ $\left|\sigma\right| = 2i - 3$); then simulate the partial-oracle computation $\Phi_{q, t_{i - 1}}^{\mathcal{S}^\alpha_{t_{i - 1}}}$ where $\mathcal{S}^\alpha_{t_{i - 1}} = \tuple{s : s \unlhd_\alpha t_{i - 1}}$ listed in increasing order. It outputs a tuple $\tuple{u, 1}$ if $u = \Phi_{q, t_{i - 1}}^{\mathcal{S}^\alpha_{t_{i - 1}}}\mleft(\sigma\mright) {\downarrow}$, i.e.\ the simulation terminates within $t_{i - 1}$ steps without making out-of-bounds queries, and otherwise it simply searches $P$ for an arbitrary $u \in U$ such that $\sigma u \in P$ and outputs $\tuple{u, 0}$.
+\end{quote}
+
+The rough idea is that $q'$ will be run on a sparser oracle $\mathcal{S}^* \subseteq \mathcal{S}^\alpha$, where it will recover an initial segment of $\mathcal{S}^\alpha$ and attempt the original computation $q$ on that. The specific choice of $i$ here ensures that the oracle machine\footnote{Strictly speaking, $q'$ is no longer an instruction function since its output carries an extra bit indicating whether the result is a genuine output by the original function. One could fix this by reformulating a new $\alpha$-system with $U' = U \times \left\{0, 1\right\}$; however, by our remark at the start of the note, this $\alpha$-system will not satisfy a proper extendibility condition anyway. Thus we will refrain from this presentation and work directly with the ``machine'' $q'$ instead.} $q'$ is robust.
+
+We shall use $q'$'s output to build the recursive family of alternating sequences $\tuple{\tau_i}_{i \in \mathbb{N}}$ together with an indicator sequence $\tuple{\nu_i}_{i \in \mathbb{N}}$ where each $\nu_i \in \left\{0, 1\right\}$, and we shall define a new family of partial orderings $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ as
+\[s \preceq_\beta^* t \longleftrightarrow \left(s = t \lor \beta = 0 \lor \nu_s = 1\right) \land s \preceq_\beta t;\]
+we likewise denote $s \unlhd_\alpha^* t \longleftrightarrow s \preceq_{\alpha\mleft[s\mright]}^* t$.
+
+We say that any family of partial orderings $\left\{\prec_\beta\right\}_{\beta \leq \alpha}$ is an \emph{$\alpha$-true-stage system on $\left\{0, 1, \ldots, k\right\}$} if it satisfies the conditions (i), (ii), (iv) and (v) in the definition of an (infinite) $\alpha$-true-stage system for any $r, s, t \leq k$ (and the additional, convenient assumption that $0 \preceq_\beta t$ for any $\beta \leq \alpha$, $t \leq k$). It is easy to check that:
+
+\begin{lemma}
+  \label{lem:ts-segment}
+  Given any recursive sequence $\tuple{\nu_i}_{i \in \mathbb{N}}$ where $\nu_0 = 1$ and any $k \in \mathbb{N}$, the family $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ defined above is an $\alpha$-true-stage system on $\left\{0, 1, \ldots, k\right\}$.
+
+  Additionally, the family being an $\alpha$-true-stage system on $\left\{0, 1, \ldots, k\right\}$ is determined by whether $s \preceq_\beta^* t$ for $s, t \leq k$, which only depends on the values $\nu_i$ for $0 \leq i < k$.
+\end{lemma}
+
+\begin{proof}
+  The definition essentially says that for any $s < t \leq k$, $\beta > 0$,
+  \[s \preceq_\beta^* t \longleftrightarrow \nu_s = 1 \land s \preceq_\beta t.\]
+  This clearly suffices for the desired properties.
+\end{proof}
+
+The key observation here is that the constructions of $\tau_t$ and $\ell_t$ in \autoref{thm:robust-succ-main} and \autoref{thm:robust-limit-main} only depends on the behaviour of the concerned true-stage system before stage $t$, i.e.\ whether $r \preceq_\beta s$ for $r < s \leq t$. Therefore, it is easy to verify that the same process can still go through as long as we know at each stage $t$ that the family of orderings we use is an $\alpha$-true-stage system on $\left\{0, 1, \ldots, t\right\}$:
+
+\begin{theorem}
+  \label{thm:gen-main}
+  There is a recursive family of alternating sequences $\tuple{\tau_i}_{i \in \mathbb{N}}$ where each $\tau_i \in P$ is of odd length with its final component denoted as $\ell_i \in L$, together with a sequence $\tuple{\nu_i}_{i \in \mathbb{N}}$ where each $\nu_i \in \left\{0, 1\right\}$, such that
+  \begin{enumerate}[label=\textnormal{(\alph*)}]
+    \item $\tau_0 = \hat{\ell}$, $\nu_0 = 1$; for any $t > 0$, let $s = \max \left\{r : r \lhd_\alpha^* t\right\}$ (i.e.\ $\left\{r : r \prec_{\alpha\mleft[r\mright]}^* t\right\}$ which is always non-empty since we have $0 \preceq_\alpha^* t$), then $\tau_t = \tau_s u_t \ell_t$ where $\tuple{u_t, \nu_t} = \Phi_{q'}^{\mathcal{S}^*_t}\mleft(\tau_s\mright)$ and $\ell_s \leq_{\alpha\mleft[t\mright]} \ell_t$;
+    \item for any $s < t$ and any $\beta \leq \alpha\mleft[s\mright]$,
+          \[s \preceq_\beta^* t \longrightarrow \ell_s \leq_\beta \ell_t,
+            \tag{MC}\]
+  \end{enumerate}
+  where $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ is the family of partial orderings defined above using $\tuple{\nu_i}_{i \in \mathbb{N}}$ and $\mathcal{S}^*_t = \tuple{s : s \unlhd_\alpha^* t}$.
+\end{theorem}
+
+\begin{proof}
+  For each inductive step $t > 0$, the inductive hypothesis ensures that $\nu_s$ is well-defined for all $s < t$ and so is the family of orderings $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ on $\left\{0, 1, \ldots, t\right\}$. Now, \autoref{lem:ts-segment} ensures that $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ is an $\alpha$-true-stage system on $\left\{0, 1, \ldots, t\right\}$, which suffices for the same constructions as in \autoref{thm:robust-limit-main} and \autoref{lem:ts-index-limit} to work.
+\end{proof}
+
+Here, we take into account the technical assumption without loss of generality that\footnote{If the instruction function $q$ is $\Delta^0_1$-computable --- i.e.\ Turing computable --- then we do not need the metatheorem to generate a $q$-run $\pi$ with recursively enumerable $E\mleft(\pi\mright)$. Thus we are only concerned with the metatheorem on $\alpha$-systems where $\alpha > 1$.} $\alpha > 1$ is given through a recursive presentation with a downward closed domain, as suggested at the beginning of this note. Then there exists $\beta_0 \neq \beta_1 < \alpha$ satisfying $\#\mleft(\beta_0\mright) = 0, \#\mleft(\beta_1\mright) = 1$ and consequently, $\alpha\mleft[r\mright] \geq \max \left\{\beta_0, \beta_1\right\} > 0$ as defined above in \autoref{sec:robust-limit} for any $r > 0$. Hence we can see that the relation $r \lhd_\alpha^* t$ (i.e.\ $r \prec_{\alpha\mleft[r\mright]}^* t$) in condition (a) above always implies $\nu_r = 1$.
+
+To complete the proof of the metatheorem just like in \autoref{cor:robust-succ-meta} and \autoref{cor:robust-limit-meta}, we see that the family $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ now satisfies the conditions (i), (ii), (iv) and (v) as an (infinite) $\alpha$-true-stage system. So we additionally need the following lemma:
+
+\begin{lemma}
+  There exists an infinite $\unlhd_\alpha^*$-increasing sequence\footnote{Note that this construction does not guarantee an infinite $\preceq_\alpha^*$-increasing sequence, so to be pedantic, we cannot say that $\left\{\preceq_\beta^*\right\}_{\beta \leq \alpha}$ still forms a (full) $\alpha$-true-stage system. We do get a new $\alpha$-true-stage system if we apply the same modifications to the successor case in \autoref{sec:robust-succ} though.}. This immediately implies that there also exists infinite $\preceq_\beta^*$-increasing sequences for any $\beta < \alpha$.
+\end{lemma}
+
+\begin{proof}
+  Let $\mathcal{S}^\alpha$ still denote the $\unlhd_\alpha$-true stages for the original family of partial orderings $\left\{\preceq_\beta\right\}_{\beta \leq \alpha}$. We know that for any $s < t \in \mathcal{S}^\alpha$, $s \unlhd_\alpha t$ (since both are $\alpha\mleft[s\mright]$-true stages), thus it suffices to show that there are infinitely many $t \in \mathcal{S}^\alpha$ with $\nu_t = 1$.
+
+  Suppose otherwise, and let $s = \max \left\{r \in \mathcal{S}^\alpha : \nu_r = 1\right\}$. By definition of $q$ being the instruction function for our $\alpha$-system, $\Phi_q^{\mathcal{S}^\alpha}\mleft(\tau_s\mright)$ must terminate and output some $u \in U$ such that $\tau_s u \in P$. Let $e$ denote the number of steps $\Phi_q^{\mathcal{S}^\alpha}\mleft(\tau_s\mright)$ takes to terminate, $x$ denote the maximal number it queries $\mathcal{S}^\alpha$ for in this computation and pick an arbitrary $t \in \mathcal{S}^\alpha$ such that $t > e, x, s$. It is easy to see that
+  \[\max \left\{r : r \lhd_\alpha^* t\right\} = \max \left\{r : r \lhd_\alpha t, \nu_r = 1\right\} = s,\]
+  and $\Phi_{q'}^{\mathcal{S}^*_t}\mleft(\tau_s\mright)$ must simulate $\Phi_{q, t}^{\mathcal{S}^\alpha_t}\mleft(\tau_s\mright)$ and thus output $\tuple{u, 1}$. This contradicts $\nu_t = 0$.
+\end{proof}
+
+\begin{corollary}
+  Given an $\alpha$-system and let $q$ be any instruction function on oracle $\mathcal{S}^\alpha$, then there exists a $q$-run $\pi$ such that $E\mleft(\pi\mright)$ is recursively enumerable.
+\end{corollary}
+
+\begin{proof}
+  The same as \autoref{cor:robust-limit-meta}, using the set $\mathcal{S}^*$ of $\unlhd_\alpha^*$-true stages instead. Note that the remark after \autoref{thm:gen-main} ensures that $\nu_t = 1$ for any $t \in \mathcal{S}^*$.
+\end{proof}
+
+\section{Remarks on structures}
+
+The Ash--Knight $\alpha$-systems make no enforcements on what the finite objects $\ell \in L$ denote, but Montalb\'an in \cite{montalban26-computable-structure} demands that they are finite fragments extracted from a fixed uniformly computable family of structures $\left\{\mathcal{A}_n\right\}_{n \in \mathbb{N}}$, and that the binary relations $\left\{\leq_\beta\right\}_{\beta \leq \alpha}$ between them are precisely the \emph{computable back-and-forth relations}. The Montalb\'an approach has the advantage that the extendibility condition would be satisfied trivially in the appropriate contexts. In this final section, we reiterate this process in the Ash--Knight set-up, most importantly Montalb\'an's key lemma \cite{montalban26-computable-structure}*{Lemma IX.20}.
+
+The same notion of back-and-forth relations is defined in \cite{ash-knight00-computable-structures}*{Chapter 15} and \cite{montalban26-computable-structure}*{section II.6}, as the following: given two first-order structures $\mathcal{A}, \mathcal{B}$ in the same, recursive language and finite tuples $a \in \mathcal{A}^{<\mathbb{N}}$, $b \in \mathcal{B}^{<\mathbb{N}}$, we say that
+\begin{itemize}
+  \item $\tuple{\mathcal{A}, a} \leq_0 \tuple{\mathcal{B}, b}$ if $\left|a\right| \leq \left|b\right|$ and for any basic formulae (i.e.\ atomic formulae or negations thereof) $\varphi\mleft(\vec{x}\mright)$ of G\"odel number less than $\left|a\right|$, we have \[\mathcal{A} \models \varphi\mleft(a\mright) \longleftrightarrow \mathcal{B} \models \varphi\mleft(b \upharpoonright \left|a\right|\mright);\]
+  \item $\tuple{\mathcal{A}, a} \leq_\alpha \tuple{\mathcal{B}, b}$ for some ordinal $\alpha > 0$ if for any $\beta < \alpha$ and any finite tuple $d \in \mathcal{B}^{<\mathbb{N}}$, there exists $c \in \mathcal{A}^{<\mathbb{N}}$ such that $\tuple{\mathcal{B}, bd} \leq_\beta \tuple{\mathcal{A}, ac}$.
+\end{itemize}
+It is easy to check that this is a reflexive, transitive relation, and that for any $a \sqsubseteq b \in \mathcal{A}^{<\mathbb{N}}$, we have $\tuple{\mathcal{A}, a} \leq_\alpha \tuple{\mathcal{A}, b}$ for any ordinal $\alpha$ by transfinite induction.
+
+Ash and Knight \cite{ash-knight00-computable-structures} define that a uniformly computable family of structures $\left\{\mathcal{A}_n\right\}_{n \in \mathbb{N}}$ is \emph{$\alpha$-friendly} if the set
+\[\left\{\tuple{\beta, i, j, a, b} : \beta < \alpha, i, j \in \mathbb{N}, a \in \mathcal{A}_i^{<\mathbb{N}}, b \in \mathcal{A}_j^{<\mathbb{N}}, \tuple{\mathcal{A}_i, a} \leq_\beta \tuple{\mathcal{A}_j, b}\right\}\]
+is recursively enumerable. Given an $\alpha$-friendly family of structures $\left\{\mathcal{A}_n\right\}_{n \in \mathbb{N}}$, the back-and-forth relations can be represented as a uniform family of recursively enumerable binary relations on finite objects, as
+\[\tuple{i, a} \leq_\beta \tuple{j, b} \longleftrightarrow \tuple{\mathcal{A}_i, a} \leq_\beta \tuple{\mathcal{A}_j, b}.\]
+When we work with an $\alpha$-system $\tuple{L, U, \hat{\ell}, P, E, \left\{\leq_\beta\right\}_{\beta < \alpha}}$ where
+\[L \subseteq \left\{\tuple{i, a} : i \in \mathbb{N}, a \in \mathcal{A}_i^{<\mathbb{N}}\right\}\]
+and the binary relations are precisely the back-and-forth relations, the following is basically Montalb\'an's \cite{montalban26-computable-structure}*{Lemma IX.20}:
+
+\begin{proposition}
+  \label{prop:alpha-fr-ext}
+  Suppose that the $\alpha$-system above (without a verified extendibility condition) satisfies that for any $\beta < \alpha$, any sequence $\sigma \in P_\text{odd}$ that ends in $\ell = \tuple{i, a} \in L$, any $u \in U$ such that $\sigma u \in P$ and any finite tuple $b \in \mathcal{A}_i^{<\mathbb{N}}$ such that $a \sqsubseteq b$, there exists $\ell^* \in L$ such that $\sigma u \ell^* \in P$ and $\tuple{i, b} \leq_\beta \ell^*$, then it satisfies the extendibility condition.
+\end{proposition}
+
+\begin{proof}
+  Consider any sequence of $\alpha > \beta_0 > \cdots > \beta_k$ and $\ell^0 = \tuple{i_0, a_0}, \ldots, \ell^k = \tuple{i_k, a_k} \in L$ such that
+  \[\ell^0 \leq_{\beta_1 + 1} \ell^1 \leq_{\beta_2 + 1} \cdots \leq_{\beta_k + 1} \ell^k.\]
+  For some $0 \leq j < k$, suppose that we have tuple $a_{j + 1} \sqsubseteq c_{j + 1} \in \mathcal{A}_{i_{j + 1}}^{<\mathbb{N}}$, then $\ell^j = \tuple{i_j, a_j} \leq_{\beta_{j + 1} + 1} \ell^{j + 1} \leq_{\beta_{j + 1} + 1} \tuple{i_{j + 1}, c_{j + 1}}$, so by the definition of the back-and-forth relations, there exists $a_j \sqsubseteq c_j \in \mathcal{A}_{i_j}^{<\mathbb{N}}$ such that $\tuple{i_{j + 1}, c_{j + 1}} \leq_{\beta_{j + 1}} \tuple{i_j, c_j}$. Begin with $c_k = a_k$ and iterate this process, then we have:
+  \begin{center}
+    \begin{tikzcd}[column sep=-0.4em,row sep=large]
+      \tuple{i_0, a_0} \arrow[d, dotted, no head, "\sqsubseteq"{sloped, description}] \arrow[rrd, dotted, no head, "\leq_{\beta_1}"{sloped,description}] & \leq_{\beta_1 + 1} & \tuple{i_1, a_1} \arrow[d, dotted, no head, "\sqsubseteq"{sloped, description}] \arrow[rrd, dotted, no head, end anchor=100, shorten >=4mm, "\leq_{\beta_2}"{sloped,description}] & \leq_{\beta_2 + 1} & \cdots \arrow[d, phantom, "\ddots"]  \arrow[rrd, dotted, no head, start anchor=-50, end anchor=155, shorten <=3mm, "\leq_{\beta_{k - 1}}"{sloped,description}] & \leq_{\beta_{k - 1} + 1} & \tuple{i_{k - 1}, a_{k - 1}} \arrow[d, dotted, no head, "\sqsubseteq"{sloped, description}] \arrow[rrd, dotted, no head, start anchor=-25, "\leq_{\beta_k}"{sloped,description}] & \leq_{\beta_k + 1} & \tuple{i_k, a_k} \arrow[d, dotted, no head, "="{sloped, description}] \\
+      \tuple{i_0, c_0} & \geq_{\beta_1} & \tuple{i_1, c_1} & \geq_{\beta_2} & \cdots & \geq_{\beta_{k - 1}} & \tuple{i_{k - 1}, c_{k - 1}} & \geq_{\beta_k} & \tuple{i_k, c_k}
+    \end{tikzcd}
+  \end{center}
+  So we have $a_0 \sqsubseteq c_0 \in \mathcal{A}_{i_0}^{<\mathbb{N}}$ such that $\ell^j = \tuple{i_j, a_j} \leq_{\beta_j} \tuple{i_0, c_0}$ for each $0 \leq j \leq k$. It clearly suffices now to have $\ell^* \in L$ such that $\sigma u \ell^* \in P$ and $\tuple{i_0, c_0} \leq_{\beta_0} \ell^*$.
+\end{proof}
+
+In many situations, this final step of finding $\ell^*$ can also be automated through some back-and-forth relation, for example in the following general format:
+
+\begin{corollary}
+  \label{cor:auto-ext-metathm}
+  Suppose that $\left\{\mathcal{A}_n\right\}_{n \in \mathbb{N}}$ is an $\alpha$-friendly family of structures and that $\tuple{L, U, \hat{\ell}, P, E, \left\{\leq_\beta\right\}_{\beta < \alpha}}$ is an $\alpha$-system (without a verified extendibility condition) where $L \subseteq \left\{\tuple{i, a} : i \in \mathbb{N}, a \in \mathcal{A}_i^{<\mathbb{N}}\right\}$ and $\left\{\leq_\beta\right\}_{\beta < \alpha}$ are precisely the back-and-forth relations. If for any sequence $\sigma \in P_\text{odd}$ that ends in $\ell = \tuple{i, a} \in L$ and any $u \in U$ such that $\sigma u \in P$, we have:
+  \begin{enumerate}[label=\textnormal{(\alph*)}]
+    \item there is $j \in \mathbb{N}$ such that for any $\ell' \in L$ satisfying $\sigma u \ell' \in P$, the first component of $\ell'$ must be $j$, and additionally $\mathcal{A}_j \leq_\alpha \mathcal{A}_i$;
+    \item for any $b \in \mathcal{A}_j^{<\mathbb{N}}$, there exists an extension $b \sqsupseteq c \in \mathcal{A}_j^{<\mathbb{N}}$ such that $\sigma u \ell^* \in P$ where $\ell^* = \tuple{j, c}$,
+  \end{enumerate}
+  then the $\alpha$-system satisfies the extendibility condition and thus the main Ash--Knight metatheorem.
+\end{corollary}
+
+\begin{proof}
+  We just need to verify the condition in \autoref{prop:alpha-fr-ext}. Given fixed $\beta < \alpha$, since we know $\mathcal{A}_j \leq_\alpha \mathcal{A}_i$, we must have $b \in A_j^{<\mathbb{N}}$ such that $\ell = \tuple{i, a} \leq_\beta \tuple{j, b}$. It follows that $\ell^* = \tuple{j, c}$ as given by condition (b) is the desired extension.
+\end{proof}
+
+\begin{example}[Pair of structures, \cite{ash-knight00-computable-structures}*{Theorem 18.6}]
+  Let $\left\{\mathcal{A}_0, \mathcal{A}_1\right\}$ be an $\alpha$-friendly pair of computable structures such that $\mathcal{A}_1 \leq_\alpha \mathcal{A}_0$. For any $\Pi^0_\alpha$-set $S$, we will find a uniformly computable family of structures $\left\{\mathcal{C}_n\right\}_{n \in \mathbb{N}}$ such that
+  \[\mathcal{C}_n \cong \left\{\begin{aligned}
+       & \mathcal{A}_0 &  & \text{if } n \in S, \\
+       & \mathcal{A}_1 &  & \text{otherwise}.
+    \end{aligned}\right.\]
+
+  Now, $S$ is $\Pi^0_\alpha$, thus there is a function $g : \mathbb{N}^2 \rightarrow \left\{0, 1\right\}$ computable from a $\Delta^0_\alpha$-oracle such that
+  \[n \in S \longleftrightarrow \forall m \in \mathbb{N} \ g\mleft(n, m\mright) = 0.\]
+  We take $U = \left\{0, 1\right\}$ and a family of instruction functions $\left\{q_n\right\}_{n \in \mathbb{N}}$ where each
+  \[q_n\mleft(\sigma\mright) = \max \left\{g\mleft(n, m\mright) : m < \left|\sigma\right|\right\},\]
+  in the $\alpha$-system $\tuple{L, U, \hat{\ell}, P, E, \left\{\leq_\beta\right\}_{\beta < \alpha}}$ where $L = \left\{\tuple{i, a} : i \in \left\{0, 1\right\}, a \in \mathcal{A}_i^{<\mathbb{N}}\right\}$, $\hat{\ell} = \tuple{0, \tuple{}}$, $E\mleft(\tuple{i, a}\mright)$ denotes the (finite\footnote{As in the definition of the back-and-forth relations, if the language $\mathcal{A}$ has an infinite vocabulary, we may include in $E\mleft(\tuple{i, a}\mright)$ only those basic formulae of G\"odel number less than $\left|a\right|$.}) atomic diagram of the structure $\tuple{\mathcal{A}_i, a}$, and any finite sequence $\ell_0 u_1 \ell_1 u_2 \cdots \in P$ if and only if
+  \begin{enumerate}[label=(\roman*)]
+    \item each $\ell_k = \tuple{i_k, a_k}$ contains the first $k$ elements in the domain $\mathcal{A}_{i_k}$;
+    \item $E\mleft(\ell_0\mright) \subseteq E\mleft(\ell_1\mright) \subseteq \cdots$;
+    \item for $k > 0$, the first component of $\ell_k$ is $u_k$.
+  \end{enumerate}
+  Using the fact that our stipulations ensure each $q_n\mleft(\sigma\mright)$ is non-decreasing, we immediately see by \autoref{cor:auto-ext-metathm} that, for each $n \in \mathbb{N}$ there is a $q_n$-run $\pi_n$ (and it is easy to check through the proofs above that the family of atomic diagrams $\left\{E\mleft(\pi_n\mright)\right\}_{n \in \mathbb{N}}$ is uniformly recursively enumerable). Since for each $n \in \mathbb{N}$, $q_n\mleft(\sigma\mright)$ stabilises to either $0$ or $1$ as $\left|\sigma\right| \rightarrow \infty$, it is easy to check that $E\mleft(\pi_n\mright)$ will be the atomic diagram of a computable copy of $\mathcal{A}_0$ or $\mathcal{A}_1$ correspondingly. \qed
+\end{example}
+
+In more complicated scenarios, we might employ a more specific way of extending $\ell_k$ to $\ell_{k + 1}$, or even not use the standard back-and-forth relation as the nested binary relations for the $\alpha$-system; for example, in \cite{ash-knight00-computable-structures}*{Theorem 18.15}, one defines
+\[\ell = \tuple{i, a} \leq_\beta \ell' = \tuple{j, b} \longleftrightarrow \tuple{\omega^\alpha \cdot \left(1 + i\right), a} \leq_\beta \tuple{\omega^\alpha \cdot \left(1 + j\right), b},\]
+where the finite tuples $a, b$ are not allowed to occupy the first copy of $\omega^\alpha$ in the respective structures, in order to accommodate for $\ell'$ extending the linear ordering towards the left. This is where the Ash--Knight formulation of the metatheorem shows its flexibility, and a variant of \autoref{prop:alpha-fr-ext} will easily apply to verify the desired extendibility condition.
+
+\bibmain
+
+\end{document}
