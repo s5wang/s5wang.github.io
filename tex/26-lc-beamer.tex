@@ -1,0 +1,355 @@
+%?deps @bib-commons
+
+\documentclass{beamer}
+\usepackage{amsmath,amssymb,amsthm,hyperref,mathrsfs,mathtools,mleftright,xcolor}
+\usepackage[en-GB]{datetime2}
+\usepackage{bib-commons}
+
+\usetheme[shadow=false]{Boadilla}
+
+\setbeamerfont{institute}{size=\small}
+\addtobeamertemplate{institute}{\vskip-1.1em}{}
+
+\makeatletter
+% scale footline sections
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,leftskip=2ex,rightskip=2ex,sep=0pt]{date in head/foot}%
+      \hfill%
+      \usebeamerfont{date in head/foot}%
+      \insertshortdate{}%
+      \hfill%
+      \usebeamercolor[fg]{page number in head/foot}%
+      \usebeamerfont{page number in head/foot}%
+      \usebeamertemplate{page number in head/foot}%
+    \end{beamercolorbox}}%
+  \vskip0pt}
+
+\newtheorem{named@thm}{\curr@thmname}
+\newenvironment{namedthm}[1]
+  {\def\curr@thmname{#1}\begin{named@thm}}
+  {\end{named@thm}}
+\makeatother
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\ZF}{\mathrm{ZF}}
+\newcommand{\IZF}{\mathrm{IZF}}
+\newcommand{\ZFC}{\mathrm{ZFC}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Ord}{\mathrm{Ord}}
+
+\DeclareMathOperator{\Def}{Def}
+
+\newcommand{\exampletext}[1]{\textcolor{green!50!black}{#1}}
+
+\makeatletter
+\newsavebox\myin@eqfst
+\newsavebox\myin@eqsnd
+\def\myineq{\mathrel{\mathpalette\myin@eq\relax}}
+\def\myin@eq#1#2{%
+  \setbox\myin@eqfst=\hbox{\m@th$#1\in$}%
+  \setbox\myin@eqsnd=\hb@xt@\wd\myin@eqfst{\m@th$#1\dabar@$\hss$#1\dabar@$}%
+  \vcenter{\offinterlineskip%
+    \box\myin@eqfst\vskip-.1\ht\myin@eqsnd%
+    \copy\myin@eqsnd\vskip-.5\ht\myin@eqsnd}}
+\makeatother
+
+\title[Indexed hierarchies and the ordinal class]{Indexed hierarchies and internal structure in the\\ordinal class in intuitionistic set theories}
+\author{Shuwei Wang}
+\institute{University of Leeds}
+\date[LC26]{\small Logic Colloquium 2026\\\DTMdate{2026-06-30}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Ordinals and ordinal-indexed hierarchies}
+  In $\ZF$, we say
+  \[\Ord = \left\{\alpha : \text{$\alpha$ is transitive} \land \forall \beta \in \alpha \ \text{$\beta$ is transitive}\right\}.\]
+
+  \pause
+
+  Fix a set-like partial order $\mathscr{R}$ on the class $\Tr$ of all transitive sets, which is no coarser than $\subseteq$ yet no finer than $\myineq$, i.e.
+  \[x = y \lor x \in y \Longrightarrow x \mathscr{R} y; \quad x \mathscr{R} y \Longrightarrow x \subseteq y,\]
+  and we consider the \emph{$\mathscr{R}$-predecessor} set
+  \[P_\mathscr{R}\mleft(x\mright) = \left\{y : y \mathop{\mathscr{R}} x\right\}.\]
+  E.g.\ when $\mathscr{R} = {\subseteq}$, $P_\mathscr{R}\mleft(x\mright) = \mathcal{P}\mleft(x\mright)$; when $\mathscr{R} = {\myineq}$, $P_\mathscr{R}\mleft(x\mright) = x^+ = x \cup \left\{x\right\}$. We can also get the first-order definable subsets $\Def\mleft(x\mright)$, etc.
+\end{frame}
+
+\begin{frame}{Ordinals and ordinal-indexed hierarchies}
+  Fix a set-like partial order $\mathscr{R}$ on the class $\Tr$ of all transitive sets, which is no coarser than $\subseteq$ yet no finer than $\myineq$. We can define
+  \begin{align*}
+    H_\mathscr{R}\mleft(\varnothing\mright) & = \varnothing,                                                                                      \\
+    H_\mathscr{R}\mleft(\alpha^+\mright)    & = P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright),                                   \\
+    H_\mathscr{R}\mleft(\lambda\mright)     & = \bigcup_{\alpha \in \lambda} H_\mathscr{R}\mleft(\alpha\mright) \quad \text{for limit $\lambda$}.
+  \end{align*}
+  E.g.\ $V_\alpha$, $L_\alpha$, etc.
+
+  \pause
+
+  \vspace{1em}
+
+  Alternatively, for any set $x$, we can define
+  \[H_\mathscr{R}\mleft(x\mright) = \bigcup_{y \in x} P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(y\mright)\mright).\]
+  One easily verifies that this gives the same results on ordinals.
+\end{frame}
+
+\begin{frame}{Ordinals and ordinal-indexed hierarchies}
+  Fix a set-like partial order $\mathscr{R}$ on the class $\Tr$ of all transitive sets, which is no coarser than $\subseteq$ yet no finer than $\myineq$.
+
+  \begin{block}{Question}
+    Is there a maximal class $O_\mathscr{R} \subseteq V$ on which $H_\mathscr{R}$ is an injection?
+  \end{block}
+
+  `Maximal' means for any $x \in V$, there exists $y \in O_\mathscr{R}$ such that $H_\mathscr{R}\mleft(x\mright) = H_\mathscr{R}\mleft(y\mright)$.
+
+  \pause
+
+  \vspace{1em}
+
+  \exampletext{Answer ($\ZF$).} Always take $O_\mathscr{R} = \Ord$.
+
+  \vspace{0.4em}
+
+  Injectivity follows from linearity of ordinals (note $x \in y$ implies $H_\mathscr{R}\mleft(x\mright) \in H_\mathscr{R}\mleft(x^+\mright) \subseteq H_\mathscr{R}\mleft(y\mright)$).
+
+  \vspace{0.4em}
+
+  For any $x \in V$, simply observe $H_\mathscr{R}\mleft(x\mright) = H_\mathscr{R}\mleft(\mathrm{rank}\mleft(x\mright)\mright)$.
+\end{frame}
+
+\begin{frame}{Intuitionistic set theory}
+  Intuitionistic Zermelo--Fraenke set theory $\IZF$ is:
+
+  \vspace{0.4em}
+
+  $\ZF$, minus Excluded Middle, with Axiom of Foundation/Regularity replaced by Set Induction:
+  \[\forall x \left(\forall y \in x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \ \varphi\mleft(x\mright).\]
+
+  \pause
+
+  \begin{namedthm}{Wellknown folklore}
+    $\IZF$ is consistent with $\Ord$ being non-linear, or formally
+    \[\exists \alpha, \beta \in \Ord \left(\beta \subseteq \alpha \land \beta \not\in \alpha \land \beta \neq \alpha\right).\]
+  \end{namedthm}
+
+  \vspace{0.4em}
+
+  This is easily implementable in multiple types of `intuitionistic models', e.g.\ models on Kripke frames, realisability models or Heyting-valued models.
+\end{frame}
+
+\begin{frame}{Intuitionistic set theory}
+  \begin{corollary}
+    $\IZF$ is consistent with the class function $\alpha \mapsto V_\alpha$ being non-injective.
+  \end{corollary}
+
+  \vspace{0.4em}
+
+  \exampletext{Proof.} Take $\alpha, \beta \in \Ord$ such that $\beta \subseteq \alpha$, $\beta \not\in \alpha$ and $\beta \neq \alpha$. Consider
+  \[V_{\alpha^+} = \mathcal{P}\mleft(V_\alpha\mright).\]
+  But $V_\beta \subseteq V_\alpha$, i.e.\ $\mathcal{P}\mleft(V_\beta\mright) \in \mathcal{P}\mleft(V_\alpha\mright)$, thus
+  \[V_{\alpha^+ \cup \beta^+} = \mathcal{P}\mleft(V_\alpha\mright) \cup \mathcal{P}\mleft(V_\beta\mright) = V_{\alpha^+}.\]
+  Clearly $\beta \not\in \alpha^+$, so $\alpha^+ \neq \alpha^+ \cup \beta^+$. \qed
+\end{frame}
+
+\begin{frame}{The intuition}
+  \begin{block}{Question}
+    Is there a maximal class $O_\mathscr{R} \subseteq V$ on which $H_\mathscr{R}$ is an injection?
+  \end{block}
+
+  \vspace{0.4em}
+
+  It is still reasonable to expect $O_\mathscr{R} \subseteq \Ord$. Ordinals in $O_\mathscr{R}$ should satisfy some additional `closure properties'.
+
+  \pause
+
+  \vspace{1em}
+
+  \exampletext{Example (Paul Taylor, 1996\nocite{taylor96-intuitionistic-ordinals})}: We say an ordinal $\alpha \in \Ord$ is \emph{plump} if
+  \begin{itemize}
+    \item every $\beta \in \alpha$ is plump;
+    \item for every $\gamma \in \Ord$, if $\gamma$ is plump and $\gamma \subseteq \beta$ for some $\beta \in \alpha$, then $\gamma \in \alpha$.
+  \end{itemize}
+
+  As it turns out, the class of plump ordinals is precisely a maximal class on which $\alpha \mapsto V_\alpha$ is injective.
+\end{frame}
+
+\begin{frame}{The intuition}
+  A similar idea comes from Robert Lubarsky, \emph{Intuitionistic L} (1993)\nocite{lubarsky93-intuitionistic-l}:
+  \begin{theorem}
+    Although it is open whether $\IZF \vdash \Ord \subseteq L$, we can avoid it and still prove $\IZF \vdash \left(V = L\right)^L$.
+  \end{theorem}
+
+  \vspace{0.4em}
+
+  \exampletext{Proof.} For any $\alpha \in \Ord$, we construct $\alpha^* \in L$ as
+  \[\alpha^* = \left\{\beta \in \Ord : L_{\left(\alpha_\text{aug} +_\mathrm{H} n\right)^-} \vDash \mathrm{def}\mleft(L_\beta\mright) \subseteq L_\alpha\right\},\]
+  such that $L_\alpha = L_{\alpha^*} \in L$. \qed
+
+  \vspace{1em}
+
+  Note that $\mathrm{def}\mleft(L_\beta\mright) \subseteq L_\alpha$ can be equivalently written as $L_\beta \in L_\alpha$, since if $L_\beta \in \mathrm{def}\mleft(L_\gamma\mright)$ for some $\gamma \in \alpha$, then also
+  \[\mathrm{def}\mleft(L_\beta\mright) \subseteq \mathrm{def}\mleft(L_\gamma\mright) \subseteq L_\alpha.\]
+\end{frame}
+
+\begin{frame}{The formal construction}
+  We now directly define
+  \begin{align*}
+    O_\mathscr{R} = \{\alpha \in \Ord : {} & \forall \beta \in \alpha^+ \ \forall \gamma \in \Ord                                                                                                                                                      \\
+                                           & \left(H_\mathscr{R}\mleft(\gamma\mright) \in H_\mathscr{R}\mleft(\beta\mright) \rightarrow \exists \gamma' \in \beta \ H_\mathscr{R}\mleft(\gamma'\mright) = H_\mathscr{R}\mleft(\gamma\mright)\right)\}.
+  \end{align*}
+
+  \pause
+
+  \begin{namedthm}{Proposition}
+    $H_\mathscr{R}$ is injective on $O_\mathscr{R}$.
+  \end{namedthm}
+
+  \vspace{0.4em}
+
+  \exampletext{Proof.} Use induction. Suppose $\beta, \beta' \in O_\mathscr{R}$ and $H_\mathscr{R}\mleft(\beta\mright) = H_\mathscr{R}\mleft(\beta'\mright)$, we want to show $\beta = \beta'$. For $\gamma \in \beta$,
+  \[H_\mathscr{R}\mleft(\gamma\mright) \in H_\mathscr{R}\mleft(\beta\mright) = H_\mathscr{R}\mleft(\beta'\mright),\]
+  i.e.\ $H_\mathscr{R}\mleft(\gamma\mright) = H_\mathscr{R}\mleft(\gamma'\mright)$ for $\gamma' \in \beta'$. By inductive hypothesis, $\gamma = \gamma' \in \beta'$. The converse is symmetrical. \qed
+\end{frame}
+
+\begin{frame}{$\mathscr{R}$-successors}
+  Are there many elements in $O_\mathscr{R}$?
+
+  \vspace{0.4em}
+
+  We want to first find the $\mathscr{R}$-successor of $\alpha \in O_\mathscr{R}$, i.e.\ some $\alpha^{\mathscr{R}+} \in O_\mathscr{R}$ such that
+  \[H_\mathscr{R}\mleft(\alpha^{\mathscr{R}+}\mright) = H_\mathscr{R}\mleft(\alpha^+\mright) = P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright).\]
+
+  \pause
+
+  \vspace{0.4em}
+
+  We consider the set
+  \[s = \left\{\left\{\gamma \in \alpha : H_\mathscr{R}\mleft(\gamma\mright) \in x\right\} : x \in P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright)\right\}.\]
+  For any $\beta \in \Ord$, if $H_\mathscr{R}\mleft(\beta\mright) \in P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright)$, then for each $\gamma \in \beta$, there is $\gamma' \in \alpha$ such that $H_\mathscr{R}\mleft(\gamma'\mright) = H_\mathscr{R}\mleft(\gamma\mright)$. Thus
+  \[H_\mathscr{R}\mleft(\beta\mright) = \bigcup_{\gamma \in \beta} P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\gamma\mright)\mright) = \bigcup_{\gamma' \in t} P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\gamma'\mright)\mright) = H_\mathscr{R}\mleft(t\mright)\]
+  for $t = \left\{\gamma \in \alpha : H_\mathscr{R}\mleft(\gamma\mright) \in H_\mathscr{R}\mleft(\beta\mright)\right\} \in s$. Easy to verify $t \in O_\mathscr{R}$.
+\end{frame}
+
+\begin{frame}{$\mathscr{R}$-successors}
+  For $\alpha \in O_\mathscr{R}$, consider the set
+  \[s = \left\{\left\{\gamma \in \alpha : H_\mathscr{R}\mleft(\gamma\mright) \in x\right\} : x \in P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright)\right\},\]
+  it suffices to define $\alpha^{\mathscr{R}+} = \left\{\beta \in s : \beta \in O_\mathscr{R}, H_\mathscr{R}\mleft(\beta\mright) \mathop{\mathscr{R}} H_\mathscr{R}\mleft(\alpha\mright)\right\}$.
+
+  \begin{lemma}
+    For any $\alpha \in O_\mathscr{R}$, $\alpha^{\mathscr{R}+} \in O_\mathscr{R}$ is the least element in $O_\mathscr{R}$ that contains $\alpha$.
+  \end{lemma}
+
+  \pause
+
+  \begin{lemma}
+    For $s \subseteqq O_\mathscr{R}$, $\sup s = \bigcup s \in O_\mathscr{R}$.
+  \end{lemma}
+
+  \vspace{0.4em}
+
+  So we can define $\mathrm{rk}_\mathscr{R} : V \rightarrow O_\mathscr{R}$ as
+  \[\mathrm{rk}_\mathscr{R}\mleft(x\mright) = \bigcup_{y \in x} \mathrm{rk}_\mathscr{R}\mleft(y\mright)^{\mathscr{R}+}.\]
+\end{frame}
+
+\begin{frame}{Maximality of $O_\mathscr{R}$}
+  \[\mathrm{rk}_\mathscr{R}\mleft(x\mright) = \bigcup_{y \in x} \mathrm{rk}_\mathscr{R}\mleft(y\mright)^{\mathscr{R}+}.\]
+
+  Using $H_\mathscr{R}\mleft(\alpha^{\mathscr{R}+}\mright) = P_\mathscr{R}\mleft(H_\mathscr{R}\mleft(\alpha\mright)\mright)$, we prove by induction that:
+  \begin{namedthm}{Proposition}
+    For any set $x$,
+    \[H_\mathscr{R}\mleft(x\mright) = H_\mathscr{R}\mleft(\mathrm{rk}_\mathscr{R}\mleft(x\mright)\mright).\]
+  \end{namedthm}
+
+  \begin{corollary}
+    For any set $x$, there exists $\alpha \in O_\mathscr{R}$ such that $H_\mathscr{R}\mleft(x\mright) = H_\mathscr{R}\mleft(\alpha\mright)$, i.e.\ $O_\mathscr{R}$ is a maximal class on which $H_\mathscr{R}$ is injective.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Consistency of class separations}
+  \begin{itemize}
+    \item $\ZF$ proves that $O_\mathscr{R} = \Ord$ for all $\mathscr{R}$.
+
+    \item When $\mathscr{R} = {\myineq}$, $H_\mathscr{R}\mleft(x\mright) = \mathrm{rk}_\Ord\mleft(x\mright)$, so we always have $O_{\myineq} = \Ord$.
+
+          \pause
+
+    \item We showed at the beginning that $\IZF$ is consistent with $\alpha \neq \beta \land V_\alpha = V_\beta$, so it is consistent with $O_\subseteq \neq \Ord = O_{\myineq}$.
+
+          \pause
+
+    \item Let $\mathscr{R}_\mathrm{def}$ be (first-order) definable subset relation, so that $H_{\mathscr{R}_\mathrm{def}}\mleft(\alpha\mright) = L_\alpha$. It is consistent that $2 \not\in O_\subseteq$ (when $1$ has undecidable subsets, i.e.\ $\alpha \subseteq 1$ with $\varnothing \in \alpha \lor \varnothing \not\in \alpha$ failing to hold), but $2 = L_2 \in O_{\mathscr{R}_\mathrm{def}}$ always, so consistently $O_\subseteq \neq O_{\mathscr{R}_\mathrm{def}}$.
+
+          \pause
+
+    \item Using realisability arguments, we can verify
+          \begin{theorem}[W., upcoming PhD thesis]
+            $\IZF$ is consistent with $\alpha \neq \beta \land L_\alpha = L_\beta$.
+          \end{theorem}
+          Thus also consistently $O_{\mathscr{R}_\mathrm{def}} \neq \Ord = O_{\myineq}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Plump ordinals are useful!}
+  It remains open from Lubarsky (1993) whether $\IZF \vdash \Ord \subseteq L$. However,
+  \begin{theorem}[W., 2026\nocite{wang-sw26-plump}]
+    $O_\subseteq \subseteq L$. More specifically, for any $\alpha \in O_\subseteq$,
+    \[\alpha = \left\{\beta \in L_\alpha : L_\alpha \vDash \beta \in O_\subseteq\right\}.\]
+  \end{theorem}
+  (We need to phrase $O_\subseteq$ as Taylor's plump ordinals, to avoid mentioning the objects $H_\subseteq\mleft(\beta\mright) = V_\beta$ in $L_\alpha$.)
+
+  \pause
+
+  \vspace{0.4em}
+
+  Combined with the use of incomparable ordinals, it follows that
+  \begin{theorem}[W., 2026]
+    Fix any set $x$ in any $\ZFC$ universe, then there is a Heyting algebra $\mathbb{H}$ such that the Heyting extension satisfies
+    \[V^\mathbb{H} \vDash \mathcal{P}\mleft(\check{x}\mright) \in L.\]
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Ordinal arithmetic}
+  Fix any $\mathscr{R}$, we can let
+  \[\alpha +_\mathscr{R} \beta = \alpha \cup \bigcup_{\gamma \in \beta} \left(\alpha +_\mathscr{R} \gamma\right)^{\mathscr{R}+}, \quad \alpha \cdot_\mathscr{R} \beta = \bigcup_{\gamma \in \beta} \left(\alpha \cdot_\mathscr{R} \gamma +_\mathscr{R} \alpha\right).\]
+
+  \pause
+
+  \begin{lemma}
+    For any $\alpha, \beta, \gamma \in \Ord = O_{\myineq}$, if $\alpha + \beta = \alpha + \gamma$, then $\beta = \gamma$; if $\alpha + \beta \in \alpha + \gamma$, then $\beta \in \gamma$.
+  \end{lemma}
+
+  \begin{lemma}[W., 2026]
+    For any $\alpha, \beta, \gamma \in O_\subseteq$, if $\alpha +_\subseteq \beta = \alpha +_\subseteq \gamma$, then $\beta = \gamma$; if $\alpha +_\subseteq \beta \subseteq \alpha +_\subseteq \gamma$, then $\beta \subseteq \gamma$.
+  \end{lemma}
+
+  \pause
+
+  \vspace{0.4em}
+
+  These proofs are different (and indeed, the $O_\subseteq$ one is even simpler), and I do not know any uniform way to do this for arbitrary $\mathscr{R}$.
+\end{frame}
+
+\begin{frame}[b]
+  \relax % otherwise \begin{frame} take the next line as title
+  {\Large\usebeamercolor[fg]{frametitle} Thank you!}
+
+  \vfill
+
+  \let\oldbiblist\biblist
+  \def\biblist{\oldbiblist\footnotesize}
+  \hrule width 0.333\textwidth
+  \bibmain
+\end{frame}
+
+\end{document}
