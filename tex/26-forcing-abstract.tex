@@ -1,0 +1,25 @@
+%?deps @bib-commons
+
+\documentclass[11pt]{article}
+\usepackage{adjustbox,aliascnt,amsmath,amssymb,amsthm,calc,colonequals,enumitem,mathtools,mleftright,parskip,textgreek,xcolor}
+\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\usepackage[en-GB]{datetime2}
+\usepackage[unicode]{hyperref}
+
+\usepackage{bib-commons}
+
+\title{Forcing a large intuitionistic $L$ \\[6pt] \normalsize (Logic seminar, University of Leeds)}
+\author{Shuwei Wang}
+\date{\DTMdate{2026-04-29}}
+
+\begin{document}
+
+\maketitle
+
+In classical set theory, Gödel's constructible universe $L$ enjoys strong absoluteness properties and remains unchanged in forcing extensions. However, Heyting-valued forcings portray a very different picture by introducing new non-classical ordinals (i.e. ordinals not linearly ordered by the membership relation), and thus new elements in $L$, in intuitionistic extensions that violate the law of excluded middle.
+
+The method of incomparable codings is a family of approaches I developed in my PhD to use such ordinals to control (especially, enlarge) $L$. In arXiv:2601.23070 [math.LO]\nocite{wang-sw26-plump}, I proved the following theorem: for any set $z$ in a $\mathrm{ZFC}$ universe, there is a Heyting-valued extension where its powerset $\mathcal{P}\mleft(\check{z}\mright) \in L$. In this talk, we will provide a sneak peek of this mechanism by building the forcing extension needed for $\mathcal{P}\mleft(\omega\mright) \in L$; if time allows, we will briefly talk about technicalities and new developments on how this extends to sets larger than $\omega$.
+
+\bibmain
+
+\end{document}

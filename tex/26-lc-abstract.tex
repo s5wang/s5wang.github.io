@@ -1,0 +1,63 @@
+%?deps asl.cls
+
+% workaround for asl.cls compile error
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+
+\documentclass[bsl,meeting]{asl}
+
+\usepackage{mathrsfs}
+
+\AbstractsOn
+
+\pagestyle{plain}
+
+\def\urladdr#1{\endgraf\noindent{\it URL Address}: {\tt #1}.}
+
+\newcommand{\NP}{}
+
+\begin{document}
+\thispagestyle{empty}
+
+\NP
+\absauth{Shuwei Wang}
+\meettitle{Indexed hierarchies and internal structure in the ordinal class in intuitionistic set theories}
+\affil{School of Mathematics, University of Leeds, Leeds LS2 9JT, UK}
+\meetemail{mmsw@leeds.ac.uk}
+\urladdr{https://s5wang.github.io/}
+
+Classically, the class $\mathrm{Ord}$ of all ordinals (i.e.\ transitive sets with transitive elements) has long served as the natural indices for transfinite hierarchies such as von Neumann's $V$, G\"odel's $L$ or more complicated inner models. In this talk, I will present a distinctive situation in the intuitionistic context, that various hierarchies may induce different optimal indexing classes which are subclasses of $\mathrm{Ord}$.
+
+% we vertically combine \in and =
+% a symbol used in the next paragraph
+\makeatletter
+\newsavebox\myin@eqfst
+\newsavebox\myin@eqsnd
+\def\myineq{\mathrel{\mathpalette\myin@eq\relax}}
+\def\myin@eq#1#2{%
+  \setbox\myin@eqfst=\hbox{\m@th$#1\in$}%
+  \setbox\myin@eqsnd=\hb@xt@\wd\myin@eqfst{\m@th$#1\dabar@$\hss$#1\dabar@$}%
+  \vcenter{\offinterlineskip%
+    \box\myin@eqfst\vskip-.1\ht\myin@eqsnd%
+    \copy\myin@eqsnd\vskip-.5\ht\myin@eqsnd}}
+\makeatother
+
+Take the following abstract recursive construction: fix a definable set-like partial order $\mathscr{R}$ on the class $\mathrm{Tr}$ of all transitive sets, which is no coarser than $\subseteq$ yet no finer than $\myineq$, then the \emph{$\mathscr{R}$-hierarchy} $H_\mathscr{R} : V \rightarrow \mathrm{Tr}$ can be defined for all set indices $x \in V$ as
+\[H_\mathscr{R}{\left(x\right)} = \bigcup_{y \in x} P_\mathscr{R}{\left(H_\mathscr{R}{\left(y\right)}\right)},\]
+where $P_\mathscr{R}{\left(x\right)} = \left\{y : y \mathrel{\mathscr{R}} x\right\}$ is the \emph{$\mathscr{R}$-predecessor} set. When $\mathscr{R} = {\subseteq}$, $H_\mathscr{R}{\left(\alpha\right)}$ is exactly $V_\alpha$ on the von Neumann hierarchy; when $\mathscr{R}$ admits only first-order definable subsets instead, the recursion produces G\"odel's constructible universe $L$.
+
+My talk focuses on the central question: how to produce a \emph{maximal} subclass of $V$ on which $H_\mathscr{R}$ is an injection? Classically, $\mathrm{Ord}$ is the trivial answer regardless of $\mathscr{R}$, but the proof fails in intuitionistic theories such as $\mathrm{IKP}$ or $\mathrm{CZF}$. In this talk, I will present general instructions to construct such a maximal subclass $O_\mathscr{R} \subseteq \mathrm{Ord}$ for any (nice enough) specific $\mathscr{R}$. Through realisability arguments, I show it is consistent that hierarchies like $V$ or $L$ yield different indexing classes that are \emph{proper} subclasses of $\mathrm{Ord}$.
+
+The general construction is inspired by Taylor's \emph{plump ordinals} \cite{taylor96-intuitionistic-ordinals}, which fits the role of $O_\mathscr{R}$ for the $V$-hierarchy. I will discuss some applications of these ordinal subclasses (where they are more useful than $\mathrm{Ord}$), such as covered in my paper \cite{wang-sw26-plump}.
+
+\begin{thebibliography}{10}
+
+  \bibitem{taylor96-intuitionistic-ordinals} {\scshape Paul Taylor}, {\itshape Intuitionistic sets and ordinals}, {\bfseries\itshape Journal of Symbolic Logic}, vol.~61 (1996), no.~3, pp.~705--744.
+
+  \bibitem{wang-sw26-plump} {\scshape Shuwei Wang}, {\itshape Some notes on plump ordinals}, available as {\tt arXiv:2601.23070 [math.LO]}, 2026.
+
+\end{thebibliography}
+
+\vspace*{-0.5\baselineskip}
+
+\end{document}
