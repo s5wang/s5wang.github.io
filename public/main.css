@@ -28,8 +28,8 @@ a:visited {
 }
 
 .material-symbols-outlined {
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
 }
 
 .material-symbols-outlined.symbol-call::before {
