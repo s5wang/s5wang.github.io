@@ -1,4 +1,4 @@
-$entry = "25-incom-ord"
+$entry = "26-thesis"
 
 Push-Location $PSScriptRoot
 
