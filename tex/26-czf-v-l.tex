@@ -145,15 +145,15 @@ We then construct $\mathbf{U}$ as the universe of (small) types, consisting of t
 
   \item[$1$.] $\overline{\mathbb{N}}, \overline{X} \in \mathbf{U}$.
 
-  \item[$1'$.] For any $n \in \mathbb{N}$, $n \din \overline{\mathbb{N}}$; if $n \in X$ then $n \din \overline{X}$; if $n \not\in X$ then $n \dnin \overline{X}$.
+  \item[$1'$.] For any $k \in \mathbb{N}$, $k \din \overline{\mathbb{N}}$; if $k \in X$ then $k \din \overline{X}$; if $k \not\in X$ then $k \dnin \overline{X}$.
 
-  \item[$2,3$.] For any $n \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(ek {\downarrow} \land ek \in \mathbf{U}\right)\right)$ then $\sigma ne, \pi ne \in \mathbf{U}$.
+  \item[$2,3$.] For any $u \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin u \lor \left(ek {\downarrow} \land ek \in \mathbf{U}\right)\right)$ then $\sigma ue, \pi ue \in \mathbf{U}$.
 
-  \item[$2'$.] Assume $\sigma ne \in \mathbf{U}$, for any $k, u \in \mathbb{N}$, if $k \din n$ and $u \din ek$ then $\mathbf{p}ku \din \sigma ne$; if $k \dnin n$ or $u \dnin ek$ then $\mathbf{p}ku \dnin \sigma ne$.
+  \item[$2'$.] Assume $\sigma ue \in \mathbf{U}$, for any $k, \ell \in \mathbb{N}$, if $k \din u$ and $\ell \din ek$ then $\mathbf{p}k \ell \din \sigma ue$; if $k \dnin u$ or $ \ell \dnin ek$ then $\mathbf{p}k \ell \dnin \sigma ue$.
 
-  \item[$3'$.] Assume $\pi ne \in \mathbf{U}$, for $d \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(dk {\downarrow} \land dk \din ek\right)\right)$ then $d \din \pi ne$; if $\exists k \left(k \din n \land \left(dk {\downarrow} \rightarrow dk \dnin ek\right)\right)$ then $d \dnin \pi ne$.
+  \item[$3'$.] Assume $\pi ue \in \mathbf{U}$, for $d \in \mathbb{N}$, if $\forall k \left(k \dnin u \lor \left(dk {\downarrow} \land dk \din ek\right)\right)$ then $d \din \pi ue$; if $\exists k \left(k \din u \land \left(dk {\downarrow} \rightarrow dk \dnin ek\right)\right)$ then $d \dnin \pi ue$.
 
-  \item[$4$.] For any $n \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin n \lor \left(ek {\downarrow} \land ek \in \mathbf{V}\right)\right)$ then $\mathbf{p}ne \in \mathbf{V}$.
+  \item[$4$.] For any $u \in \mathbf{U}$, $e \in \mathbb{N}$, if $\forall k \left(k \dnin u \lor \left(ek {\downarrow} \land ek \in \mathbf{V}\right)\right)$ then $\mathbf{p}ue \in \mathbf{V}$.
 \end{enumerate}
 
 Clearly, the rules stipulate that every $\overline{n} \in \mathbf{U}$ denotes a finite type with $n$ elements; $\overline{\mathbb{N}} \in \mathbf{U}$ denotes the type of natural numbers. The type constructors $\sigma$ and $\pi$ builds dependent sums and products respectively. Notably, since the elements of $\pi$-types are required specifically to be computable functions, by manipulating the computational complexity of the set $X$ we can alter the content of derived $\pi$-types.
@@ -220,9 +220,9 @@ whenever $t$ is a valid code for some $\mathbb{N}$-sequence.
 
 We consider a priority argument where for each tuple of $i, j, f \in \mathbb{N}$ where $i \neq j$, we have the following requirement on a finite sequence $t$: there exists some $n \in \mathbb{N}$ such that $i, j < n$, $\mathbf{p}in, \mathbf{p}jn \leq \mathbf{l}_s t$, and
 \[f\mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright) {\downarrow} \rightarrow f\mleft(\mathbf{t}_s t \mleft(\mathbf{p}in\mright)\mright) \neq \mathbf{t}_s t \mleft(\mathbf{p}jn\mright),\]
-i.e.\ that the Turing machine with index $f$ does not correctly compute the first $\mathbf{p}jn$ components of the sequence $t$ given its first $\mathbf{p}in$ components, for some $n \in \mathbb{N}$ where $t$ has enough components. We want to show that
+i.e.\ that the Turing machine with index $f$ does not correctly compute the first $\mathbf{p}jn$ components of the sequence $t$ given its first $\mathbf{p}in$ components, for some $n \in \mathbb{N}$ where $t$ has enough components. Observe we can show that
 
-\begin{proposition}[$\mathrm{BI}$]
+\begin{proposition}[$\mathrm{ACA}_0$]
   \label{prop:non-comp-path}
   There is some $h : \mathbb{N} \rightarrow \mathbb{N}$ such that for any $i, j, f \in \mathbb{N}$ where $i \neq j$, the corresponding requirement is satisfied by some finite initial segment of $h$.
 \end{proposition}
@@ -291,7 +291,9 @@ It is easy to check within $\mathrm{CZF}$ that this definition guarantees each $
 
 \section{The coding mechanism}
 
-We now work entirely within the realised theory of $\mathrm{CZF} + \text{Subcountability}$ with our distinguished ordinal $\alpha_0$ to prove that $V = L$. Firstly, we show that
+We now work entirely within the realised theory of $\mathrm{CZF} + \text{Subcountability}$ with our distinguished ordinal $\alpha_0$ to prove that $V = L$. In the next two arguments, we follow set-theoretic conventions and write $\alpha^+ = \alpha \cup \left\{\alpha\right\}$ to denote the successor of an ordinal.
+
+Firstly, we show that
 \begin{lemma}[$\mathrm{CZF}$]
   \label{lem:subset-omega-l}
   $\mathcal{P}\mleft(\omega\mright) \cap \Ord \subseteq L$. Namely, for any ordinal $\alpha \in \mathcal{P}\mleft(\omega\mright)$, we have $\alpha = L_\alpha \cap \Ord$.
