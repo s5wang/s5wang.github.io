@@ -1,0 +1,928 @@
+%?deps @bib-commons
+
+\documentclass{beamer}
+\usepackage{amsmath,amssymb,amsthm,hyperref,mathdots,mathtools,mleftright,xcolor}
+\usepackage[T1,OT1]{fontenc}
+\usepackage[en-GB]{datetime2}
+\usepackage[author-year,nobysame]{amsrefs}
+\usepackage{bib-commons}
+
+\usetheme[shadow=false]{Boadilla}
+
+\setbeamerfont{institute}{size=\small}
+\addtobeamertemplate{institute}{\vskip-1.1em}{}
+
+\makeatletter
+% scale footline sections
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,leftskip=2ex,rightskip=2ex,sep=0pt]{date in head/foot}%
+      \hfill%
+      \usebeamerfont{date in head/foot}%
+      \insertshortdate{}%
+      \hfill%
+      \usebeamercolor[fg]{page number in head/foot}%
+      \usebeamerfont{page number in head/foot}%
+      \usebeamertemplate{page number in head/foot}%
+    \end{beamercolorbox}}%
+  \vskip0pt}
+
+\newtheorem{named@thm}{\curr@thmname}
+\newenvironment{namedthm}[1]
+  {\def\curr@thmname{#1}\begin{named@thm}}
+  {\end{named@thm}}
+\makeatother
+
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\highlight}[1]{{\usebeamercolor[fg]{frametitle}\emph{#1}}}
+
+\title[Weaver's conceptualism and predicativism]{Nik Weaver's conceptualist ideal\\and predicative actualisations}
+\author{Shuwei Wang}
+\date[ForMat Oct 26]{\small ForMat Seminar\\\DTMdate{2026-10-26}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{Nik Weaver's mathematical conceptualism\\and conceptualist mathematics through third-order arithmetic}
+
+\begin{frame}{Nik Weaver's arXiv manuscripts}
+  \begin{itemize}
+    \item \emph{Analysis in $J_2$} \ycite{weaver05-j2}
+    \item \emph{Mathematical conceptualism} \ycite{weaver05-conceptualism}
+    \item \highlight{Axiomatizing mathematical cocneptualism in third order arithmetic} \ycite{weaver09-cm}
+    \item \emph{The concept of a set} \ycite{weaver09-set}
+    \item \emph{Is set theory indispensable?} \ycite{weaver09-set-theory-indispensable}
+    \item \emph{Predicativity beyond $\Gamma_0$} \ycite{weaver09-predicativity}
+    \item \emph{Kinds of concepts} \ycite{weaver11-kinds-of-concepts}
+    \item \emph{Predicative well-ordering} \ycite{weaver18-predicative-well-ordering}
+    \item \emph{Hierarchies of Tarskian truth predicates} \ycite{weaver22-tarskian-truth-predicates}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The starting point}
+  As \ocite{weaver05-conceptualism} wrote:
+  \begin{quotation}
+    Classical set theory presents us with a picture of an incredibly vast universe. [\textellipsis] Yet virtually all important objects in mainstream mathematics are either countable or separable. This is not because the uncountable/nonseparable case has not yet been sufficiently studied but rather because on mainstream questions it tends to be either pathological or undecidable.
+  \end{quotation}
+
+  \pause
+
+  \vspace{0.6em}
+
+  An example from \ocite{weaver09-set-theory-indispensable}:
+  \begin{itemize}
+    \item Let $V = L^1\mleft(\mathbb{R}\mright)$ be the Banach space of Legesgue integrable functions. This is well-known, and separable (i.e.\ has a countable description);
+    \item Its dual $V' = L^\infty\mleft(\mathbb{R}\mright)$ is the Banach space of almost everywhere bounded functions. This is still well-known, but nonseparable;
+    \item The next dual $V''$ --- is some obscure space that exists in $\mathrm{ZFC}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The countable and uncountable}
+  \begin{itemize}
+    \item Finite processes are physically realisable --- this is what the finitists limit themselves to;
+    \item Traditional predicativists like Hermann Weyl ``accept only
+          what is already implicit in accepting the natural numbers as given to us.''
+    \item Weaver argues that instead, mathematics should admit all countable processes, which are ``\highlight{conceptually definite}, meaning that we must be able to form a completely clear mental picture of how the construction would proceed.'' \cite{weaver05-conceptualism}
+  \end{itemize}
+
+  \pause
+
+  \vspace{0.6em}
+
+  Thus, \ocite{weaver09-predicativity} presents the slogans of \emph{conceptualism} as:
+  \begin{enumerate}
+    \item The mathematical universe is a variable entity that can always be enlarged;
+    \item Every set must be constructible from logically prior sets;
+    \item Constructions of length $\omega$ are legitimate.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Surveyable and definite concepts}
+  \ocite{weaver11-kinds-of-concepts} distinguished between the countable and uncountable infinite as the following:
+  \begin{itemize}
+    \item A concept is \highlight{surveyable} if it is possible, in principle, to exhaustively survey all of the individuals which fall under it;
+    \item A concept is \highlight{definite} if any individual definitely either does or does not fall under it.
+  \end{itemize}
+
+  \pause
+
+  \vspace{0.6em}
+
+  Weaver holds a Platonist position only for the surveyable objects, thus:
+  \begin{quotation}
+    If we adopt a classical interpretation of truth then we can use classical logic in both the surveyable and definite settings, but we cannot reason about heuristic collections. If we adopt a constructive interpretation of truth then we must use classical logic in the surveyable case, intuitionistic logic in the definite case, and minimal logic in the heuristic case. \cite{weaver09-set}
+  \end{quotation}
+
+  By ``in the surveyable/definite setting'', he meant when we only quantify over surveyable/definite collections, etc.
+\end{frame}
+
+\begin{frame}{The system $\mathrm{CM}$}
+  We begin with intuitionistic third-order arithmetic, using $n, m, \ldots$ for first-order variables, $X, Y, \ldots$ for second-order variables, and $\mathbf{X}, \mathbf{Y}, \ldots$ for third-order variables.
+
+  \vspace{0.6em}
+
+  We have \emph{extensional} equality for second-order and third-order objects, and number axioms from $\mathrm{HA}^-$.
+
+  \pause
+
+  \vspace{0.6em}
+
+  The \emph{induction} axiom for any $\varphi$:
+  \[\varphi\mleft(0\mright) \land \forall n \left(\varphi\mleft(n\mright) \rightarrow \varphi\mleft(n + 1\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright);\]
+
+  The \emph{recursion} axiom (or dependent choice) for any $\varphi$:
+  \[\forall n \, \forall X \, \exists Y \, \varphi\mleft(n, X, Y\mright) \rightarrow \forall X \, \exists Z \left(\left(Z\right)_0 = X \land \forall n \, \varphi\mleft(n, \left(Z\right)_n, \left(Z\right)_{n + 1}\mright)\right),\]
+  where $\left(Z\right)_n = \left\{m \in \mathbb{N} : \tuple{n, m} \in Z\right\}$.
+\end{frame}
+
+\begin{frame}{The system $\mathrm{CM}$}
+  The \emph{decidable comprehension} axioms
+  \begin{align*}
+    \forall n \left(\varphi\mleft(n\mright) \lor \neg \varphi\mleft(n\mright)\right) & \rightarrow \exists X \, \forall n \left(n \in X \leftrightarrow \varphi\mleft(n\mright)\right),                   \\
+    \forall X \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right) & \rightarrow \exists \mathbf{X} \, \forall X \left(X \in \mathbf{X} \leftrightarrow \varphi\mleft(X\mright)\right);
+  \end{align*}
+
+  And the law of excluded middle $\varphi \lor \neg \varphi$ for all arithmetic formulae $\varphi$, i.e.\ formulae that do not contain second- or third-order quantifiers.
+
+  \vspace{0.6em}
+
+  Or equivalently, excluded middle for all atomic formulae, together with the principle of \emph{numerical omniscience} \cite{weaver09-cm}*{Theorem 2.2}:
+  \[\forall n \left(\varphi\mleft(n\mright) \lor \psi\mleft(n\mright)\right) \rightarrow \left(\forall n \, \varphi\mleft(n\mright) \lor \exists n \, \psi\mleft(n\mright)\right).\]
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  We can define $\mathbb{R}$ as a third-order object: let $\mathbb{Q}$ be coded in $\mathbb{N}$, then $\mathbb{R}$ is simply the collection of all $X \subseteq \mathbb{N}$ that are Dedekind cuts of $\mathbb{Q}$, i.e.\ nonempty, nonfull, downward closed along $<_\mathbb{Q}$, and without a greatest element.
+
+  \vspace{0.6em}
+
+  \begin{theorem}[\ocite{weaver09-cm}, Theorem 3.10]
+    $\mathbb{R}$ is a sequentially complete ordered field. Every sequentially complete ordered field is isomorphic to $\mathbb{R}$.
+  \end{theorem}
+
+  The classical proof works here: just show that in any sequentially complete ordered field $\mathbf{F}$, the countable subfield generated by $1$ is isomorphic to $\mathbb{Q}$, and dense in $\mathbf{F}$.
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  However, reasoning with genuinely uncountable collections will be difficult in $\mathrm{CM}$. For example, we cannot conclude in general that the \emph{image} of an uncountable function $\mathbf{f} : \mathbf{X} \rightarrow \mathbf{Y}$ is a set.
+
+  \pause
+
+  \vspace{0.6em}
+
+  A more concrete example:
+
+  \begin{definition}
+    Let $\mathbf{X}$ be a metric space. A subset $\mathbf{U} \subseteq \mathbf{X}$ is \emph{open} if there is a countable collection $P \subseteq \mathbf{X} \times \mathbb{R}^+$ such that $\mathbf{U} = \bigcup_{\tuple{x, r} \in P} \mathrm{ball}_r\mleft(x\mright)$.
+  \end{definition}
+
+  \begin{theorem}[\ocite{weaver09-cm}, Theorem 4.33]
+    \begin{itemize}
+      \item The union of a countable collection of open
+            subsets of a metric space is open.
+      \item The intersection of any finitely many open subsets of a \underline{separable} metric space is open.
+    \end{itemize}
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  \begin{theorem}[Heine--Borel/Bolzano--Weierstrass]
+    Let $\mathbf{K}$ be a separable subset of $\mathbb{R}$. Then the following are equivalent:
+    \begin{enumerate}
+      \item $\mathbf{K}$ is closed and bounded;
+      \item $\mathbf{K}$ is compact;
+      \item $\mathbf{K}$ is bounded and contains the limits of all of its Cauchy sequences;
+      \item Every sequence in $\mathbf{K}$ has a subsequence which converges to a limit in $\mathbf{K}$.
+    \end{enumerate}
+  \end{theorem}
+
+  \vspace{1em}
+
+  \begin{theorem}[Baire category theorem]
+    The intersection of any countable family of open dense sub-collections of a separable complete metric space is dense.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Mathematics in $\mathrm{CM}$}
+  \begin{theorem}[Radon--Nikodym theorem] Let $\mu$ be a separable finite measure on a set $\mathbf{X}$ and let $\nu$ be a (finite) signed measure on $\mathbf{X}$ that is absolutely continuous with respect to $\mu$. Then there is a $\mu$-integrable function $\mathbf{f} : \mathbf{X} \rightarrow \mathbb{R}$ such that
+    \[\nu\mleft(\mathbf{A}\mright) = \int \mathbf{f} \cdot \chi_A \mathrm{d}\mu\]
+    for every $\mu$-measurable set $\mathbf{A}$.
+  \end{theorem}
+
+  \vspace{1em}
+
+  \begin{theorem}[Hahn--Banach theorem]
+    Let $\mathbf{E}$ be a separable Banach space, let $\mathbf{E}_0$ be a separable closed subspace, and let $\mathbf{f}_0 : \mathbf{E}_0 \rightarrow \mathbb{R}$ be a bounded linear functional on $\mathbf{E}_0$. Then $\mathbf{f}_0$ extends to a bounded linear functional $\mathbf{f}$ on $\mathbf{E}$ with $\left\|\mathbf{f}\right\| = \left\|\mathbf{f}_0\right\|$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{A choice principle?}
+  Weaver's system lacks a genuine (uncountable) choice principle, which is crucial in a large portion of mainstream mathematics.
+
+  \vspace{0.6em}
+
+  \ocite{weaver09-cm}*{section 2.3} proposes the following:
+  \begin{itemize}
+    \item Add a relation symbol $\prec$ between second-order objects that is a total ordering;
+    \item The \emph{transfinite induction} axiom
+          \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright);\]
+    \item the axiom of countable initial segments
+          \[\forall X \, \exists Z \, \forall Y \left(Y \prec X \rightarrow \exists n \, Y = \left(Z\right)_n\right).\]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Predicative transfinite induction}
+  \begin{block}{Question}
+    What formulae should the transfinite induction scheme apply to?
+  \end{block}
+
+  \ocite{weaver09-cm} wrote:
+  \begin{quotation}
+    [Transfinite induction] should only be asserted for formulas that do not contain $\prec$, for reasons having to do with the circularity involved in making sense of a relation that is well-ordered with respect to properties that are defined in terms of that relation.
+  \end{quotation}
+
+  \vspace{0.6em}
+
+  But this restriction is merely superficial, because we can decidably comprehend
+  \[\mathbf{W} = \left\{\tuple{X, Y} : X \prec Y\right\},\]
+  and use it instead of $\prec$ in the principle.
+\end{frame}
+
+\begin{frame}{Zorn's lemma}
+  We can prove in general:
+  \begin{theorem}[W.\ \ycite{wang-sw26-thesis}, Proposition 3.3.2]
+    Let $\varphi\mleft(X\mright)$ be a decidable formula where $X$ denotes a countable family, i.e.\ we have $\forall X \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right)$. If $\varphi$ is downward closed, i.e.
+    \[\forall X, Y \left(\left(\varphi\mleft(X\mright) \land Y \subseteq X\right) \rightarrow \varphi\mleft(Y\mright)\right),\]
+    and also closed under unions of countable chains, i.e.
+    \[\forall X \left(\forall Y, Z \in X \left(Y \subseteq Z \lor Z \subseteq Y\right) \land \forall Y \in X \ \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright),\]
+    then there exists some $\mathbf{X}$ satisfying $\forall X \subseteq \mathbf{X} \ \varphi\mleft(X\mright)$, which is maximal among such subsets in the sense that
+    \[\forall Y \left(Y \not\in \mathbf{X} \rightarrow \exists Z \subseteq \mathbf{X} \ \neg \varphi\mleft(Z \cup {Y}\mright)\right).\]
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Zorn's lemma}
+  Proof of this Zorn's lemma only invokes transfinite induction on formulae with one second-order existential quantifier, no second-order universal quantifiers, and no third-order quantifiers.
+
+  \vspace{0.6em}
+
+  By decidable comprehension, this is equivalent to the following single instance of transfinite induction:
+  \[\forall X \left(\forall Y \prec X \ \exists Z \tuple{Y, Z} \in \mathbf{X} \rightarrow \exists Z \tuple{X, Z} \in \mathbf{X}\right) \rightarrow \forall X \, \exists Z \tuple{X, Z} \in \mathbf{X}.\]
+  This could be a ``somewhat predicative'' candidate in Weaver's standards.
+\end{frame}
+
+\begin{frame}{Zorn's lemma}
+  \begin{corollary}
+    $\mathbb{R}$ has a Hamel basis as a vector space over $\mathbb{Q}$;
+
+    \vspace{0.6em}
+
+    Any inner product space, or any normed vector space over a complete $\mathbb{R}$-normed field with a countable dense subset (e.g.\ any real or complex Banach space) also has a basis.
+  \end{corollary}
+
+  \vspace{1em}
+
+  \begin{corollary}
+    Weaver's Hahn--Banach theorem generalises to extending a bounded linear functional $\mathbf{f}_0$ from separable close subspace $\mathbf{E}_0$ to nonseparable Banach space $\mathbf{E}$.
+  \end{corollary}
+\end{frame}
+
+\section{Ordinal analysis, consistency strength\\and a hyperarithmetic realisability interpretation}
+
+\begin{frame}{Consistency strength}
+  When evaluating foundational formal systems in proof theory, we often compare their \emph{consistency strength}, e.g.
+  \begin{itemize}
+    \item $\mathrm{ZF} \vdash \mathrm{Con}\mleft(\mathrm{PA}\mright)$ (and thus $\mathrm{Con}\mleft(\mathrm{ZF}\mright) \rightarrow \mathrm{Con}\mleft(\mathrm{PA}\mright)$ but not the converse),
+    \item yet $\mathrm{Con}\mleft(\mathrm{ZFC}\mright) \leftrightarrow \mathrm{Con}\mleft(\mathrm{ZF}\mright)$.
+  \end{itemize}
+
+  \pause
+
+  \begin{definition}[Ordinal analysis]
+    An \emph{ordinal} $\alpha = \mathrm{otyp}\mleft(\lhd\mright)$ is a set-theoretic name assigned to characterise the length of a (transfinite) well-ordering. To a \emph{nice enough} formal theory $T$, we shall assign a \emph{proof-theoretic ordinal} $\left|T\right|$ as the least ordinal $\alpha = \mathrm{otyp}\mleft(\lhd\mright)$ with some canonically defined ordering $\lhd$ such that
+    \[T \equiv_{\Pi^0_2} \mathrm{PA}^\dagger + \bigcup\nolimits_a \mathrm{TI}\mleft(\lhd \upharpoonright a\mright)\]
+    where $\mathrm{TI}\mleft(\lhd \upharpoonright a\mright)$ denotes the transfinite induction scheme along initial segments of $\lhd$. \cite{rathjen99-ordinal-analysis}
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Some ordinals and theories}
+  \begin{align*}
+    \omega              & \coloneqq \mathrm{otyp}\mleft(1, 2, 3, \ldots\mright),         \\
+    \omega + 1          & \coloneqq \mathrm{otyp}\mleft(1, 2, 3, \ldots, \omega\mright), \\
+    \omega \cdot \omega & \coloneqq \omega + \omega + \omega + \cdots.
+  \end{align*}
+
+  Then primitive recursive arithmetic, $\left|\mathrm{PRA}\right| = \omega^\omega$;
+
+  and $\left|\mathrm{HA}\right| = \left|\mathrm{PA}\right| = \varepsilon_0 = \omega^{\omega^{\omega^{\iddots}}}$.
+
+  \pause
+
+  \vspace{1.2em}
+
+  \highlight{Veblen functions}: Let $\varphi_0\mleft(\alpha\mright) = \omega^\alpha$, and each $\varphi_\beta$ enumerate the fixed points of $\left\{\varphi_\gamma\right\}_{\gamma < \beta}$, i.e.\
+  \[\varphi_\beta\mleft(\alpha\mright) = \min \left\{\delta : \forall \gamma < \alpha \ \delta > \varphi_\beta\mleft(\gamma\mright) \land \forall \gamma < \beta \ \delta = \varphi_\gamma\mleft(\delta\mright)\right\}.\]
+\end{frame}
+
+\begin{frame}{The systems of second-order arithmetic}
+  \begin{itemize}
+    \item $\mathrm{RCA}_0$ denotes the system surrounding the \emph{recursive comprehension axiom}, with
+          \[\left|\mathrm{RCA}_0\right| = \omega^\omega;\]
+    \item $\mathrm{WKL}_0$ denotes the axiom of \emph{weak K\H{o}nig lemma}, with
+          \[\left|\mathrm{WKL}_0\right| = \omega^\omega;\]
+    \item $\mathrm{ACA}_0$ denotes the \emph{arithmetic comprehension axiom}, with
+          \[\left|\mathrm{ACA}_0\right| = \varepsilon_0 = \varphi_1\mleft(0\mright);\]
+    \item $\mathrm{ATR}_0$ denotes the axiom of \emph{arithmetic transfinite recursion}, with
+          \[\left|\mathrm{ATR}_0\right| = \Gamma_0 = \sup\nolimits_n \gamma_n\]
+          where $\gamma_0 = 0, \gamma_1 = \varphi_0\mleft(0\mright), \ldots, \gamma_{n + 1} = \varphi_{\gamma_n}\mleft(0\mright), \ldots$;
+    \item $\Pi^1_1\text{-}\mathrm{CA}_0$ denotes the \emph{$\Pi^1_1$-comprehension axiom}, with a much higher proof-theoretic ordinal.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The systems of second-order arithmetic}
+  $\Gamma_0 = \left|\mathrm{ATR}_0\right|$ is usually treated as the ``limit'' of traditional Weylian predicativism, i.e.\ any predicatively justified system lies below this ordinal.
+
+  \begin{block}{Question}
+    What is the proof-theoretic ordinal of Weaver's system $\mathrm{CM}$?
+  \end{block}
+
+  \pause
+
+  \vspace{0.6em}
+
+  Consider the classical theory $\Sigma^1_1\text{-}\mathrm{AC}$, consisting of
+  \begin{enumerate}
+    \item arithmetic comprehension: for any arithmetic formula $\varphi$,
+          \[\exists X \, \forall x \left(x \in X \leftrightarrow \varphi\mleft(x\mright)\right);\]
+    \item $\Sigma^1_1$-choice: for any $\Sigma^1_1$ formula $\varphi$,
+          \[\forall n \, \exists X \, \varphi\mleft(n, X\mright) \rightarrow \exists Z \, \forall n \, \varphi\mleft(n, \left(Z\right)_n\mright);\]
+    \item full induction scheme on $\mathbb{N}$ for any second-order formula $\varphi$.
+  \end{enumerate}
+
+  We know $\left|\Sigma^1_1\text{-}\mathrm{AC}\right| = \varphi_{\varepsilon_0}\mleft(0\mright)$. \cite{friedman67-thesis}
+\end{frame}
+
+\begin{frame}{A general notion of computation}
+  A \emph{partial combinatory algebra} (henceforth pca) is a domain $\mathcal{A}$ equipped partial binary operation ${-} \cdot {-} : \mathcal{A}^2 \rightharpoonup \mathcal{A}$. We write $ab {\downarrow}$ and say that $ab$ \emph{converges} when the value $a \cdot b$ is defined, and $ab {\uparrow}$ ($ab$ \emph{diverges}) otherwise.
+
+  \vspace{0.6em}
+
+  Essential operations on a pca are $\mathbf{k}, \mathbf{s}, \mathbf{p}, \mathbf{p}_0, \mathbf{p}_1 \in \mathcal{A}$, such that
+  \begin{enumerate}
+    \item $\mathbf{k} ab {\downarrow} = a$;
+    \item $ac \mleft(bc\mright) {\downarrow} \rightarrow \mathbf{s} abc {\downarrow} = ac \mleft(bc\mright)$;
+    \item $\mathbf{p}_0 \mleft(\mathbf{p} ab\mright) {\downarrow} = a$ and $\mathbf{p}_1 \mleft(\mathbf{p} ab\mright) {\downarrow} = b$.
+  \end{enumerate}
+
+  \vspace{0.6em}
+
+  A pca over $\mathbb{N}$ additionally has
+  \begin{enumerate}
+    \item $\mathbf{s}_\mathbb{N} n {\downarrow} = n + 1$ and $\mathbf{p}_\mathbb{N} \mleft(\mathbf{s}_\mathbb{N} n\mright) {\downarrow} = n$;
+    \item $\mathbf{d}_\mathbb{N} nmab {\downarrow} = \left\{\begin{aligned}
+               & a &  & \text{if $n = m$},    \\
+               & b &  & \text{if $n \neq m$}.
+            \end{aligned}\right.$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{A general notion of computation}
+  \begin{lemma}[$\lambda$-abstraction]
+    Let $\mathcal{A}$ be a pca. For any (formal) term $t$ over variables $x, \vec{y}$, there is another term, denoted as $\lambda x. t$ over variables $\vec{y}$ only, such that
+    \begin{enumerate}
+      \item for any $\vec{b} \in \mathcal{A}^k$, $\mleft(\lambda x. t\mright)\mleft[\vec{b}/\vec{y}\mright] {\downarrow}$;
+      \item for any $a \in \mathcal{A}$, $\vec{b} \in \mathcal{A}^k$,
+            \[t\mleft[a/x, \vec{b}/\vec{y}\mright] {\downarrow} \rightarrow \mleft(\lambda x. t\mright)\mleft[\vec{b}/\vec{y}\mright] a {\downarrow} = t\mleft[a/x, \vec{b}/\vec{y}\mright].\]
+    \end{enumerate}
+  \end{lemma}
+
+  \begin{lemma}[Recursion theorem]
+    There is $\mathbf{r} \in \mathcal{A}$ such that for any $f, a \in \mathcal{A}$, $\mathbf{r} f {\downarrow}$ and
+    \[fa \mleft(\mathbf{r} f\mright) {\downarrow} \rightarrow \mathbf{r} fa {\downarrow} = fa \mleft(\mathbf{r} f\mright).\]
+  \end{lemma}
+
+  \emph{Proof}. Build the Y-combinator as $t = \lambda fga. fa \mleft(gg\mright)$ and $\mathbf{r} = \lambda f. tf \mleft(tf\mright)$. \qed
+\end{frame}
+
+\begin{frame}{Computing $\Sigma^1_1$-definable functions}
+  We work in $\Sigma^1_1\text{-}\mathrm{AC}$ and fix a universal $\Pi^0_1$-formula $\pi\mleft(e, m, a, b, X\mright)$, so that  correspondingly a universal $\Sigma^1_1$-formula is given by $\exists X \, \pi\mleft(e, m, a, b, X\mright)$, i.e.
+  \begin{theorem}[\ocite{simpson09-soa}, Lemma V.1.4, $\mathrm{ACA}_0$]
+    For any $\Sigma^1_1$-formula $\varphi\mleft(m, a, b\mright)$, there is some $e \in \mathbb{N}$ such that
+    \[\forall m \, \forall a \, \forall b \left(\varphi\mleft(m, a, b\mright) \leftrightarrow \exists X \, \pi\mleft(e, m, a, b, X\mright)\right).\]
+  \end{theorem}
+
+  We can now define a pca on domain $\mathbb{N}$ by defining application as: $ea {\downarrow} = b$ if and only if $b$ is the \emph{unique} natural number satisfying
+  \[\exists X \, \pi\mleft(e_0, e_1, a, b, X\mright),\]
+  where $e = \tuple{e_0, e_1}$.
+\end{frame}
+
+\begin{frame}{Computing $\Sigma^1_1$-definable functions}
+  \begin{lemma}[Smn theorem, W.\ \ycite{wang-sw25-cm}, Proposition 2.3]
+    Given any $\Sigma^1_1$-formula $\varphi\mleft(m, a, b\mright)$ with all free variables indicated, then there exists $e \in \mathbb{N}$ such that for any $m, a \in \mathbb{N}$, $em {\downarrow}$ always holds, and $ema {\downarrow} = b$ if and only if $b \in \mathbb{N}$ is the unique natural number such that $\varphi\mleft(m, a, b\mright)$ holds.
+  \end{lemma}
+
+  \vspace{1em}
+
+  \begin{corollary}[$\Sigma^1_1\text{-}\mathrm{AC}_0$]
+    $\Sigma^1_1$-definable application indeed forms a pca on domain $\mathbb{N}$, i.e.\ we can explicitly find the required combinators $\mathbf{k}$ and $\mathbf{s}$.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  We build a ``model'' of third-order arithmetic, by first choosing the domains of first-, second- and third-order variables.
+
+  \begin{enumerate}
+    \item The first-order variables range over $\mathbb{N}$;
+    \item The second-order variables range over
+          \[S_2 = \left\{d \in \mathbb{N} : \forall n \, dn {\downarrow} \in \left\{0, 1\right\}\right\},\]
+          which is a $\Delta^1_2$-subclass of $\mathbb{N}$;
+    \item The third-order variables range over
+          \begin{align*}
+            S_3 = & \left\{d \in \mathbb{N} : \forall f \in S_2 \, df {\downarrow} \in \left\{0, 1\right\}\right.            \\
+                  & \qquad \quad \left.{} \land \forall e, f \in S_2 \, \left(e \equiv f \rightarrow de = df\right)\right\},
+          \end{align*}
+          where $e \equiv f \Leftrightarrow \forall n \, en = fn$ is extensional equality on $S_2$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  \vspace{-1em}
+  \begin{align*}
+    d \Vdash t = s                                                  & \quad \Longleftrightarrow \quad t = s \text{ for any arithmetic terms $t$ and $s$},                                                                        \\
+    d \Vdash t \in_1 e                                              & \quad \Longleftrightarrow \quad e \in S_2 \land et = 1 \text{ for any arithmetic terms $t$},                                                               \\
+    d \Vdash e \in_2 f                                              & \quad \Longleftrightarrow \quad e \in S_2 \land f \in S_3 \land fe = 1,                                                                                    \\
+    d \Vdash \varphi \land \psi                                     & \quad \Longleftrightarrow \quad d = \tuple{d_0, d_1} \land d_0 \Vdash \varphi \land d_1 \Vdash \psi,                                                       \\
+    d \Vdash \varphi \lor \psi                                      & \quad \Longleftrightarrow \quad d = \tuple{i, e} \land \left(\left(i = 0 \land e \Vdash \varphi\right) \lor \left(i = 1 \land e \Vdash \psi\right)\right), \\
+    d \Vdash \lnot \varphi                                          & \quad \Longleftrightarrow \quad \forall e \, \neg e \Vdash \varphi,                                                                                        \\
+    d \Vdash \varphi \rightarrow \psi                               & \quad \Longleftrightarrow \quad \forall e \left(e \Vdash \varphi \rightarrow de {\downarrow} \Vdash \psi\right),                                           \\
+    d \Vdash \forall x \, \varphi\mleft(x\mright)                   & \quad \Longleftrightarrow \quad \forall n \, dn {\downarrow} \Vdash \varphi\mleft(n\mright),                                                               \\
+    d \Vdash \exists x \, \varphi\mleft(x\mright)                   & \quad \Longleftrightarrow \quad d = \tuple{d_0, d_1} \land d_1 \Vdash \varphi\mleft(d_0\mright),                                                           \\
+    d \Vdash \forall X \, \varphi\mleft(X\mright)                   & \quad \Longleftrightarrow \quad        \forall x \in S_2 \ dx {\downarrow} \Vdash \varphi\mleft(x\mright),                                                 \\
+    d \Vdash \exists X \, \varphi\mleft(X\mright)                   & \quad \Longleftrightarrow \quad     d = \tuple{d_0, d_1} \land d_0 \in S_2 \land d_1 \Vdash \varphi\mleft(d_0\mright),                                     \\
+    d \Vdash \forall \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) & \quad \Longleftrightarrow \quad        \forall x \in S_3 \ dx {\downarrow} \Vdash \varphi\mleft(x\mright),                                                 \\
+    d \Vdash \exists \mathbf{X} \, \varphi\mleft(\mathbf{X}\mright) & \quad \Longleftrightarrow \quad     d = \tuple{d_0, d_1} \land d_0 \in S_3 \land d_1 \Vdash \varphi\mleft(d_0\mright).
+  \end{align*}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  We say that ``$\varphi$ is realised'' if $\exists d \in \mathbb{N} \ d \Vdash \varphi$.
+
+  \begin{lemma}[$\Sigma^1_1\text{-}\mathrm{AC}$]
+    The induction and recursion schemes are realised:
+    \begin{gather*}
+      \varphi\mleft(0\mright) \land \forall n \left(\varphi\mleft(n\mright) \rightarrow \varphi\mleft(n + 1\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright), \\
+      \forall n \, \forall X \, \exists Y \, \varphi\mleft(n, X, Y\mright) \rightarrow \forall X \, \exists Z \left(\left(Z\right)_0 = X \land \forall n \, \varphi\mleft(n, \left(Z\right)_n, \left(Z\right)_{n + 1}\mright)\right).
+    \end{gather*}
+  \end{lemma}
+
+  \emph{Proof}. Suppose that $a \Vdash \varphi\mleft(0\mright)$ and $f \Vdash \forall n \left(\varphi\mleft(n\mright) \rightarrow \varphi\mleft(n + 1\mright)\right)$. We consider
+  \[g = \lambda nh. \left\{\begin{aligned}
+       & a                    &  & \text{if $n = 0$},     \\
+       & fm \mleft(hm\mright) &  & \text{if $n = m + 1$}.
+    \end{aligned}\right.\]
+  Then $\forall n \, \mathbf{r} gn {\downarrow} = gn \mleft(\mathbf{r} g\mright) \Vdash \varphi\mleft(n\mright)$ by induction.
+
+  \vspace{0.6em}
+
+  Given $f \Vdash \forall n \, \forall X \, \exists Y \, \varphi\mleft(n, X, Y\mright)$, we can likewise compute the family $\left\{\left(Z\right)_n\right\}_n$ by recursion. \qed
+\end{frame}
+
+\begin{frame}{The realisability model}
+  \begin{lemma}[$\Sigma^1_1\text{-}\mathrm{AC}_0$]
+    The \emph{decidable comprehension} axioms are realised:
+    \begin{align*}
+      \forall n \left(\varphi\mleft(n\mright) \lor \neg \varphi\mleft(n\mright)\right) & \rightarrow \exists X \, \forall n \left(n \in X \leftrightarrow \varphi\mleft(n\mright)\right),                \\
+      \forall X \left(\varphi\mleft(X\mright) \lor \neg \varphi\mleft(X\mright)\right) & \rightarrow \exists \mathbf{X} \forall X \left(X \in \mathbf{X} \leftrightarrow \varphi\mleft(X\mright)\right);
+    \end{align*}
+  \end{lemma}
+
+  \vspace{0.6em}
+
+  \emph{Proof}. If $f \Vdash \forall n \left(\varphi\mleft(n\mright) \lor \neg \varphi\mleft(n\mright)\right)$, then
+  \[g = \lambda n. 1 - \mathbf{p}_0 \mleft(fn\mright)\]
+  is simply the object in $S_2$ representing the set $X$. Same applies to the third-order case. \qed
+\end{frame}
+
+\begin{frame}{The realisability model}
+  \begin{lemma}[$\Sigma^1_1\text{-}\mathrm{AC}_0$]
+    The numerical omniscience principle is realised:
+    \[\forall n \left(\varphi\mleft(n\mright) \lor \psi\mleft(n\mright)\right) \rightarrow \left(\forall n \, \varphi\mleft(n\mright) \lor \exists n \, \psi\mleft(n\mright)\right).\]
+  \end{lemma}
+
+  \emph{Proof}. We take advantage of the fact that our functions just need to be $\Sigma^1_1$-definable. Given $f \Vdash \forall n \left(\varphi\mleft(n\mright) \lor \psi\mleft(n\mright)\right)$, we can define $gn {\downarrow} = i$ if and only if
+  \[\left(i = 0 \land \forall n \, \mathbf{p}_0 \mleft(fn\mright) = 0\right) \lor \left(i = 1 \land \exists n \, \mathbf{p}_0 \mleft(fn\mright) = 1\right)\]
+  to decide the correct disjunct in the consequent. \qed
+
+  \pause
+
+  \vspace{1em}
+
+  It follows that for any axiom $\varphi$ of $\mathrm{CM}$, $\Sigma^1_1\text{-}\mathrm{AC} \vdash \exists d \, d \Vdash \varphi$. It follows that
+  \[\left(\mathrm{CM} \vdash \varphi\right) \rightarrow \left(\Sigma^1_1\text{-}\mathrm{AC} \vdash \exists d \, d \Vdash \varphi\right),\]
+  and substituting $\varphi = \bot$ gives $\mathrm{Con}\mleft(\Sigma^1_1\text{-}\mathrm{AC}\mright) \rightarrow \mathrm{Con}\mleft(\mathrm{CM}\mright)$.
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\mathrm{CM}$}
+  We have interpreted $\mathrm{CM}$ inside $\Sigma^1_1\text{-}\mathrm{AC}$.
+
+  \vspace{1em}
+
+  Let $\Sigma^1_1\text{-}\mathrm{AC}^i$ denote the intuitionistic part of $\Sigma^1_1\text{-}\mathrm{AC}$, i.e.\ consequences of the same axioms but without excluded middle. Trivially $\mathrm{CM} \vdash \Sigma^1_1\text{-}\mathrm{AC}^i$.
+
+  \vspace{1em}
+
+  \ocite{aczel77-martin-lof} checked that $\left|\Sigma^1_1\text{-}\mathrm{AC}\right| = \left|\Sigma^1_1\text{-}\mathrm{AC}^i\right|$.
+
+  \vspace{1em}
+
+  Thus we also have
+  \[\mathrm{Con}\mleft(\Sigma^1_1\text{-}\mathrm{AC}\mright) \leftrightarrow \mathrm{Con}\mleft(\mathrm{CM}\mright),\]
+  and $\left|\mathrm{CM}\right| = \left|\Sigma^1_1\text{-}\mathrm{AC}\right| = \varphi_{\varepsilon_0}\mleft(0\mright)$.
+\end{frame}
+
+\begin{frame}{Interpreting a global well-ordering}
+  We need to sort the class $S_2$ into a well-ordering. Observe that for $f \in S_2$,
+  \[fn {\downarrow} = 0 \leftrightarrow \neg fn {\downarrow} = 1\]
+  is $\Delta^1_1$-definable.
+
+  \vspace{1em}
+
+  Given any countable well-ordering $\alpha$, we define $\mathrm{TJ}^0\mleft(X\mright) = X$ and
+  \[\mathrm{TJ}^\alpha\mleft(X\mright) = \mathrm{TJ}\mleft(\left\{\mathrm{TJ}^\beta\mleft(X\mright)\right\}_{\beta < \alpha}\mright)\]
+  for $\alpha > 0$. Then the Kleene--Souslin theorem states:
+
+  \begin{theorem}[\ocite{simpson09-soa}, Theorem VIII.3.19, $\mathrm{ATR}_0$]
+    For any $Z \subseteq \mathbb{N}$, $Z$ is $\Delta^1_1$-definable in parameter $X$ if and only if there exists a recursive well-ordering $\alpha$ such that $Z$ is Turing reducible to $\mathrm{TJ}^\alpha\mleft(X\mright)$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{Interpreting a global well-ordering}
+  We can effectivise the Kleene--Souslin theorem:
+
+  \begin{theorem}[W.\ \ycite{wang-sw25-cm}, Theorem 4.3, $\mathrm{ATR}_0$]
+    There exists a function $\mathbf{h}$ in the $\Sigma^1_1$-pca such that, given any $\Delta^1_1$-set $Z$ that is defined by its characteristic function $f \in S_2$, we have $\mathbf{h} f {\downarrow} = \tuple{\alpha, e}$, such that the oracle machine $\Phi^{\mathrm{TJ}^\alpha\mleft(\emptyset\mright)}_e$ computes the set $Z$.
+
+    \vspace{0.6em}
+
+    Additionally, for $f \equiv g \in S_2$, we have $\mathbf{h} f = \mathbf{h} g$.
+  \end{theorem}
+
+  We can well-order $S_2$ by defining $f \prec g$ if and only if $\mathbf{h} f < \mathbf{h} g$ lexicographically.
+
+  \vspace{1em}
+
+  Thus, we can add the realisability condition $d \Vdash f \prec g$ if and only if $f \prec g$ is true in the sense above.
+\end{frame}
+
+\begin{frame}{Interpreting transfinite induction}
+  Let \emph{Bar induction}, $\mathrm{BI}$, denote the second-order axiom scheme
+  \[\mathrm{WO}\mleft(\lhd\mright) \land \forall n \left(\forall m \lhd n \ \varphi\mleft(m\mright) \rightarrow \varphi\mleft(n\mright)\right) \rightarrow \forall n \, \varphi\mleft(n\mright)\]
+  for arbitrary formulae $\varphi$. We have
+  \[\mathrm{BI} \Rightarrow \mathrm{ATR} \Rightarrow \Sigma^1_1\text{-}\mathrm{AC},\]
+  and $\left|\mathrm{BI}\right| = \left|\mathrm{ID}_1\right| = \text{Bachmann--Howard ordinal}$ \cite{buchholz-pohlers78-iterated-id}.
+
+  \pause
+
+  \begin{lemma}[$\mathrm{BI}$]
+    The transfinite induction scheme for the global well-ordering is realised for arbitrary third-order formulae $\varphi$:
+    \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright).\]
+  \end{lemma}
+\end{frame}
+
+\begin{frame}{Interpreting transfinite induction}
+  \begin{lemma}[$\mathrm{BI}$]
+    The transfinite induction scheme for the global well-ordering is realised for arbitrary third-order formulae $\varphi$:
+    \[\forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right) \rightarrow \forall X \, \varphi\mleft(X\mright).\]
+  \end{lemma}
+
+  \vspace{0.6em}
+
+  \emph{Proof sketch}. Suppose that $f \Vdash \forall X \left(\forall Y \left(Y \prec X \rightarrow \varphi\mleft(Y\mright)\right) \rightarrow \varphi\mleft(X\mright)\right)$, then
+  \[\forall x \in S_2 \ \mathbf{r} \mleft(\lambda ah. fa \mleft(\lambda bc. hb\mright)\mright) x {\downarrow} \Vdash \varphi\mleft(x\mright),\]
+  though verifying this needs some technical arguments to work around functional extensionality. \qed
+\end{frame}
+
+\begin{frame}{Interpreting countable initial segments}
+  \begin{lemma}[$\mathrm{ATR}_0$]
+    The axiom of countable initial segments is realised:
+    \[\forall X \, \exists Z \, \forall Y \left(Y \prec X \rightarrow \exists n \, Y = \left(Z\right)_n\right).\]
+  \end{lemma}
+
+  \vspace{0.6em}
+
+  \emph{Proof}. Suppose that $x \in S_2$ is computed by the oracle machine $\Phi^{\mathrm{TJ}^\alpha\mleft(\emptyset\mright)}_e$. We can simply take the initial segment
+  \[\left\{\Phi^{\mathrm{TJ}^\alpha\mleft(\emptyset\mright)}_{e'} : e' \in \mathbb{N}, \Phi^{\mathrm{TJ}^\alpha\mleft(\emptyset\mright)}_{e'} \text{ terminates on all inputs}\right\}\]
+  which is countable (because there are only countably many Turing machines) and also $\Sigma^1_1$-definable. \qed
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\mathrm{CM} + \text{full $\mathrm{GWO}$}$}
+  We have checked that for any axiom $\varphi$ of $\mathrm{CM} + \text{full $\mathrm{GWO}$}$, $\mathrm{BI} \vdash \exists d \, d \Vdash \varphi$. Thus
+  \[\mathrm{Con}\mleft(\mathrm{BI}\mright) \rightarrow \mathrm{Con}\mleft(\mathrm{CM}\mright).\]
+
+  \pause
+
+  \vspace{1em}
+
+  For the converse, we check that the system $\mathrm{ID}_1^i$ of intuitionistic first-order inductive definitions is interpreted in $\mathrm{CM} + \text{full $\mathrm{GWO}$}$.
+
+  \vspace{0.6em}
+
+  We say $\varphi\mleft(X, n\mright)$ is a \emph{strictly positive first-order formula}, if it only contains:
+  \begin{enumerate}
+    \item any atomic formulae in the language of $\mathrm{PA}$ as well as $t \in X$ for any first-order term $t$;
+    \item $\bot$ and connectives $\land, \lor, \rightarrow$, with the restriction that $X$ cannot occur in an antecedent;
+    \item first-order quantifiers $\forall n$ and $\exists n$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{First-order inductive definitions}
+  \begin{theorem}[Inductive definitions]
+    For any strictly positive first-order formula $\varphi\mleft(X, n\mright)$, there exists a formula $\theta_\varphi\mleft(n\mright)$ such that
+    \[\forall n \left(\varphi\mleft(\theta_\varphi, n\mright) \rightarrow \theta_\varphi\mleft(n\mright)\right)\]
+    holds, and also for any formula $\eta\mleft(n\mright)$,
+    \[\forall n \left(\varphi\mleft(\eta, n\mright) \rightarrow \eta\mleft(n\mright)\right) \rightarrow \forall n \left(\theta_\varphi\mleft(n\mright) \rightarrow \eta\mleft(n\mright)\right).\]
+  \end{theorem}
+
+  \emph{Proof sketch}. We define a family of sets $\left\{A_X\right\}_X$ indexed by second-order objects, such that
+  \[A_X = \left\{n \in \mathbb{N} : \varphi\mleft(\bigcup\nolimits_{Y \prec X} A_Y, n\mright)\right\}.\]
+  It then suffices to take $\theta_\varphi\mleft(n\mright) = \exists X \, n \in A_X$. The verifications follow any textbook proof for inductive definitions in systems like $\mathrm{BI}$ or $\mathrm{KP}$. \qed
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\mathrm{CM} + \text{full $\mathrm{GWO}$}$}
+  We have interpreted $\mathrm{CM} + \text{full $\mathrm{GWO}$}$ inside $\mathrm{BI}$ and also interpreted $\mathrm{ID}_1^i$ inside $\mathrm{CM} + \text{full $\mathrm{GWO}$}$.
+
+  \vspace{0.6em}
+
+  Since $\left|\mathrm{ID}_1^i\right| = \left|\mathrm{ID}_1\right| = \left|\mathrm{BI}\right| = \text{Bachmann--Howard ordinal}$ \cite{buchholz-pohlers78-iterated-id}, we have
+  \[\left|\mathrm{CM} + \text{full $\mathrm{GWO}$}\right| = \text{Bachmann--Howard ordinal}.\]
+
+  \pause
+
+  Let $\Sigma\text{-}\mathrm{GWO}$ denote the ``predicative'' fragment with the single transfinite induction axiom
+  \[\forall X \left(\forall Y \prec X \ \exists Z \tuple{Y, Z} \in \mathbf{X} \rightarrow \exists Z \tuple{X, Z} \in \mathbf{X}\right) \rightarrow \forall X \, \exists Z \tuple{X, Z} \in \mathbf{X}.\]
+  What is its strength then? \pause In order to realise it, we essentially need to prove
+  \[\forall x \in S_2 \ \mathbf{r} gx {\downarrow} \Vdash \exists Z \tuple{X, Z} \in \mathbf{X}\]
+  by transfinite induction --- this requires at least $\Pi^1_2$-transfinite induction.
+\end{frame}
+
+\section{Analysing the predicative global well-ordering principle}
+
+\begin{frame}{Transfinite computation, another way}
+  Let $\mathrm{KP}^-$ denote the Kripke--Platek set theory without foundation, consisting of the axioms of extensionality, pairing, union, $\Delta_0$-separation, $\Delta_0$-collection and infinity. We add $\Sigma_1$-set induction, $\Sigma_1\text{-}\mathrm{SI}$,
+  \[\forall x \left(\forall y \in x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \, \varphi\mleft(x\mright)\]
+  for any $\Sigma_1$-formula $\varphi$.
+
+  \vspace{0.6em}
+
+  This allows us to define G\"odel's constructible universe $L$ as
+  \begin{align*}
+    L_0            & = \varnothing,                                                          \\
+    L_{\alpha + 1} & = \mathrm{Def}\mleft(L_\alpha\mright),                                  \\
+    L_\lambda      & = \bigcup_{\alpha < \lambda} L_\alpha \quad \text{for limit $\lambda$}, \\
+    L              & = \bigcup_{\alpha \in \mathrm{Ord}} L_\alpha.
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Transfinite computation, another way}
+  There is a $\Sigma_1$-definable well-ordering on $L$, which we can represent by a class bijection $H : \mathrm{Ord} \rightarrow L$ \cite{devlin84-constructibility}*{section II.2}. If we add the axiom $V = L$, this becomes a well-ordering of the entire universe.
+
+  \vspace{0.6em}
+
+  Let $\mathrm{Tr}\mleft(\left\ulcorner  \varphi \right\urcorner, m, a, b, x\mright)$ be any $\Delta_1$-definable truth predicate for a fixed coding of arbitrary $\Delta_0$-formula $\varphi$ with \emph{precisely} four free variables, so that
+  \[\exists x \, \mathrm{Tr}\mleft(t, m, a, b, x\mright)\]
+  is essentially a universal $\Sigma_1$-formula. We can now turn the entire universe into a pca by defining $ea {\downarrow} = b$ if and only if the following $\Sigma_1$-evaluation formula $\varepsilon\mleft(e, a, b\mright)$ is satisfied:
+  \begin{align*}
+     & e = \tuple{t, m} \land \exists x \left(\mathrm{Tr}\mleft(t, m, a, b, x\mright) \land \phantom{H^{-1}}\right.                                                                            \\
+     & \qquad \left.\forall \beta \in H^{-1}\mleft(\tuple{b, x}\mright) \left(H\mleft(\beta\mright) = \tuple{b', x'} \rightarrow \neg \mathrm{Tr}\mleft(t, m, a, b', x'\mright)\right)\right),
+  \end{align*}
+  i.e.\ $b, x$ is the \emph{$H$-least} pair satisfying $\mathrm{Tr}\mleft(t, m, a, b, x\mright)$.
+\end{frame}
+
+\begin{frame}{Transfinite computation, another way}
+  \begin{lemma}[Smn theorem, W.\ \ycite{wang-sw26-universal-pca}, Lemma 2.4]
+    Given any $\Sigma_1$-formula $\phi\mleft(m, a, b\mright)$, there exists $e$ such that for any set $m, a$, $em {\downarrow}$ always hods, and $ema {\downarrow} = b$ if and only if there exists some set $b$ satisfying $\phi\mleft(m, a, b\mright)$, in which case also
+    \[\varphi\mleft(m, a, ema\mright).\]
+  \end{lemma}
+
+  \vspace{1em}
+
+  \begin{theorem}[$\mathrm{KP}^- + \Sigma_1\text{-}\mathrm{SI} + V = L$]
+    $\Sigma_1$-definable application forms a pca on domain $V$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  We model $\mathrm{CM}$ now in set theory, by letting
+  \begin{enumerate}
+    \item The first-order variables range over $\omega$;
+    \item The second-order variables range over the $\Delta_0$-class $\mathcal{P}\mleft(\omega\mright)$;
+    \item The third-order variables range over
+          \[S_3 = \left\{d : \forall x \subseteq \mathbb{N} \ dx {\downarrow} \in \left\{0, 1\right\}\right\}.\]
+  \end{enumerate}
+
+  The realisability conditions are essentially the same, except we interpret the global well-ordering on second-order objects as
+  \[d \Vdash x \prec y \quad \Longleftrightarrow \quad H^{-1}\mleft(x\mright) \in H^{-1}\mleft(y\mright).\]
+\end{frame}
+
+\begin{frame}{The realisability model}
+  The interpretations of the axioms of $\mathrm{CM}$ are also essentially the same, except we need the set-forming lemma:
+
+  \begin{lemma}
+    Suppose $f$ satisfies $\forall n \in \omega \ fn {\downarrow} \in \left\{0, 1\right\}$, then there exists a set $X \subseteq \omega$ such that
+    \[x = \left\{n \in \omega : fn {\downarrow} = 1\right\}.\]
+  \end{lemma}
+
+  \emph{Proof}. We know that
+  \[fn {\downarrow} = 1 \leftrightarrow \neg fn {\downarrow} = 0\]
+  is $\Delta_1$. $\mathrm{KP}^-$ proves $\Sigma_1$-collection, which implies $\Delta_1$-separation. Thus $x$ is a set. \qed
+\end{frame}
+
+\begin{frame}{Interpreting countable initial segments}
+  \begin{lemma}[$\mathrm{KP}^- + \Sigma_1\text{-}\mathrm{SI} + V = L$]
+    The axiom of countable initial segments is realised:
+    \[\forall X \, \exists Z \, \forall Y \left(Y \prec X \rightarrow \exists n \, Y = \left(Z\right)_n\right).\]
+  \end{lemma}
+
+  \vspace{0.6em}
+
+  \emph{Proof}. Fix any $x \subseteq \omega$. By $V = L$, $x \in L$, thus by the G\"odel condensation lemma, there exists a countable $\alpha \in \mathrm{Ord}$ such $x \in L_\alpha$. Let $\alpha_0 \in \mathrm{Ord}$ be the least ordinal such that $x \in L_{\alpha_0}$, then $L_{\alpha_0}$ is countable and we can take the $H$-least bijection
+  \[f : \omega \rightarrow L_{\alpha_0} \cap \mathcal{P}\mleft(\omega\mright).\]
+  It suffices to take the initial segment $\left\{z_n\right\}_{n \in \omega}$ where each $z_n = f\mleft(n\mright)$. \qed
+
+  \pause
+
+  \vspace{1em}
+
+  Thus $\mathrm{KP} + V = L + \text{full $\omega$-$\mathrm{IND}$}$ realises $\mathrm{CM} + \text{full $\mathrm{GWO}$}$.
+\end{frame}
+
+\begin{frame}{Interpreting $\Sigma$-transfinite induction}
+  \begin{lemma}[$\mathrm{KP} + \Sigma_1\text{-}\mathrm{SI} + V = L$]
+    The transfinite induction axiom for $\Sigma\text{-}\mathrm{GWO}$ is realised:
+    \[\forall X \left(\forall Y \prec X \ \exists Z \tuple{Y, Z} \in \mathbf{X} \rightarrow \exists Z \tuple{X, Z} \in \mathbf{X}\right) \rightarrow \forall X \, \exists Z \tuple{X, Z} \in \mathbf{X}.\]
+  \end{lemma}
+
+  \vspace{0.6em}
+
+  \emph{Proof sketch}. Fix $h \in S_3$ representing $\mathbf{X}$, and apply the same construction as in the $\mathrm{BI}$ proof. Notice that we just need to prove
+  \[\forall x \subseteq \omega \left(\mathbf{p}_0 \mleft(\mathbf{r} gx\mright) {\downarrow} \subseteq \omega \land h {\tuple{x, \mathbf{p}_0 \mleft(\mathbf{r} gx\mright)}} = 1\right)\]
+  by transfinite induction (on the ordinal $H^{-1}\mleft(x\mright)$), where our evaluation formula for the pca is $\Sigma_1$. Thus this follows from $\Sigma_1$-set induction. \qed
+\end{frame}
+
+\begin{frame}{Ranked tree interpretation}
+  For the converse, i.e.\ to interpret the fragment of $\mathrm{KP}$ into $\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}$, we need a variant of the tree interpretation from \ocite{simpson09-soa}*{section VII.3}. We say that some $T \subseteq \left[\mathbb{N}\right]^{<\mathbb{N}}$ is a \emph{ranked tree} if
+  \begin{enumerate}
+    \item $T$ is a tree, i.e.\ $T$ is nonempty and for any finite sequences $s \sqsubseteq t$, if $t \in T$ then $s \in T$;
+    \item $T$ has a \emph{ranking object}, i.e.\ some $R_T \subseteq \mathbb{N}$ such that for any $s \sqsubseteq t \in T$, we have
+          \[\left(R_T\right)_s \succ \left(R_T\right)_t.\]
+  \end{enumerate}
+
+  Essentially, since $\prec$ is a well-ordering, the existence of a ranking object ensures that $T$ is well-founded, i.e.\ $T$ has no infinite path.
+
+  \vspace{0.6em}
+
+  \begin{lemma}[$\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}$]
+    Every ranked tree has a unique bisimulation.
+  \end{lemma}
+\end{frame}
+
+\begin{frame}{Ranked tree interpretation}
+  Given ranked tree $T, S$, the following trees are also ranked:
+  \begin{enumerate}
+    \item The pair tree
+          \[\left\{\tuple{}\right\} \cup \left\{{\tuple{0}}^\frown t : t \in T\right\} \cup \left\{{\tuple{1}}^\frown s : s \in S\right\};\]
+    \item The union tree
+          \[\left\{\tuple{}\right\} \cup \left\{{\tuple{\tuple{i, j}}}^\frown t : \tuple{i, j}^\frown t \in T\right\};\]
+    \item The $\omega$-tree
+          \[\left\{t \in \mathbb{N}^{<\mathbb{N}} : \text{$t$ is strictly decreasing}\right\};\]
+    \item The comprehension tree on a $\Delta^1_1$-condition $\varphi\mleft(T, i\mright)$
+          \[\left\{\tuple{}\right\} \cup \left\{{\tuple{i}}^\frown t : {\tuple{i}}^\frown t \in T, \varphi\mleft(T, i\mright)\right\}.\]
+  \end{enumerate}
+  The recursion scheme (specifically $\Sigma^1_1$-choice) also interprets $\Delta_0$-collection.
+\end{frame}
+
+\begin{frame}{Ordinal analysis of $\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}$}
+  We have shown that $\mathrm{KP}^- + \Sigma_1\text{-}\mathrm{SI} + V = L + \text{full $\omega$-$\mathrm{IND}$}$ interprets $\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}$, and also $\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}$ interprets $\mathrm{IKP}^- + \Sigma_1\text{-}\mathrm{SI} + \text{full $\omega$-$\mathrm{IND}$}$.
+
+  \vspace{1em}
+
+  $V = L$ does not affect the proof-theoretic strength here, and \ocite{avigad00-classical-constructive-interp} checked that the classical and intuitionistic variants of fragments of $\mathrm{KP}$ have equivalent proof-theoretic strength.
+
+  \vspace{1em}
+
+  It is known \cite{rathjen93-kp-fragments} that
+  \[\left|\mathrm{KP}^- + \Sigma_1\text{-}\mathrm{SI} + \text{full $\omega$-$\mathrm{IND}$}\right| = \varphi_{\varphi_{\varepsilon_0}\mleft(0\mright)}\mleft(0\mright),\]
+  thus we also have
+  \[\left|\mathrm{CM} + \Sigma\text{-}\mathrm{GWO}\right| = \varphi_{\varphi_{\varepsilon_0}\mleft(0\mright)}\mleft(0\mright).\]
+\end{frame}
+
+\section{The Feferman--Sch\"utte limit of predicativism\\and iterations in Weaver's conceptualism}
+
+\begin{frame}{The Feferman--Sch\"utte limit}
+  Start with a family of infinitary proof systems $\mathrm{RA}_\alpha$ of \emph{ramified analysis}, where the ordinal $\alpha$ essentially dictates that ``any proof of transfinite height $<\alpha$ is allowed''.
+
+  \begin{definition}
+    The \emph{autonomous ordinals}, $\mathrm{AUT}$ is the smallest set of recursive ordinals satisfying the following:
+    \begin{enumerate}
+      \item $0$ is in $\mathrm{AUT}$;
+      \item If $\beta \in \mathrm{AUT}$ and $\gamma < \beta$ then $\gamma \in \mathrm{AUT}$;
+      \item if $\alpha \in \mathrm{AUT}$ and $\mathrm{RA}_\alpha \vdash \mathrm{WO}\mleft(\delta\mright)$ then $\delta \in \mathrm{AUT}$.
+            \newcounter{autenumi}
+            \setcounter{autenumi}{\value{enumi}}
+    \end{enumerate}
+  \end{definition}
+
+  \begin{theorem}[\ocite{feferman64-predicative-analysis}; \ocite{schutte65-predicative-well-orderings}]
+    $\mathrm{AUT}$ contains precisely those ordinals $\alpha < \Gamma_0$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{A reasonable criticism}
+  \ocite{howard96-proof-theory}*{p.\ 280} raises the following question, which Weaver supports through his conceptualism:
+
+  \vspace{1em}
+
+  Recall we have ordinals $\gamma_0 = 0, \gamma_1 = \varphi_0\mleft(0\mright), \ldots, \gamma_{n + 1} = \varphi_{\gamma_n}\mleft(0\mright), \ldots$ and $\Gamma_0 = \sup_n \gamma_n$. The Feferman--Sch\"utte argument essentially reveals to us that ``if $\gamma_n$ is well-ordered, then a proof system of the height $\gamma_n$ provides a predicative way of justifying that $\gamma_{n + 1}$ is well-ordered''. Why then, is the predicativist unable to \emph{reflect} on all these justifications and conclude that $\Gamma_0 = \bigcup_n \gamma_n$ (and thus $\Gamma_0 + 1$, etc.) is well-ordered?
+
+  \pause
+
+  \vspace{1em}
+
+  If we admit the conceptualist idea that any countable transfinite process (of reasoning) should be accpetable, then it seems that we should add an extra rule to the autonomous progression:
+  \begin{enumerate}
+    \setcounter{enumi}{\value{autenumi}}
+    \item if $\left(\alpha_n\right)_{n \in \mathbb{N}}$ is a computable (or primitive recursive) enumeration of autonomous ordinals, then $\sup_{n \in \mathbb{N}} \alpha_n \in \mathrm{AUT}$.
+  \end{enumerate}
+  Then the limit of the autonomous system is expected to be much higher.
+\end{frame}
+
+\begin{frame}{Weaver's strong systems}
+  Given a theory $\mathcal{S}$ in language $L$, for each $\alpha$, let $L_\alpha$ be the language $L$ augmented by a family of truth predicates $\left\{T_\beta\right\}_{\beta < \alpha}$, and let $\mathcal{S}_\alpha$ be the theory in $L_{\alpha + 1}$ consisting of
+  \begin{itemize}
+    \small
+    \item The axioms of $\mathcal{S}$;
+    \item The axiom ``$T_\alpha\mleft(\left\ulcorner A \right\urcorner\mright)$ for any axiom $A$ of $\mathcal{S}$'';
+    \item The axiom ``$T_\alpha\mleft(\left\ulcorner A \right\urcorner\mright) \land T_\alpha\mleft(\left\ulcorner B \right\urcorner\mright) \rightarrow T_\alpha\mleft(\left\ulcorner C \right\urcorner\mright)$ for any formulae $A, B ,C$ in $L_\alpha$, for which there is a deduction rule that infers $C$ from $A$ and $B$'';
+    \item The axiom ``$T_\alpha\mleft(\left\ulcorner A\mleft(0\mright) \land \forall n \left(A\mleft(n\mright) \rightarrow A\mleft(n + 1\mright)\right) \rightarrow \forall n \, A\mleft(n\mright) \right\urcorner\mright)$ for any formula $A\mleft(n\mright)$ in $L_\alpha$'';
+    \item The axiom ``$\forall n \, T_\alpha\mleft(\left\ulcorner A\mleft(\hat{n}\mright) \right\urcorner\mright) \leftrightarrow T_\alpha\mleft(\left\ulcorner \forall n \, A\mleft(n\mright) \right\urcorner\mright)$ for any formula $A\mleft(n\mright)$ in $L_a$'';
+    \item The axiom scheme ``$\overline{A} \leftrightarrow T_\alpha\mleft(\left\ulcorner A \right\urcorner\mright)$'' for every formula $A$ in $L_\alpha$, where $\overline{A}$ is the universal closure of $A$;
+    \item The axiom ``$T_\alpha\mleft(\left\ulcorner \overline{A} \leftrightarrow T_\beta\mleft(\left\ulcorner A \right\urcorner\mright) \right\urcorner\mright)$ for any $\beta < \alpha$ and any formula $A$ in $L_\beta$'';
+    \item For every $\beta < \alpha$, an axiom ``$T_\beta\mleft(\left\ulcorner A \right\urcorner\mright) \leftrightarrow T_\alpha\mleft(\left\ulcorner A \right\urcorner\mright)$ for any formula $A$ in $L_\beta$''.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Weaver's strong systems}
+  Let $\mathrm{Tarski}\mleft(\mathcal{S}\mright)$ denote following axioms:
+  \begin{itemize}
+    \item The axioms of $\mathcal{S}$;
+    \item The axiom $\mathrm{Prog}\mleft(\mathrm{Acc}\mright) \coloneqq \forall \beta < \alpha \ \mathrm{Acc}\mleft(\beta\mright) \leftrightarrow \mathrm{Acc}\mleft(\alpha\mright)$;
+    \item The unrestricted induction scheme for all formulae in the language of $\mathcal{S}$ augmented by the symbol $\mathrm{Acc}$;
+    \item For each $\alpha$ and every axiom $A$ of $\mathcal{S}_\alpha$ the statement ``$\mathrm{Acc}\mleft(\hat{\alpha}\mright) \rightarrow A$''.
+  \end{itemize}
+
+  \begin{lemma}[\ocite{weaver22-tarskian-truth-predicates}, Corollary 5.5]
+    For any $n \geq 2$, $\mathrm{Tarski}\mleft(\mathcal{S}\mright)$ plus transfinite induction up to $\gamma_n$ for the language of $\mathrm{Tarski}\mleft(\mathcal{S}\mright)$ proves transfinite induction up to $\gamma_{n + 1}$ for the language of $\mathcal{S}$.
+  \end{lemma}
+
+  \begin{corollary}
+    $\mathrm{Tarski}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to $\Gamma_0$ for all formulae in its language.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Weaver's strong systems}
+  \ocite{weaver09-predicativity} claimed even stronger systems, namely
+  \begin{itemize}
+    \item $\mathrm{Tarski}_{\Gamma_0}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\Gamma_0$ for all formulae in its language;
+    \item $\mathrm{Tarski}_{\kappa^\kappa}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\theta_{\Omega^2}\mleft(0\mright)$ for all formulae in its language;
+    \item $\mathrm{Tarski}_{\lambda^{\lambda^{\omega}}}^\omega\mleft(\mathrm{PA}\mright)$ proves transfinite induction up to any ordinal less than $\theta_{\Omega^\omega}\mleft(0\mright)$ for all formulae in its language;
+  \end{itemize}
+  and declare that the process can continue to at least reach the large Veblen ordinal $\theta_{\Omega^\Omega}\mleft(0\mright)$.
+
+  \vspace{1em}
+
+  But these are highly complicated, non-uniform arguments that have not yet undergone peer review; and it is unclear how the strength from these truth predicates truly affect the treatment of mainstream mathematics within.
+\end{frame}
+
+\begin{frame}
+  \highlight{\fontencoding{T1}\selectfont\LARGE Dzi\k{e}kuj\k{e}!}
+\end{frame}
+
+\begin{frame}[t,allowframebreaks=1]{References}
+  \renewcommand{\biblistfont}{\normalfont\scriptsize}
+  \bibmain
+\end{frame}
+
+\end{document}
