@@ -1,0 +1,362 @@
+%?deps @bib-commons
+
+\documentclass{beamer}
+\usepackage{bm,colonequals,mleftright}
+\usepackage[author-year,nobysame]{amsrefs}
+\usepackage[en-GB]{datetime2}
+
+\usepackage{bib-commons}
+
+\usetheme[amurmapleblue]{Amurmaple}
+
+\pdfstringdefDisableCommands{\def\translate#1{#1}}
+
+\newcommand\tuple[1]{\left\langle #1 \right\rangle}
+
+\title[The constructive constructible universe]{\LARGE Classical and intuitionistic behaviours}
+\subtitle{\texorpdfstring{\vspace{-0.6em}}{}\upshape of the constructive constructible universe}
+\author{Shuwei Wang}
+\institute{\upshape University of Warsaw}
+\webpage{https://s5wang.github.io/}
+\date{Mathematisches Forschungsinstitut Oberwolfach\\\DTMdate{2026-11-18}\vspace{0.4em}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Constructive set theories}
+  Let $\mathrm{IKP}$ denote Kripke--Platek set theory in intuitionistic logic, i.e.\ the theory with $\Delta_0$-separation, $\Delta_0$-collection and the unrestricted set induction scheme
+  \[\forall x \left(\forall y \in x \ \varphi\mleft(y\mright) \rightarrow \varphi\mleft(x\mright)\right) \rightarrow \forall x \, \varphi\mleft(x\mright).\]
+
+  \vspace{0.6em}
+
+  Let $\mathrm{CZF}^-$ denote $\mathrm{IKP} + \text{unrestricted strong collection}$; let $\mathrm{CZF}$ denote $\mathrm{CZF}^- + \text{subset collection}$
+  \begin{align*}
+     & \exists c \, \forall u \left(\forall x \in a \ \exists y \in b \ \varphi\mleft(x, y, u\mright)\right.                                                                                             \\
+     & \ \ \left.{} \rightarrow \exists d \in c \left(\forall x \in a \ \exists y \in d \ \psi\mleft(x, y, u\mright) \land \forall y \in d \ \exists x \in a \ \psi\mleft(x, y, u\mright)\right)\right).
+  \end{align*}
+
+  \vspace{0.6em}
+
+  Let $\mathrm{IKP}\mleft(\mathcal{P}\mright)$ be the extension of $\mathrm{IKP}$ by the primitive powerset symbol; let $\mathrm{CZF}\mleft(\mathcal{P}\mright)$ simply be $\mathrm{CZF} + \text{powerset}$.
+\end{frame}
+
+\begin{frame}{The constructible universe}
+  Let $\mathrm{Def}\mleft(x\mright)$ be the collection of all definable subsets (with parameters) of $\tuple{x; \in}$ in the language of set theory. We define $L_\alpha$ using one uniform clause
+  \[L_\alpha = \bigcup\nolimits_{\beta \in \alpha} \mathrm{Def}\mleft(L_\beta\mright).\]
+  \ocite{lubarsky93-intuitionistic-l} verified well-definedness and basic properties of intuitionistic $L$ (in $\mathrm{IZF}$), but $\mathrm{IKP}$ already suffices for his arguments.
+
+  \vspace{1em}
+
+  Alternatively, \ocite{matthews-rathjen24-constructible-universe} avoided the use of $\mathrm{Def}$ (and thus $\omega$) and defined $L$ through Barwise's \emph{fundamental operations}. This construction works in $\mathrm{IKP} - \text{infinity}$.
+\end{frame}
+
+\begin{frame}{Non-classical ordinals}
+  The proof of ordinal trichotomy
+  \[\forall \alpha, \beta \in \mathrm{Ord} \left(\alpha \in \beta \lor \alpha = \beta \lor \beta \in \alpha\right)\]
+  invokes atomic excluded middle $\forall x, y \left(x \in y \lor x \not\in y\right)$, and is easily violated in intuitionistic models (as we shall soon see).
+
+  \vspace{0.6em}
+
+  \begin{theorem}[W. \ycite{wang-sw26-thesis}, section 4.4]
+    \begin{enumerate}
+      \item $\mathrm{CZF}$ is consistent with $\exists \alpha \in \mathrm{Ord} \ \neg L_\alpha \cap \mathrm{Ord} = \alpha$;
+      \item $\mathrm{CZF}$ is consistent with $\exists \alpha, \beta \in \mathrm{Ord} \left(\alpha \neq \beta \land L_\alpha = L_\beta\right)$.
+    \end{enumerate}
+  \end{theorem}
+
+  \vspace{0.6em}
+
+  One biggest problem of whether \emph{$\mathrm{Ord} \subseteq L$ is provable in intuitionistic logic} still remains open.
+\end{frame}
+
+\begin{frame}{The realisability model}
+  We explain the realisability model $V\mleft(\mathcal{A}\mright)$ from \ocite{rathjen06-czf-realizability}. Here $\mathcal{A}$ is a \emph{partial combinatory algebra} (henceforce \emph{pca}), i.e.\ any set with a partial binary operation $\cdot : \mathcal{A} \times \mathcal{A} \rightharpoonup \mathcal{A}$, such that there exists distinguished objects $\mathbf{k}, \mathbf{s} \in \mathcal{A}$ satisfying
+  \begin{enumerate}
+    \item for $a, b \in \mathcal{A}$, $\mathbf{k} \cdot a \cdot b {\downarrow} = a$;
+    \item for $a, b, c \in \mathcal{A}$, $\mathbf{s} \cdot a \cdot b {\downarrow}$, and
+          \[a \cdot c \cdot (b \cdot c) {\downarrow} \rightarrow \mathbf{s} \cdot a \cdot b \cdot c {\downarrow} = a \cdot c \cdot (b \cdot c).\]
+  \end{enumerate}
+  (We follow \ocite{faber-van-oosten16-type-2-pca}; in other places this is called a \emph{weak pca} and people use a stricter condition 2.)
+
+  \vspace{1em}
+
+  One may also want a pairing function, i.e.\ $\mathbf{p}, \mathbf{p}_0, \mathbf{p}_1 \in \mathcal{A}$ satisfying
+  \[\mathbf{p}_0 \cdot \left(\mathbf{p} \cdot a \cdot b\right) {\downarrow} = a, \quad \mathbf{p}_1 \cdot \left(\mathbf{p} \cdot a \cdot b\right) {\downarrow} = b,\]
+  as well as recursive functions on natural numbers, e.g. $\mathrm{succ}$.
+\end{frame}
+
+\begin{frame}{The realisability model}
+  We inductively define $V\mleft(\mathcal{A}\mright) = \bigcup_{\alpha \in \mathrm{Ord}} V\mleft(\mathcal{A}\mright)_\alpha$ where
+  \[V\mleft(\mathcal{A}\mright)_\alpha = \bigcup\nolimits_{\beta \in \alpha} \mathcal{P}\mleft(\mathcal{A} \times V\mleft(\mathcal{A}\mright)_\beta\mright).\]
+  This can be constructed in any extension of $\mathrm{IKP}$, where $\mathcal{P}\mleft(x\mright)$ is a definable class, by building $V\mleft(\mathcal{A}\mright)$ as the $\Sigma_1$-inductive class $I\mleft(\Phi\mright)$ where
+  \[\Phi = \left\{\tuple{x, y} : x \subseteq \mathcal{A} \times y\right\}\]
+  (cf.\ \ocite{aczel-rathjen10-cst-book}, section 19.3).
+
+  \vspace{0.6em}
+
+  We (simultaneously) recursively define
+  \begin{align*}
+    d \Vdash u \in v \quad & \ratio\Leftrightarrow \quad \exists \tuple{e, x} \in v \left(\mathbf{p}_0 d {\downarrow} = e \land \mathbf{p}_1 d {\downarrow} \Vdash u = x\right), \\
+    d \Vdash u = v \quad   & \ratio\Leftrightarrow \quad \begin{aligned}[t]
+                                                            & \forall {\tuple{e, x} \in u} \ \mathbf{p}_0 de {\downarrow} \Vdash x \in v           \\
+                                                            & {} \land \forall {\tuple{e, x} \in v} \ \mathbf{p}_1 de {\downarrow} \Vdash x \in u.
+                                                         \end{aligned}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  Here are the rest of the realisability conditions:
+  \begin{align*}
+    d \Vdash \varphi \land \psi \quad                        & \ratio\Leftrightarrow \quad \mathbf{p}_0 d {\downarrow} \Vdash \varphi \land \mathbf{p}_1 d {\downarrow} \Vdash \psi,                                                   \\
+    d \Vdash \varphi \lor \psi \quad                         & \ratio\Leftrightarrow \quad \begin{aligned}[t]
+                                                                                              & \left(\mathbf{p}_0 d {\downarrow} = 0 \land \mathbf{p}_1 d {\downarrow} \Vdash \varphi\right)             \\
+                                                                                              & \quad {} \lor \left(\mathbf{p}_0 d {\downarrow} = 1 \land \mathbf{p}_1 d {\downarrow} \Vdash \psi\right),
+                                                                                           \end{aligned}                                \\
+    d \Vdash \neg \varphi \quad                              & \ratio\Leftrightarrow \quad \forall e \in \mathcal{A} \ e \nVdash \varphi,                                                                                              \\
+    d \Vdash \varphi \rightarrow \psi \quad                  & \ratio\Leftrightarrow \quad \forall e \in \mathcal{A} \left(e \Vdash \varphi \rightarrow de {\downarrow} \Vdash \psi\right),                                            \\
+    d \Vdash \forall x \in a \ \varphi\mleft(x\mright) \quad & \ratio\Leftrightarrow \quad \forall {\tuple{e, x} \in a} \ de {\downarrow} \Vdash \varphi\mleft(x\mright),                                                              \\
+    d \Vdash \exists x \in a \ \varphi\mleft(x\mright) \quad & \ratio\Leftrightarrow \quad \exists {\tuple{e, x} \in a} \left(\mathbf{p}_0 d {\downarrow} = e \land \mathbf{p}_1 d {\downarrow} \Vdash \varphi\mleft(x\mright)\right), \\
+    d \Vdash \forall x \, \varphi\mleft(x\mright) \quad      & \ratio\Leftrightarrow \quad \forall x \in V\mleft(\mathcal{A}\mright) \ d \Vdash \varphi\mleft(x\mright),                                                               \\
+    d \Vdash \exists x \, \varphi\mleft(x\mright) \quad      & \ratio\Leftrightarrow \quad \exists x \in V\mleft(\mathcal{A}\mright) \ d \Vdash \varphi\mleft(x\mright).
+  \end{align*}
+\end{frame}
+
+\begin{frame}{The realisability model}
+  \begin{theorem}[Well-known]
+    For $T$ being any of $\mathrm{CZF^-}$, $\mathrm{CZF}$ or $\mathrm{CZF}\mleft(\mathcal{P}\mright)$, if $\varphi$ is a theorem of $T$, then $T \vdash \exists d \in \mathcal{A} \ d \Vdash \varphi$.
+  \end{theorem}
+
+  \vspace{0.6em}
+
+  The following are canonical names for the natural numbers and $\omega$ in the model:
+  \begin{align*}
+    \overline{n}      & = \left\{\tuple{m, \overline{m}} : m < n\right\},        \\
+    \overline{\omega} & = \left\{\tuple{m, \overline{m}} : m \in \omega\right\}.
+  \end{align*}
+  However, some arbitrary $\left\{\tuple{a_m, \overline{m}} : m \in \omega\right\} \in V\mleft(\mathcal{A}\mright)$ need not be a name for $\omega$, depending on
+  \begin{enumerate}
+    \item whether each $a_n$ are distinct, and
+    \item the extent to which $\mathcal{A}$ \emph{cannot} compute $\left\{a_n\right\}_{n \in \omega}$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Failure of classical-ness}
+  Note that in any extension of $\mathrm{IKP}$ we have
+  \begin{theorem}[\ocite{lubarsky93-intuitionistic-l}]
+    $L_\omega$ satisfies atomic excluded middle, i.e.
+    \[\forall x, y \in L_\omega \left(x \in y \lor x \not\in y\right).\]
+  \end{theorem}
+
+  \only<1>{
+    \begin{proof}[Proof sketch]
+      Check that the Ackermann bijection $f : L_\omega \rightarrow \omega$ is still well-defined in intuitionistic logic.
+    \end{proof}
+  }
+
+  \pause
+
+  However, simply take Kleene's first algebra $Kl$,
+  \begin{theorem}[W. \ycite{wang-sw26-thesis}, Proposition 7.1.4]
+    $V\mleft(Kl\mright) \vDash L_{\omega + 1}$ does not satisfy atomic excluded middle.
+  \end{theorem}
+
+  \only<2>{
+    \begin{proof}[Proof sketch]
+      Let $\varphi\mleft(n\mright)$ be the sentence which defines the halting set in $L_{\omega + 1}$. $Kl$ cannot decide whether $\varphi\mleft(n\mright)$ is true for each $n \in \omega$, thus membership for the corresponding set cannot satisfy excluded middle.
+    \end{proof}
+  }
+\end{frame}
+
+\begin{frame}{Linearity of ordinals}
+  We say that an ordinal $\alpha \in \mathrm{Ord}$ is \emph{linear} if it satisfies ordinal trichotomy
+  \[\forall \beta, \gamma \in \alpha \left(\beta \in \gamma \lor \beta = \gamma \lor \gamma \in \beta\right).\]
+
+  \begin{theorem}[W. \ycite{wang-sw26-thesis}, Theorem 7.1.6, $\mathrm{IKP}$]
+    If $\alpha \in \mathrm{Ord}$ is linear, and $L_\alpha \cap \mathrm{Ord}$ is also linear, then $L_\alpha$ satisfies $\varphi \lor \neg \varphi$ for every $\Delta_0$-formula $\varphi$.
+  \end{theorem}
+
+  \begin{proof}[Proof sketch]
+    Using the linearity of $\alpha$, we replicate the classical proof that $L_\alpha$ satisfies $\Delta_0$-separation. It follows that there is $\delta = \left\{x \in \left\{\varnothing\right\} : \varphi\right\} \in L_\alpha$ such that $\varnothing \in \delta \lor \delta = \varnothing$ holds.
+  \end{proof}
+
+  \pause
+
+  \begin{corollary}
+    $V\mleft(Kl\mright) \vDash L_{\omega + 1} \cap \mathrm{Ord}$ is not linear, thus $L_{\omega + 1} \cap \mathrm{Ord} \neq \omega + 1$.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Incomparable codings}
+  In W. \ycite{wang-sw27-czf-v-l}, we (essentially) consider a family of names
+  \[\alpha = \left\{\tuple{a_m, \overline{m}} : m \in \omega\right\} \in V\mleft(Kl\mright),\]
+  where the functions $a_m \mapsto m$ and $a_{m + 1} \mapsto a_m$ are recursive, but $m \mapsto a_m$ is not recursive. It follows that
+  \begin{lemma}
+    $V\mleft(Kl\mright) \vDash \alpha \in \mathrm{Ord}$, $\alpha \subseteq \omega$, $\omega \not\subseteq \alpha$.
+  \end{lemma}
+
+  \vspace{1em}
+
+  By a priority argument, we can get a family of such ordinals $\left\{\alpha_n\right\}_{n \in \omega}$ such that additionally,
+  \[V\mleft(Kl\mright) \vDash \alpha_i \not\subseteq \alpha_j \quad \text{for $i \neq j$}.\]
+\end{frame}
+
+\begin{frame}{Incomparable codings}
+  As $\forall n \in \omega \ L_n \cap \mathrm{Ord} = n$, we can show that each
+  \[L_{\alpha_n} \cap \mathrm{Ord} = \bigcup\nolimits_{m \in \alpha_n} \mathrm{Def}\mleft(L_m\mright) \cap \mathrm{Ord} = \bigcup\nolimits_{m \in \alpha_n} \left(m + 1\right) = \alpha_n.\]
+  Thus taking any $s \subseteq \omega$, it will be inter-definable with the ordinal
+  \[\delta = \bigcup\nolimits_{n \in s} \mathrm{Def}\mleft(L_{\alpha_n}\mright) \cap \mathrm{Ord} = L_{\bigcup\nolimits_{n \in s} \left(\alpha_n + 1\right)} \cap \mathrm{Ord} \in L\]
+  by $s = \left\{n \in \omega : \alpha_n \in \delta\right\}$.
+
+  \vspace{1em}
+
+  \begin{theorem}[Variant of W. \ycite{wang-sw27-czf-v-l}, Theorem 12]
+    $V\mleft(Kl\mright) \vDash \mathcal{P}\mleft(\omega\mright) \subseteq L$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{$\alpha$-recursion}
+  We work in $\mathrm{CZF}^- + \mathrm{REM}$, i.e.\ with excluded middle $\varphi \lor \neg \varphi$ for every $\Delta_0$-formula $\varphi$. This suffices to show that ordinals are linear and each $L_\alpha$ is classical.
+
+  \vspace{1em}
+
+  Consider an \emph{admissible} ordinal $\alpha$, i.e.\ such that $L_\alpha$ satisfies $\Delta_0$-collection. There is a notion of (partial) $\alpha$-recursive functions (cf.\ \ocite{sacks90-higher-recursion}, Chapter VII), which are essentially $\Sigma_1$-definable partial class functions of the model $\tuple{L_\alpha; \in}$, that forms a pca $\Sigma L_\alpha$.
+
+  \pause
+
+  \vspace{1em}
+
+  For any $x \subseteq L_\alpha$ in the base theory, we can now recursively define
+  \[\overline{x} = \left\{\tuple{y, \overline{y}} : y \in x\right\} \in V\mleft(\Sigma L_\alpha\mright).\]
+
+  \begin{block}{Question}
+    Is $L_{\overline{\alpha}}$ (somewhat) classical in $V\mleft(\Sigma L_\alpha\mright)$? In other words, does $L_{\overline{\alpha}} = \overline{L_\alpha}$ hold?
+  \end{block}
+\end{frame}
+
+\begin{frame}{$\alpha$-recursive realisability}
+  Observe that $L_\alpha \vDash \mathrm{KP}$, and both the pca $\Sigma L_\alpha$ and the domain $\overline{L_\alpha}$ can be seen as definable classes of $\tuple{L_\alpha; \in}$. The two objects produce a realisability model themselves.
+
+  \vspace{0.6em}
+
+  Unrestricted collection is basically for free here:
+
+  \begin{proof}[Proof sketch for collection]
+    Suppose $a \in L_\alpha$ and $f \Vdash \forall x \in \overline{a} \ \exists y \in \overline{L_\alpha} \ \varphi^{\overline{L_\alpha}}\mleft(x, y\mright)$, then for any $x \in a$, $\mathbf{p}_0 \mleft(fx\mright) {\downarrow}$ is precisely the witness needed for $y$. We just form the $\Sigma_1$-definable object
+    \[b = \left\{\mathbf{p}_0 \mleft(fx\mright) : x \in a\right\} \in L_\alpha,\]
+    and $\overline{b}$ is the desired result of collection in the realisability model.
+  \end{proof}
+
+  (For strong collection, we will need a choice principle to realise the converse, $\forall y \in \overline{b} \ \exists x \in \overline{a} \ \varphi^{\overline{L_\alpha}}\mleft(x, y\mright)$; but $L_\alpha$ has a $\Sigma_1$-definable choice function by its global well-ordering.)
+\end{frame}
+
+\begin{frame}{$\alpha$-recursive realisability}
+  \begin{theorem}[W. \ycite{wang-sw26-thesis}, Theorem 7.3.8]
+    $V\mleft(\Sigma L_\alpha\mright) \vDash \left(\overline{L_\alpha} \vDash \mathrm{CZF}^- + \mathrm{REM}\right)$.
+  \end{theorem}
+
+  \vspace{0.6em}
+
+  For each $\beta \in \alpha$, we can already define $L_{\overline{\beta}}$ in $\overline{L_\alpha}$, which will be a classical object. By absoluteness of the $L$-hierarchy,
+  \[L_{\overline{\alpha}} = \bigcup\nolimits_{\beta \in \alpha} \mathrm{Def}\mleft(L_{\overline{\beta}}\mright) \subseteq \overline{L_\alpha}\]
+  and thus
+  \begin{corollary}
+    $V\mleft(\Sigma L_\alpha\mright)$ satisfies that for every $\gamma \in \mathrm{Ord}$, if $\gamma \subseteq \overline{\alpha}$, then $L_\gamma \cap \mathrm{Ord} = \gamma$.
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{$\alpha$-family of incomparable ordinals}
+  By an $\alpha$-recursive priority argument, we can build a family of names
+  \[\sigma_\gamma = \left\{\tuple{a_{\beta, \gamma}, \overline{\beta}} : \beta \in \alpha\right\} \in V\mleft(\Sigma L_\alpha\mright)\]
+  for $\gamma \in \alpha$, such that:
+  \begin{lemma}[Inside $V\mleft(\Sigma L_\alpha\mright)$]
+    \begin{enumerate}
+      \item for any $\gamma \in \overline{\alpha}$, $\sigma_\gamma \subseteq \overline{\alpha}$ is a linear ordinal;
+      \item for any $\gamma, \delta \in \overline{\alpha}$, $\sigma_\gamma \subseteq \sigma_\delta \rightarrow \gamma = \delta$.
+    \end{enumerate}
+  \end{lemma}
+
+  \begin{corollary}[W. \ycite{wang-sw26-thesis}, Corollary 7.3.16, $\mathrm{CZF}^- + \mathrm{REM}$]
+    For any ordinal $\beta$, if there exists an admissible ordinal $\alpha$ such that $\beta \subseteq \alpha$, then there exists a pca $\mathcal{A}$ such that $\beta \subseteq \mathcal{A}$ and
+    \[V\mleft(\mathcal{A}\mright) \vDash \mathcal{P}\mleft(\overline{\beta}\mright) \subseteq L.\]
+  \end{corollary}
+\end{frame}
+
+\begin{frame}{Class-sized realisability}
+  \begin{block}{Question}
+    Can we embed the entire $L = \bigcup_\alpha L_\alpha$ with a single model $V\mleft(\mathcal{A}\mright)$?
+  \end{block}
+
+  \vspace{1em}
+
+  There are $\Sigma_1$-definable class-sized pcas, such as the set-recursive functions $E$, which are used in other realisability interpretations, e.g.\ Rathjen \ycites{rathjen12-czf-powerset,rathjen12-weak-strong-existence-property}.
+
+  \[\begin{aligned}
+      \bm{\gamma} xy {\downarrow} & = x \cap \left(\bigcap y\right), \\
+      \bm{\rho} xy {\downarrow}   & = \left\{xu : u \in y\right\},   \\
+      \bm{\nu} x {\downarrow}     & = \bigcup x,                     \\
+      \bm{\pi} xy {\downarrow}    & = \left\{x, y\right\}.
+    \end{aligned} \qquad \begin{aligned}
+      \mathbf{i}_1 xyz {\downarrow} & = \left\{\begin{aligned}
+                                                  & x           &  & \text{when $y \in z$},     \\
+                                                  & \varnothing &  & \text{when $y \not\in z$},
+                                               \end{aligned}\right. \\
+      \mathbf{i}_2 xyz {\downarrow} & = \left\{u \in x : u \in y \rightarrow u \in z\right\}, \\
+      \mathbf{i}_3 xyz {\downarrow} & = \left\{u \in x : u \in y \lor z \in u\right\}.
+    \end{aligned}\]
+\end{frame}
+
+\begin{frame}{Class-sized realisability}
+  However, when $\mathcal{A}$ is class-sized, $V\mleft(\mathcal{A}\mright)$ can have many annoying caveats. This is discussed in W. \ycite{wang-sw26-thesis}, section 7.2. \alert{Errata:} I actually overlooked some technicalities there, so it is actually \emph{more} problematic than claimed in my thesis.
+
+  \vspace{1em}
+
+  \begin{enumerate}
+    \item To realise $\Delta_0$-separation, we need a set-sized representation for possible realisers of an atomic formula $x \in y$. Therefore, to realise mere $\mathrm{CZF}^-$, we need either the base theory $\mathrm{CZF}^- + \text{exponentiation}$ (which, when $\mathrm{REM}$ is added, implies the powerset axiom) or a global well-ordering.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Class-sized realisability}
+  \begin{enumerate}
+    \stepcounter{enumi}
+    \item Even when the base theory has powerset, we cannot realise powerset. Indeed,
+          \begin{theorem}[W. \ycite{wang-sw26-thesis}, Theorem 7.2.15]
+            $V\mleft(E\mright)$ realises $\neg \text{powerset}$.
+          \end{theorem}
+
+          \begin{proof}[Proof sketch]
+            Suppose that $y \in V\mleft(E\mright)$ is the ``powerset'' of $\overline{1}$. Observe that
+            \[\lambda x. 0 \Vdash \left\{\tuple{a, \varnothing}\right\} \subseteq \overline{1}\]
+            for class-many $a$, and there are not enough different indices to uniformly realise $\exists x \in y \ x = \left\{\tuple{a, \varnothing}\right\}$ for all such $a$.
+          \end{proof}
+
+          \vspace{0.6em}
+
+    \item Also, the previous argument for incomparables through non-computability become impossible, because $E$-recursion computes every set-sized function $f : a \rightarrow b$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{More incomparables?}
+  However, $V\mleft(\mathcal{A}\mright)$ still supports many other forms of incomparable ordinals, e.g.\ for $u \subseteq \omega$,
+  \[\overline{\omega}_{\left(u\right)} = \left\{\tuple{n, \overline{n}} : n \in \omega\right\} \cup \left\{\tuple{0, \overline{n}} : n \in u\right\} \in V\mleft(\mathcal{A}\mright),\]
+  which instead satisfy $\overline{\omega} \subseteq \overline{\omega}_{\left(u\right)} \land \overline{\omega}_{\left(u\right)} \not\subseteq \overline{\omega}$, or more specifically
+  \begin{lemma}[W. \ycite{wang-sw26-thesis}, Lemma 4.4.2]
+    For any $u, v \subseteq \omega$ such that $0 \in u, v$, we have $V\mleft(\mathcal{A}\mright) \models \overline{\omega}_{\left(u\right)} \subseteq \overline{\omega}_{\left(v\right)}$ if and only if $u \subseteq v$.
+  \end{lemma}
+
+  \vspace{1em}
+
+  But it will be up to further research whether these incomparables can be used to construct encodings or other interesting theories.
+\end{frame}
+
+\thanksframe{\hfill Thank you!\vspace{5em}}
+
+\appendix
+
+\begin{frame}[allowframebreaks=0.8]{References}
+  \bibmain
+\end{frame}
+
+\end{document}

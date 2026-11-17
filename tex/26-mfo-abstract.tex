@@ -1,0 +1,57 @@
+%?deps @bib-commons
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mleftright,parskip}
+\usepackage[a4paper,left=1.3in,right=1.3in,top=1.25in,bottom=1.25in,footskip=0.6in]{geometry}
+\usepackage[en-GB]{datetime2}
+\usepackage[unicode]{hyperref}
+
+\usepackage{bib-commons}
+
+\title{Classical and intuitionistic behaviours of the constructive constructible universe}
+\author{Shuwei Wang \\[2pt] \small University of Warsaw}
+\date{\DTMdate{2026-11-18}}
+
+\begin{document}
+
+\maketitle
+
+In classical set theory, G\"odel's constructible universe $L$ enjoys strong absoluteness properties and remains unchanged in forcing extensions. However, in intuitionistic extensions, it is possible that there exist plenty of nonlinear ordinals $\alpha$ where $L_\alpha$ takes advantage of the complex structure inside $\alpha$ and contains many additional sets which are not seen as `constructible' in the classical sense. This is a folklore idea at the end of Matthews \& Rathjen \cite{matthews-rathjen24-constructible-universe} which is made precise in my PhD project.
+
+In this talk, we look at how the question of whether $L_\alpha$ satisfies $\Delta_0$-excluded middle provides a nice boundary between the portions of the constructible universe with classical and intuitionistic behaviours. Here, the typical intuitionistic behaviour involves antichains of ordinals and their ability to code structural information, as I studied in \cite{wang-sw26-antichain}. We explain how the interplay of classical and intuitionistic portions of $L$ provides a more systematic approach to building antichains in the style of \cite{wang-sw26-antichain}, inside $L$ and without invoking powersets.
+
+In \cite{wang-sw26-plump}, it is established through Heyting forcing (and heavy use of powersets) that, given any set $x$ in a $\mathrm{ZFC}$ universe, there exists an intuitionistic extension where any subset of $x$ lies in $L$. In this talk, we obtain a similar result for weak, proof-theoretically interesting fragments such as $\mathrm{IKP}$ and $\mathrm{CZF}$, using a computational, $\alpha$-recursive realisability interpretation. This is done by combining two known approaches of realising constructive set theory and establishing a `sub-model' satisfying $\Delta_0$-excluded middle inside another realisability model.
+
+\begin{bibdiv}
+  \begin{biblist}
+
+    \bib{matthews-rathjen24-constructible-universe}{article}{
+      author={Matthews, Richard},
+      author={Rathjen, Michael},
+      title={Constructing the constructible universe constructively},
+      date={2024},
+      journal={Annals of Pure and Applied Logic},
+      volume={175},
+      number={3},
+      note={Article: 103392},
+    }
+
+    \bib{wang-sw26-antichain}{article}{
+      author={Wang, Shuwei},
+      title={Antichain of ordinals in intuitionistic set theory},
+      date={2026},
+      journal={The Journal of Symbolic Logic},
+      note={FirstView article},
+    }
+
+    \bib{wang-sw26-plump}{article}{
+    author={Wang, Shuwei},
+    title={Some notes on plump ordinals},
+    date={2026},
+    eprint={arXiv:2601.23070 [math.LO]},
+    }
+
+  \end{biblist}
+\end{bibdiv}
+
+\end{document}
